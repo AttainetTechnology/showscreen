@@ -1,0 +1,71 @@
+
+        .container {
+            display: flex;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            text-align: center; 
+        }
+        tbody tr {
+            border-bottom: 1px solid #ccc; 
+        }
+        tbody tr:last-child {
+            border-bottom: none; 
+        }
+        tbody td {
+            padding: 10px; 
+        }
+        input[type="checkbox"] {
+            margin-right: 10px; 
+        }
+        .maquina,  #verTodo {  
+            padding: 10px 20px; 
+            margin: 5px; 
+            border: 1px solid #007bff; 
+            border-radius: 5px; 
+            background-color: #007bff;
+            color: white; 
+            text-align: center; 
+            cursor: pointer; 
+            text-decoration: none; 
+        }
+        
+        .maquina:hover,  #verTodo {
+            background-color: #0056b3;
+        }
+        .column {
+            text-align: center; 
+        }
+        .column button {
+            font-size: 30px; 
+            margin: 10px; 
+            padding: 10px; 
+            cursor: pointer;
+        }
+        button[data-action="move-left"] {
+            background-color: #ff0000; 
+            color: white;
+        }
+        button[data-action="move-right"] {
+            background-color: #0000ff;
+            color: white; 
+        }
+        button[data-action="confirm"] {
+            background-color: #00ff00; 
+            color: white; 
+        }
+        #col3 {
+            padding: 0px;
+            border: 1px solid #ccc;
+            margin: auto;
+            max-width: 110px;
+        }
+
+        .btn {
+            padding: 15px 25px; 
+            font-size: 30px;
+   
+        }

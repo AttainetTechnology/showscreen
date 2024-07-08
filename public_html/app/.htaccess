@@ -1,0 +1,13 @@
+<IfModule authz_core_module>
+    Require all granted
+</IfModule>
+<IfModule !authz_core_module>
+    Allow from all
+</IfModule>
+
+# Permitir acceso a un directorio específico
+<IfModule authz_core_module>
+    <Directory "'http://showscreen.es/'">
+        Require all granted
+    </Directory>
+</IfModule>

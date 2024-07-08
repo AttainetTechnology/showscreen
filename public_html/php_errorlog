@@ -1,0 +1,3 @@
+[27-Jun-2024 08:58:34 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/customer/www/crm.showscreen.es/public_html/vendor/composer/platform_check.php on line 24
+[27-Jun-2024 15:36:44 Europe/Madrid] PHP Fatal error:  Cannot declare class Config\Database, because the name is already in use in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Database/Database.php on line 10
+[27-Jun-2024 15:37:08 Europe/Madrid] PHP Fatal error:  Cannot use "parent" when current class scope has no parent in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Database/Database.php on line 192

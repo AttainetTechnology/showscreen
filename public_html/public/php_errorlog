@@ -1,0 +1,454 @@
+[02-Jul-2024 16:03:34 Europe/Madrid] Index function called without estado parameter
+[02-Jul-2024 16:05:52 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:06:22 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:06:25 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:08:27 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:08:49 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:09:14 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[02-Jul-2024 16:10:01 Europe/Madrid] Index function called without estado parameter: Array
+(
+    [0] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 933
+            [function] => index
+            [class] => App\Controllers\Index
+            [type] => ->
+        )
+
+    [1] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 509
+            [function] => runController
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [2] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php
+            [line] => 355
+            [function] => handleRequest
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [3] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 325
+            [function] => run
+            [class] => CodeIgniter\CodeIgniter
+            [type] => ->
+        )
+
+    [4] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php
+            [line] => 67
+            [function] => runCodeIgniter
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+    [5] => Array
+        (
+            [file] => /home/customer/www/crm.showscreen.es/public_html/public/index.php
+            [line] => 56
+            [function] => bootWeb
+            [class] => CodeIgniter\Boot
+            [type] => ::
+        )
+
+)
+
+[03-Jul-2024 08:22:17 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 08:23:17 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 08:23:52 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 08:24:25 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 08:26:09 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:347) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 347
+[03-Jul-2024 08:27:03 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 08:36:42 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:00:28 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:171) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 171
+[03-Jul-2024 09:01:08 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:171) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 171
+[03-Jul-2024 09:05:14 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:05:15 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:07:36 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:08:36 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:10:02 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:10:18 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:10:25 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:10:26 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:10:27 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:10:27 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:11:34 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:170) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 170
+[03-Jul-2024 09:11:51 Europe/Madrid] PHP Fatal error:  Cannot redeclare number_of_working_days() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php:390) in /home/customer/www/crm.showscreen.es/public_html/app/Views/informe.php on line 390
+[03-Jul-2024 09:16:11 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:183) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 183
+[03-Jul-2024 09:16:14 Europe/Madrid] PHP Fatal error:  Cannot redeclare App\Controllers\generarRangoFechas() (previously declared in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php:183) in /home/customer/www/crm.showscreen.es/public_html/app/Controllers/Informe_detalle.php on line 183
+[04-Jul-2024 08:12:00 Europe/Madrid] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home/customer/www/crm.showscreen.es/public_html/app/Config/Database.php on line 3
+[04-Jul-2024 08:30:44 Europe/Madrid] PHP Fatal error:  Uncaught ErrorException: Undefined property: Config\App::$allowedHostnames in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php:236
+Stack trace:
+#0 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php(236): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', '/home/customer/...', 236)
+#1 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php(225): CodeIgniter\HTTP\SiteURIFactory->getValidHost('crm.showscreen....')
+#2 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php(212): CodeIgniter\HTTP\SiteURIFactory->getHost()
+#3 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php(42): CodeIgniter\HTTP\SiteURIFactory->createURIFromRoutePath('/')
+#4 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/Services.php(807): CodeIgniter\HTTP\SiteURIFactory->createFromGlobals()
+#5 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(311): CodeIgniter\Config\Services::uri(NULL, false)
+#6 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(250): CodeIgniter\Config\BaseService::__callStatic('uri', Array)
+#7 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/Services.php(800): CodeIgniter\Config\BaseService::getSharedInstance('uri', NULL)
+#8 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(311): CodeIgniter\Config\Services::uri()
+#9 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(201): CodeIgniter\Config\BaseService::__callStatic('uri', Array)
+#10 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/Services.php(568): CodeIgniter\Config\BaseService::get('uri')
+#11 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(311): CodeIgniter\Config\Services::incomingrequest(Object(Config\App), false)
+#12 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/Services.php(526): CodeIgniter\Config\BaseService::__callStatic('incomingrequest', Array)
+#13 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(311): CodeIgniter\Config\Services::request(NULL, false)
+#14 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(250): CodeIgniter\Config\BaseService::__callStatic('request', Array)
+#15 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/Services.php(522): CodeIgniter\Config\BaseService::getSharedInstance('request', NULL)
+#16 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Config/BaseService.php(311): CodeIgniter\Config\Services::request()
+#17 /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Debug/Exceptions.php(129): CodeIgniter\Config\BaseService::__callStatic('request', Array)
+#18 [internal function]: CodeIgniter\Debug\Exceptions->exceptionHandler(Object(ErrorException))
+#19 {main}
+  thrown in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/HTTP/SiteURIFactory.php on line 236

@@ -1,0 +1,472 @@
+<?php
+namespace App\Controllers;
+
+use App\Models\LineaPedido;
+use App\Models\Pedido;
+use App\Models\Producto;
+use App\Models\Cliente;
+use App\Models\ProcesoProducto;
+use App\Models\Proceso;
+use App\Models\Maquinas;
+use App\Models\ProcesosPedido;
+use App\Models\ProcesosProductos;
+
+class Procesos_pedidos extends BaseControllerGC {
+    public function index() {
+        $data = datos_user();     
+        $db = db_connect($data['new_db']);
+        $lineaPedidoModel = new LineaPedido($db);
+        $pedidoModel = new Pedido($db);
+        $productoModel = new Producto($db);
+        $clienteModel = new Cliente($db);
+        $procesoProducto = new ProcesoProducto($db);
+        $procesoModel = new Proceso($db);
+        $maquinasModel = new Maquinas($db);
+        $procesosPedidoModel = new ProcesosPedido($db);
+
+        $lineasConEstado2 = $this->obtenerLineasPedidoConEstado2YCrearProcesos();
+        
+        // Obtener líneas de pedido con estado = 2
+        $lineas = $lineaPedidoModel->whereIn('estado', [2, 3])->findAll();
+    
+        // Obtener procesos_pedido con estado = 2
+        $procesosPedido = $procesosPedidoModel->where('estado', 2)->findAll();
+    
+        $data = [];
+        
+        foreach ($lineas as $linea) {
+            foreach ($procesosPedido as $procesoPedido) {
+                if ($linea['id_lineapedido'] == $procesoPedido['id_linea_pedido']) {
+                   
+                    $pedido = $pedidoModel->find($linea['id_pedido']);                  
+                    $cliente = $clienteModel->find($pedido['id_cliente']);                 
+                    $producto = $productoModel->find($linea['id_producto']);
+                    $proceso = $procesoModel->find($procesoPedido['id_proceso']);
+    
+                    $data[] = [
+                        'id_linea_pedido' => $linea['id_lineapedido'],
+                        'cliente' => $cliente['nombre_cliente'],
+                        'fecha' => $linea['fecha_entrega'],
+                        'producto' => $producto['nombre_producto'],
+                        'n_piezas' => $linea['n_piezas'],
+                        'proceso' => $proceso['nombre_proceso'],  
+                        'medidas' => $linea['med_inicial'] . ' - ' . $linea['med_final'],  
+                        'base' =>$linea['nom_base'],                
+                    ];
+                }
+            }
+        }
+    
+        // Obtener líneas con estado = 3 y ordenar por el campo 'id_maquina'
+        $lineasEstado3 = $procesosPedidoModel->where('estado', 3)->orderBy('id_maquina', 'ASC')->orderBy('orden', 'ASC')->findAll();
+        $dataEstado3 = [];
+        
+        foreach ($lineasEstado3 as $lineaEstado3) {
+            $lineaPedido = $lineaPedidoModel->find($lineaEstado3['id_linea_pedido']);
+            $pedido = $pedidoModel->find($lineaPedido['id_pedido']);
+            $cliente = $clienteModel->find($pedido['id_cliente']);
+            $producto = $productoModel->find($lineaPedido['id_producto']);
+            $proceso = $procesoModel->find($lineaEstado3['id_proceso']);
+        
+            $dataEstado3[] = [
+                'id_linea_pedido' => $lineaPedido['id_lineapedido'],
+                'cliente' => $cliente['nombre_cliente'],
+                'fecha' => $lineaPedido['fecha_entrega'],
+                'producto' => $producto['nombre_producto'],
+                'n_piezas' => $lineaPedido['n_piezas'],
+                'proceso' => $proceso['nombre_proceso'],
+                'id_maquina' => $lineaEstado3['id_maquina'],
+                'medidas' => $lineaPedido['med_inicial'] . ' - ' . $lineaPedido['med_final'],
+                'orden' => $lineaEstado3['orden'],
+                'base' => $lineaPedido['nom_base'],
+            ];
+        }
+        
+        // Obtener todas las máquinas
+        $maquinas = $maquinasModel->findAll();
+        $procesos = $procesoModel->findAll();
+        $clientes = $clienteModel->findAll(); 
+        
+        return view('procesos_pedidos', [
+            'lineas' => $data,
+            'lineasEstado3' => $dataEstado3,
+            'maquinas' => $maquinas,
+            'procesos' => $procesos,
+            'clientes' => $clientes, 
+        ]);
+    }
+    
+    public function actualizarEstadoProcesos() {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);
+        $procesoModel = new Proceso($db);
+        $lineaPedidoModel = new LineaPedido($db);
+        $pedidoModel = new Pedido($db);
+    
+        $data = $this->request->getJSON(true);
+    
+        if (!isset($data['procesos']) || !is_array($data['procesos'])) {
+            return $this->response->setJSON(['error' => 'Datos inválidos']);
+        }
+    
+        foreach ($data['procesos'] as $proceso) {
+            if (isset($proceso['nombre_proceso']) && isset($proceso['id_linea_pedido']) && isset($proceso['id_maquina'])) {
+                $procesoEncontrado = $procesoModel->where('nombre_proceso', $proceso['nombre_proceso'])->first();
+    
+                if ($procesoEncontrado) {
+                    $idProceso = $procesoEncontrado['id_proceso'];
+
+                    $this->calcularYActualizarOrdenParaMaquina($proceso['id_maquina'], $idProceso, $proceso['id_linea_pedido']);
+                    
+                    $actualizarLineaPedido = true;
+                    $procesosDeLaLinea = $procesosPedidoModel
+                        ->where('id_linea_pedido', $proceso['id_linea_pedido'])
+                        ->findAll();
+    
+                    foreach ($procesosDeLaLinea as $procesoPedido) {
+                        if ($procesoPedido['estado'] < 3) {
+                            $actualizarLineaPedido = false;
+                            break;
+                        }
+                    }  
+                     if ($actualizarLineaPedido) {
+                        $lineaPedidoModel
+                            ->where('id_lineapedido', $proceso['id_linea_pedido'])
+                            ->set(['estado' => 3])
+                            ->update();
+                    
+                        // Obtener el ID del pedido asociado a la línea de pedido actualizada
+                        $idPedido = $lineaPedidoModel->where('id_lineapedido', $proceso['id_linea_pedido'])->first()['id_pedido'];                    
+                        // Actualizar el estado del pedido a 3 sin verificar el estado de todas las líneas
+                        $pedidoModel
+                            ->where('id_pedido', $idPedido)
+                            ->set(['estado' => 3])
+                            ->update();
+                    }
+                }
+            }}        
+        return $this->response->setJSON(['success' => 'Estados actualizados correctamente.']);
+    }
+
+    private function calcularYActualizarOrdenParaMaquina($idMaquina, $idProceso, $idLineaPedido) {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);    
+        // Obtener el mayor número de orden para los procesos de la máquina especificada
+        $maxOrden = $procesosPedidoModel->where('id_maquina', $idMaquina)->selectMax('orden')->first();
+        $nuevoOrden = ($maxOrden && isset($maxOrden['orden'])) ? $maxOrden['orden'] + 1 : 1;
+        // Actualizar el proceso con el nuevo orden solo si el estado es 2
+        $procesosPedidoModel
+            ->where('id_proceso', $idProceso)
+            ->where('id_linea_pedido', $idLineaPedido)
+            ->where('estado', 2)
+            ->set(['estado' => 3, 'id_maquina' => $idMaquina])
+            ->set(['orden' => $nuevoOrden])
+            ->update();
+    
+        // Verificar la actualización
+        $updated = $procesosPedidoModel
+            ->where('id_proceso', $idProceso)
+            ->where('id_linea_pedido', $idLineaPedido)
+            ->first();   
+        return $nuevoOrden;
+    }
+    
+    public function actualizarEstadoLineaPedido() {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $lineaPedidoModel = new LineaPedido($db);
+        $procesosPedidoModel = new ProcesosPedido($db);
+        $pedidoModel = new Pedido($db); // Asumiendo que existe un modelo Pedido para la tabla pedidos
+    
+        // Obtener todos los id_linea_pedido únicos de procesos_pedidos
+        $procesosPedido = $procesosPedidoModel->select('id_linea_pedido')->distinct()->findAll();
+    
+        foreach ($procesosPedido as $procesoPedido) {
+            $idLineaPedido = $procesoPedido['id_linea_pedido'];
+    
+            // Verificar si existe al menos un proceso en estado 3 para el id_linea_pedido actual
+            $existeProcesoEnEstado3 = $procesosPedidoModel
+                ->where('id_linea_pedido', $idLineaPedido)
+                ->where('estado', 3)
+                ->countAllResults() > 0;
+    
+            // Si existe al menos un proceso en estado 3, actualizar el estado de la línea de pedido a 3
+            if ($existeProcesoEnEstado3) {
+                $lineaPedidoModel->update($idLineaPedido, ['estado' => 3]);
+    
+                // Obtener el id_pedido asociado a la línea de pedido actualizada
+                $idPedido = $lineaPedidoModel->find($idLineaPedido)['id_pedido'];
+    
+                // Actualizar el estado del pedido a 3
+                $pedidoModel->update($idPedido, ['estado' => 3]);
+            }
+        }
+    
+        return $this->response->setJSON(['success' => 'Estados de línea de pedido y pedidos actualizados correctamente.']);
+    }
+public function revertirEstadoProcesos() {
+    $data = usuario_sesion();
+    $db = db_connect($data['new_db']);
+    $procesosPedidoModel = new ProcesosPedido($db);
+    $procesoModel = new Proceso($db);
+    $lineaPedidoModel = new LineaPedido($db);
+    $pedidoModel = new Pedido($db);
+
+    $data = $this->request->getJSON(true);
+
+    if (!isset($data['procesos']) || !is_array($data['procesos'])) {
+        return $this->response->setJSON(['error' => 'Datos inválidos']);
+    }
+
+    $idsPedidoActualizados = [];
+    $idsMaquinaAfectadas = []; // Nuevo array para almacenar los IDs de máquinas afectadas
+
+    foreach ($data['procesos'] as $proceso) {
+        if (isset($proceso['nombre_proceso']) && isset($proceso['id_linea_pedido'])) {
+            $procesoEncontrado = $procesoModel->where('nombre_proceso', $proceso['nombre_proceso'])->first();
+
+            if ($procesoEncontrado) {
+                $idProceso = $procesoEncontrado['id_proceso'];
+
+                // Antes de actualizar, obtener el id_maquina actual para reordenamiento posterior
+                $procesoActual = $procesosPedidoModel
+                    ->where('id_proceso', $idProceso)
+                    ->where('id_linea_pedido', $proceso['id_linea_pedido'])
+                    ->first();
+
+                if ($procesoActual && $procesoActual['id_maquina'] !== null) {
+                    $idsMaquinaAfectadas[$procesoActual['id_maquina']] = true;
+                }
+
+                $procesosPedidoModel
+                    ->where('id_proceso', $idProceso)
+                    ->where('id_linea_pedido', $proceso['id_linea_pedido'])
+                    ->set(['estado' => 2, 'id_maquina' => null, 'orden'=>0])
+                    ->update();
+
+                $lineaPedido = $lineaPedidoModel->where('id_lineapedido', $proceso['id_linea_pedido'])->first();
+                if ($lineaPedido && $lineaPedido['estado'] != 2) {
+                    $lineaPedidoModel
+                        ->where('id_lineapedido', $proceso['id_linea_pedido'])
+                        ->set(['estado' => 2])
+                        ->update();
+                }
+
+                $idsPedidoActualizados[$lineaPedido['id_pedido']] = true;
+            }
+        }
+    }
+
+    // Actualizar el estado de los pedidos afectados
+    foreach (array_keys($idsPedidoActualizados) as $idPedido) {
+        $pedidoModel
+            ->where('id_pedido', $idPedido)
+            ->set(['estado' => 2])
+            ->update();
+    }
+
+    // Llamar a reordenarProcesosParaMaquina para cada máquina afectada
+    foreach (array_keys($idsMaquinaAfectadas) as $idMaquina) {
+        $this->reordenarProcesosParaMaquina($idMaquina); // Asegúrate de que esta función sea accesible
+    }
+
+    return $this->response->setJSON(['success' => 'Estados revertidos y procesos reordenados correctamente.']);
+}
+
+    private function reordenarProcesosParaMaquina($idMaquina) {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);
+    
+        // Paso 1: Obtener todos los procesos para la máquina especificada, ordenados por 'orden'
+        $procesos = $procesosPedidoModel
+                    ->where('id_maquina', $idMaquina)
+                    ->orderBy('orden', 'asc')
+                    ->findAll();
+    
+        // Paso 2: Reordenar los procesos
+        $nuevoOrden = 1;
+        foreach ($procesos as $proceso) {
+            // Paso 3: Actualizar la base de datos con el nuevo orden
+            $procesosPedidoModel
+                ->where('id_proceso', $proceso['id_proceso'])
+                ->where('id_linea_pedido', $proceso['id_linea_pedido'])
+                ->set(['orden' => $nuevoOrden])
+                ->update();
+            $nuevoOrden++;
+        }
+    }
+
+    public function marcarTerminado() {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);
+        $lineaPedidoModel = new LineaPedido($db);
+        $pedidoModel = new Pedido($db);
+        $procesoModel = new Proceso($db);
+    
+        $data = $this->request->getJSON(true);
+    
+        if (!isset($data['lineItems']) || !is_array($data['lineItems'])) {
+            log_message('error', 'Datos inválidos en marcarTerminado');
+            return $this->response->setJSON(['error' => 'Datos inválidos']);
+        }
+    
+        foreach ($data['lineItems'] as $item) {
+            $idLineaPedido = $item['idLineaPedido'];
+            $nombreProceso = $item['nombreProceso'];
+    
+            $proceso = $procesoModel->where('nombre_proceso', $nombreProceso)->first();
+            if (!$proceso) {
+                log_message('error', 'Proceso no encontrado: ' . $nombreProceso);
+                continue;
+            }
+    
+            $idProceso = $proceso['id_proceso'];
+            // Obtener el id_maquina antes de eliminar el proceso
+            $procesoInfo = $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->where('id_proceso', $idProceso)->first();
+            $idMaquina = $procesoInfo['id_maquina'];
+
+            // Actualiza el estado en la tabla procesos_pedido a 4
+            $procesosPedidoModel
+                ->where('id_linea_pedido', $idLineaPedido)
+                ->where('id_proceso', $idProceso)
+                ->set(['estado' => 4])
+                ->update();
+
+
+    
+        // Registro en la tabla de log
+        $this->logAction('ORGANIZADOR', "Proceso marcado como terminado Id_linea: $idLineaPedido", ['idLineaPedido' => $idLineaPedido, 'idProceso' => $idProceso, 'estado' => 4]);
+
+            // Elimina el registro de la línea_proceso en la tabla
+            $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->where('id_proceso', $idProceso)->delete();
+
+            $this->reordenarProcesosParaMaquina($idMaquina);
+
+            $todosEnEstado4 = true;
+            $procesos = $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->findAll();
+            foreach ($procesos as $proceso) {
+                if ($proceso['estado'] != 4) {
+                    $todosEnEstado4 = false;
+                    break;
+                }
+            }
+            if ($todosEnEstado4) {
+                // Actualiza el estado en la tabla linea_pedido a 4
+                $lineaPedidoModel
+                    ->where('id_lineapedido', $idLineaPedido)
+                    ->set(['estado' => 4])
+                    ->update();
+    
+                $lineaPedido = $lineaPedidoModel->find($idLineaPedido);
+                $idPedido = $lineaPedido['id_pedido'];
+    
+                $todasLineasEnEstado4 = true;
+                $lineasPedido = $lineaPedidoModel->where('id_pedido', $idPedido)->findAll();
+                foreach ($lineasPedido as $linea) {
+                    if ($linea['estado'] < 4) {
+                        $todasLineasEnEstado4 = false;
+                        break;
+                    }
+                }
+    
+                if ($todasLineasEnEstado4) {
+                    // Actualiza el estado en la tabla pedidos a 4
+                    $pedidoModel->where('id_pedido', $idPedido)->set(['estado' => 4])->update();
+                }
+            }
+        }
+        return $this->response->setJSON(['success' => 'Estados actualizados y líneas eliminadas']);
+    }
+
+    public function actualizarOrdenProcesos() {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);
+        
+        $data = $this->request->getJSON(true);
+        
+        if (!isset($data['ordenes']) || !is_array($data['ordenes'])) {
+            return $this->response->setJSON(['error' => 'Datos inválidos']);
+        }
+        
+        foreach ($data['ordenes'] as $orden) {
+            if (isset($orden['id_linea_pedido'], $orden['nombre_proceso'], $orden['orden'], $orden['id_maquina'])) {
+                // Identificar el proceso específico dentro de la id_maquina dada
+                $proceso = $procesosPedidoModel
+                    ->where('id_linea_pedido', $orden['id_linea_pedido'])
+                    ->where('id_maquina', $orden['id_maquina'])
+                    ->where('id_proceso', function($builder) use ($orden) {
+                        return $builder->select('id_proceso')
+                                       ->from('procesos')
+                                       ->where('nombre_proceso', $orden['nombre_proceso'])
+                                       ->limit(1);
+                    })
+                    ->first();
+    
+                if ($proceso) {
+                    // Actualizar el orden del proceso específico
+                    $procesosPedidoModel
+                        ->where('id_linea_pedido', $orden['id_linea_pedido'])
+                        ->where('id_maquina', $orden['id_maquina'])
+                        ->where('id_proceso', $proceso['id_proceso'])
+                        ->set(['orden' => $orden['orden']])
+                        ->update();
+                }
+            }
+        }
+        
+        return $this->response->setJSON(['success' => 'Orden actualizado correctamente.']);
+    }
+    
+function mostrarVista() {
+    $data = usuario_sesion();
+    $db = db_connect($data['new_db']);
+    $modeloCliente = new Cliente($db); 
+    $clientes = $modeloCliente->obtenerClientes(); 
+
+    // Pasar la lista de clientes a la vista
+    return view('procesos_pedidos', ['clientes' => $clientes]);
+}
+
+
+public function obtenerLineasPedidoConEstado2YCrearProcesos() {
+    $data = datos_user();     
+    $db = db_connect($data['new_db']);
+    $lineaPedidoModel = new LineaPedido($db);
+    $procesosPedidoModel = new ProcesosPedido($db);
+    $procesosProductosModel = new ProcesosProductos($db);
+    
+    //Añadir que filtre por id_lineapedido
+    $lineasConEstado2 = $lineaPedidoModel->where('estado', 2)->findAll();
+
+    foreach ($lineasConEstado2 as $linea) {
+        $idProducto = $linea['id_producto'];
+        $procesosProductos = $procesosProductosModel->where('id_producto', $idProducto)->findAll();
+
+        foreach ($procesosProductos as $procesoProducto) {
+            // Comprobar si ya existe una línea con este id_proceso y id_linea_pedido
+            $existe = $procesosPedidoModel->where([
+                'id_proceso' => $procesoProducto['id_proceso'],
+                'id_linea_pedido' => $linea['id_lineapedido']
+            ])->first();
+
+            // Si no existe, insertar la nueva fila
+            if (!$existe) {
+                $procesosPedidoModel->insert([
+                    'id_proceso' => $procesoProducto['id_proceso'],
+                    'id_linea_pedido' => $linea['id_lineapedido'],
+                    'id_maquina' => null,
+                    'estado' => 2,
+                ]);
+            }
+        }
+    }
+
+    return $lineasConEstado2;
+}
+
+}
