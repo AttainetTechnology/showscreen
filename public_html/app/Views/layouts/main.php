@@ -33,7 +33,7 @@ if ($data !== null && isset($data['favicon'])) {
     $favicon = $data['favicon'];
 }
 ?>
-	<link rel="icon" href="<?=base_url("public/assets/uploads/files/".$id_empresa."/favicon/".$favicon)?>" type="image/gif">
+	<link rel="icon" href="<?=base_url("public/assets/uploads/files/".$favicon)?>" type="image/gif">
 </head>
 <body>
   	<div id="container">

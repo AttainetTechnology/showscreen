@@ -13,7 +13,7 @@
 	$favicon= $data['favicon'];
 	?>
 	
-	<link rel="icon" href="<?=base_url('public')?>/assets/uploads/favicon<? echo $favicon; ?>" type="image/gif">
+	<link rel="icon" href="<?=base_url('public')?>public/assets/uploads/favicon<? echo $favicon; ?>" type="image/gif">
 	
 	<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/fichajes.css') ?>?v=<?= time() ?>">
 	<!-- BOOTSTRAP -->

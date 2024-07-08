@@ -3,7 +3,7 @@
               $session = session();
               $session_data = $session->get('logged_in');
               $id_empresa = $session_data['id_empresa']; 
-              echo base_url('assets/uploads/files/' . $url_logo);
+              echo base_url('public/assets/uploads/files/' . $url_logo);
             ?>" class="logo_app">
     </a>
 
@@ -135,7 +135,7 @@
                 <div class="dropdown mt-3">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php 
-                        $imagePath = "assets/uploads/files/" . $id_empresa . "/usuarios/" . $userfoto;
+                        $imagePath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userfoto;
                         $fullPath = FCPATH . $imagePath;                      
                         if (!empty($userfoto) && file_exists($fullPath)) : ?>
                             <img src="<?= base_url($imagePath) ?>" alt="" width="auto" height="32" class="miperfil me-2">

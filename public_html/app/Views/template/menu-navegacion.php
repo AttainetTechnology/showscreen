@@ -40,7 +40,7 @@
 
 			$result = $query->getRow();
 			$logo_empresa = $result->logo_empresa;
-			echo base_url('assets/uploads/files/' . $logo_empresa);
+			echo base_url('public/assets/uploads/files/' . $logo_empresa);
 		}
 		?>" class="logo_app">
 

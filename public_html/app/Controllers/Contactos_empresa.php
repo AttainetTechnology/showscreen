@@ -5,6 +5,7 @@ class Contactos_empresa extends BaseControllerGC
 {
     public function index()
     {
+        
         $crud = $this->_getClientDatabase();
         $crud->setTable('contactos');
         $crud->columns(['id_cliente','nombre','apellidos','telf','cargo']);
