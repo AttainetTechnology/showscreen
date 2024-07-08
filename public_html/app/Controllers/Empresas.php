@@ -51,17 +51,17 @@ public function index()
 					Editar contactos
 					</button>	</div>
 					";
-					$editar="
+					$editar = "
 					<!-- Modal -->
 					<div class='modal fade' id='myModal' tabindex='-1' aria-labelledby='myModalLabel' aria-hidden='true'>
 					<div class='modal-dialog modal-xl'>
 						<div class='modal-content'>
 						<div class='modal-header'>
-						<h5 class='modal-title' id='myModalLabel'>".$rowData['nombre_cliente']."</h5>
+						<h5 class='modal-title' id='myModalLabel'>" . $rowData['nombre_cliente'] . "</h5>
 							<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
 						</div>
 						<div class='modal-body'>
-						<iframe src='".base_url()."/Contactos_empresa/add/".$primaryKeyValue."/' frameborder=0 width='100%'></iframe>
+						<iframe src='" . base_url('/Contactos_empresa/add/' . $primaryKeyValue) . "' frameborder='0' width='100%' height='600px'></iframe>
 						</div>
 						<div class='modal-footer'>
 							<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
@@ -70,9 +70,7 @@ public function index()
 						</div>
 					</div>
 					</div>
-					<!-- /.modal -->
-					
-					";
+					<!-- /.modal -->";
 					$contact=$contact.$boton.$editar;
 					return $contact;
 		});
