@@ -16,12 +16,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <!-- Otros Css -->
 
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/menu_lateral.css') ?>?v=<?= time() ?>">
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/movil.css') ?>?v=<?= time() ?>">
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/custom.css') ?>?v=<?= time() ?>">
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/attainet.css') ?>?v=<?= time() ?>">
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/layout.css') ?>?v=<?= time() ?>">
-<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/ocultar_botones.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/menu_lateral.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/movil.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/custom.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/attainet.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/layout.css') ?>?v=<?= time() ?>">
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/ocultar_botones.css') ?>?v=<?= time() ?>">
 <!-- Cargo FAVICON  -->
 <?php
 
@@ -33,7 +33,7 @@ if ($data !== null && isset($data['favicon'])) {
     $favicon = $data['favicon'];
 }
 ?>
-	<link rel="icon" href="<?=base_url("assets/uploads/files/".$id_empresa."/favicon/".$favicon)?>" type="image/gif">
+	<link rel="icon" href="<?=base_url("public/assets/uploads/files/".$id_empresa."/favicon/".$favicon)?>" type="image/gif">
 </head>
 <body>
   	<div id="container">

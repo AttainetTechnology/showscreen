@@ -1,14 +1,99 @@
-
-        .container {
+        
+        #organizador {
             display: flex;
+            font-size: 0.8rem;
         }
-        .column {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            margin: 10px;
-            text-align: center; 
+        .boton-maquina{
+            margin-bottom: 0.5rem!Important;
+            width: 100%;
+            text-align: left;
         }
+        .boton-maquina button{
+            text-align: left!Important;
+            background-color: #eee;
+        }
+        .boton-maquina button:hover{
+            background-color: #999;
+            color: #fff;
+        }
+
+        #col1{
+            max-width: 15vw;
+            padding: 1rem;
+            position: fixed;
+            top:0px;
+            left:0px;
+            height: 100vh;
+            text-align: left!Important;
+        }
+        #col2{
+            max-width: 40vw;
+            padding: 0rem;
+            position: fixed;
+            top:0px;
+            left:15vw;
+            height: 100vh;
+            overflow: auto;
+        }
+        #col2 .cabecera {
+            position: fixed;
+            max-width: 40vw ! Important;
+            width: 40vw;
+            background-color: #fff;
+            min-height: 12vh;
+            z-index: 99;
+        }
+        #col2 .resultados {
+            max-width: 40vw ! Important;
+            width: 40vw;
+            background-color: #fff;
+            min-height: 88vh;
+            top:12vh;
+            position: relative;
+        }
+        #col3{
+            max-width: 10vw;
+            padding: 0rem;
+            position: fixed;
+            top:10vw;
+            left:57vw;
+            height: auto;
+        }
+        #col4{
+            max-width: 36vw;
+            padding: 0rem;
+            position: fixed;
+            top:0px;
+            left:62vw;
+            height: 100vh;
+            overflow: auto;
+        }
+        #col4 .cabecera {
+            position: fixed;
+            max-width: 36vw ! Important;
+            width: 36vw;
+            background-color: #fff;
+            min-height: 12vh;
+            z-index: 99;
+        }
+        #col4 .resultados {
+            max-width: 36vw ! Important;
+            width: 36vw;
+            background-color: #fff;
+            min-height: 88vh;
+            top:12vh;
+            position: relative;
+        }
+        .btn {
+            font-size: 10px!Important;
+        }
+        .btn-md{
+            margin-bottom: 0.8rem;
+        }
+        .btn-md i {
+            font-size: large;
+        }
+
         tbody tr {
             border-bottom: 1px solid #ccc; 
         }
@@ -21,51 +106,15 @@
         input[type="checkbox"] {
             margin-right: 10px; 
         }
-        .maquina,  #verTodo {  
-            padding: 10px 20px; 
-            margin: 5px; 
-            border: 1px solid #007bff; 
-            border-radius: 5px; 
-            background-color: #007bff;
-            color: white; 
-            text-align: center; 
-            cursor: pointer; 
-            text-decoration: none; 
-        }
-        
-        .maquina:hover,  #verTodo {
-            background-color: #0056b3;
-        }
+
         .column {
             text-align: center; 
         }
-        .column button {
-            font-size: 30px; 
-            margin: 10px; 
-            padding: 10px; 
-            cursor: pointer;
-        }
-        button[data-action="move-left"] {
-            background-color: #ff0000; 
-            color: white;
-        }
-        button[data-action="move-right"] {
-            background-color: #0000ff;
-            color: white; 
-        }
-        button[data-action="confirm"] {
-            background-color: #00ff00; 
-            color: white; 
-        }
-        #col3 {
-            padding: 0px;
-            border: 1px solid #ccc;
-            margin: auto;
-            max-width: 110px;
-        }
 
-        .btn {
-            padding: 15px 25px; 
-            font-size: 30px;
-   
+        .fija{
+            position: fixed;
+        }
+        .fija.cabecera {
+            width: 42%;
+            background-color: #fff;
         }

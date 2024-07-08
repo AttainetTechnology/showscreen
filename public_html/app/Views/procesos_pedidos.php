@@ -7,34 +7,43 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/organizador.css') ?>?v=<?= time() ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/organizador.css') ?>?v=<?= time() ?>">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-
+    <!-- Cargamos Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- Iconos Bootstrap --> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <div class="container">
+    <div id="organizador">
         <div class="column" id="col1">
-            <h2>Máquinas</h2>
-            <button id="verTodo">Ver Todo</button>
+            <h4>Máquinas</h4>
+            <button id="verTodo" class="btn btn-warning btn-sm">Ver Todo</button><br><br>
             <?php foreach ($maquinas as $maquina): ?>
-                <p class="maquina" data-id-maquina="<?php echo $maquina['id_maquina']; ?>" data-nombre="<?php echo $maquina['nombre']; ?>" onclick="filtrarProcesosPorMaquina('<?php echo $maquina['id_maquina']; ?>', '<?php echo $maquina['nombre']; ?>')"><?php echo $maquina['nombre']; ?></p>
-            <?php endforeach; ?>
+                <div class="boton-maquina">
+                <button class="btn maquina btn-sm" data-id-maquina="<?php echo $maquina['id_maquina']; ?>" data-nombre="<?php echo $maquina['nombre']; ?>" onclick="filtrarProcesosPorMaquina('<?php echo $maquina['id_maquina']; ?>', '<?php echo $maquina['nombre']; ?>')"><?php echo $maquina['nombre']; ?></button>
+                </div>
+                <?php endforeach; ?>
+    
         </div>
         <div class="column" id="col2">
-            <h2>Procesos listos para producir</h2>
-            <div id="searchContainer">              
-                <select id="searchInput" style="width: 100%;">
-                    <option value="">Seleccione un proceso...</option>
-                    <?php if(isset($procesos)): ?>
-                        <?php foreach ($procesos as $proceso): ?>
-                            <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-                <button id="clearFilters">Eliminar Filtros</button>
+            <div class="cabecera">
+                <h4>Procesos listos para producir</h4>
+                <div id="searchContainer">              
+                    <select id="searchInput" style="width: 60%">
+                        <option value="">Seleccione un proceso...</option>
+                        <?php if(isset($procesos)): ?>
+                            <?php foreach ($procesos as $proceso): ?>
+                                <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                    <button id="clearFilters" class="btn btn-sm btn-light">Eliminar Filtros</button>
+                </div>
             </div>
-            <br>
-            <table id="Tabla2" border="1">
+            <div class="resultados">
+            <table id="Tabla2" class="table">
                 <thead>
                     <tr>
                         <th></th>
@@ -85,19 +94,22 @@
                  <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </div>
         <div class="column" id="col3">
-            <h2>Acciones</h2>
-            <button data-action="move-left">&larr;</button><br>
-            <button data-action="move-right">&rarr;</button><br>
-            <button data-action="confirm">&#10003;</button>
-            <button data-action="btn-terminado">🛍️</button>
-            <input type="button" onclick="printDiv('printableArea')" value="🖨️" class="btn btn-success btn-sm"/>
-            <button data-action="cancelar" onclick="window.location.reload();">&#x21bb;</button><br>
+            <button data-action="move-left" class="btn btn-md btn-primary"><i class="bi bi-arrow-left"></i></button><br>
+            <button data-action="move-right" class="btn btn-md btn-primary"><i class="bi bi-arrow-right"></i></button><br>
+            <button data-action="confirm" class="btn btn-md btn-info"><i class="bi bi-floppy"></i></button><br>
+            <button data-action="btn-terminado" class="btn btn-md btn-success"><i class="bi bi-clipboard2-check"></i></button><br>
+            <button data-action="btn-imprimir"  onclick="printDiv('printableArea')" class="btn btn-secondary btn-md"><i class='bi bi-printer'></i></button><br>
+            <button data-action="cancelar" onclick="window.location.reload();"  class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
         </div>
         <div class="column" id="col4">
-            <h2 id="tituloProcesosEnMaquina">Procesos en máquina</h2>
-            <table id="sortableTable" border="1">
+            <div class="cabecera">
+            <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
+            </div>
+            <div class="resultados">
+            <table id="sortableTable" class="table">
                 <thead>
                     <tr>
                         <th></th>
@@ -137,6 +149,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </div>
         <div id="printableArea" style="display: none;">
             <div id="fondo">
