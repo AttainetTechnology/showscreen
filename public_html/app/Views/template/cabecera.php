@@ -15,7 +15,7 @@
 	
 	<link rel="icon" href="<?=base_url('public')?>public/assets/uploads/favicon<? echo $favicon; ?>" type="image/gif">
 	
-	<link rel="stylesheet" type="text/css" href="<?= base_url('/assets/css/fichajes.css') ?>?v=<?= time() ?>">
+	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/fichajes.css') ?>?v=<?= time() ?>">
 	<!-- BOOTSTRAP -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
    <!-- BOOTSTRAP ICONS -->
