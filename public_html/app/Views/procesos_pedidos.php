@@ -223,6 +223,8 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             generarContenidoImprimible();
+            seleccionarMaquinaGuardada();
+
         });
 
         function generarContenidoImprimible() {
@@ -695,6 +697,11 @@ function confirmarProcesos() {
         }
     });
 
+    // Guardar el ID de la máquina seleccionada en localStorage
+    if (selectedMachineId) {
+        localStorage.setItem('selectedMachineId', selectedMachineId);
+    }
+
     // Realizar la llamada AJAX para actualizar
     if (procesosActualizar.length > 0) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesosActualizar, function() {
@@ -705,6 +712,8 @@ function confirmarProcesos() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    // Establecer una bandera para indicar que la recarga fue causada por la confirmación
+                    localStorage.setItem('reloadedFromConfirm', 'true');
                     window.location.reload();
                 } else {
                     alert('Error al actualizar los estados de las líneas de pedido.');
@@ -718,7 +727,26 @@ function confirmarProcesos() {
 
     // Realizar la llamada AJAX para revertir
     if (procesosRevertir.length > 0) {
-        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesosRevertir);
+        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesosRevertir, function() {
+            // Establecer una bandera para indicar que la recarga fue causada por la confirmación
+            localStorage.setItem('reloadedFromConfirm', 'true');
+            window.location.reload();
+        });
+    }
+}
+function seleccionarMaquinaGuardada() {
+    const reloadedFromConfirm = localStorage.getItem('reloadedFromConfirm');
+    if (reloadedFromConfirm === 'true') {
+        const savedMachineId = localStorage.getItem('selectedMachineId');
+        if (savedMachineId) {
+            const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
+            if (maquina) {
+                maquina.click(); // Simula un clic en la máquina
+            }
+        }
+        // Limpiar localStorage después de usar
+        localStorage.removeItem('selectedMachineId');
+        localStorage.removeItem('reloadedFromConfirm');
     }
 }
 
