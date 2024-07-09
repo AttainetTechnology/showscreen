@@ -224,17 +224,19 @@ function __construct()
 		return redirect()->to('pedidos2/index#/edit/'.$id_pedido);
 	}
 	
-		function lineas($value, $id_pedido){
-			if (isset($_GET['pg2'])){
-			  $pg2=$_GET['pg2'];
-		  }else{
-			  $pg2="Rafa";
-		  }
-		//$pg2= $pg2;
-			return '<fieldset><input type="hidden" name="detalles" value="">
-			<link rel="import" href="'.base_url().'/Pedidos2/Linea_pedidos/'.$id_pedido.'?pg2='.$pg2.'">
-			<iframe src="'.base_url().'/Pedidos2/Linea_pedidos/'.$id_pedido.'?pg2='.$pg2.'" frameborder=0 width="100%" class="iframe_lineapedidos"></iframe></fieldset>';
+	function lineas($value, $id_pedido) {
+		if (isset($_GET['pg2'])) {
+			$pg2 = $_GET['pg2'];
+		} else {
+			$pg2 = "Rafa";
 		}
+	
+		return '<fieldset>
+					<input type="hidden" name="detalles" value="">
+					<iframe src="' . base_url('Pedidos2/Linea_pedidos/' . $id_pedido . '?pg2=' . $pg2) . '" frameborder="0" width="100%" class="iframe_lineapedidos"></iframe>
+				</fieldset>';
+	}
+	
 		
 		public function _saca_fecha_entrada(){
 		$entrada = date('Y-m-d');
