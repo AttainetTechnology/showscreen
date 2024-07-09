@@ -574,10 +574,6 @@ document.addEventListener('click', function(event) {
                     alert('Error al actualizar los estados.');
                 }
             })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Error en la solicitud. Revisa la consola para más detalles.');
-            });
         } else {
             alert('No se ha seleccionado ninguna línea.');
         }
