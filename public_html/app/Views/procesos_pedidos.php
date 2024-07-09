@@ -347,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#clienteFilter').select2();
     $('#medidasFilter').select2();
     $('#clienteFilterCol4').select2();
+    seleccionarMaquinaGuardada();
 
     // Evento para buscar y filtrar procesos en col2
     $('#searchInput').on('change', function() {
@@ -561,6 +562,8 @@ document.addEventListener('click', function(event) {
     }
 
     if (target.matches('button[data-action="btn-terminado"]')) {
+        event.preventDefault(); // Prevenir cualquier acción por defecto
+
         const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
         let lineItems = [];
         selectedLines.forEach(line => {
@@ -571,6 +574,9 @@ document.addEventListener('click', function(event) {
         });
 
         if (lineItems.length > 0) {
+            // Deshabilitar el botón para evitar múltiples clics
+            target.disabled = true;
+
             fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
                 method: 'POST',
                 headers: {
@@ -586,6 +592,10 @@ document.addEventListener('click', function(event) {
                     alert('Error al actualizar los estados.');
                 }
             })
+            .finally(() => {
+                // Rehabilitar el botón independientemente del resultado
+                target.disabled = false;
+            });
         } else {
             alert('No se ha seleccionado ninguna línea.');
         }
