@@ -432,22 +432,22 @@ $(document).ready(function() {
 
     // Seleccionar máquinas por clase y añadir evento de clic
     document.querySelectorAll('.maquina').forEach(maquina => {
-        maquina.addEventListener('click', function() {
-            selectedMachineId = this.getAttribute('data-id-maquina');
-            let nombreMaquina = this.getAttribute('data-nombre'); // Asumiendo que el nombre de la máquina está disponible como un atributo data-nombre
-        
-            // Actualizar el título de la columna con el nombre de la máquina seleccionada
-            let titulo = document.getElementById('tituloProcesosEnMaquina');
-            if (titulo) {
-                titulo.textContent = `Procesos en ${nombreMaquina}`;
-            }
-        
-            aplicarFiltrosCol4();
-            if (sortable) {
-                sortable.option("disabled", false);
-            }
-        });
+    maquina.addEventListener('click', function() {
+        selectedMachineId = this.getAttribute('data-id-maquina');
+        let nombreMaquina = this.getAttribute('data-nombre');
+    
+        // Actualizar el título de la columna con el nombre de la máquina seleccionada
+        let titulo = document.getElementById('tituloProcesosEnMaquina');
+        if (titulo) {
+            titulo.textContent = `Procesos en ${nombreMaquina}`;
+        }
+    
+        aplicarFiltrosCol4();
+        if (sortable) {
+            sortable.option("disabled", false);
+        }
     });
+});
 
     // Evento para el botón Ver Todo
     document.getElementById('verTodo').addEventListener('click', function() {
@@ -661,7 +661,8 @@ function confirmarProcesos() {
     filasColumna4.forEach(fila => {
         const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
         const nombreProceso = fila.getAttribute('data-nombre-proceso');
-        const idMaquina = fila.getAttribute('data-id-maquina');
+        // Usar el id_maquina actualizado
+        const idMaquina = selectedMachineId;
         if (idLineaPedido && nombreProceso && idMaquina) {
             procesosActualizar.push({
                 nombre_proceso: nombreProceso,
@@ -670,6 +671,7 @@ function confirmarProcesos() {
             });
         }
     });
+
     // Agregar procesos de la columna 2 (Procesos listos para producir)
     filasColumna2.forEach(fila => {
         const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
@@ -683,8 +685,8 @@ function confirmarProcesos() {
         }
     });
 
- // Realizar la llamada AJAX para actualizar
- if (procesosActualizar.length > 0) {
+    // Realizar la llamada AJAX para actualizar
+    if (procesosActualizar.length > 0) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesosActualizar, function() {
             // Realizar la llamada AJAX para actualizar el estado de las líneas de pedido después de actualizar los procesos
             fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', {
@@ -704,13 +706,32 @@ function confirmarProcesos() {
         });
     }
 
-
     // Realizar la llamada AJAX para revertir
     if (procesosRevertir.length > 0) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesosRevertir);
     }
 }
 
+// Función para realizar las peticiones AJAX
+function realizarPeticionAjax(url, procesos, callback) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ procesos: procesos }),
+        success: function(response) {
+            if (response.success) {
+                if (callback) callback();
+            } else {
+                alert('Error al actualizar los procesos.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
+        }
+    });
+}
 // Función para realizar las peticiones AJAX
 function realizarPeticionAjax(url, procesos, callback) {
     $.ajax({
