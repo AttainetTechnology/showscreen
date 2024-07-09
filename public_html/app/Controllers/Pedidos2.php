@@ -94,41 +94,50 @@ function __construct()
 		//$crud->callbackEditField('bt_imprimir', array($this, 'boton_imprimir'));
 		
 		$crud->callbackEditField('bt_imprimir', function($fieldValue, $primaryKeyValue, $rowData){
-		$id_pedido= $rowData->id_pedido;
-		$id_cliente= $rowData->id_cliente;
-		//Esta función carga todos los botones
-		return '<input type="hidden" name="bt_imprimir" value="">
-		<a href="'.base_url().'/pedidos/print/'.$id_pedido.'" class="btn btn-info btn-sm"><i class="fa fa-print fa-fw"></i> Imprimir pedido</a>
-		<a href="'.base_url().'/pedidos/parte_complejo/'.$id_pedido.'" class="btn btn-secondary btn-sm"><i class="fa fa-print fa-fw"></i> Parte complejo</a>
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">
-		<i class="fa fa-truck fa-fw"></i> Rutas de transporte
-		</button>	
-		<a href="'.base_url().'/pedidos2/entregar/'.$id_pedido.'" class="btn btn-success btn-sm"><i class="fa fa-check fa-fw"></i> Entregar pedido
-		</a>
-		<a href="'.base_url().'/pedidos2/anular/'.$id_pedido.'" class="btn btn-danger btn-sm btn_anular"><i class="fa fa-trash fa-fw"></i> Anular todo
-		</a>
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Rutas de transporte</h4>
+			$id_pedido = $rowData->id_pedido;
+			$id_cliente = $rowData->id_cliente;
+			// Esta función carga todos los botones
+			return '
+			<input type="hidden" name="bt_imprimir" value="">
+			<a href="' . base_url('pedidos/print/' . $id_pedido) . '" class="btn btn-info btn-sm">
+				<i class="fa fa-print fa-fw"></i> Imprimir pedido
+			</a>
+			<a href="' . base_url('pedidos/parte_complejo/' . $id_pedido) . '" class="btn btn-secondary btn-sm">
+				<i class="fa fa-print fa-fw"></i> Parte complejo
+			</a>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal">
+				<i class="fa fa-truck fa-fw"></i> Rutas de transporte
+			</button>    
+			<a href="' . base_url('pedidos2/entregar/' . $id_pedido) . '" class="btn btn-success btn-sm">
+				<i class="fa fa-check fa-fw"></i> Entregar pedido
+			</a>
+			<a href="' . base_url('pedidos2/anular/' . $id_pedido) . '" class="btn btn-danger btn-sm btn_anular">
+				<i class="fa fa-trash fa-fw"></i> Anular todo
+			</a>
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Rutas de transporte</h4>
+						</div>
+						<div class="modal-body">
+							<iframe src="' . base_url('Ruta_pedido/rutas/' . $id_pedido . '/' . $id_cliente) . '" frameborder="0" width="100%"></iframe>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal">Cerrar</button>
+						</div>
 					</div>
-					<div class="modal-body">
-						<iframe src="'.base_url().'/Ruta_pedido/rutas/'.$id_pedido.'/'.$id_cliente.'" frameborder=0 width="100%"></iframe></fieldset>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal">Cerrar</button>
-					</div>
+					<!-- /.modal-content -->
 				</div>
-				<!-- /.modal-content -->
+				<!-- /.modal-dialog -->
 			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-		';
+			<!-- /.modal -->
+			';
+	
+		
 	
 		});
 		$crud->callbackEditField('id_pedido', array($this, 'paso_id_pedido'));
