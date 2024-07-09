@@ -309,14 +309,23 @@ public function revertirEstadoProcesos() {
     
         $data = $this->request->getJSON(true);
     
+        log_message('debug', 'Datos recibidos en marcarTerminado: ' . json_encode($data)); // Debug
+    
         if (!isset($data['lineItems']) || !is_array($data['lineItems'])) {
             log_message('error', 'Datos inválidos en marcarTerminado');
             return $this->response->setJSON(['error' => 'Datos inválidos']);
         }
     
         foreach ($data['lineItems'] as $item) {
-            $idLineaPedido = $item['idLineaPedido'];
-            $nombreProceso = $item['nombreProceso'];
+            $idLineaPedido = $item['idLineaPedido'] ?? null;
+            $nombreProceso = $item['nombreProceso'] ?? null;
+    
+            if (is_null($idLineaPedido) || is_null($nombreProceso)) {
+                log_message('error', 'Datos faltantes para idLineaPedido o nombreProceso');
+                continue;
+            }
+    
+            log_message('debug', 'Procesando item: ' . json_encode($item)); // Debug
     
             $proceso = $procesoModel->where('nombre_proceso', $nombreProceso)->first();
             if (!$proceso) {
@@ -325,27 +334,34 @@ public function revertirEstadoProcesos() {
             }
     
             $idProceso = $proceso['id_proceso'];
-            // Obtener el id_maquina antes de eliminar el proceso
             $procesoInfo = $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->where('id_proceso', $idProceso)->first();
-            $idMaquina = $procesoInfo['id_maquina'];
-
-            // Actualiza el estado en la tabla procesos_pedido a 4
+    
+            if (is_null($procesoInfo)) {
+                log_message('error', 'Información del proceso no encontrada para idLineaPedido: ' . $idLineaPedido . ' y idProceso: ' . $idProceso);
+                continue;
+            }
+    
+            $idMaquina = $procesoInfo['id_maquina'] ?? null;
+    
+            if (is_null($idMaquina)) {
+                log_message('error', 'idMaquina no encontrado para idLineaPedido: ' . $idLineaPedido . ' y idProceso: ' . $idProceso);
+                continue;
+            }
+    
+            log_message('debug', 'Actualizando estado del proceso: ' . json_encode($procesoInfo)); // Debug
+    
             $procesosPedidoModel
                 ->where('id_linea_pedido', $idLineaPedido)
                 ->where('id_proceso', $idProceso)
                 ->set(['estado' => 4])
                 ->update();
-
-
     
-        // Registro en la tabla de log
-        $this->logAction('ORGANIZADOR', "Proceso marcado como terminado Id_linea: $idLineaPedido", ['idLineaPedido' => $idLineaPedido, 'idProceso' => $idProceso, 'estado' => 4]);
-
-            // Elimina el registro de la línea_proceso en la tabla
+            $this->logAction('ORGANIZADOR', "Proceso marcado como terminado Id_linea: $idLineaPedido", ['idLineaPedido' => $idLineaPedido, 'idProceso' => $idProceso, 'estado' => 4]);
+    
             $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->where('id_proceso', $idProceso)->delete();
-
+    
             $this->reordenarProcesosParaMaquina($idMaquina);
-
+    
             $todosEnEstado4 = true;
             $procesos = $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->findAll();
             foreach ($procesos as $proceso) {
@@ -355,14 +371,18 @@ public function revertirEstadoProcesos() {
                 }
             }
             if ($todosEnEstado4) {
-                // Actualiza el estado en la tabla linea_pedido a 4
                 $lineaPedidoModel
                     ->where('id_lineapedido', $idLineaPedido)
                     ->set(['estado' => 4])
                     ->update();
     
                 $lineaPedido = $lineaPedidoModel->find($idLineaPedido);
-                $idPedido = $lineaPedido['id_pedido'];
+                $idPedido = $lineaPedido['id_pedido'] ?? null;
+    
+                if (is_null($idPedido)) {
+                    log_message('error', 'idPedido no encontrado para idLineaPedido: ' . $idLineaPedido);
+                    continue;
+                }
     
                 $todasLineasEnEstado4 = true;
                 $lineasPedido = $lineaPedidoModel->where('id_pedido', $idPedido)->findAll();
@@ -374,14 +394,14 @@ public function revertirEstadoProcesos() {
                 }
     
                 if ($todasLineasEnEstado4) {
-                    // Actualiza el estado en la tabla pedidos a 4
                     $pedidoModel->where('id_pedido', $idPedido)->set(['estado' => 4])->update();
                 }
             }
         }
+        log_message('debug', 'Finalización de marcarTerminado'); // Debug
         return $this->response->setJSON(['success' => 'Estados actualizados y líneas eliminadas']);
     }
-
+    
     public function actualizarOrdenProcesos() {
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);

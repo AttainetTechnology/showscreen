@@ -560,9 +560,12 @@ document.addEventListener('click', function(event) {
             console.error('Error:', error);
         });
     }
-
-    if (target.matches('button[data-action="btn-terminado"]')) {
+    document.addEventListener('click', function(event) {
+    const target = event.target.closest('button[data-action="btn-terminado"]');
+    if (target) {
         event.preventDefault(); // Prevenir cualquier acción por defecto
+
+        console.log("Botón terminado clicado"); // Debug
 
         const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
         let lineItems = [];
@@ -572,6 +575,8 @@ document.addEventListener('click', function(event) {
             const nombreProceso = row.querySelector('td:nth-child(8)').textContent.trim();
             lineItems.push({ idLineaPedido: idLineaPedido, nombreProceso: nombreProceso });
         });
+
+        console.log("Elementos seleccionados:", lineItems); // Debug
 
         if (lineItems.length > 0) {
             // Deshabilitar el botón para evitar múltiples clics
@@ -586,11 +591,17 @@ document.addEventListener('click', function(event) {
             })
             .then(response => response.json())
             .then(data => {
+                console.log("Respuesta del servidor:", data); // Debug
                 if (data.success) {
                     window.location.reload();
                 } else {
+                    console.error('Error en la respuesta del servidor:', data); // Debug
                     alert('Error al actualizar los estados.');
                 }
+            })
+            .catch(error => {
+                console.error("Error en la solicitud:", error); // Debug
+                alert('Error al actualizar los estados.');
             })
             .finally(() => {
                 // Rehabilitar el botón independientemente del resultado
@@ -600,6 +611,8 @@ document.addEventListener('click', function(event) {
             alert('No se ha seleccionado ninguna línea.');
         }
     }
+});
+
 
     if (target.matches('button[data-action="confirm"]')) {
         const filas = document.querySelectorAll('#sortableTable tbody tr');
