@@ -74,7 +74,7 @@ public function index($dependencia)
 			exit;
 		}	
 	
-	echo view('default',(array)$output);
+		echo view('layouts/main',(array)$output);
 	}
 }
 	
