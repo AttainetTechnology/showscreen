@@ -24,7 +24,11 @@ class Procesos_pedidos extends BaseControllerGC {
         $maquinasModel = new Maquinas($db);
         $procesosPedidoModel = new ProcesosPedido($db);
 
+        log_message('debug', 'Cargando index de Procesos_pedidos');
+
         $lineasConEstado2 = $this->obtenerLineasPedidoConEstado2YCrearProcesos();
+        
+        log_message('debug', 'Líneas con estado 2 obtenidas: ' . count($lineasConEstado2));
         
         // Obtener líneas de pedido con estado = 2
         $lineas = $lineaPedidoModel->whereIn('estado', [2, 3])->findAll();
@@ -79,6 +83,7 @@ class Procesos_pedidos extends BaseControllerGC {
                 'medidas' => $lineaPedido['med_inicial'] . ' - ' . $lineaPedido['med_final'],
                 'orden' => $lineaEstado3['orden'],
                 'base' => $lineaPedido['nom_base'],
+                'guardado' => $lineaEstado3['guardado'] ?? 'nuevo'
             ];
         }
         
@@ -87,6 +92,8 @@ class Procesos_pedidos extends BaseControllerGC {
         $procesos = $procesoModel->findAll();
         $clientes = $clienteModel->findAll(); 
         
+        log_message('debug', 'Renderizando vista de procesos_pedidos con datos');
+
         return view('procesos_pedidos', [
             'lineas' => $data,
             'lineasEstado3' => $dataEstado3,

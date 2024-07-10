@@ -3,6 +3,15 @@
             display: flex;
             font-size: 0.8rem;
         }
+
+    .verde-tenue {
+        background-color: #d8ecd0; /* Verde tenue */
+    }
+
+    .sin-color {
+        background-color: white; /* Blanco */
+    }
+
         .boton-maquina{
             margin-bottom: 0.5rem!Important;
             width: 100%;

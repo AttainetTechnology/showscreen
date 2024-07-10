@@ -134,19 +134,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($lineasEstado3 as $linea): ?>
-                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>">
-                            <td><input type="checkbox" name="selectedLine[]"></td>
-                            <td><?= $linea['id_linea_pedido']; ?></td>
-                            <td><?= $linea['cliente'] ?></td>
-                            <td><?= $linea['medidas'] ?></td>
-                            <td><?= $linea['fecha'] ?></td>
-                            <td><?= $linea['producto'] ?></td>
-                            <td><?= $linea['n_piezas'] ?></td>
-                            <td><?= $linea['proceso'] ?></td>
-                            <td><?= $linea['base'] ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($lineasEstado3 as $linea): ?>
+                <tr class="linea" 
+                    data-nombre-cliente="<?= esc($linea['cliente']) ?>" 
+                    data-nombre-proceso="<?= esc($linea['proceso']); ?>" 
+                    data-id-maquina="<?= $linea['id_maquina']; ?>" 
+                    data-estado="<?= esc($linea['guardado']); ?>"> 
+                    <td><input type="checkbox" name="selectedLine[]"></td>
+                    <td><?= $linea['id_linea_pedido']; ?></td>
+                    <td><?= $linea['cliente'] ?></td>
+                    <td><?= $linea['medidas'] ?></td>
+                    <td><?= $linea['fecha'] ?></td>
+                    <td><?= $linea['producto'] ?></td>
+                    <td><?= $linea['n_piezas'] ?></td>
+                    <td><?= $linea['proceso'] ?></td>
+                    <td><?= $linea['base'] ?></td>
+                </tr>
+                <?php endforeach; ?>
+
                 </tbody>
             </table>
             </div>
@@ -222,6 +227,7 @@
 }
 
         document.addEventListener('DOMContentLoaded', function() {
+            actualizarColores();
             generarContenidoImprimible();
             seleccionarMaquinaGuardada();
 
@@ -659,6 +665,7 @@ function moverPedidos(selectorCheckbox, selectorTablaDestino) {
         nuevaFila.classList.add('linea');
         nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
         nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
+        nuevaFila.setAttribute('data-guardado', 'guardado'); // Actualiza el estado a 'guardado'
 
         // Crear y añadir un nuevo td con un checkbox sin marcar al inicio de la nueva fila
         const tdCheckbox = document.createElement('td');
@@ -681,6 +688,9 @@ function moverPedidos(selectorCheckbox, selectorTablaDestino) {
         // Eliminar la fila original
         filaOriginal.remove();
     });
+
+    // Actualizar colores después de mover los pedidos
+    actualizarColores();
 }
 
 // Función para confirmar los procesos movidos
@@ -696,7 +706,6 @@ function confirmarProcesos() {
     filasColumna4.forEach(fila => {
         const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
         const nombreProceso = fila.getAttribute('data-nombre-proceso');
-        // Usar el id_maquina actualizado
         const idMaquina = selectedMachineId;
         if (idLineaPedido && nombreProceso && idMaquina) {
             procesosActualizar.push({
@@ -728,14 +737,12 @@ function confirmarProcesos() {
     // Realizar la llamada AJAX para actualizar
     if (procesosActualizar.length > 0) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesosActualizar, function() {
-            // Realizar la llamada AJAX para actualizar el estado de las líneas de pedido después de actualizar los procesos
             fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', {
                 method: 'POST'
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Establecer una bandera para indicar que la recarga fue causada por la confirmación
                     localStorage.setItem('reloadedFromConfirm', 'true');
                     window.location.reload();
                 } else {
@@ -751,12 +758,16 @@ function confirmarProcesos() {
     // Realizar la llamada AJAX para revertir
     if (procesosRevertir.length > 0) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesosRevertir, function() {
-            // Establecer una bandera para indicar que la recarga fue causada por la confirmación
             localStorage.setItem('reloadedFromConfirm', 'true');
             window.location.reload();
         });
     }
+
+    // Llamar a actualizarColores después de confirmar los procesos
+    actualizarColores();
 }
+
+// Función para seleccionar la máquina guardada
 function seleccionarMaquinaGuardada() {
     const reloadedFromConfirm = localStorage.getItem('reloadedFromConfirm');
     if (reloadedFromConfirm === 'true') {
@@ -772,52 +783,65 @@ function seleccionarMaquinaGuardada() {
         localStorage.removeItem('reloadedFromConfirm');
     }
 }
+// Función para realizar las peticiones AJAX
+function realizarPeticionAjax(url, procesos, callback) {
+    $.ajax({
+        url: url,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ procesos: procesos }),
+        success: function(response) {
+            if (response.success) {
+                if (callback) callback();
+            } else {
+                alert('Error al actualizar los procesos.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
+        }
+    });
+}
 
-// Función para realizar las peticiones AJAX
-function realizarPeticionAjax(url, procesos, callback) {
-    $.ajax({
-        url: url,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ procesos: procesos }),
-        success: function(response) {
-            if (response.success) {
-                if (callback) callback();
-            } else {
-                alert('Error al actualizar los procesos.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-            alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
-        }
-    });
-}
-// Función para realizar las peticiones AJAX
-function realizarPeticionAjax(url, procesos, callback) {
-    $.ajax({
-        url: url,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ procesos: procesos }),
-        success: function(response) {
-            if (response.success) {
-                if (callback) callback();
-            } else {
-                alert('Error al actualizar los procesos.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-            alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
-        }
-    });
-}
+// // Función para realizar las peticiones AJAX
+// function realizarPeticionAjax(url, procesos, callback) {
+//     $.ajax({
+//         url: url,
+//         type: 'POST',
+//         contentType: 'application/json',
+//         data: JSON.stringify({ procesos: procesos }),
+//         success: function(response) {
+//             if (response.success) {
+//                 if (callback) callback();
+//             } else {
+//                 alert('Error al actualizar los procesos.');
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             console.error(xhr.responseText);
+//             alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
+//         }
+//     });
+// }
 
 // Función para mostrar todas las líneas de pedido en la columna 4
+
 function mostrarTodasLasLineas1() {
     document.querySelectorAll('#col4 .linea').forEach(linea => {
         linea.style.display = '';
     });
 }
+function actualizarColores() {
+    document.querySelectorAll('#col4 .linea').forEach(fila => {
+        if (fila.getAttribute('data-guardado') === 'guardado') {
+            fila.classList.add('sin-color');
+            fila.classList.remove('verde-tenue');
+        } else {
+            fila.classList.add('verde-tenue');
+            fila.classList.remove('sin-color');
+        }
+    });
+}
+
 </script>
