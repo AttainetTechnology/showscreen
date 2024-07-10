@@ -118,13 +118,14 @@ class Procesos_pedidos extends BaseControllerGC {
         }
     
         foreach ($data['procesos'] as $proceso) {
-            if (isset($proceso['nombre_proceso']) && isset($proceso['id_linea_pedido']) && isset($proceso['id_maquina'])) {
+            if (isset($proceso['nombre_proceso']) && isset($proceso['id_linea_pedido']) && isset($proceso['id_maquina']) && isset($proceso['orden'])) {
                 $procesoEncontrado = $procesoModel->where('nombre_proceso', $proceso['nombre_proceso'])->first();
     
                 if ($procesoEncontrado) {
                     $idProceso = $procesoEncontrado['id_proceso'];
-
-                    $this->calcularYActualizarOrdenParaMaquina($proceso['id_maquina'], $idProceso, $proceso['id_linea_pedido']);
+    
+                    // Pasar el orden específico
+                    $this->calcularYActualizarOrdenParaMaquina($proceso['id_maquina'], $idProceso, $proceso['id_linea_pedido'], $proceso['orden']);
                     
                     $actualizarLineaPedido = true;
                     $procesosDeLaLinea = $procesosPedidoModel
@@ -137,7 +138,7 @@ class Procesos_pedidos extends BaseControllerGC {
                             break;
                         }
                     }  
-                     if ($actualizarLineaPedido) {
+                    if ($actualizarLineaPedido) {
                         $lineaPedidoModel
                             ->where('id_lineapedido', $proceso['id_linea_pedido'])
                             ->set(['estado' => 3])
@@ -155,29 +156,20 @@ class Procesos_pedidos extends BaseControllerGC {
             }}        
         return $this->response->setJSON(['success' => 'Estados actualizados correctamente.']);
     }
+    
 
-    private function calcularYActualizarOrdenParaMaquina($idMaquina, $idProceso, $idLineaPedido) {
+    private function calcularYActualizarOrdenParaMaquina($idMaquina, $idProceso, $idLineaPedido, $orden) {
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);
-        $procesosPedidoModel = new ProcesosPedido($db);    
-        // Obtener el mayor número de orden para los procesos de la máquina especificada
-        $maxOrden = $procesosPedidoModel->where('id_maquina', $idMaquina)->selectMax('orden')->first();
-        $nuevoOrden = ($maxOrden && isset($maxOrden['orden'])) ? $maxOrden['orden'] + 1 : 1;
-        // Actualizar el proceso con el nuevo orden solo si el estado es 2
+        $procesosPedidoModel = new ProcesosPedido($db);
+    
+        // Actualizar el proceso con el orden específico y estado 3
         $procesosPedidoModel
             ->where('id_proceso', $idProceso)
             ->where('id_linea_pedido', $idLineaPedido)
             ->where('estado', 2)
-            ->set(['estado' => 3, 'id_maquina' => $idMaquina])
-            ->set(['orden' => $nuevoOrden])
+            ->set(['estado' => 3, 'id_maquina' => $idMaquina, 'orden' => $orden])
             ->update();
-    
-        // Verificar la actualización
-        $updated = $procesosPedidoModel
-            ->where('id_proceso', $idProceso)
-            ->where('id_linea_pedido', $idLineaPedido)
-            ->first();   
-        return $nuevoOrden;
     }
     
     public function actualizarEstadoLineaPedido() {

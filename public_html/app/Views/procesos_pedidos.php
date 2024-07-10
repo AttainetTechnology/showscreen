@@ -708,7 +708,7 @@ function confirmarProcesos() {
     const filasColumna4 = document.querySelectorAll('.column:nth-child(4) table tbody tr');
 
     // Agregar procesos de la columna 4 (Procesos en máquina)
-    filasColumna4.forEach(fila => {
+    filasColumna4.forEach((fila, index) => {
         const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
         const nombreProceso = fila.getAttribute('data-nombre-proceso');
         const idMaquina = selectedMachineId;
@@ -716,7 +716,8 @@ function confirmarProcesos() {
             procesosActualizar.push({
                 nombre_proceso: nombreProceso,
                 id_linea_pedido: idLineaPedido,
-                id_maquina: idMaquina
+                id_maquina: idMaquina,
+                orden: index + 1 // Asignar el orden basado en la posición actual
             });
         }
     });
@@ -729,7 +730,8 @@ function confirmarProcesos() {
             procesosRevertir.push({
                 nombre_proceso: nombreProceso,
                 id_linea_pedido: idLineaPedido,
-                id_maquina: null
+                id_maquina: null,
+                orden: 0 // Resetear el orden
             });
         }
     });
@@ -771,6 +773,7 @@ function confirmarProcesos() {
     // Llamar a actualizarColores después de confirmar los procesos
     actualizarColores();
 }
+
 
 // Función para seleccionar la máquina guardada
 function seleccionarMaquinaGuardada() {
