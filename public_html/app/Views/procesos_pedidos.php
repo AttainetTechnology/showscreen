@@ -301,18 +301,56 @@ content.appendChild(maquinaDiv);
 </html>
 <script>
 let selectedMachineId = null;
+let selectedClientFilterCol2 = '';
+let selectedProcesoFilterCol2 = '';
 let selectedClientFilterCol4 = '';
+let selectedProcesoFilterCol4 = '';
 let sortable; // Declare the variable globally
+
+// Función para aplicar los filtros en la columna 2
+function aplicarFiltrosCol2() {
+    const tableRows = document.querySelectorAll('#col2 tbody tr');
+    tableRows.forEach(row => {
+        const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
+        const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
+        let display = true;
+
+        if (selectedClientFilterCol2 && !cliente.includes(selectedClientFilterCol2)) {
+            display = false;
+        }
+
+        if (selectedProcesoFilterCol2 && !proceso.includes(selectedProcesoFilterCol2)) {
+            display = false;
+        }
+
+        row.style.display = display ? '' : 'none';
+    });
+}
+
+function filtrarPorClienteCol2(valor) {
+    selectedClientFilterCol2 = valor.toLowerCase();
+    aplicarFiltrosCol2();
+}
+
+function filtrarPorProcesoCol2(valor) {
+    selectedProcesoFilterCol2 = valor.toLowerCase();
+    aplicarFiltrosCol2();
+}
 
 // Función para aplicar los filtros en la columna 4
 function aplicarFiltrosCol4() {
     const tableRows = document.querySelectorAll('#col4 tbody tr');
     tableRows.forEach(row => {
         const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
+        const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
         const idMaquina = row.getAttribute('data-id-maquina');
         let display = true;
 
         if (selectedClientFilterCol4 && !cliente.includes(selectedClientFilterCol4)) {
+            display = false;
+        }
+
+        if (selectedProcesoFilterCol4 && !proceso.includes(selectedProcesoFilterCol4)) {
             display = false;
         }
 
@@ -323,8 +361,14 @@ function aplicarFiltrosCol4() {
         row.style.display = display ? '' : 'none';
     });
 }
+
 function filtrarPorClienteCol4(valor) {
     selectedClientFilterCol4 = valor.toLowerCase();
+    aplicarFiltrosCol4();
+}
+
+function filtrarPorProcesoCol4(valor) {
+    selectedProcesoFilterCol4 = valor.toLowerCase();
     aplicarFiltrosCol4();
 }
 
@@ -341,10 +385,10 @@ function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
     aplicarFiltrosCol4();
 }
 
-// Definir la función filtrarPorClienteCol4
+// Definir la función filtrarPorClienteCol2
 function filtrarPorCliente(valor) {
-    selectedClientFilterCol4 = valor.toLowerCase();
-    aplicarFiltrosCol4();
+    selectedClientFilterCol2 = valor.toLowerCase();
+    aplicarFiltrosCol2();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -353,28 +397,21 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#clienteFilter').select2();
     $('#medidasFilter').select2();
     $('#clienteFilterCol4').select2();
+    $('#searchInputCol4').select2();
     seleccionarMaquinaGuardada();
 
     // Evento para buscar y filtrar procesos en col2
     $('#searchInput').on('change', function() {
         const searchTerm = $(this).val().toLowerCase();
-        const tableRows = document.querySelectorAll('#col2 tbody tr');
-
-        tableRows.forEach(row => {
-            const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
-            row.style.display = (proceso.includes(searchTerm) || searchTerm === '') ? '' : 'none';
-        });
+        selectedProcesoFilterCol2 = searchTerm;
+        aplicarFiltrosCol2();
     });
 
     // Evento para buscar y filtrar Clientes en col2
     $('#clienteFilter').on('change', function() {
         const searchTerm = $(this).val().toLowerCase();
-        const tableRows = document.querySelectorAll('#Tabla2 tbody tr');
-
-        tableRows.forEach(row => {
-            const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
-            row.style.display = (cliente.includes(searchTerm) || searchTerm === '') ? '' : 'none';
-        });
+        selectedClientFilterCol2 = searchTerm;
+        aplicarFiltrosCol2();
     });
 
     // Evento para buscar y filtrar Clientes en col4
@@ -383,41 +420,18 @@ document.addEventListener('DOMContentLoaded', function() {
         aplicarFiltrosCol4();
     });
 
+    // Evento para buscar y filtrar procesos en col4
+    $('#searchInputCol4').on('change', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        selectedProcesoFilterCol4 = searchTerm;
+        aplicarFiltrosCol4();
+    });
 
-$(document).ready(function() {
-    window.filtrarPorMedida = function(valor) {
-    };
     $('#medidasFilter').on('change', function() {
         filtrarPorMedida(this.value);
     });
-});
 
-    function filtrarPorMedida(valor) {
-        // Obtener las filas de la tabla que se van a ordenar
-        var rows = $('#Tabla2 tbody tr').get();
-
-        rows.sort(function(a, b) {
-            var medA, medB;
-            if (valor === "iniciales") {
-                medA = parseFloat($(a).find('td:eq(3)').text().split(' - ')[0]) || 0;
-                medB = parseFloat($(b).find('td:eq(3)').text().split(' - ')[0]) || 0;
-            } else if (valor === "finales") {
-                medA = parseFloat($(a).find('td:eq(3)').text().split(' - ')[1]) || 0;
-                medB = parseFloat($(b).find('td:eq(3)').text().split(' - ')[1]) || 0;
-            } else {
-                return 0;
-            }
-
-            return medA - medB ; // Orden Ascendente
-        });
-
-        $.each(rows, function(index, row) {
-            $('#Tabla2').children('tbody').append(row);
-        });
-    }
-
-    // Evento para el botón Eliminar Filtros
-    document.getElementById('clearFilters').addEventListener('click', function() {
+    $('#clearFilters').on('click', function() {
         // Restablecer los campos de selección a la opción por defecto
         $('#searchInput').val('').trigger('change');
         $('#clienteFilter').val('').trigger('change');
@@ -428,7 +442,6 @@ $(document).ready(function() {
         }
     });
 
-    // Seleccionar botones por atributo de acción
     const buttons = document.querySelectorAll('button[data-action]');
     buttons.forEach(button => {
         button.addEventListener('click', function() {
@@ -449,91 +462,85 @@ $(document).ready(function() {
         });
     });
 
-    // Seleccionar máquinas por clase y añadir evento de clic
     document.querySelectorAll('.maquina').forEach(maquina => {
-    maquina.addEventListener('click', function() {
-        selectedMachineId = this.getAttribute('data-id-maquina');
-        let nombreMaquina = this.getAttribute('data-nombre');
-    
-        // Actualizar el título de la columna con el nombre de la máquina seleccionada
-        let titulo = document.getElementById('tituloProcesosEnMaquina');
-        if (titulo) {
-            titulo.textContent = `Procesos en ${nombreMaquina}`;
-        }
-    
-        aplicarFiltrosCol4();
-        if (sortable) {
-            sortable.option("disabled", false);
-        }
-    });
-});
+        maquina.addEventListener('click', function() {
+            selectedMachineId = this.getAttribute('data-id-maquina');
+            let nombreMaquina = this.getAttribute('data-nombre');
 
-    // Evento para el botón Ver Todo
-    document.getElementById('verTodo').addEventListener('click', function() {
+            // Actualizar el título de la columna con el nombre de la máquina seleccionada
+            let titulo = document.getElementById('tituloProcesosEnMaquina');
+            if (titulo) {
+                titulo.textContent = `Procesos en ${nombreMaquina}`;
+            }
+
+            aplicarFiltrosCol4();
+            if (sortable) {
+                sortable.option("disabled", false);
+            }
+        });
+    });
+
+    $('#verTodo').on('click', function() {
         selectedMachineId = null;
         selectedClientFilterCol4 = '';
+        selectedProcesoFilterCol4 = '';
         $('#clienteFilterCol4').val('').trigger('change');
+        $('#searchInputCol4').val('').trigger('change');
         mostrarTodasLasLineas1();
-        // Actualizar el título al valor por defecto
         document.getElementById('tituloProcesosEnMaquina').textContent = 'Procesos en máquinas';
         if (sortable) {
             sortable.option("disabled", true);
         }
     });
 
-// Inicializar el arrastre solo una vez y deshabilitarlo por defecto
-var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
-sortable = Sortable.create(el, {
-    animation: 150,
-    onEnd: function (evt) {
-        var itemEl = evt.item; 
-        console.log('Element moved', itemEl);
+    var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
+    sortable = Sortable.create(el, {
+        animation: 150,
+        onEnd: function(evt) {
+            var itemEl = evt.item;
+            console.log('Element moved', itemEl);
 
-        // Capturar el estado actual de las filas después del movimiento
-        const filas = document.querySelectorAll('#sortableTable tbody tr');
-        let ordenes = [];
+            const filas = document.querySelectorAll('#sortableTable tbody tr');
+            let ordenes = [];
 
-        // Filtrar las filas para incluir solo las que tienen el mismo id_maquina que la máquina seleccionada
-        const filasFiltradas = Array.from(filas).filter(fila => {
-            return fila.getAttribute('data-id-maquina') === selectedMachineId;
-        });
-
-        filasFiltradas.forEach((fila, index) => {
-            const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
-            const nombreProceso = fila.getAttribute('data-nombre-proceso').trim();
-            const idMaquina = fila.getAttribute('data-id-maquina').trim();
-            ordenes.push({
-                id_linea_pedido: idLineaPedido,
-                nombre_proceso: nombreProceso,
-                orden: index + 1,
-                id_maquina: idMaquina //Incluir la ID de la máquina
+            const filasFiltradas = Array.from(filas).filter(fila => {
+                return fila.getAttribute('data-id-maquina') === selectedMachineId;
             });
-        });
 
-        // Enviar los datos al servidor
-        fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ordenes: ordenes })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Orden actualizado correctamente.');
-            } else {
-                alert('Error al actualizar el orden.');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-});
+            filasFiltradas.forEach((fila, index) => {
+                const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
+                const nombreProceso = fila.getAttribute('data-nombre-proceso').trim();
+                const idMaquina = fila.getAttribute('data-id-maquina').trim();
+                ordenes.push({
+                    id_linea_pedido: idLineaPedido,
+                    nombre_proceso: nombreProceso,
+                    orden: index + 1,
+                    id_maquina: idMaquina
+                });
+            });
 
-sortable.option("disabled", true);
+            fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ordenes: ordenes })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Orden actualizado correctamente.');
+                } else {
+                    alert('Error al actualizar el orden.');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    });
 
+    sortable.option("disabled", true);
 });
 
 document.addEventListener('click', function(event) {
@@ -613,9 +620,7 @@ document.addEventListener('click', function(event) {
                 // Rehabilitar el botón independientemente del resultado
                 target.disabled = false;
             });
-        } else {
-            alert('No se ha seleccionado ninguna línea.');
-        }
+        } 
     }
 });
 
@@ -803,27 +808,6 @@ function realizarPeticionAjax(url, procesos, callback) {
         }
     });
 }
-
-// // Función para realizar las peticiones AJAX
-// function realizarPeticionAjax(url, procesos, callback) {
-//     $.ajax({
-//         url: url,
-//         type: 'POST',
-//         contentType: 'application/json',
-//         data: JSON.stringify({ procesos: procesos }),
-//         success: function(response) {
-//             if (response.success) {
-//                 if (callback) callback();
-//             } else {
-//                 alert('Error al actualizar los procesos.');
-//             }
-//         },
-//         error: function(xhr, status, error) {
-//             console.error(xhr.responseText);
-//             alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
-//         }
-//     });
-// }
 
 // Función para mostrar todas las líneas de pedido en la columna 4
 
