@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use CodeIgniter\Model;
 
@@ -18,6 +20,7 @@ class LineaPedido extends Model {
         return $query->orderBy('id_lineapedido', 'asc')->findAll();
     }
 }
+
 
 class Pedido extends Model {
     protected $table = 'pedidos';

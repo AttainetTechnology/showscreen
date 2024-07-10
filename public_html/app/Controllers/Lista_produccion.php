@@ -11,8 +11,8 @@ class Lista_produccion extends BaseControllerGC
 	*/
 	
 	public function pendientes($selectfamilia = 0) { $this->todos('estado=','0', $selectfamilia, 'pendientes'); }
-	public function enmarcha($selectfamilia)	{	$this->todos('estado=','2', $selectfamilia, 'en cola'); 	}
-	public function enmaquina($selectfamilia)	{	$this->todos('estado=','3', $selectfamilia, 'en maquina');	}
+	public function enmarcha($selectfamilia = 0)	{	$this->todos('estado=','2', $selectfamilia, 'en cola'); 	}
+	public function enmaquina($selectfamilia = 0)	{	$this->todos('estado=','3', $selectfamilia, 'en maquina');	}
 	public function terminados($selectfamilia = 0) { $this->todos('estado=','4', $selectfamilia, 'terminados'); }
 	public function entregados($selectfamilia)	{	$this->todos('estado=','5', $selectfamilia, 'entregados');	}
 	public function todoslospartes()			{	$this->todos('estado<','7', '0', '(todos)');	}
