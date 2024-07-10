@@ -547,85 +547,6 @@ document.addEventListener('click', function(event) {
     const target = event.target;
     
     if (target.matches('button[data-action="confirm"]')) {
-        // Capturar el estado actual de las líneas
-        const lineas = document.querySelectorAll('.linea');
-        const datosLineas = Array.from(lineas).map(linea => {
-            return {
-                id: linea.dataset.id,
-                nuevaUbicacion: linea.parentElement.id
-            };
-        });
-        // Enviar los datos al servidor
-        fetch('procesos_pedidos.php', { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({lineas: datosLineas})
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Recargar la página solo después de que los datos se hayan guardado correctamente
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-    document.addEventListener('click', function(event) {
-    const target = event.target.closest('button[data-action="btn-terminado"]');
-    if (target) {
-        event.preventDefault(); // Prevenir cualquier acción por defecto
-
-        console.log("Botón terminado clicado"); // Debug
-
-        const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
-        let lineItems = [];
-        selectedLines.forEach(line => {
-            const row = line.closest('tr');
-            const idLineaPedido = row.querySelector('td:nth-child(2)').textContent.trim();
-            const nombreProceso = row.querySelector('td:nth-child(8)').textContent.trim();
-            lineItems.push({ idLineaPedido: idLineaPedido, nombreProceso: nombreProceso });
-        });
-
-        console.log("Elementos seleccionados:", lineItems); // Debug
-
-        if (lineItems.length > 0) {
-            // Deshabilitar el botón para evitar múltiples clics
-            target.disabled = true;
-
-            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ lineItems: lineItems })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Respuesta del servidor:", data); // Debug
-                if (data.success) {
-                    window.location.reload();
-                } else {
-                    console.error('Error en la respuesta del servidor:', data); // Debug
-                    alert('Error al actualizar los estados.');
-                }
-            })
-            .catch(error => {
-                console.error("Error en la solicitud:", error); // Debug
-                alert('Error al actualizar los estados.');
-            })
-            .finally(() => {
-                // Rehabilitar el botón independientemente del resultado
-                target.disabled = false;
-            });
-        } 
-    }
-});
-
-
-    if (target.matches('button[data-action="confirm"]')) {
         const filas = document.querySelectorAll('#sortableTable tbody tr');
         let ordenes = [];
 
@@ -658,8 +579,56 @@ document.addEventListener('click', function(event) {
             console.error('Error:', error);
         });
     }
-});
 
+    const targetTerminado = event.target.closest('button[data-action="btn-terminado"]');
+    if (targetTerminado) {
+        event.preventDefault(); // Prevenir cualquier acción por defecto
+
+        console.log("Botón terminado clicado"); // Debug
+
+        const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
+        let lineItems = [];
+        selectedLines.forEach(line => {
+            const row = line.closest('tr');
+            const idLineaPedido = row.querySelector('td:nth-child(2)').textContent.trim();
+            const nombreProceso = row.querySelector('td:nth-child(8)').textContent.trim();
+            lineItems.push({ idLineaPedido: idLineaPedido, nombreProceso: nombreProceso });
+        });
+
+        console.log("Elementos seleccionados:", lineItems); // Debug
+
+        if (lineItems.length > 0) {
+            // Deshabilitar el botón para evitar múltiples clics
+            targetTerminado.disabled = true;
+
+            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ lineItems: lineItems })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Respuesta del servidor:", data); // Debug
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    console.error('Error en la respuesta del servidor:', data); // Debug
+                    alert('Error al actualizar los estados.');
+                }
+            })
+            .catch(error => {
+                console.error("Error en la solicitud:", error); // Debug
+                alert('Error al actualizar los estados.');
+            })
+            .finally(() => {
+                // Rehabilitar el botón independientemente del resultado
+                targetTerminado.disabled = false;
+            });
+        } 
+    }
+});
 
 // Función para mover pedidos entre columnas
 function moverPedidos(selectorCheckbox, selectorTablaDestino) {
@@ -774,7 +743,6 @@ function confirmarProcesos() {
     actualizarColores();
 }
 
-
 // Función para seleccionar la máquina guardada
 function seleccionarMaquinaGuardada() {
     const reloadedFromConfirm = localStorage.getItem('reloadedFromConfirm');
@@ -791,6 +759,7 @@ function seleccionarMaquinaGuardada() {
         localStorage.removeItem('reloadedFromConfirm');
     }
 }
+
 // Función para realizar las peticiones AJAX
 function realizarPeticionAjax(url, procesos, callback) {
     $.ajax({
@@ -813,12 +782,13 @@ function realizarPeticionAjax(url, procesos, callback) {
 }
 
 // Función para mostrar todas las líneas de pedido en la columna 4
-
 function mostrarTodasLasLineas1() {
     document.querySelectorAll('#col4 .linea').forEach(linea => {
         linea.style.display = '';
     });
 }
+
+// Función para actualizar los colores de las filas
 function actualizarColores() {
     document.querySelectorAll('#col4 .linea').forEach(fila => {
         if (fila.getAttribute('data-guardado') === 'guardado') {
@@ -830,5 +800,4 @@ function actualizarColores() {
         }
     });
 }
-
 </script>
