@@ -301,6 +301,7 @@ content.appendChild(maquinaDiv);
 </html>
 <script>
 // Variables globales
+// Variables globales
 let selectedMachineId = null;
 let selectedClientFilterCol2 = '';
 let selectedProcesoFilterCol2 = '';
@@ -315,15 +316,15 @@ function aplicarFiltros(columna) {
     const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
 
     tableRows.forEach(row => {
-        const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
-        const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
+        const cliente = row.getAttribute('data-nombre-cliente');
+        const proceso = row.getAttribute('data-nombre-proceso');
         const idMaquina = row.getAttribute('data-id-maquina');
         let display = true;
 
-        if (clientFilter && !cliente.includes(clientFilter)) {
+        if (cliente && clientFilter && !cliente.toLowerCase().includes(clientFilter)) {
             display = false;
         }
-        if (procesoFilter && !proceso.includes(procesoFilter)) {
+        if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
             display = false;
         }
         if (columna === 4 && selectedMachineId && idMaquina !== selectedMachineId) {
@@ -366,11 +367,10 @@ function moverPedidos(selectorCheckbox, selectorTablaDestino) {
         const nuevaFila = crearNuevaFila(filaOriginal);
         tablaDestino.appendChild(nuevaFila);
         filaOriginal.remove();
-        nuevaFila.classList.add('borde-rojo'); // Añadir borde rojo a la nueva fila
+        nuevaFila.classList.add('fondo-rojo');
     });
     actualizarColores();
 }
-
 
 function crearNuevaFila(filaOriginal) {
     const nuevaFila = document.createElement('tr');
@@ -408,14 +408,13 @@ function confirmarProcesos() {
         revertirProcesos(procesosRevertir);
     }
 
-    // Eliminar borde rojo después de confirmar
-    document.querySelectorAll('.borde-rojo').forEach(fila => {
-        fila.classList.remove('borde-rojo');
+    // Eliminar fondo rojo después de confirmar
+    document.querySelectorAll('.fondo-rojo').forEach(fila => {
+        fila.classList.remove('fondo-rojo');
     });
 
     actualizarColores();
 }
-
 
 function obtenerProcesos(selector, conOrden) {
     return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
@@ -646,4 +645,5 @@ function marcarComoTerminado(button) {
         });
     }
 }
+
 </script>
