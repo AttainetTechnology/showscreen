@@ -5,11 +5,15 @@
         }
 
     .verde-tenue {
-        background-color: #d8ecd0; /* Verde tenue */
+        background-color: #d8ecd0; 
+    }
+
+    .borde-rojo {
+        background-color: rgb(255, 200, 200); 
     }
 
     .sin-color {
-        background-color: white; /* Blanco */
+        background-color: white; 
     }
 
         .boton-maquina{

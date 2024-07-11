@@ -366,9 +366,11 @@ function moverPedidos(selectorCheckbox, selectorTablaDestino) {
         const nuevaFila = crearNuevaFila(filaOriginal);
         tablaDestino.appendChild(nuevaFila);
         filaOriginal.remove();
+        nuevaFila.classList.add('borde-rojo'); // Añadir borde rojo a la nueva fila
     });
     actualizarColores();
 }
+
 
 function crearNuevaFila(filaOriginal) {
     const nuevaFila = document.createElement('tr');
@@ -406,8 +408,14 @@ function confirmarProcesos() {
         revertirProcesos(procesosRevertir);
     }
 
+    // Eliminar borde rojo después de confirmar
+    document.querySelectorAll('.borde-rojo').forEach(fila => {
+        fila.classList.remove('borde-rojo');
+    });
+
     actualizarColores();
 }
+
 
 function obtenerProcesos(selector, conOrden) {
     return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
