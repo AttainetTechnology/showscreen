@@ -300,61 +300,33 @@ content.appendChild(maquinaDiv);
 
 </html>
 <script>
+// Variables globales
 let selectedMachineId = null;
 let selectedClientFilterCol2 = '';
 let selectedProcesoFilterCol2 = '';
 let selectedClientFilterCol4 = '';
 let selectedProcesoFilterCol4 = '';
-let sortable; // Declare the variable globally
+let sortable;
 
-// Función para aplicar los filtros en la columna 2
-function aplicarFiltrosCol2() {
-    const tableRows = document.querySelectorAll('#col2 tbody tr');
-    tableRows.forEach(row => {
-        const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
-        const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
-        let display = true;
+// Funciones de filtrado
+function aplicarFiltros(columna) {
+    const tableRows = document.querySelectorAll(`#col${columna} tbody tr`);
+    const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
+    const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
 
-        if (selectedClientFilterCol2 && !cliente.includes(selectedClientFilterCol2)) {
-            display = false;
-        }
-
-        if (selectedProcesoFilterCol2 && !proceso.includes(selectedProcesoFilterCol2)) {
-            display = false;
-        }
-
-        row.style.display = display ? '' : 'none';
-    });
-}
-
-function filtrarPorClienteCol2(valor) {
-    selectedClientFilterCol2 = valor.toLowerCase();
-    aplicarFiltrosCol2();
-}
-
-function filtrarPorProcesoCol2(valor) {
-    selectedProcesoFilterCol2 = valor.toLowerCase();
-    aplicarFiltrosCol2();
-}
-
-// Función para aplicar los filtros en la columna 4
-function aplicarFiltrosCol4() {
-    const tableRows = document.querySelectorAll('#col4 tbody tr');
     tableRows.forEach(row => {
         const cliente = row.getAttribute('data-nombre-cliente').toLowerCase();
         const proceso = row.getAttribute('data-nombre-proceso').toLowerCase();
         const idMaquina = row.getAttribute('data-id-maquina');
         let display = true;
 
-        if (selectedClientFilterCol4 && !cliente.includes(selectedClientFilterCol4)) {
+        if (clientFilter && !cliente.includes(clientFilter)) {
             display = false;
         }
-
-        if (selectedProcesoFilterCol4 && !proceso.includes(selectedProcesoFilterCol4)) {
+        if (procesoFilter && !proceso.includes(procesoFilter)) {
             display = false;
         }
-
-        if (selectedMachineId && idMaquina !== selectedMachineId) {
+        if (columna === 4 && selectedMachineId && idMaquina !== selectedMachineId) {
             display = false;
         }
 
@@ -362,405 +334,118 @@ function aplicarFiltrosCol4() {
     });
 }
 
-function filtrarPorClienteCol4(valor) {
-    selectedClientFilterCol4 = valor.toLowerCase();
-    aplicarFiltrosCol4();
+function filtrarPorCliente(valor, columna) {
+    if (columna === 2) {
+        selectedClientFilterCol2 = valor.toLowerCase();
+    } else {
+        selectedClientFilterCol4 = valor.toLowerCase();
+    }
+    aplicarFiltros(columna);
 }
 
-function filtrarPorProcesoCol4(valor) {
-    selectedProcesoFilterCol4 = valor.toLowerCase();
-    aplicarFiltrosCol4();
+function filtrarPorProceso(valor, columna) {
+    if (columna === 2) {
+        selectedProcesoFilterCol2 = valor.toLowerCase();
+    } else {
+        selectedProcesoFilterCol4 = valor.toLowerCase();
+    }
+    aplicarFiltros(columna);
 }
 
-// Función para filtrar procesos por máquina y actualizar el título de la columna
 function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
     selectedMachineId = idMaquina;
-
-    // Actualizar el título con el nombre de la máquina seleccionada
-    let titulo = document.getElementById('tituloProcesosEnMaquina');
-    if (titulo) {
-        titulo.textContent = `Procesos en ${nombreMaquina}`;
-    }
-
-    aplicarFiltrosCol4();
+    document.getElementById('tituloProcesosEnMaquina').textContent = `Procesos en ${nombreMaquina}`;
+    aplicarFiltros(4);
 }
 
-// Definir la función filtrarPorClienteCol2
-function filtrarPorCliente(valor) {
-    selectedClientFilterCol2 = valor.toLowerCase();
-    aplicarFiltrosCol2();
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar Select2 en los campos de selección
-    $('#searchInput').select2();
-    $('#clienteFilter').select2();
-    $('#medidasFilter').select2();
-    $('#clienteFilterCol4').select2();
-    $('#searchInputCol4').select2();
-    seleccionarMaquinaGuardada();
-
-    // Evento para buscar y filtrar procesos en col2
-    $('#searchInput').on('change', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        selectedProcesoFilterCol2 = searchTerm;
-        aplicarFiltrosCol2();
-    });
-
-    // Evento para buscar y filtrar Clientes en col2
-    $('#clienteFilter').on('change', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        selectedClientFilterCol2 = searchTerm;
-        aplicarFiltrosCol2();
-    });
-
-    // Evento para buscar y filtrar Clientes en col4
-    $('#clienteFilterCol4').on('change', function() {
-        selectedClientFilterCol4 = $(this).val().toLowerCase();
-        aplicarFiltrosCol4();
-    });
-
-    // Evento para buscar y filtrar procesos en col4
-    $('#searchInputCol4').on('change', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        selectedProcesoFilterCol4 = searchTerm;
-        aplicarFiltrosCol4();
-    });
-
-    $('#medidasFilter').on('change', function() {
-        filtrarPorMedida(this.value);
-    });
-
-    $('#clearFilters').on('click', function() {
-        // Restablecer los campos de selección a la opción por defecto
-        $('#searchInput').val('').trigger('change');
-        $('#clienteFilter').val('').trigger('change');
-        $('#clienteFilterCol4').val('').trigger('change');
-        $('#medidasFilter').val('').trigger('change');
-        if (sortable) {
-            sortable.option("disabled", true);
-        }
-    });
-
-    const buttons = document.querySelectorAll('button[data-action]');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            if (action === 'move-right') {
-                // Mover de columna 2 a columna 4
-                if (!selectedMachineId) {
-                    alert('¡Seleccione una máquina!');
-                    return;
-                }
-                moverPedidos('input[type="checkbox"]:checked', '.column:nth-child(4) table tbody');
-            } else if (action === 'move-left') {
-                // Mover de columna 4 a columna 2
-                moverPedidos('.column:nth-child(4) input[type="checkbox"]:checked', '.column:nth-child(2) table tbody');
-            } else if (action === 'confirm') {
-                confirmarProcesos();
-            }
-        });
-    });
-
-    document.querySelectorAll('.maquina').forEach(maquina => {
-        maquina.addEventListener('click', function() {
-            selectedMachineId = this.getAttribute('data-id-maquina');
-            let nombreMaquina = this.getAttribute('data-nombre');
-
-            // Actualizar el título de la columna con el nombre de la máquina seleccionada
-            let titulo = document.getElementById('tituloProcesosEnMaquina');
-            if (titulo) {
-                titulo.textContent = `Procesos en ${nombreMaquina}`;
-            }
-
-            aplicarFiltrosCol4();
-            if (sortable) {
-                sortable.option("disabled", false);
-            }
-        });
-    });
-
-    $('#verTodo').on('click', function() {
-        selectedMachineId = null;
-        selectedClientFilterCol4 = '';
-        selectedProcesoFilterCol4 = '';
-        $('#clienteFilterCol4').val('').trigger('change');
-        $('#searchInputCol4').val('').trigger('change');
-        mostrarTodasLasLineas1();
-        document.getElementById('tituloProcesosEnMaquina').textContent = 'Procesos en máquinas';
-        if (sortable) {
-            sortable.option("disabled", true);
-        }
-    });
-
-    var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
-    sortable = Sortable.create(el, {
-        animation: 150,
-        onEnd: function(evt) {
-            var itemEl = evt.item;
-            console.log('Element moved', itemEl);
-
-            const filas = document.querySelectorAll('#sortableTable tbody tr');
-            let ordenes = [];
-
-            const filasFiltradas = Array.from(filas).filter(fila => {
-                return fila.getAttribute('data-id-maquina') === selectedMachineId;
-            });
-
-            filasFiltradas.forEach((fila, index) => {
-                const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
-                const nombreProceso = fila.getAttribute('data-nombre-proceso').trim();
-                const idMaquina = fila.getAttribute('data-id-maquina').trim();
-                ordenes.push({
-                    id_linea_pedido: idLineaPedido,
-                    nombre_proceso: nombreProceso,
-                    orden: index + 1,
-                    id_maquina: idMaquina
-                });
-            });
-
-            fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ ordenes: ordenes })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Orden actualizado correctamente.');
-                } else {
-                    alert('Error al actualizar el orden.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    });
-
-    sortable.option("disabled", true);
-});
-
-document.addEventListener('click', function(event) {
-    const target = event.target;
-    
-    if (target.matches('button[data-action="confirm"]')) {
-        const filas = document.querySelectorAll('#sortableTable tbody tr');
-        let ordenes = [];
-
-        filas.forEach((fila, index) => {
-            const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
-            const nombreProceso = fila.getAttribute('data-nombre-proceso').trim();
-            ordenes.push({
-                id_linea_pedido: idLineaPedido,
-                nombre_proceso: nombreProceso,
-                orden: index + 1 // Asignar el nuevo orden basado en la posición
-            });
-        });
-
-        fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ordenes: ordenes })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.reload();
-            } else {
-                alert('Error al actualizar el orden.');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
-
-    const targetTerminado = event.target.closest('button[data-action="btn-terminado"]');
-    if (targetTerminado) {
-        event.preventDefault(); // Prevenir cualquier acción por defecto
-
-        console.log("Botón terminado clicado"); // Debug
-
-        const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
-        let lineItems = [];
-        selectedLines.forEach(line => {
-            const row = line.closest('tr');
-            const idLineaPedido = row.querySelector('td:nth-child(2)').textContent.trim();
-            const nombreProceso = row.querySelector('td:nth-child(8)').textContent.trim();
-            lineItems.push({ idLineaPedido: idLineaPedido, nombreProceso: nombreProceso });
-        });
-
-        console.log("Elementos seleccionados:", lineItems); // Debug
-
-        if (lineItems.length > 0) {
-            // Deshabilitar el botón para evitar múltiples clics
-            targetTerminado.disabled = true;
-
-            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ lineItems: lineItems })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Respuesta del servidor:", data); // Debug
-                if (data.success) {
-                    window.location.reload();
-                } else {
-                    console.error('Error en la respuesta del servidor:', data); // Debug
-                    alert('Error al actualizar los estados.');
-                }
-            })
-            .catch(error => {
-                console.error("Error en la solicitud:", error); // Debug
-                alert('Error al actualizar los estados.');
-            })
-            .finally(() => {
-                // Rehabilitar el botón independientemente del resultado
-                targetTerminado.disabled = false;
-            });
-        } 
-    }
-});
-
-// Función para mover pedidos entre columnas
+// Funciones de movimiento y confirmación
 function moverPedidos(selectorCheckbox, selectorTablaDestino) {
     document.querySelectorAll(selectorCheckbox).forEach(checkbox => {
         const filaOriginal = checkbox.closest('tr');
         const tablaDestino = document.querySelector(selectorTablaDestino);
-        const nuevaFila = document.createElement('tr');
-        nuevaFila.classList.add('linea');
-        nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
-        nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-        nuevaFila.setAttribute('data-guardado', 'guardado'); // Actualiza el estado a 'guardado'
-
-        // Crear y añadir un nuevo td con un checkbox sin marcar al inicio de la nueva fila
-        const tdCheckbox = document.createElement('td');
-        const nuevoCheckbox = document.createElement('input');
-        nuevoCheckbox.type = 'checkbox';
-        tdCheckbox.appendChild(nuevoCheckbox);
-        nuevaFila.appendChild(tdCheckbox);
-
-        // Copiar cada celda de la fila original a la nueva fila, excepto el primer td (el del checkbox original)
-        Array.from(filaOriginal.children).forEach((td, index) => {
-            if (index > 0) {
-                const nuevoTd = td.cloneNode(true);
-                nuevaFila.appendChild(nuevoTd);
-            }
-        });
-
-        // Añadir la nueva fila a la tabla destino
+        const nuevaFila = crearNuevaFila(filaOriginal);
         tablaDestino.appendChild(nuevaFila);
-
-        // Eliminar la fila original
         filaOriginal.remove();
     });
-
-    // Actualizar colores después de mover los pedidos
     actualizarColores();
 }
 
-// Función para confirmar los procesos movidos
+function crearNuevaFila(filaOriginal) {
+    const nuevaFila = document.createElement('tr');
+    nuevaFila.className = 'linea';
+    nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
+    nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
+    nuevaFila.setAttribute('data-guardado', 'guardado');
+
+    const tdCheckbox = document.createElement('td');
+    const nuevoCheckbox = document.createElement('input');
+    nuevoCheckbox.type = 'checkbox';
+    tdCheckbox.appendChild(nuevoCheckbox);
+    nuevaFila.appendChild(tdCheckbox);
+
+    Array.from(filaOriginal.children).slice(1).forEach(td => {
+        nuevaFila.appendChild(td.cloneNode(true));
+    });
+
+    return nuevaFila;
+}
+
 function confirmarProcesos() {
-    let procesosActualizar = [];
-    let procesosRevertir = [];
+    const procesosActualizar = obtenerProcesos('.column:nth-child(4) table tbody tr', true);
+    const procesosRevertir = obtenerProcesos('.column:nth-child(2) table tbody tr', false);
 
-    // Seleccionar todas las filas de las columnas 2 y 4
-    const filasColumna2 = document.querySelectorAll('.column:nth-child(2) table tbody tr');
-    const filasColumna4 = document.querySelectorAll('.column:nth-child(4) table tbody tr');
-
-    // Agregar procesos de la columna 4 (Procesos en máquina)
-    filasColumna4.forEach((fila, index) => {
-        const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
-        const nombreProceso = fila.getAttribute('data-nombre-proceso');
-        const idMaquina = selectedMachineId;
-        if (idLineaPedido && nombreProceso && idMaquina) {
-            procesosActualizar.push({
-                nombre_proceso: nombreProceso,
-                id_linea_pedido: idLineaPedido,
-                id_maquina: idMaquina,
-                orden: index + 1 // Asignar el orden basado en la posición actual
-            });
-        }
-    });
-
-    // Agregar procesos de la columna 2 (Procesos listos para producir)
-    filasColumna2.forEach(fila => {
-        const idLineaPedido = fila.querySelector('td:nth-child(2)').textContent.trim();
-        const nombreProceso = fila.getAttribute('data-nombre-proceso');
-        if (idLineaPedido && nombreProceso) {
-            procesosRevertir.push({
-                nombre_proceso: nombreProceso,
-                id_linea_pedido: idLineaPedido,
-                id_maquina: null,
-                orden: 0 // Resetear el orden
-            });
-        }
-    });
-
-    // Guardar el ID de la máquina seleccionada en localStorage
     if (selectedMachineId) {
         localStorage.setItem('selectedMachineId', selectedMachineId);
     }
 
-    // Realizar la llamada AJAX para actualizar
     if (procesosActualizar.length > 0) {
-        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesosActualizar, function() {
-            fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', {
-                method: 'POST'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('reloadedFromConfirm', 'true');
-                    window.location.reload();
-                } else {
-                    alert('Error al actualizar los estados de las líneas de pedido.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        });
+        actualizarProcesos(procesosActualizar);
     }
 
-    // Realizar la llamada AJAX para revertir
     if (procesosRevertir.length > 0) {
-        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesosRevertir, function() {
-            localStorage.setItem('reloadedFromConfirm', 'true');
-            window.location.reload();
-        });
+        revertirProcesos(procesosRevertir);
     }
 
-    // Llamar a actualizarColores después de confirmar los procesos
     actualizarColores();
 }
 
-// Función para seleccionar la máquina guardada
-function seleccionarMaquinaGuardada() {
-    const reloadedFromConfirm = localStorage.getItem('reloadedFromConfirm');
-    if (reloadedFromConfirm === 'true') {
-        const savedMachineId = localStorage.getItem('selectedMachineId');
-        if (savedMachineId) {
-            const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
-            if (maquina) {
-                maquina.click(); // Simula un clic en la máquina
-            }
-        }
-        // Limpiar localStorage después de usar
-        localStorage.removeItem('selectedMachineId');
-        localStorage.removeItem('reloadedFromConfirm');
-    }
+function obtenerProcesos(selector, conOrden) {
+    return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
+        nombre_proceso: fila.getAttribute('data-nombre-proceso'),
+        id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+        id_maquina: conOrden ? selectedMachineId : null,
+        orden: conOrden ? index + 1 : 0
+    }));
 }
 
-// Función para realizar las peticiones AJAX
+function actualizarProcesos(procesos) {
+    realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesos, () => {
+        actualizarEstadoLineaPedido();
+    });
+}
+
+function revertirProcesos(procesos) {
+    realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesos, () => {
+        localStorage.setItem('reloadedFromConfirm', 'true');
+        window.location.reload();
+    });
+}
+
+function actualizarEstadoLineaPedido() {
+    fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                localStorage.setItem('reloadedFromConfirm', 'true');
+                window.location.reload();
+            } else {
+                alert('Error al actualizar los estados de las líneas de pedido.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Funciones de utilidad
 function realizarPeticionAjax(url, procesos, callback) {
     $.ajax({
         url: url,
@@ -781,23 +466,176 @@ function realizarPeticionAjax(url, procesos, callback) {
     });
 }
 
-// Función para mostrar todas las líneas de pedido en la columna 4
-function mostrarTodasLasLineas1() {
+function mostrarTodasLasLineas() {
     document.querySelectorAll('#col4 .linea').forEach(linea => {
         linea.style.display = '';
     });
 }
 
-// Función para actualizar los colores de las filas
 function actualizarColores() {
     document.querySelectorAll('#col4 .linea').forEach(fila => {
-        if (fila.getAttribute('data-guardado') === 'guardado') {
-            fila.classList.add('sin-color');
-            fila.classList.remove('verde-tenue');
-        } else {
-            fila.classList.add('verde-tenue');
-            fila.classList.remove('sin-color');
+        fila.classList.toggle('sin-color', fila.getAttribute('data-guardado') === 'guardado');
+        fila.classList.toggle('verde-tenue', fila.getAttribute('data-guardado') !== 'guardado');
+    });
+}
+
+function seleccionarMaquinaGuardada() {
+    if (localStorage.getItem('reloadedFromConfirm') === 'true') {
+        const savedMachineId = localStorage.getItem('selectedMachineId');
+        if (savedMachineId) {
+            const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
+            if (maquina) maquina.click();
+        }
+        localStorage.removeItem('selectedMachineId');
+        localStorage.removeItem('reloadedFromConfirm');
+    }
+}
+
+// Inicialización y eventos
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar Select2
+    ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
+        $(selector).select2();
+    });
+
+    seleccionarMaquinaGuardada();
+
+    // Eventos de filtrado
+    $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
+    $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
+    $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
+    $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
+    $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
+
+    // Evento para limpiar filtros
+    $('#clearFilters').on('click', () => {
+        ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+            $(selector).val('').trigger('change');
+        });
+        if (sortable) sortable.option("disabled", true);
+    });
+
+    // Eventos de botones
+    document.querySelectorAll('button[data-action]').forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            if (action === 'move-right') {
+                if (!selectedMachineId) {
+                    alert('¡Seleccione una máquina!');
+                    return;
+                }
+                moverPedidos('input[type="checkbox"]:checked', '.column:nth-child(4) table tbody');
+            } else if (action === 'move-left') {
+                moverPedidos('.column:nth-child(4) input[type="checkbox"]:checked', '.column:nth-child(2) table tbody');
+            } else if (action === 'confirm') {
+                confirmarProcesos();
+            }
+        });
+    });
+
+    // Eventos de máquinas
+    document.querySelectorAll('.maquina').forEach(maquina => {
+        maquina.addEventListener('click', function() {
+            selectedMachineId = this.getAttribute('data-id-maquina');
+            filtrarProcesosPorMaquina(selectedMachineId, this.getAttribute('data-nombre'));
+            if (sortable) sortable.option("disabled", false);
+        });
+    });
+
+    // Evento para ver todo
+    $('#verTodo').on('click', () => {
+        selectedMachineId = null;
+        selectedClientFilterCol4 = '';
+        selectedProcesoFilterCol4 = '';
+        $('#clienteFilterCol4, #searchInputCol4').val('').trigger('change');
+        mostrarTodasLasLineas();
+        document.getElementById('tituloProcesosEnMaquina').textContent = 'Procesos en máquinas';
+        if (sortable) sortable.option("disabled", true);
+    });
+
+    // Inicializar Sortable
+    var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
+    sortable = Sortable.create(el, {
+        animation: 150,
+        onEnd: function(evt) {
+            actualizarOrdenProcesos();
         }
     });
+    sortable.option("disabled", true);
+});
+
+// Eventos adicionales
+document.addEventListener('click', function(event) {
+    if (event.target.matches('button[data-action="confirm"]')) {
+        actualizarOrdenProcesos();
+    }
+
+    const targetTerminado = event.target.closest('button[data-action="btn-terminado"]');
+    if (targetTerminado) {
+        event.preventDefault();
+        marcarComoTerminado(targetTerminado);
+    }
+});
+
+function actualizarOrdenProcesos() {
+    const filas = document.querySelectorAll('#sortableTable tbody tr');
+    let ordenes = Array.from(filas)
+        .filter(fila => fila.getAttribute('data-id-maquina') === selectedMachineId)
+        .map((fila, index) => ({
+            id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+            nombre_proceso: fila.getAttribute('data-nombre-proceso').trim(),
+            orden: index + 1,
+            id_maquina: fila.getAttribute('data-id-maquina').trim()
+        }));
+
+    fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ordenes: ordenes })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Orden actualizado correctamente.');
+        } else {
+            alert('Error al actualizar el orden.');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function marcarComoTerminado(button) {
+    const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
+    let lineItems = Array.from(selectedLines).map(line => {
+        const row = line.closest('tr');
+        return {
+            idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
+            nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
+        };
+    });
+
+    if (lineItems.length > 0) {
+        button.disabled = true;
+        fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lineItems: lineItems })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            } else {
+                alert('Error al actualizar los estados.');
+            }
+        })
+        .catch(error => {
+            console.error("Error en la solicitud:", error);
+            alert('Error al actualizar los estados.');
+        })
+        .finally(() => {
+            button.disabled = false;
+        });
+    }
 }
 </script>
