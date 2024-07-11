@@ -499,7 +499,7 @@ function actualizarColores() {
 }
 
 function seleccionarMaquinaGuardada() {
-    if (localStorage.getItem('reloadedFromConfirm') === 'true') {
+    if (localStorage.getItem('reloadedFromConfirm') === 'true' || localStorage.getItem('reloadedFromTerminar') === 'true') {
         const savedMachineId = localStorage.getItem('selectedMachineId');
         if (savedMachineId) {
             const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
@@ -507,8 +507,10 @@ function seleccionarMaquinaGuardada() {
         }
         localStorage.removeItem('selectedMachineId');
         localStorage.removeItem('reloadedFromConfirm');
+        localStorage.removeItem('reloadedFromTerminar');
     }
 }
+
 
 // Inicialización y eventos
 document.addEventListener('DOMContentLoaded', function() {
@@ -580,6 +582,10 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarOrdenProcesos();
         }
     });
+
+    document.querySelector('button[data-action="btn-terminado"]').addEventListener('click', function() {
+        marcarComoTerminado(this);
+    });
     sortable.option("disabled", true);
 });
 
@@ -635,6 +641,12 @@ function marcarComoTerminado(button) {
 
     if (lineItems.length > 0) {
         button.disabled = true;
+
+        // Guardar la máquina seleccionada en el almacenamiento local
+        if (selectedMachineId) {
+            localStorage.setItem('selectedMachineId', selectedMachineId);
+        }
+
         fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -643,6 +655,8 @@ function marcarComoTerminado(button) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // Recargar la página
+                localStorage.setItem('reloadedFromTerminar', 'true');
                 window.location.reload();
             } else {
                 alert('Error al actualizar los estados.');
@@ -657,5 +671,6 @@ function marcarComoTerminado(button) {
         });
     }
 }
+
 
 </script>
