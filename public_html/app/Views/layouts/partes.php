@@ -13,7 +13,7 @@
 	<!-- Attainet partes CSS -->
 	<?php $ahora= time(); ?> 
 
-	<link href="<?php echo base_url("/assets/css/partes.css?v='$ahora'"); ?>" rel="stylesheet">
+	<link href="<?php echo base_url("public/assets/css/partes.css?v='$ahora'"); ?>" rel="stylesheet">
 
 	<!-- Bootstrap Core CSS -->
 	<link href="<?php echo base_url("vendor/grocery-crud/css/bootstrap-v5/bootstrap.min.css"); ?>" rel="stylesheet">

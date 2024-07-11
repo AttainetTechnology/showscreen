@@ -7,7 +7,7 @@
               $session = session();
               $session_data = $session->get('logged_in');
               $id_empresa = $session_data['id_empresa']; 
-              echo base_url('assets/uploads/files/' . $url_logo);
+              echo base_url('public/assets/uploads/files/' . $url_logo);
             ?>">
 
         </div>

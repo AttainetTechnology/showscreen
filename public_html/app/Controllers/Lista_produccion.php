@@ -27,19 +27,14 @@ class Lista_produccion extends BaseControllerGC
 				
 	// Comienza Grocery CRUD a montar la tabla	
 	$crud = $this->_getClientDatabase();
-// Definimos el número de columnas
-
+	// Definimos el número de columnas
 	$crud->columns(['fecha_entrega','id_pedido','n_piezas','id_producto','nom_base','med_inicial','med_final','estado']);
     $crud->setTable('linea_pedidos');
 	$crud->where ( $coge_estado . $where_estado);
 	
 	//Definimos el título de la tabla
-	//Sacamos la fecha de hoy
-	$ahora= date('d-m-y');
-
-
-		$crud->setRelation('id_producto','productos','nombre_producto');
-		$crud->setRelation('id_producto','productos','nombre_producto');
+	$crud->setRelation('id_producto','productos','nombre_producto');
+	$crud->setRelation('id_producto','productos','nombre_producto');
 	if ($where_estado=='0'){
 		$crud->setActionButton('Parte', 'fa fa-print', function ($row) {
 			$uri = service('uri');
