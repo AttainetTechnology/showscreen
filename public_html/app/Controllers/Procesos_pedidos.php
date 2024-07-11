@@ -23,19 +23,12 @@ class Procesos_pedidos extends BaseControllerGC {
         $procesoModel = new Proceso($db);
         $maquinasModel = new Maquinas($db);
         $procesosPedidoModel = new ProcesosPedido($db);
-
-        log_message('debug', 'Cargando index de Procesos_pedidos');
-
         $lineasConEstado2 = $this->obtenerLineasPedidoConEstado2YCrearProcesos();
-        
-        log_message('debug', 'Líneas con estado 2 obtenidas: ' . count($lineasConEstado2));
-        
         // Obtener líneas de pedido con estado = 2
         $lineas = $lineaPedidoModel->whereIn('estado', [2, 3])->findAll();
     
         // Obtener procesos_pedido con estado = 2
         $procesosPedido = $procesosPedidoModel->where('estado', 2)->findAll();
-    
         $data = [];
         
         foreach ($lineas as $linea) {
@@ -347,7 +340,7 @@ public function revertirEstadoProcesos() {
                 continue;
             }
     
-            log_message('debug', 'Actualizando estado del proceso: ' . json_encode($procesoInfo)); // Debug
+            log_message('debug', 'Actualizando estado del proceso: ' . json_encode($procesoInfo)); 
     
             $procesosPedidoModel
                 ->where('id_linea_pedido', $idLineaPedido)

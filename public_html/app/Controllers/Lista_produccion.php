@@ -10,15 +10,15 @@ class Lista_produccion extends BaseControllerGC
 		$coge_estado, $where_estado y selectfamilia 
 	*/
 	
-	public function pendientes($selectfamilia = 0) { $this->todos('estado=','0', $selectfamilia, 'pendientes'); }
-	public function enmarcha($selectfamilia = 0)	{	$this->todos('estado=','2', $selectfamilia, 'en cola'); 	}
-	public function enmaquina($selectfamilia = 0)	{	$this->todos('estado=','3', $selectfamilia, 'en maquina');	}
-	public function terminados($selectfamilia = 0) { $this->todos('estado=','4', $selectfamilia, 'terminados'); }
-	public function entregados($selectfamilia)	{	$this->todos('estado=','5', $selectfamilia, 'entregados');	}
+	public function pendientes() { $this->todos('estado=','0', 'pendientes'); }
+	public function enmarcha()	{	$this->todos('estado=','2', 'en cola'); 	}
+	public function enmaquina()	{	$this->todos('estado=','3', 'en maquina');	}
+	public function terminados() { $this->todos('estado=','4', 'terminados'); }
+	public function entregados()	{	$this->todos('estado=','5','entregados');	}
 	public function todoslospartes()			{	$this->todos('estado<','7', '0', '(todos)');	}
 	
 	/* Comienza la función todos que cambian según el estado que se le pasa */	
-	public function todos( $coge_estado, $where_estado, $selectfamilia, $situacion){
+	public function todos( $coge_estado, $where_estado, $situacion){
 
 	//Control de login	
 		helper('controlacceso');
@@ -36,27 +36,10 @@ class Lista_produccion extends BaseControllerGC
 	//Definimos el título de la tabla
 	//Sacamos la fecha de hoy
 	$ahora= date('d-m-y');
-	//Cargo el modelo donde sacamos el nombre de la familia a través de su id $selectfamilia
 
-if ($selectfamilia != '0') {
-    $this->Menu_familias_model = model('App\Models\Menu_familias_model');
-    $nombre_familia = $this->Menu_familias_model->familia_nombre($selectfamilia);
-    // Creo una variable para definir el título de la página
-    $titulo_pagina = $nombre_familia . " " . $situacion . " - fecha: " . $ahora;
-} else {
-    $titulo_pagina = "Partes " . $situacion . " - fecha: " . $ahora;
-}
 
-	$crud->setSubject($titulo_pagina, $titulo_pagina);
-	
-	// Hacemos que la columna id_producto muestre el nombre de la familia
-	
-	if ($selectfamilia!='0'){
-		$crud->setRelation('id_producto','productos','nombre_producto',['id_familia'=> $selectfamilia]);
-	}
-	else{
 		$crud->setRelation('id_producto','productos','nombre_producto');
-	}
+		$crud->setRelation('id_producto','productos','nombre_producto');
 	if ($where_estado=='0'){
 		$crud->setActionButton('Parte', 'fa fa-print', function ($row) {
 			$uri = service('uri');
@@ -65,33 +48,7 @@ if ($selectfamilia != '0') {
 			return base_url('partes/print/').'/'.$row->id_lineapedido.'?volver='.$pg2;
 		}, false);
 	}
-	//Si el estado es 2, en marcha le permito pasar la línea a máquina
-	
-	if ($where_estado=='2'){
-		$crud->setActionButton('A máquinas', 'fa fa-arrow-right', function ($row) {
-			$uri = service('uri');
-			$uri = current_url(true);
-			$pg2=$uri;
-			return base_url('/lista_produccion/actualiza_linea/').'/'.$row->id_lineapedido.'/3/?volver='.$pg2;
-		}, false);
-	}
-	//Si el estado es 3, en maquinas, le permito sacar a la línea de máquina
-	
-	if ($where_estado=='3'){
-		
-		$crud->setActionButton('Quitar de máquinas', 'fa fa-arrow-left', function ($row) {
-			$uri = service('uri');
-			$uri = current_url(true);
-			$pg2=$uri;
-			return base_url('/lista_produccion/actualiza_linea/').'/'.$row->id_lineapedido.'/2/?volver='.$pg2;
-		}, false);
-		$crud->setActionButton('Terminar', 'fa fa-check', function ($row) {
-			$uri = service('uri');
-			$uri = current_url(true);
-			$pg2=$uri;
-			return base_url('/lista_produccion/actualiza_linea/').'/'.$row->id_lineapedido.'/4/?volver='.$pg2;
-		}, false);	
-	}
+
 	if ($where_estado=='4'){
 		
 		$crud->setActionButton('Entregar', 'fa fa-truck', function ($row) {
