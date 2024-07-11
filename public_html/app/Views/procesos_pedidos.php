@@ -135,22 +135,23 @@
                 </thead>
                 <tbody>
                 <?php foreach ($lineasEstado3 as $linea): ?>
-                <tr class="linea" 
-                    data-nombre-cliente="<?= esc($linea['cliente']) ?>" 
-                    data-nombre-proceso="<?= esc($linea['proceso']); ?>" 
-                    data-id-maquina="<?= $linea['id_maquina']; ?>" 
-                    data-estado="<?= esc($linea['guardado']); ?>"> 
-                    <td><input type="checkbox" name="selectedLine[]"></td>
-                    <td><?= $linea['id_linea_pedido']; ?></td>
-                    <td><?= $linea['cliente'] ?></td>
-                    <td><?= $linea['medidas'] ?></td>
-                    <td><?= $linea['fecha'] ?></td>
-                    <td><?= $linea['producto'] ?></td>
-                    <td><?= $linea['n_piezas'] ?></td>
-                    <td><?= $linea['proceso'] ?></td>
-                    <td><?= $linea['base'] ?></td>
-                </tr>
-                <?php endforeach; ?>
+            <tr class="linea" 
+                data-nombre-cliente="<?= esc($linea['cliente']) ?>" 
+                data-nombre-proceso="<?= esc($linea['proceso']); ?>" 
+                data-id-maquina="<?= $linea['id_maquina']; ?>" 
+                data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>"> 
+                <td><input type="checkbox" name="selectedLine[]"></td>
+                <td><?= $linea['id_linea_pedido']; ?></td>
+                <td><?= $linea['cliente'] ?></td>
+                <td><?= $linea['medidas'] ?></td>
+                <td><?= $linea['fecha'] ?></td>
+                <td><?= $linea['producto'] ?></td>
+                <td><?= $linea['n_piezas'] ?></td>
+                <td><?= $linea['proceso'] ?></td>
+                <td><?= $linea['base'] ?></td>
+            </tr>
+            <?php endforeach; ?>
+
 
                 </tbody>
             </table>
@@ -352,11 +353,21 @@ function filtrarPorProceso(valor, columna) {
     }
     aplicarFiltros(columna);
 }
-
 function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
     selectedMachineId = idMaquina;
     document.getElementById('tituloProcesosEnMaquina').textContent = `Procesos en ${nombreMaquina}`;
-    aplicarFiltros(4);
+    
+    // Mostrar todos los procesos no guardados y los de la máquina seleccionada
+    document.querySelectorAll('#col4 .linea').forEach(row => {
+        const estado = row.getAttribute('data-estado');
+        const idMaquinaFila = row.getAttribute('data-id-maquina');
+        
+        if (estado === 'no-guardado' || idMaquinaFila === idMaquina) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
 }
 
 // Funciones de movimiento y confirmación
@@ -377,7 +388,7 @@ function crearNuevaFila(filaOriginal) {
     nuevaFila.className = 'linea';
     nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
     nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-    nuevaFila.setAttribute('data-guardado', 'guardado');
+    nuevaFila.setAttribute('data-estado', 'no-guardado');  // Aquí cambiamos a no-guardado
 
     const tdCheckbox = document.createElement('td');
     const nuevoCheckbox = document.createElement('input');
@@ -391,6 +402,7 @@ function crearNuevaFila(filaOriginal) {
 
     return nuevaFila;
 }
+
 
 function confirmarProcesos() {
     const procesosActualizar = obtenerProcesos('.column:nth-child(4) table tbody tr', true);
