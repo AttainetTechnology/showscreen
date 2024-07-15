@@ -90,7 +90,7 @@ class Lista_produccion extends BaseControllerGC
 		foreach ($pedido as $row)
 			{
 			$cliente=$row->nombre_cliente;
-			return "<b><a href=".base_url()."/Pedidos2/enmarcha#/edit/".$id_pedido." target='_blank'>".$id_pedido." - ".$cliente."</a></b>";
+			return "<b><a href=".base_url()."Pedidos2/enmarcha#/edit/".$id_pedido." target='_blank'>".$id_pedido." - ".$cliente."</a></b>";
 			}
 	}
 	public function actualiza_linea($id_lineapedido,$estado)
