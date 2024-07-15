@@ -613,6 +613,8 @@ function actualizarOrdenProcesos() {
             id_maquina: fila.getAttribute('data-id-maquina').trim()
         }));
 
+    console.log('Ordenes a enviar:', ordenes); // Agregar salida de depuración
+
     fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -622,12 +624,16 @@ function actualizarOrdenProcesos() {
     .then(data => {
         if (data.success) {
             console.log('Orden actualizado correctamente.');
+            console.log('Procesos actualizados:', data.procesos_actualizados);
+            if (data.procesos_no_encontrados.length > 0) {
+                console.warn('Algunos procesos no se encontraron:', data.procesos_no_encontrados);
+            }
         } else {
-            alert('Error al actualizar el orden.');
+            alert('Error al actualizar el orden: ' + data.error);
         }
     })
-    .catch(error => console.error('Error:', error));
 }
+
 
 function marcarComoTerminado(button) {
     const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');

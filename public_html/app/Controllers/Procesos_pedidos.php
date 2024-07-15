@@ -398,41 +398,77 @@ public function revertirEstadoProcesos() {
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);
         $procesosPedidoModel = new ProcesosPedido($db);
-        
+    
         $data = $this->request->getJSON(true);
-        
+    
         if (!isset($data['ordenes']) || !is_array($data['ordenes'])) {
             return $this->response->setJSON(['error' => 'Datos inválidos']);
         }
-        
-        foreach ($data['ordenes'] as $orden) {
-            if (isset($orden['id_linea_pedido'], $orden['nombre_proceso'], $orden['orden'], $orden['id_maquina'])) {
-                // Identificar el proceso específico dentro de la id_maquina dada
-                $proceso = $procesosPedidoModel
-                    ->where('id_linea_pedido', $orden['id_linea_pedido'])
-                    ->where('id_maquina', $orden['id_maquina'])
-                    ->where('id_proceso', function($builder) use ($orden) {
-                        return $builder->select('id_proceso')
-                                       ->from('procesos')
-                                       ->where('nombre_proceso', $orden['nombre_proceso'])
-                                       ->limit(1);
-                    })
-                    ->first();
     
-                if ($proceso) {
-                    // Actualizar el orden del proceso específico
-                    $procesosPedidoModel
+        $db->transStart(); // Inicia una transacción
+    
+        $procesosActualizados = [];
+        $procesosNoEncontrados = [];
+    
+        try {
+            foreach ($data['ordenes'] as $orden) {
+                if (isset($orden['id_linea_pedido'], $orden['nombre_proceso'], $orden['orden'], $orden['id_maquina'])) {
+                    // Buscar el proceso específico dentro de la id_maquina dada
+                    $proceso = $procesosPedidoModel
                         ->where('id_linea_pedido', $orden['id_linea_pedido'])
                         ->where('id_maquina', $orden['id_maquina'])
-                        ->where('id_proceso', $proceso['id_proceso'])
-                        ->set(['orden' => $orden['orden']])
-                        ->update();
+                        ->whereIn('id_proceso', function($builder) use ($orden) {
+                            return $builder->select('id_proceso')
+                                           ->from('procesos')
+                                           ->where('nombre_proceso', $orden['nombre_proceso']);
+                        })
+                        ->first();
+    
+                    if ($proceso) {
+                        // Actualizar el orden del proceso específico
+                        $procesosPedidoModel
+                            ->where('id_linea_pedido', $orden['id_linea_pedido'])
+                            ->where('id_maquina', $orden['id_maquina'])
+                            ->where('id_proceso', $proceso['id_proceso'])
+                            ->set(['orden' => $orden['orden']])
+                            ->update();
+                        
+                        $procesosActualizados[] = [
+                            'id_linea_pedido' => $orden['id_linea_pedido'],
+                            'nombre_proceso' => $orden['nombre_proceso'],
+                            'orden' => $orden['orden'],
+                            'id_maquina' => $orden['id_maquina']
+                        ];
+                    } else {
+                        $procesosNoEncontrados[] = [
+                            'id_linea_pedido' => $orden['id_linea_pedido'],
+                            'nombre_proceso' => $orden['nombre_proceso'],
+                            'orden' => $orden['orden'],
+                            'id_maquina' => $orden['id_maquina']
+                        ];
+                    }
+                } else {
+                    throw new \Exception('Datos del orden incompletos o inválidos.');
                 }
             }
+    
+            $db->transComplete(); // Completa la transacción
+    
+            if ($db->transStatus() === false) {
+                throw new \Exception('Error al actualizar el orden de los procesos.');
+            }
+    
+            return $this->response->setJSON([
+                'success' => 'Orden actualizado correctamente.',
+                'procesos_actualizados' => $procesosActualizados,
+                'procesos_no_encontrados' => $procesosNoEncontrados
+            ]);
+        } catch (\Exception $e) {
+            $db->transRollback(); // Revierte la transacción en caso de error
+            return $this->response->setJSON(['error' => $e->getMessage()]);
         }
-        
-        return $this->response->setJSON(['success' => 'Orden actualizado correctamente.']);
     }
+    
     
 function mostrarVista() {
     $data = usuario_sesion();
