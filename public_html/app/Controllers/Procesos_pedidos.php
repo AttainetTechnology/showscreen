@@ -452,7 +452,7 @@ public function revertirEstadoProcesos() {
                 }
             }
     
-            $db->transComplete(); // Completa la transacción
+            $db->transComplete(); 
     
             if ($db->transStatus() === false) {
                 throw new \Exception('Error al actualizar el orden de los procesos.');

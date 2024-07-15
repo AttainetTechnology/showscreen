@@ -344,6 +344,11 @@ function filtrarPorCliente(valor, columna) {
     }
     aplicarFiltros(columna);
 }
+function filtrarPorClienteCol4(valor) {
+    selectedClientFilterCol4 = valor.toLowerCase();
+    aplicarFiltros(4);
+}
+
 
 function filtrarPorProceso(valor, columna) {
     if (columna === 2) {
@@ -388,7 +393,7 @@ function crearNuevaFila(filaOriginal) {
     nuevaFila.className = 'linea';
     nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
     nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-    nuevaFila.setAttribute('data-estado', 'no-guardado');  // Aquí cambiamos a no-guardado
+    nuevaFila.setAttribute('data-estado', 'no-guardado'); 
 
     const tdCheckbox = document.createElement('td');
     const nuevoCheckbox = document.createElement('input');
@@ -613,7 +618,7 @@ function actualizarOrdenProcesos() {
             id_maquina: fila.getAttribute('data-id-maquina').trim()
         }));
 
-    console.log('Ordenes a enviar:', ordenes); // Agregar salida de depuración
+    console.log('Ordenes a enviar:', ordenes);
 
     fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
         method: 'POST',
