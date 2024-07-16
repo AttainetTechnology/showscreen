@@ -52,7 +52,7 @@ $crud->displayAs('id_usuario','Nombre');
 //$crud->displayAs('id','Fecha');
 $crud->fieldType('extras', 'dropdown', [
 	'1' => 'Sí',
-	'' => 'No'
+	'0' => ' '
 ]);
 $crud->fieldType('incidencia', 'dropdown', [
 	' '	=> '--',
