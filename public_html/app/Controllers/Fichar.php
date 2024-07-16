@@ -33,11 +33,12 @@ class Fichar extends BaseFichar
 		$datos['presentes']=array();
 		$i=0;
 		// De cada fichaje saco sus datos de usuario y creamos la variable datos[presentes]
-
-		foreach ($a1 as $usera1){
-			$a2= model('Usuarios1_Model', true, $this->db)->where('id', $usera1['id_empleado'])->findAll();
-			$datos['presentes'][$i] = array_merge($a2[0], $usera1);
-			$i+=1;
+		foreach ($a1 as $usera1) {
+			$a2 = model('Usuarios1_Model', true, $this->db)->where('id', $usera1['id_empleado'])->findAll();
+			if (!empty($a2)) {
+				$datos['presentes'][$i] = array_merge($a2[0], $usera1);
+				$i += 1;
+			}
 		}
 
 		$datos['cabecera']= view('template/cabecera');
@@ -341,11 +342,14 @@ public function CerrarFichajesAbiertos($aviso){
 		$datos['presentes']=array();
 		$i=0;
 		// De cada fichaje saco sus datos de usuario y creamos la variable datos[presentes]
-		foreach ($presentes as $usera1){
-			$a2= model('Usuarios1_Model', true, $this->db)->where('id', $usera1['id_empleado'])->findAll();
-			$datos['presentes'][$i] = array_merge($a2[0], $usera1);
-			$i+=1;
+		foreach ($presentes as $usera1) {
+			$a2 = model('Usuarios1_Model', true, $this->db)->where('id', $usera1['id_empleado'])->findAll();
+			if (!empty($a2)) {
+				$datos['presentes'][$i] = array_merge($a2[0], $usera1);
+				$i += 1;
+			}
 		}
+
 
 		/* Plantillas */
 		$datos['cabecera']= view('template/cabecera');
