@@ -15,7 +15,7 @@ class Lista_produccion extends BaseControllerGC
 	public function enmaquina()	{	$this->todos('estado=','3', 'en maquina');	}
 	public function terminados() { $this->todos('estado=','4', 'terminados'); }
 	public function entregados()	{	$this->todos('estado=','5','entregados');	}
-	public function todoslospartes()			{	$this->todos('estado<','7', '(todos)');	}
+	public function todoslospartes()			{	$this->todos('estado<','7', '0', '(todos)');	}
 	
 	/* Comienza la función todos que cambian según el estado que se le pasa */	
 	public function todos( $coge_estado, $where_estado, $situacion){
