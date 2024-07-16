@@ -121,7 +121,7 @@ public function save()
         $originalName = $imageFile->getName();
         $id_empresa = $this->data['id_empresa'];
         $id_user = $this->data['id_user'];
-        $specificPath = FCPATH . "assets/uploads/files/" . $id_empresa . "/usuarios/" . $id_user . "/";
+        $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $id_user . "/";
 
         if (!is_dir($specificPath)) {
             mkdir($specificPath, 0777, true);
@@ -186,7 +186,7 @@ public function save()
 
         // Añadir la ruta de la imagen al objeto de usuario
         $id_empresa = $this->data['id_empresa'];
-        $specificPath = "assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
+        $specificPath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
         if (isset($userClient->userfoto)) {
             $slashPosition = strpos($userClient->userfoto, '/');
             $imageNameWithoutPrefix = substr($userClient->userfoto, $slashPosition + 1);
