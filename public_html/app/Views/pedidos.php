@@ -18,7 +18,7 @@ use App\Models\Usuarios_model;
               $session = session();
               $session_data = $session->get('logged_in');
               $id_empresa = $session_data['id_empresa']; 
-              echo base_url('assets/uploads/files/' . $logo);
+              echo base_url('public/assets/uploads/files/' . $logo);
             ?>" class="logo_partes"><br>
 				<br>
                 <?php

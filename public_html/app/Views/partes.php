@@ -28,7 +28,7 @@
                                                 $session_data = $session->get('logged_in');
                                                 $id_empresa = $session_data['id_empresa']; 
                                                 ?>
-                                                <img src="<?php echo base_url('assets/uploads/files/' .  $logo); ?>" class="logo_partes"><br>
+                                                <img src="<?php echo base_url('public/assets/uploads/files/' .  $logo); ?>" class="logo_partes"><br>
                                                 <br>
                                                 Cliente: 
                                                 <address>
@@ -50,7 +50,7 @@
                                                         <strong><?php echo date("d-m-Y", strtotime($p->fecha_entrega)); ?></strong>
                                                     </div>
                                                 </div>
-                                                <img src="<?php echo base_url('assets/uploads/files') . "/$id_empresa/productos/" . $prod->imagen; ?>" class="imagen_parte"/><br /> 			
+                                                <img src="<?php echo base_url('public/assets/uploads/files') . "/$id_empresa/productos/" . $prod->imagen; ?>" class="imagen_parte"/><br /> 			
                                             </div>
                                             <!-- END Cabecera -->
                                         </div><!-- /.row -->

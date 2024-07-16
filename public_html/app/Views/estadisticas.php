@@ -171,7 +171,7 @@
 							$linea.="<tr>
                             			<td>".$pz['nombre']."</td>
                             			<td>".$pz['total_piezas']."</td>
-        								<td><img src=".site_url('assets/uploads/files/grafico.png')." height='25px' width='".  $ancho."%'></td>";
+        								<td><img src=".site_url('public/assets/uploads/files/grafico.png')." height='25px' width='".  $ancho."%'></td>";
 							if ($nivel>6):
 								$euros= number_format($pz['total_euros'], 0, ',', '.');
 								$linea.="<td><strong>". $euros." €</strong></td>";
