@@ -18,9 +18,9 @@
         <div class="tarjeta-empleado">
         <div class="foto_empleado">
             <?php if(!empty($ausente['userfoto'])) { ?>
-               <img data-src="<?=base_url('assets/uploads/files/' . session()->get('id') . '/usuarios/' . $ausente['userfoto']);?>">
+               <img data-src="<?=base_url('public/assets/uploads/files/' . session()->get('id') . '/usuarios/' . $ausente['userfoto']);?>">
             <?php } else { ?>
-               <img data-src="<?=base_url('assets/uploads/files/silueta.png')?>">
+               <img data-src="<?=base_url('public/assets/uploads/files/silueta.png')?>">
             <?php } ?>
          </div>
             <span class="nombre-empleado"><?=$ausente['nombre_usuario'];?> <?=$ausente['apellidos_usuario'];?></span>            

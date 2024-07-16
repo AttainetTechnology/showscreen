@@ -14,9 +14,9 @@
       <?php }?>">
          <div class="foto_empleado">
             <?php if(!empty($presente['userfoto'])) { ?>
-               <img data-src="<?=base_url('assets/uploads/files/' . session()->get('id') . '/usuarios/' . $presente['userfoto']);?>">
+               <img data-src="<?=base_url('public/assets/uploads/files/' . session()->get('id') . '/usuarios/' . $presente['userfoto']);?>">
             <?php } else { ?>
-               <img data-src="<?=base_url('assets/uploads/files/silueta.png')?>">
+               <img data-src="<?=base_url('public/assets/uploads/files/silueta.png')?>">
             <?php } ?>
          </div>
          <div class="nombre-empleado"><?=$presente['nombre_usuario'];?> <?=$presente['apellidos_usuario'];?></div>

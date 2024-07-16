@@ -6,12 +6,17 @@
 	<meta charset="UTF-8">
 	<title>Control de presencia</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Cargo FAVICON  -->
-	<?
-	helper('controlacceso');
-	$data=datos_user();
-	$favicon= $data['favicon'];
-	?>
+	 <!-- Cargo FAVICON  -->
+<?php
+
+helper('controlacceso');
+$data = datos_user();
+$favicon = null;
+
+if ($data !== null && isset($data['favicon'])) {
+    $favicon = $data['favicon'];
+}
+?>
 	
 	<link rel="icon" href="<?=base_url('public')?>public/assets/uploads/favicon<? echo $favicon; ?>" type="image/gif">
 	

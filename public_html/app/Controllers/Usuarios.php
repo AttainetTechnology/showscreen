@@ -66,7 +66,7 @@ class Usuarios extends BaseControllerGC
         });
 
         //Definimos la ruta de subida de archivos
-        $globalUploadPath =  'assets/uploads/files/' . $this->data['id_empresa'] . '/usuarios/';
+        $globalUploadPath =  'public/assets/uploads/files/' . $this->data['id_empresa'] . '/usuarios/';
         if (!is_dir($globalUploadPath)) {
             mkdir($globalUploadPath, 0777, true);
         }
@@ -88,7 +88,7 @@ class Usuarios extends BaseControllerGC
             if ($value === null || $value === '') {
                 return '';
             } else {
-                $specificPath = "assets/uploads/files/" . $id_empresa . "/usuarios/";
+                $specificPath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/";
                 return "<img src='" . base_url($specificPath . $value) . "' height='60' class='foto_user'>";
             }
         });
