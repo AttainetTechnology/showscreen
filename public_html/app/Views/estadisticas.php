@@ -13,7 +13,7 @@
 <!-- /.row -->
 <div class="row">
 <div class="col-lg-3 col-md-6">
-<a href="<?php echo site_url('Lista_linea_pedidos/pendientes_parte')?>">
+<a href="<?php echo site_url('Lista_produccion/pendientes')?>">
 <div class="panel panel-default">
 <div class="panel-heading">
     <div class="row">
@@ -91,7 +91,7 @@
 </a>
 </div>
 <div class="col-lg-3 col-md-6">
-<a href="<?php echo site_url('Lista_linea_pedidos/terminados')?>">
+<a href="<?php echo site_url('Lista_produccion/terminados')?>">
 <div class="panel panel-success">
 	<div class="panel-heading">
 	    <div class="row">
