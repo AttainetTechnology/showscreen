@@ -1,9 +1,9 @@
 <?php
 use App\Models\Usuarios_model;
-		//comienza el foreach		
-		foreach($pedido as $ped) { ?>
+//comienza el foreach
+foreach($pedido as $ped) { ?>
 <div id="fondo">
-<input action="action" type="button" value="<- Vover" onclick="history.go(-1);" class="btn btn-warning btn-sm"/>
+<input action="action" type="button" value="<- Volver" onclick="history.go(-1);" class="btn btn-warning btn-sm"/>
 <input type="button" onclick="printDiv('printableArea')" value="Imprimir Parte" class="btn btn-success btn-sm"/>
 
     <div id="printableArea">
@@ -14,13 +14,13 @@ use App\Models\Usuarios_model;
                 helper('logo');
                 $logo=logo();
                 echo $logo; ?>" class="logo_partes"><br>
-				<br>
+                <br>
             <?php
         function usuarios(){
             $datos = new \App\Models\Usuarios2_Model();
-            $data=usuario_sesion();
-            $id_empresa=$data['id_empresa'];
-            $id_usuario=$data['id_user']; 
+            $data = usuario_sesion();
+            $id_empresa = $data['id_empresa'];
+            $id_usuario = $data['id_user']; 
 
             // Define los criterios para la consulta a la base de datos
             $array = ['nivel_acceso' => '1', 'id_empresa' => $id_empresa];
@@ -51,8 +51,8 @@ use App\Models\Usuarios_model;
         $user_ped = usuarios();
         ?>
         <b><?php echo $ped->pedido_por; ?></b><br>
-        Id.Ped: <b><?php echo $ped->id_pedido; ?></b> | User: <b><?php echo $user_ped[$ped->id_usuario]; ?> </b>
-		</div>	
+        Id.Ped: <b><?php echo $ped->id_pedido; ?></b> | User: <b><?php echo isset($user_ped[$ped->id_usuario]) ? $user_ped[$ped->id_usuario] : 'Unknown'; ?> </b>
+        </div>    
 
         <!-- /.col -->
         <div id="fila_center">
@@ -72,28 +72,28 @@ use App\Models\Usuarios_model;
        <div class="tituparte">Parte de trabajo</div>
 <div id="observaciones">
       <div class="seccionparte">Observaciones de pedido:</div>
-		<?php echo $ped->observaciones; ?>		
+        <?php echo $ped->observaciones; ?>        
 </div>
 <div class="row">
     <div class="col-xs-12 table-responsive" id="tabla_tipopieza">
         <table class="table">
             <thead>
                 <tr> 
-	                <th>Unidades</th>
+                    <th>Unidades</th>
                     <th>Producto</th>
                     <th>Nombre de la base</th>
                     <th>Med. inic.</th>
                     <th>Med. fin.</th>
-   					<th>Modelo</th>
+                    <th>Modelo</th>
                     </tr>
                 </thead>
 
                 <tbody>
 <?php foreach($lineas as $l) { ?>
                         <tr>
-                            <td><b><?php echo $l->n_piezas; ?>	</b></td>
-							
-                            <td><b><?php echo $l->nombre_producto; ?>	</b></td>
+                            <td><b><?php echo $l->n_piezas; ?>    </b></td>
+                            
+                            <td><b><?php echo $l->nombre_producto; ?>    </b></td>
                             <td><b><?php echo $l->nom_base; ?></b></td>
                             <td><b><?php echo $l->med_inicial; ?></b></td>
                             <td><b><?php echo $l->med_final; ?></b></td>
@@ -150,4 +150,4 @@ use App\Models\Usuarios_model;
     </div> <!-- /#Printable area -->
 </div> <!-- Fondo -->
 
-<?php } // Cierro foreach pedido ?> 
+<?php } // Cierro foreach pedido ?>
