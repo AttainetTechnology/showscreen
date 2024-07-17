@@ -2,6 +2,9 @@
     .modal-backdrop.show {
         background-color: #fff3cd;
     }
+    #editUserModal {
+        display: none;
+    }
 </style>
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
