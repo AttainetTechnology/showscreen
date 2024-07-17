@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Nueva contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y números" autocomplete="new-password">
                         </div>
                         <div class="form-group" id="nivelAccesoGroup">
                         <label for="nivel_acceso">Nivel de acceso</label>
