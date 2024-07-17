@@ -90,69 +90,93 @@ class Rutas_transporte extends BaseControllerGC
     }
 
 
-public function save()
-{
-    $session = session();
-    $userId = $session->get('logged_in')['id_user'];
+    public function save()
+    {
+        $session = session();
+        $userId = $session->get('logged_in')['id_user'];
 
-    // Obtener los datos del formulario enviados en la solicitud POST
-    $post_array = $this->request->getPost();
+        // Obtener los datos del formulario enviados en la solicitud POST
+        $post_array = $this->request->getPost();
 
-    // Preparar datos para la base de datos original, incluyendo 'email'
-    $updateDataOriginal = ['email' => $post_array['email']];
-    foreach (['username'] as $field) {
-        if (!empty($post_array[$field])) {
-            $updateDataOriginal[$field] = $post_array[$field];
-        }
-    }
-
-    if (!empty($post_array['password'])) {
-        $updateDataOriginal['password'] = md5($post_array['password']);
-    }
-
-    // Preparar datos para la base de datos del cliente, también incluyendo 'email'
-    $updateDataCliente = ['email' => $post_array['email']];
-
-    // Manejar la carga de la imagen
-    $imageFile = $this->request->getFile('userfoto');
-    $maxSize = 1024 * 1024; // 1MB
-
-    if ($imageFile->isValid() && !$imageFile->hasMoved() && $imageFile->getSize() <= $maxSize) {
-        $originalName = $imageFile->getName();
-        $id_empresa = $this->data['id_empresa'];
-        $id_user = $this->data['id_user'];
-        $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $id_user . "/";
-
-        if (!is_dir($specificPath)) {
-            mkdir($specificPath, 0777, true);
-        } else {
-            array_map('unlink', glob($specificPath . "*")); // Eliminar todos los archivos en el directorio
+        // Preparar datos para la base de datos original, incluyendo 'email'
+        $updateDataOriginal = ['email' => $post_array['email']];
+        foreach (['username'] as $field) {
+            if (!empty($post_array[$field])) {
+                $updateDataOriginal[$field] = $post_array[$field];
+            }
         }
 
-        $imageFile->move($specificPath, $originalName);
-        $imagePath = $specificPath . $originalName;
-        $this->compressAndResizeImage($imagePath, 400, 200); // Comprimir y redimensionar la imagen
+        // Validar y hashear la contraseña si se proporciona
+        if (!empty($post_array['password'])) {
+            if ($this->isValidPassword($post_array['password'])) {
+                $updateDataOriginal['password'] = md5($post_array['password']);
+            } else {
+                $session->setFlashdata('error', 'La contraseña no cumple con los requisitos de seguridad.');
+                return redirect()->back()->withInput();
+            }
+        }
 
-        $updateDataCliente['userfoto'] = $id_user . '/' . $originalName; // Modificar el nombre de la imagen para la base de datos del cliente
+        // Preparar datos para la base de datos del cliente, también incluyendo 'email'
+        $updateDataCliente = ['email' => $post_array['email']];
+
+        // Manejar la carga de la imagen
+        $imageFile = $this->request->getFile('userfoto');
+        $maxSize = 1024 * 1024; // 1MB
+
+        if ($imageFile->isValid() && !$imageFile->hasMoved() && $imageFile->getSize() <= $maxSize) {
+            $originalName = $imageFile->getName();
+            $id_empresa = $this->data['id_empresa'];
+            $id_user = $this->data['id_user'];
+            $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $id_user . "/";
+
+            if (!is_dir($specificPath)) {
+                mkdir($specificPath, 0777, true);
+            } else {
+                array_map('unlink', glob($specificPath . "*")); // Eliminar todos los archivos en el directorio
+            }
+
+            $imageFile->move($specificPath, $originalName);
+            $imagePath = $specificPath . $originalName;
+            $this->compressAndResizeImage($imagePath, 400, 200); // Comprimir y redimensionar la imagen
+
+            $updateDataCliente['userfoto'] = $id_user . '/' . $originalName; // Modificar el nombre de la imagen para la base de datos del cliente
+        }
+
+        // Actualizar los datos en la base de datos original
+        $dbOriginal = db_connect(); // Conexión a la base de datos predeterminada
+        if (!empty($updateDataOriginal)) {
+            $dbOriginal->table('users')->where('id', $userId)->update($updateDataOriginal);
+        }
+
+        // Actualizar 'email' y 'userfoto' en la base de datos del cliente
+        $database = datos_user();
+        $dbCliente = db_connect($database['new_db']);
+        if (!empty($updateDataCliente)) {
+            $dbCliente->table('users')->where('id', $userId)->update($updateDataCliente);
+        }
+
+        $this->logAction('Transportista', 'Edita Datos Acceso', $post_array);
+        return redirect()->to('/Rutas_transporte/rutas');
     }
 
-    // Actualizar los datos en la base de datos original
-    $dbOriginal = db_connect(); // Conexión a la base de datos predeterminada
-    if (!empty($updateDataOriginal)) {
-        $dbOriginal->table('users')->where('id', $userId)->update($updateDataOriginal);
+    private function isValidPassword($password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            return false;
+        }
+        if (!preg_match('/[a-z]/', $password)) {
+            return false;
+        }
+        if (!preg_match('/[0-9]/', $password)) {
+            return false;
+        }
+
+        return true;
     }
 
-    // Actualizar 'email' y 'userfoto' en la base de datos del cliente
-    $database = datos_user();
-    $dbCliente = db_connect($database['new_db']);
-    if (!empty($updateDataCliente)) {
-        $dbCliente->table('users')->where('id', $userId)->update($updateDataCliente);
-    }
-
-    $this->logAction('Transportista', 'Edita Datos Acceso', $post_array);
-    return redirect()->to('/Rutas_transporte/rutas');
-}
-    
     private function compressAndResizeImage($imagePath, $width, $height)
     {
         $image = new \Gumlet\ImageResize($imagePath);

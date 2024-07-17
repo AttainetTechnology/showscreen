@@ -2,15 +2,17 @@
     .modal-backdrop.show {
         background-color: #fff3cd;
     }
-    .modal-backdrop.show {
-        background-color: #fff3cd;
-    }
     /* Añadir este estilo para alinear las etiquetas a la izquierda */
     #editTransportForm label {
         text-align: left;
         display: block;
     }
-</style>
+    .alert-danger{
+    text-align: left; /* Justifica el texto a la izquierda */
+    /* Otros estilos como color, margen, etc. */
+    color: red;
+    margin: 10px;
+}
 </style>
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -22,22 +24,25 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form id="editTransportForm" action="<?= base_url('Rutas_transporte/save') ?>" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
-    
-            <div class="form-group">
-                    <br>
+                <?php if(session()->getFlashdata('error')): ?>
+                    <div class="alert alert-danger">
+                        <?= session()->getFlashdata('error') ?>
+                    </div>
+                <?php endif; ?>
+                <div class="alert alert-danger" style="display: none;"></div>
+                <form id="editTransportForm" action="<?= base_url('Rutas_transporte/save') ?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                     <div class="form-group">
                         <label for="username">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?= isset($user) ? $user->username : '' ?>">
+                        <input type="text" class="form-control" id="username" name="username" value="<?= old('username', isset($user) ? $user->username : '') ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?= isset($user) ? $user->email : '' ?>">
+                        <input type="email" class="form-control" id="email" name="email" value="<?= old('email', isset($user) ? $user->email : '') ?>">
                     </div>
                     <div class="form-group">
                         <label for="password">Nueva contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y números" autocomplete="new-password">
                     </div>
                     <div class="form-group">
                         <label for="userfoto">Imagen de usuario</label>
@@ -49,12 +54,12 @@
                         <?php endif; ?>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <!-- jQuery and Bootstrap JS -->
@@ -62,20 +67,60 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $('#userfoto').change(function() {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#userfotoPreview').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('editTransportForm');
+        var passwordInput = document.getElementById('password');
+        var errorMessageContainer = document.querySelector('.alert-danger');
 
-            var maxSize = 1 * 1024 * 1024; // 1MB
-            if (this.files[0].size > maxSize) {
-                alert('La imagen es demasiado grande. El tamaño máximo permitido es 1MB.');
-                this.value = ''; // Limpiar el campo de archivo
+        form.addEventListener('submit', function(event) {
+            var password = passwordInput.value;
+            var errorMessage = '';
+
+            if (password.length > 0) {
+                if (password.length < 8) {
+                    errorMessage = 'La contraseña debe tener al menos 8 caracteres.';
+                } else if (!/[A-Z]/.test(password)) {
+                    errorMessage = 'La contraseña debe tener al menos una letra mayúscula.';
+                } else if (!/[a-z]/.test(password)) {
+                    errorMessage = 'La contraseña debe tener al menos una letra minúscula.';
+                } else if (!/[0-9]/.test(password)) {
+                    errorMessage = 'La contraseña debe tener al menos un número.';
+                }
+            }
+
+            if (errorMessage) {
+                event.preventDefault();
+                errorMessageContainer.style.display = 'block';
+                errorMessageContainer.innerHTML = errorMessage;
             }
         });
+
+        var userFotoElement = document.getElementById('userfoto');
+        if (userFotoElement) {
+            userFotoElement.addEventListener('change', function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var userFotoPreview = document.getElementById('userfotoPreview');
+                    if (userFotoPreview) {
+                        userFotoPreview.src = e.target.result;
+                    }
+                }
+                reader.readAsDataURL(this.files[0]);
+
+                var maxSize = 1 * 1024 * 1024; // 1MB
+                if (this.files[0].size > maxSize) {
+                    alert('La imagen es demasiado grande. El tamaño máximo permitido es 1MB.');
+                    this.value = ''; // Limpiar el campo de archivo
+                }
+            });
+        }
+
+        var errorMessage = <?= json_encode(session()->getFlashdata('error')) ?>;
+        if (errorMessage) {
+            errorMessageContainer.style.display = 'block';
+            errorMessageContainer.innerHTML = errorMessage;
+        }
     });
-    </script>
+</script>
+
