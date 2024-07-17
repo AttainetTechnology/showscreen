@@ -105,7 +105,7 @@ use App\Models\Usuarios_model;
                                 $id_producto = $l->id_producto; // Asume que $l es el producto actual y tiene una propiedad id_producto
                                 $imagen = isset($l->imagen) ? $l->imagen : 'default.png'; // Asegúrate de que $l->imagen esté definida y tenga un valor
                             
-                                $imagen_producto = base_url('assets/uploads/files') . "/$id_empresa/productos/" . $imagen;
+                                $imagen_producto = base_url('public/assets/uploads/files') . "/$id_empresa/productos/" . $imagen;
                             ?>      
                             <td><img src="<?php echo $imagen_producto; ?>" style="max-height:60px"></td>
 
