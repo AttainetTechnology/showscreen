@@ -158,12 +158,18 @@ class Password extends BaseControllerGC
         return true;
     }
 
-    function getNivelAcceso($id) {
+    public function getNivelAcceso($id) {
         $db = db_connect();
         $query = $db->table('users')->where('id', $id)->get();
         $user = $query->getRow();
-        return $user->nivel_acceso;
+        
+        if ($user) {
+            return $this->response->setJSON(['nivel_acceso' => $user->nivel_acceso]);
+        } else {
+            return $this->response->setJSON(['error' => 'Usuario no encontrado'], 404);
+        }
     }
+    
 
     public function getNombreUsuario($id)
     {

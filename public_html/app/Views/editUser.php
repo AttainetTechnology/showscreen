@@ -38,14 +38,15 @@
                             <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
                         </div>
                         <div class="form-group" id="nivelAccesoGroup">
-                            <label for="nivel_acceso">Nivel de acceso</label>
-                            <select class="form-control" id="nivel_acceso" name="nivel_acceso" required>
-                                <option value="" <?= !isset($nivel_acceso_usuario) || is_null($nivel_acceso_usuario) ? 'selected' : '' ?>>Seleccione un nivel de acceso</option>
-                                <?php foreach ($niveles_acceso as $nivel): ?>
-                                    <option value="<?= $nivel->id_nivel ?>" <?= isset($nivel_acceso_usuario) && $nivel->id_nivel == $nivel_acceso_usuario ? 'selected' : '' ?>><?= $nivel->nombre_nivel ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                        <label for="nivel_acceso">Nivel de acceso</label>
+                        <select class="form-control" id="nivel_acceso" name="nivel_acceso" required>
+                            <option value="" <?= !isset($nivel_acceso_usuario) || is_null($nivel_acceso_usuario) ? 'selected' : '' ?>>Seleccione un nivel de acceso</option>
+                            <?php foreach ($niveles_acceso as $nivel): ?>
+                                <option value="<?= $nivel->id_nivel ?>" <?= isset($nivel_acceso_usuario) && $nivel->id_nivel == $nivel_acceso_usuario ? 'selected' : '' ?>><?= $nivel->nombre_nivel ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
@@ -70,15 +71,22 @@ $(document).ready(function() {
         });
 
         $.get('<?= base_url('Password/getNivelAcceso/') ?>' + id, function(data) {
-            var nivelAcceso = data.nivel_acceso.toString();
-            $('#nivel_acceso').val(nivelAcceso).change();
+            if (data.nivel_acceso) {
+                var nivelAcceso = data.nivel_acceso.toString();
+                $('#nivel_acceso').val(nivelAcceso).change();
+            } else {
+                console.error("Error al obtener el nivel de acceso", data.error);
+            }
         }).fail(function(error) {
             console.error("Error al obtener el nivel de acceso", error);
         });
     }
+
     $('#editUserModal').on('hidden.bs.modal', function(e) {
         window.location.href = 'https://dev.showscreen.app/usuarios/';
     });
+
     $('#editUserModal').modal('show');
 });
 </script>
+
