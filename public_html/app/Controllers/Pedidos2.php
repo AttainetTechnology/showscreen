@@ -364,7 +364,7 @@ function _pinta_euro_linea ($total_linea){
 			helper('controlacceso');
 			$data = usuario_sesion(); 
 			$db = db_connect($data['new_db']);
-			$builder = $db->table('Linea_pedidos');
+			$builder = $db->table('linea_pedidos');
 			$builder->select('*');
 			$builder->where('id_pedido', $elpedido);
 			$query2 = $builder->get();
