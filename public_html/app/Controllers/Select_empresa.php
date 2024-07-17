@@ -33,7 +33,7 @@ class Select_empresa extends CrudAcceso
 
             $globalUploadPath = 'public/assets/uploads/files/';
             $crud->addFields(['id', 'nombre_empresa', 'db_name', 'db_user', 'db_password']);
-            $crud->editFields(['id', 'nombre_empresa', 'db_name', 'db_user', 'db_password', 'logo_empresa', 'favicon', 'logo_fichajes']);
+            $crud->editFields(['id', 'nombre_empresa', 'db_name', 'db_user', 'db_password', 'NIF','logo_empresa', 'favicon', 'logo_fichajes']);
 
             $crud->setFieldUpload('logo_empresa', $globalUploadPath, $globalUploadPath);
             $crud->setFieldUpload('logo_fichajes', $globalUploadPath, $globalUploadPath);
