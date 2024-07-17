@@ -3,7 +3,6 @@ use App\Models\Usuarios_model;
 //comienza el foreach
 foreach($pedido as $ped) { ?>
 <div id="fondo">
-<input action="action" type="button" value="<- Volver" onclick="history.go(-1);" class="btn btn-warning btn-sm"/>
 <input type="button" onclick="printDiv('printableArea')" value="Imprimir Parte" class="btn btn-success btn-sm"/>
 
     <div id="printableArea">

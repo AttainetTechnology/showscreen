@@ -103,7 +103,7 @@ function __construct()
 			<a href="' . base_url('pedidos/print/' . $id_pedido) . '" class="btn btn-info btn-sm">
 				<i class="fa fa-print fa-fw"></i> Imprimir pedido
 			</a>
-			<a href="' . base_url('pedidos/parte_complejo/' . $id_pedido) . '" class="btn btn-secondary btn-sm">
+			<a href="' . base_url('pedidos/parte_complejo/' . $id_pedido) . '" class="btn btn-secondary btn-sm" target="_blanck">
 				<i class="fa fa-print fa-fw"></i> Parte complejo
 			</a>
 			<!-- Button trigger modal -->
