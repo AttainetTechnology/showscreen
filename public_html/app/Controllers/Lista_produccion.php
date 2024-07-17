@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Controllers;
 
 class Lista_produccion extends BaseControllerGC
 {
     protected $Menu_familias_model;
-    
+
     public function pendientes() { $this->todos('estado=', '0', 'Pendientes'); }
     public function enmarcha() { $this->todos('estado=', '2', 'En cola'); }
     public function enmaquina() { $this->todos('estado=', '3', 'En máquina'); }
@@ -33,6 +34,9 @@ class Lista_produccion extends BaseControllerGC
         $crud->displayAs('id_familia', 'Familia');
         $crud->displayAs('id_pedido', 'Pedido');
         $crud->displayAs('estado', 'Estado');
+
+        // Aplicamos el filtro según la situación
+        $crud->where($coge_estado . $where_estado);
 
         // Definimos el título de la tabla
         $ahora = date('d-m-y');
@@ -108,3 +112,4 @@ class Lista_produccion extends BaseControllerGC
         return redirect()->to($volver); 
     }
 }
+?>
