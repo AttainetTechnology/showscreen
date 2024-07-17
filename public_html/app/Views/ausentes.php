@@ -14,7 +14,7 @@
    <!-- Comienza el loop -->
    <!--Si el usuario tiene un fichaje activo, es decir, existe, no pinta su tarjeta en el listado de ausentes-->
     <?php if(!isset($data[$ausente['id']])): ?>
-        <a href="<?=base_url('entrar/');?>/<?=$ausente['id'];?>" class="stretched-link">
+        <a href="<?=base_url('entrar');?>/<?=$ausente['id'];?>" class="stretched-link">
         <div class="tarjeta-empleado">
         <div class="foto_empleado">
             <?php if(!empty($ausente['userfoto'])) { ?>

@@ -7,7 +7,7 @@
 <div class="container-fluid d-flex flex-row flex-wrap">
 <!-- Comienza el loop -->
    <?php foreach($presentes as $presente): ?>   
-      <a href="<?=base_url('salir/');?>/<?=$presente['id_empleado'];?>"> 
+      <a href="<?=base_url('salir');?>/<?=$presente['id_empleado'];?>"> 
       <div class="tarjeta-empleado 
       <?php if ($presente['extras'] == 1){?>
          tarjeta_horasextras
