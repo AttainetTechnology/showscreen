@@ -121,29 +121,29 @@ tr:has(.estado1) {
 	background-color: #ff9933!Important;
 }
 tr:has(.estado2) {
-	background-color:  var(--azulclaro)!Important;
+	background-color:   rgb(255, 200, 200)!Important;
 }
 tr:has(.estado3) {
-	background-color: var(--rojoclaro)!Important;
+	background-color: rgb(220, 251, 255)!Important;
 }
 tr:has(.estado4) {
-	background-color: var(--verdeclaro)!Important;
+	background-color: rgb(157, 206, 164)!Important;
 }
 tr:has(.estado4) a{
 	color: var(--negro);
 	text-decoration: none;
 }
 tr:has(.estado5) {
-	background-color: var(--verdealegre)!Important;
-	color: #fff!Important;
+	background-color:  rgb(227, 247, 227)!Important;
+	color: #837575!Important;
 }
 tr:has(.estado5) a{
-	color: #fff!Important;
+	color: #837575!Important;
 	text-decoration: none;
 }
 tr:has(.estado6) {
 	background-color: var(--rojo)!Important;
-	color: #fff!Important;
+	color: #ffffff!Important;
 }
 tr:has(.estado6) a{
 	color: #fff!Important;
