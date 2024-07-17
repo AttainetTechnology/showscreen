@@ -25,7 +25,7 @@
         $newDate = date("G:i", strtotime($originalDate));
         ?>
         <div class="hora_entrada">Hora: <?=$newDate; ?></div> 
-         <div class="maquina"><?=$presente['id_maquina'];?></div>
+      
       </div> 
       </a>
    <?php endforeach; ?>

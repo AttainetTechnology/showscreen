@@ -6,13 +6,13 @@
 <!-- Comienza el loop -->
       <div class="ficha-entrada">
          <div class="fichafoto">
-               <? if($ausentes['userfoto']){ ?>
-                  <img src="<? helper('rutausers');
-                       $rutausers=rutausers();
-                       echo $rutausers; ?>/<?=$ausentes['userfoto'];?>">
-                  <? } else {?>
-                  <img src="<?=base_url('resources/images/silueta.png')?>">
-                  <?}?>
+
+            <?php if(!empty($ausentes['userfoto'])) { ?>
+               <img data-src="<?=base_url('public/assets/uploads/files/' . session()->get('id') . '/usuarios/' . $ausentes['userfoto']);?>">
+            <?php } else { ?>
+               <img data-src="<?=base_url('public/assets/uploads/files/silueta.png')?>">
+            <?php } ?>
+
          </div>
          <div class="fichabotones">
             <div class="titulopagina">FICHAR ENTRADA</div>
