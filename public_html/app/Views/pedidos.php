@@ -22,9 +22,10 @@ use App\Models\Usuarios_model;
             ?>" class="logo_partes"><br>
 				<br>
                 <?php
-            $session = \Config\Services::session();
-            $nombre_usuario = $session->get('nombre_usuario');
-            $apellidos_usuario = $session->get('apellidos_usuario');
+
+            $db_cliente = db_connect($data['new_db']);
+            $builder = $db_cliente->table('users');
+            $builder->select('id, nombre_usuario, apellidos_usuario');
             $user_ped = $nombre_usuario . " " . $apellidos_usuario;
             ?>
 		</div>	
