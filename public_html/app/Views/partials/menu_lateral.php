@@ -103,28 +103,15 @@
                 </div>
                 
                 <?php
-                // Asegúrate de que la sesión se ha iniciado
                 $datos = new \App\Models\Usuarios2_Model();
                 $data=usuario_sesion();
                 $id_empresa=$data['id_empresa'];
-
-                // Verifica si id_empresa está establecido
-                if ($id_empresa === null) {
-                    die('id_empresa no está establecido en la sesión');
-                }
-
-                // Carga el modelo
                 $dbConnectionsModel = new \App\Models\DbConnectionsModel();
-
                 // Obtiene el NIF de la empresa
                 $nif = $dbConnectionsModel->getNIF($id_empresa);
-
-                // Verifica si se obtuvo un NIF
                 if ($nif === null) {
                     die('No se encontró un NIF para el id_empresa proporcionado');
                 }
-
-                // Agrega el NIF a la URL
                 $url = "https://dev.showscreen.app/presentes/" . $nif;
                 ?>
 
