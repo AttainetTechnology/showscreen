@@ -15,6 +15,10 @@ class Usuarios1_Model extends Model
         return $this->where('id', $id)->first()['nombre_usuario'];
   
     }
+    public function get_id_empresa($id_user)
+    {
+        return $this->where('id', $id_user)->first()['id_empresa'];
+    }
 
 }
 
