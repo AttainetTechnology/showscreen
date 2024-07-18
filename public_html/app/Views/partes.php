@@ -222,7 +222,9 @@
                                             <div class="pedido-completo-pie">
                                                 <h3><b>Atenci&oacute;n!</b></h3> Este parte forma parte de un pedido con otros partes de trabajo. Comprueba si hay que utilizar el material sobrante con otro parte de trabajo:<br>
                                                 <?php foreach ($mas_de_una_linea as $mas) { ?>
-                                                    - <?php echo $mas->n_piezas; ?> <?php echo $mas->nombre_producto; ?> - Nom. base: <B><?php echo $mas->nom_base; ?></B><br>
+                                                    <?php if ($mas->id_lineapedido != $l->id_lineapedido) { ?>
+                                                        - <?php echo $mas->n_piezas; ?> <?php echo $mas->nombre_producto; ?> - Nom. base: <B><?php echo $mas->nom_base; ?></B><br>
+                                                    <?php } ?>
                                                 <?php } ?>
                                             </div>
                                         <?php } ?>
