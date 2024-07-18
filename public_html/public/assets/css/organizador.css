@@ -131,3 +131,16 @@
             width: 42%;
             background-color: #fff;
         }
+
+        /* Casilla de seleccionar procesos */
+    
+        input[type="checkbox"] {
+            transform: scale(1); 
+            margin: 10px; 
+        }
+        input[type="checkbox"] {
+            width: 30px; 
+            height: 30px; 
+            cursor: pointer; 
+        }
+        
