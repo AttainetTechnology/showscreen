@@ -558,3 +558,11 @@ a:hover.btfichar {
     font-size: small!Important;
     color: blue!Important;
 }
+
+/* Titulos de edición */
+.gc-full-page-title-72, .gc-full-page-title-145 {
+    font-size: 24px !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+	margin-bottom: 20px
+}
