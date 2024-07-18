@@ -65,13 +65,14 @@ html {
 .fw-semibold { font-weight: 600; }
 .lh-tight { line-height: 1.25; }
 div#footer_menulateral {
-  position: relative;
+  position: fixed;
+  width: 15%;
   bottom: 0px;
   display: block;
   background-color: #f1981f;
   padding: 8px;
   font-size: smaller;
-  width: 100%;
+
 }
 
 @media only screen and (min-height:640px){ 
