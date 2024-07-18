@@ -19,6 +19,7 @@ public function index()
 		//Columns
 		$crud->columns(['nombre_cliente', 'nif','direccion','id_provincia','poblacion','telf','cargaen','f_pago','web','email','observaciones_cliente']);
 		$crud->displayAs('id_provincia', 'Provincia');
+		$crud->setLangString('modal_save', 'Guardar Empresa');
 
 		// Callbacks para registrar las acciones realizadas en LOG
 		$crud->callbackAfterInsert(function ($stateParameters) {

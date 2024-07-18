@@ -16,7 +16,7 @@ $crud->fieldType('estado_proceso', 'dropdown', ['1' => 'Activo', '0' => 'Inactiv
 $crud->setRule('estado_proceso', 'Estado del Proceso', 'required|in_list[1,0]'); // Asegura que solo se acepten los valores 1 y 0
 $crud->requiredFields (['nombre_proceso']);
 $crud->unsetRead();
-$crud->setLangString('modal_save', 'Crear Proceso');
+$crud->setLangString('modal_save', 'Guardar Proceso');
 
 // Callbacks para registrar las acciones realizadas en LOG
 $crud->callbackAfterInsert(function ($stateParameters) {

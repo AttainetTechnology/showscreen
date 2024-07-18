@@ -15,7 +15,7 @@ class Familia_productos extends BaseControllerGC
     $crud->defaultOrdering('orden','asc');
     $crud->defaultOrdering('en_menu','desc');
     // $crud->unsetRead();
-    $crud->setLangString('modal_save', 'Crear Familia');
+    $crud->setLangString('modal_save', 'Guardar Familia');
 
     // Callbacks para registrar las acciones realizadas en LOG
     $crud->callbackAfterInsert(function ($stateParameters) {

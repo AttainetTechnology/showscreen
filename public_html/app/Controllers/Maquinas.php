@@ -16,7 +16,7 @@ $crud->setSubject('Maquina', 'Máquinas');
 $crud->setTable('maquinas');
 $crud->requiredFields(['nombre']);
 $crud->unsetRead();
-$crud->setLangString('modal_save', 'Crear Máquina');
+$crud->setLangString('modal_save', 'Guardar Máquina');
 
 // Callbacks para registrar las acciones realizadas en LOG
 $crud->callbackAfterInsert(function ($stateParameters) {

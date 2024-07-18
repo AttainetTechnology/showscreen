@@ -18,7 +18,7 @@ class Productos extends BaseControllerGC
         $crud->displayAs('nombre_producto', 'Nombre');
         $crud->requiredFields(['nombre_producto', 'id_familia', 'unidad']);
         $crud->setRelationNtoN('procesos', 'procesos_productos', 'procesos', 'id_producto', 'id_proceso', '{nombre_proceso}');
-        $crud->setLangString('modal_save', 'Crear Producto');
+        $crud->setLangString('modal_save', 'Guardar Producto');
         $crud->addFields(['nombre_producto', 'id_familia', 'precio', 'unidad', 'estado_producto', 'procesos']);
         $crud->editFields(['id_producto', 'nombre_producto', 'id_familia', 'imagen', 'precio', 'unidad', 'estado_producto']);
         $crud->unsetRead();
