@@ -142,6 +142,7 @@
                 $.post('updateOrder', { data: JSON.stringify(data) })
                     .done(function() {
                         alert('Procesos guardados');
+                        window.location.href = 'https://dev.showscreen.app/productos';
                     })
                     .fail(function() {
                         alert('Ha habido un error');
