@@ -228,6 +228,17 @@
 }
 
         document.addEventListener('DOMContentLoaded', function() {
+             // Añadir evento de clic a cada fila de la tabla
+            document.querySelectorAll('.linea').forEach(function(row) {
+                row.addEventListener('click', function(event) {
+                    // Evitar que el evento se propague si se hace clic en el checkbox directamente
+                    if (event.target.type !== 'checkbox') {
+                        const checkbox = this.querySelector('input[type="checkbox"]');
+                        checkbox.checked = !checkbox.checked;
+                    }
+                });
+            });
+
             actualizarColores();
             generarContenidoImprimible();
             seleccionarMaquinaGuardada();
@@ -591,6 +602,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('button[data-action="btn-terminado"]').addEventListener('click', function() {
         marcarComoTerminado(this);
     });
+
+
     sortable.option("disabled", true);
 });
 
