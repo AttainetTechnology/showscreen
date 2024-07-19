@@ -26,7 +26,7 @@ if ($data !== null && isset($data['favicon'])) {
    <!-- BOOTSTRAP ICONS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
    <!-- CSS ATTAINET -->
-   <link rel="stylesheet" href="<?=base_url('public/resources/css/fichajes.css')?>">
+   <link rel="stylesheet" href="<?=base_url('public/assets/css/fichajes.css')?>">
 <script type="text/javascript">
 	 window.GUMLET_CONFIG = {
 		 hosts: [{
