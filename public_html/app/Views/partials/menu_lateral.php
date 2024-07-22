@@ -167,7 +167,7 @@
     <script>
         $(document).ready(function() {
             // Comprobando si estamos en la página de inicio
-            var isHomePage = window.location.href === 'https://dev.showscreen.app/index.php/Index';
+            var isHomePage = window.location.href === 'index.php';
             // Si estamos en la página de inicio, borramos el estado almacenado
             if (isHomePage) {
                 localStorage.clear();
