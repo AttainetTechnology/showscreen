@@ -112,7 +112,7 @@
                 if ($nif === null) {
                     die('No se encontró un NIF para el id_empresa proporcionado');
                 }
-                $url = "https://dev.showscreen.app/presentes/" . $nif;
+                $url =  site_url('/presentes/') . $nif;
                 ?>
 
                 <ul class="nav nav-second-level">
