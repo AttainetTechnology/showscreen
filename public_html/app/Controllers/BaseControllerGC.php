@@ -179,7 +179,4 @@ protected function logAction($seccion, $log, $stateParameters) {
     // Insertar el registro de log en la base de datos
     $logModel->insert($data);
 }
-
-
 }
-   
