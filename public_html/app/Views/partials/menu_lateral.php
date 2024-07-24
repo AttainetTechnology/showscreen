@@ -102,23 +102,22 @@
                     <?php endforeach; ?>
                 </div>
                 
+                <!-- Botón FICHAR independiente -->
                 <?php
                 $datos = new \App\Models\Usuarios2_Model();
-                $data=usuario_sesion();
-                $id_empresa=$data['id_empresa'];
+                $data = usuario_sesion();
+                $id_empresa = $data['id_empresa'];
                 $dbConnectionsModel = new \App\Models\DbConnectionsModel();
                 // Obtiene el NIF de la empresa
                 $nif = $dbConnectionsModel->getNIF($id_empresa);
-                if ($nif === null) {
-                    die('No se encontró un NIF para el id_empresa proporcionado');
-                }
-                $url = "https://dev.showscreen.app/presentes/" . $nif;
+                if (!empty($nif)) {
+                    $url = "https://dev.showscreen.app/presentes/" . $nif;
                 ?>
-
-                <ul class="nav nav-second-level">
-		        <a href="<?php echo $url; ?>" target="_blank"><i class="fa fa-hand-o-up fa-fw"></i> FICHAR <i class="fa fa-external-link" aria-hidden="true"></i></a>
-		        </ul>
-
+                    <ul class="nav nav-second-level">
+                        <a href="<?php echo $url; ?>" target="_blank"><i class="fa fa-hand-o-up fa-fw"></i> FICHAR <i class="fa fa-external-link" aria-hidden="true"></i></a>
+                    </ul>
+                <?php } ?>
+                            
                 <div class="dropdown mt-3">
                     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php 
