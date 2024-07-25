@@ -224,9 +224,9 @@ public function CerrarFichajesAbiertos($aviso){
 		  } 
 		
 		  if (isset($desde) && $desde != "") {
-			echo "El usuario".$empleado." está de vacas.<br>";
+			// echo "El usuario".$empleado." está de vacas.<br>";
 		  } else {
-			echo "El usuario".$empleado." no fichó, genero Ausencia.<br>";
+			// echo "El usuario".$empleado." no fichó, genero Ausencia.<br>";
 			$datos = [
 				'id_usuario'    => $empleado,
 				'entrada'       => $ayer,
