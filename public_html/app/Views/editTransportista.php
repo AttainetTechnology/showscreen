@@ -1,15 +1,10 @@
 <style>
-    .modal-backdrop.show {
-        background-color: #fff3cd;
-    }
-    /* Añadir este estilo para alinear las etiquetas a la izquierda */
     #editTransportForm label {
         text-align: left;
         display: block;
     }
     .alert-danger{
-    text-align: left; /* Justifica el texto a la izquierda */
-    /* Otros estilos como color, margen, etc. */
+    text-align: left; 
     color: red;
     margin: 10px;
 }
