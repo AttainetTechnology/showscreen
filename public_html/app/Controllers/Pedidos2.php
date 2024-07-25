@@ -7,6 +7,9 @@ use App\Models\Lineapedidosnew_model;
 use App\Models\ProcesosProductos;
 use App\Models\ProcesosPedido;
 use App\Models\LineaPedido;
+use App\Models\ClienteModel;
+use App\Models\Usuarios2_Model;
+use App\Models\Pedidos_model;
 class Pedidos2 extends BaseControllerGC
 {
 protected $idpedido = 0;
@@ -179,6 +182,43 @@ function __construct()
 		echo view('layouts/main', (array)$output);  
 
 	}
+
+	public function add()
+    {
+		$data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $clienteModel = new ClienteModel($db);
+		$usuarioModel = new Usuarios2_Model($db);
+
+
+        $data['clientes'] = $clienteModel->findAll();
+		$data['usuario_html'] = $this->guarda_usuario();
+
+        echo view('add_pedido', $data);
+    }
+
+    public function save()
+    {
+		$data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $pedidoModel = new Pedidos_model($db);
+
+        $data = [
+            'id_cliente' => $this->request->getPost('id_cliente'),
+            'referencia' => $this->request->getPost('referencia'),
+            'id_usuario' => $this->request->getPost('id_usuario'),
+            'fecha_entrada' => $this->request->getPost('fecha_entrada'),
+            'fecha_entrega' => $this->request->getPost('fecha_entrega'),
+            'observaciones' => $this->request->getPost('observaciones'),
+        ];
+
+        if ($pedidoModel->insert($data)) {
+            return redirect()->to(base_url('pedidos2/enmarcha'));
+        } else {
+            return redirect()->back()->with('error', 'No se pudo guardar el pedido');
+        }
+
+	}
 		function paso_id_pedido ($value, $id_pedido){
 				return $id_pedido.'<input type="hidden" name="id_pedido" value="'.$id_pedido.'">';
 		}
@@ -216,6 +256,7 @@ function __construct()
 		<b>'.$usuarios[$id_usuario].'</b>';
 	}
 
+	
 	public function entregar($id_pedido)
 	{
 
@@ -406,22 +447,22 @@ function _pinta_euro_linea ($total_linea){
 		}
 		
 
-function saca_precio_linea ($post_array)
-{
-	$myvar = $post_array->data;
-	if(empty($myvar['precio_venta'])){
-		$myvar['total_linea'] = '0';
-		$post_array->data = $myvar;
-	}
-	else { 
-		$myvar['total_linea'] = ($myvar['n_piezas'])*($myvar['precio_venta']);
-		$post_array->data = $myvar;
-	}	
+		function saca_precio_linea ($post_array)
+		{
+			$myvar = $post_array->data;
+			if(empty($myvar['precio_venta'])){
+				$myvar['total_linea'] = '0';
+				$post_array->data = $myvar;
+			}
+			else { 
+				$myvar['total_linea'] = ($myvar['n_piezas'])*($myvar['precio_venta']);
+				$post_array->data = $myvar;
+			}	
 
-	$post_array->data['id_pedido'] = $this->idpedido;
-	return $post_array;
-	
-}
+			$post_array->data['id_pedido'] = $this->idpedido;
+			return $post_array;
+			
+		}
 
 
 function imprimir_parte($row)
