@@ -60,6 +60,21 @@ class Usuarios extends BaseControllerGC
             return $data;
         });
 
+        $crud->callbackBeforeInsert(function ($stateParameters) {
+            $db = db_connect();
+            // Utiliza una consulta más directa para obtener el siguiente ID válido.
+            $query = $db->query('SELECT IFNULL(MAX(id), 0) as max_id FROM users');
+            $row = $query->getRow();
+            $maxId = $row->max_id;
+        
+            // Ajusta el ID solo si es necesario, simplificando la lógica.
+            $stateParameters->data['id'] = $maxId >= 10 ? $maxId + 1 : 11;
+        
+            $db->close(); // Cierra explícitamente la conexión a la base de datos si es necesario.
+            return $stateParameters;
+        });
+        
+
         // Callbacks Insertar en la tabla LOG las acciones realizadas
         $crud->callbackAfterInsert(function ($stateParameters) {
             $this->logAction('Usuarios', 'Añade usuario', $stateParameters);
