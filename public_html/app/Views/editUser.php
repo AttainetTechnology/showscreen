@@ -9,8 +9,6 @@
 
 </style>
 
-
-</style>
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -21,7 +19,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editUserForm" action="" method="post"> <!-- La URL se establecerá dinámicamente -->
+                <form id="editUserForm" action="" method="post">
                     <?php $session = \Config\Services::session(); ?>
                     <?php if($session->getFlashdata('error')): ?>
                         <div class="alert alert-danger">
