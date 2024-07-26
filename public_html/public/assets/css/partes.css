@@ -285,3 +285,56 @@ width:249px;
     
 }
 
+/* fichaje */
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+    border-radius: 4px;
+}
+
+
+#userfotoPreview{
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+#restoreImage{
+	background-color: #dad9d9 !important;
+	margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+        text-align: left;
+    }
+
+.form-group button {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+}
+
+.form-group label {
+	margin-bottom: 10px;
+}
+.form-group {
+	margin-bottom: 10px;
+}
+.modal-body {
+    margin: 30px;
+}
+.modal-dialog {
+    height: 600px; /* Fijar la altura del modal */
+    max-height: 600px; /* Asegurarse de que el modal no se agrande más de 600px */
+}
+
+.modal-content {
+    height: 100%; /* Hacer que el contenido del modal llene todo el espacio del modal */
+}
+

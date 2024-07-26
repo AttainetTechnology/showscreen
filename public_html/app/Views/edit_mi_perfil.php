@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">MI PERFIL</h5>
+                <h5 class="modal-title" id="editUserModalLabel">Mi perfil</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,22 +20,22 @@
                     <div class="alert alert-danger" id="imageError" style="display: none;"></div>
                     <input type="hidden" id="userId" name="id" value="<?= isset($user) ? $user->id : '' ?>">
                     <div class="form-group">
-                        <label for="username"> <strong>Nombre usuario</strong></label>
+                        <label for="username">Nombre usuario</label>
                         <input type="text" class="form-control" id="username" name="username" value="<?= isset($user) ? $user->username : '' ?>" required autocomplete="off">
                     </div>
                     <br>
                     <div class="form-group">
-                        <label for="email"><strong>Email</strong></label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="<?= isset($user) ? $user->email : '' ?>" autocomplete="off">
                     </div>
                     <br>
                     <div class="form-group">
-                        <label for="password"><strong>Nueva contraseña</strong></label>
+                        <label for="password">Nueva contraseña</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y números" autocomplete="new-password">
                     </div>
                     <br>
                     <div class="form-group">
-                        <label for="userfoto"><strong>Imagen</strong></label>
+                        <label for="userfoto">Imagen</label>
                         <br>
                         <?php if (isset($user->imagePath) && file_exists($user->imagePath)) : ?>
                             <div id="imageSection">
@@ -66,13 +66,12 @@
                             </label>
                         <?php endif; ?>
                     </div>
-
-                    <br>
-                    <button type="submit" class="btn btn-primary float-end" id="guardarModal">Guardar</button>
+                    <button type="submit" class="btn btn-primary float-end" id="guardarModal">Guardar</button>   
                 </form>
             </div>
-        </div>
+        </div> 
     </div>
+   
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
