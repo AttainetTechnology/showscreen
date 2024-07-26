@@ -562,6 +562,12 @@ a:hover.btfichar {
 
 /* MODALES EDICION USUARIO */
 
+.modal-title {
+    margin-bottom: 0;
+    line-height: var(--bs-modal-title-line-height);
+    margin-left: 35px;
+}
+
 #deleteImage{
 	margin-left: 25px;
 
@@ -575,6 +581,7 @@ a:hover.btfichar {
 #restoreImage{
 	background-color: #dad9d9 !important;
 	margin-left: 20px;
+	margin-bottom: 12px;
 }
 
 .custom-file-upload {
@@ -595,11 +602,11 @@ a:hover.btfichar {
 	margin-bottom: 10px;
 }
 .modal-body {
-    margin: 25px;
+    margin: 40px !important;
 }
 .modal-dialog {
-    height: 600px; 
-    max-height: 600px;
+    height: 650px; 
+    max-height: 650px;
 }
 
 .modal-content {
@@ -608,4 +615,23 @@ a:hover.btfichar {
 
 .modal-header, .modal-body, .modal-footer {
     overflow-y: auto; 
+}
+
+.btn-close-custom {
+	background-color: transparent;
+	border: none;
+	font-size: 2.5rem;
+	color: #000;
+	cursor: pointer;
+	padding: 0;
+	margin-right: 35px;
+    margin-top: -10px;
+}
+.btn-close-custom:hover {
+	color: #ff0000; /* Cambia el color al pasar el cursor */
+}
+
+#editform-body{
+	margin: 20px !important;
+
 }

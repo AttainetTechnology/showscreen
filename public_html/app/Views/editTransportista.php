@@ -1,10 +1,16 @@
+<style>
+    .modal-title{
+        margin-left: 20px;
+    margin-top: 10px;
+    }
+</style>
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editUserModal">Editar usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='https://dev.showscreen.app/Rutas_transporte/rutas'">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
+                    &times;
                 </button>
             </div>
             <div class="modal-body">

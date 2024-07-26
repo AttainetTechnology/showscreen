@@ -7,11 +7,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editUserModalLabel">Editar usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='https://dev.showscreen.app/usuarios'">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
+                    &times;
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="editform-body">
                 <form id="editUserForm" action="" method="post">
                     <?php $session = \Config\Services::session(); ?>
                     <?php if($session->getFlashdata('error')): ?>
@@ -50,7 +50,7 @@
                         <br>
                     </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-primary float-end" id="guardarModal">Guardar</button>
                     </div>
                 </form>
             </div>
