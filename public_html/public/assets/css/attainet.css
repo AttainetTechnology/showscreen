@@ -628,10 +628,39 @@ a:hover.btfichar {
     margin-top: -10px;
 }
 .btn-close-custom:hover {
-	color: #ff0000; /* Cambia el color al pasar el cursor */
+	color: #ff0000; 
 }
 
 #editform-body{
 	margin: 20px !important;
 
 }
+
+/* MENU LATERAL BOTON FICHAR */
+.btn-custom {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px; /* Ajusta el espacio entre el ícono y el texto */
+	background-color: #f8bf43; 
+	border: none;
+	color: white;
+	padding: 10px 15px;
+	font-size: 16px;
+	border-radius: 10px;
+	transition: background-color 0.3s ease;
+	text-align: center;
+	width: 90px;
+  }
+  
+  .btn-custom:hover {
+	background-color: #ffae00; 
+	text-decoration: none;
+  }
+
+  .btn-custom svg, .btn-custom i {
+	margin: 0; 
+  }
+  
