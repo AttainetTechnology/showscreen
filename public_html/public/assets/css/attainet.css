@@ -598,14 +598,14 @@ a:hover.btfichar {
     margin: 25px;
 }
 .modal-dialog {
-    height: 600px; /* Fijar la altura del modal */
-    max-height: 600px; /* Asegurarse de que el modal no se agrande más de 600px */
+    height: 600px; 
+    max-height: 600px;
 }
 
 .modal-content {
-    height: 100%; /* Hacer que el contenido del modal llene todo el espacio del modal */
+    height: 100%; 
 }
 
 .modal-header, .modal-body, .modal-footer {
-    overflow-y: auto; /* Añadir scroll si el contenido es demasiado grande */
+    overflow-y: auto; 
 }

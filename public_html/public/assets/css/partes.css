@@ -1,78 +1,90 @@
 :root {
-    --verdeclaro: 	#72b359;
-    --verdeoscuro: 	#3c763d;
-    --verdealegre:	#50b752; 
-    --rojoclaro: 		#f2dede;	
-    --rojo:			#b03836;
-    --azulclaro: 		#d9edf7;
-    --azuloscuro:		#31708f;
-    --grisclaro: 		#f5f5f5;
-    --negro:			#333;
-    --amarilloclaro:	#fff3cd;
+    --verdeclaro: #72b359;
+    --verdeoscuro: #3c763d;
+    --verdealegre: #50b752;
+    --rojoclaro: #f2dede;
+    --rojo: #b03836;
+    --azulclaro: #d9edf7;
+    --azuloscuro: #31708f;
+    --grisclaro: #f5f5f5;
+    --negro: #333;
+    --amarilloclaro: #fff3cd;
     --amarillooscuro: #ffc107;
-  }
+}
+
 div#fondo_rutas {
-	padding: 2%;
+    padding: 0%;
+    margin-bottom: 20px;
 }
+
 .pagina2 {
-margin-top: 0px;
-display: block!Important;
- page-break-before: always;
- position: relative;
- border-bottom: 10px solid #eee;
- margin-bottom: 70px;
- padding-top: 70px;
-}
-.pagina1 {
-display: block;
- page-break-after: always;
- position: relative;
-}
-@media print
-{
-   body{
-      font-size: 12px;
-   }
-   .pie_de_parte{
-       display:block!Important;
-    }
-	.pagina2 {
-	padding-top: 0px;
-	display: block!Important;
+    margin-top: 0px;
+    display: block !Important;
     page-break-before: always;
     position: relative;
-    border-bottom: none;
-     margin-bottom: 0px;
-	}
-	.pagina1 {
-	display: block;
+    border-bottom: 10px solid #eee;
+    margin-bottom: 70px;
+    padding-top: 70px;
+}
+
+.pagina1 {
+    display: block;
     page-break-after: always;
     position: relative;
-	}
+}
+
+@media print {
+    body {
+        font-size: 12px;
+    }
+
+    .pie_de_parte {
+        display: block !Important;
+    }
+
+    .pagina2 {
+        padding-top: 0px;
+        display: block !Important;
+        page-break-before: always;
+        position: relative;
+        border-bottom: none;
+        margin-bottom: 0px;
+    }
+
+    .pagina1 {
+        display: block;
+        page-break-after: always;
+        position: relative;
+    }
 }
 
 div#printableArea {
     padding: 25px 70px;
-	background-color: #ffffff;
-	margin: 10px;
-	min-height: 1159px;
+    background-color: #ffffff;
+    margin: 10px;
+    min-height: 1159px;
 
 }
+
 div#fondo {
     background-color: #eeeeee;
-	padding: 10px;
+    padding: 10px;
 }
-.centrar{
-    text-align:center;
+
+.centrar {
+    text-align: center;
 }
+
 .rellenar {
     background-color: #e9e9e9;
     width: 156px;
     height: 36px;
 }
+
 .linea_proceso {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
+
 #observaciones {
     padding: 0px;
     width: 100%;
@@ -82,73 +94,87 @@ margin-bottom: 20px;
     padding: 20px;
     background-color: #eee;
 }
+
 #tabla_tipopieza table {
     padding: 0px;
     border: 1px solid #ccc;
-    margin-top:0px;
+    margin-top: 0px;
 }
+
 #tabla_tipopieza table {
     border: 0px;
 }
+
 .fila {
     overflow: auto;
 }
 
 #fila_left {
     padding-right: 40px;
-   width: 30%;
-   float:left;
-}
-#fila_center{
-float: left;
-padding-right: 40px;
-max-width: 30%;
-}
-#fila_right{
-float:right;
-width: 70%;
-text-align:right;
-}
-#fila_left img {
-width:249px;
+    width: 30%;
+    float: left;
 }
 
-table.casillas{
-	width: 500px;
+#fila_center {
+    float: left;
+    padding-right: 40px;
+    max-width: 30%;
+}
+
+#fila_right {
+    float: right;
+    width: 70%;
+    text-align: right;
+}
+
+#fila_left img {
+    width: 249px;
+}
+
+table.casillas {
+    width: 500px;
     float: right;
 }
-.tabla_proceso{
-	width: 100%;
+
+.tabla_proceso {
+    width: 100%;
 }
-td.cabecera_tabla{
+
+td.cabecera_tabla {
     border: 1px solid #000;
-	height: 20px;
-	text-align: center;
+    height: 20px;
+    text-align: center;
 }
-td.casillas{
+
+td.casillas {
     border: 1px solid #ccc;
-	height: 50px;
+    height: 50px;
 }
 
-strong{
-    font-size:large;
+strong {
+    font-size: large;
 }
 
-a, a:focus, a:hover {
-    color: #25109e!Important;
-    text-decoration: none!Important;
+a,
+a:focus,
+a:hover {
+    color: #25109e !Important;
+    text-decoration: none !Important;
 }
+
 address {
-    margin-bottom: 6px!Important;
+    margin-bottom: 6px !Important;
 }
 
 .incidencia {
     float: left;
     margin-right: 71px;
 }
+
 .total_buenas {
     float: right;
-} 
+}
+
 div.total {
     border: 1px solid #000;
     width: 100px;
@@ -156,6 +182,7 @@ div.total {
     float: right;
     margin-left: 23px;
 }
+
 .pie_de_parte {
     padding-top: 20px;
     border-top: 2px solid #000;
@@ -163,12 +190,14 @@ div.total {
     bottom: 0px;
     width: 100%;
     height: 100px;
-	display: none;
+    display: none;
 }
+
 .revisado {
     width: 230px;
     float: left;
 }
+
 .seccionparte {
     font-weight: 800;
     color: #999;
@@ -182,60 +211,77 @@ div.total {
     color: #eee;
     text-align: right;
 }
+
 #total_pedido td {
     background-color: #eee;
     padding: 20px;
     border-bottom-width: 0px;
     text-align: right;
 }
+
 .logo_transporte img {
-   max-width: 165px;
-   margin-bottom: 30px;
+    max-width: 165px;
+    margin-bottom: 25px;
+    margin-top: 30px;
+   margin-left: 20px;
 }
+
 img.logo_partes {
     max-width: 160px;
     margin-bottom: 30px;
 }
+
 span.idpedido {
     font-size: large;
 }
+
 img.imagen_parte {
     max-height: 160px;
 }
-.btnrutas{
- color: #000000!Important;  
+
+.btnrutas {
+    color: #000000 !Important;
 }
+
 img.imagen_parte {
     max-height: 160px;
     max-width: 280px;
 }
+
 .capa-numero-parte {
     display: flex;
     flex-direction: row-reverse;
     margin-bottom: 10px;
 }
+
 .numero_parte {
     background-color: #000;
     width: fit-content;
     padding: 5px 10px;
     color: #fff;
 }
+
 .numero_pedido {
     background-color: #eee;
     width: fit-content;
     padding: 5px 10px;
     color: #000;
 }
+
 .detalles-pie small,
 .detalles-pie small strong {
-    font-size: 12px!Important;
+    font-size: 12px !Important;
 }
+
 .detalles-pie {
-   text-align: right;
+    text-align: right;
 }
-.parte-fechas, .parte-fechas strong {
-    font-size: 12px!Important;
+
+.parte-fechas,
+.parte-fechas strong {
+    font-size: 12px !Important;
 }
+
 .parte-fechas {
     display: flex;
     flex-direction: row;
@@ -244,24 +290,26 @@ img.imagen_parte {
     justify-content: flex-end;
     margin-bottom: 20px;
 }
+
 #parte_fila_left {
     padding-right: 40px;
-   width: 60%;
+    width: 60%;
 }
 
-#parte_fila_right{
-float:right;
-width: 40%;
-text-align:right;
+#parte_fila_right {
+    float: right;
+    width: 40%;
+    text-align: right;
 }
+
 #parte_fila_left img {
-width:249px;
+    width: 249px;
 }
 
 .btn-success {
-	color:#fff!Important;
-	background-color: var(--verdeoscuro)!Important;
-	border-color: var(--verdeoscuro)!Important;
+    color: #fff !Important;
+    background-color: var(--verdeoscuro) !Important;
+    border-color: var(--verdeoscuro) !Important;
 }
 
 .btn-warning {
@@ -270,22 +318,27 @@ width:249px;
     border-color: #ffc107;
 }
 
-.btn-success, .btn-warning{
+.btn-success,
+.btn-warning {
     padding: .25rem .5rem;
     font-size: .875rem;
     border-radius: .3rem;
     box-shadow: none;
 }
-.btn-success, .btn-warning:hover{
+
+.btn-success,
+.btn-warning:hover {
     padding: .25rem .5rem;
     font-size: .875rem;
     border-radius: .3rem;
     box-shadow: none;
     cursor: pointer;
-    
+
 }
 
-/* fichaje */
+/* FICHAJE */
+
+/* Formulario edicion user */
 
 .custom-file-upload {
     display: inline-block;
@@ -299,20 +352,20 @@ width:249px;
 }
 
 
-#userfotoPreview{
-	border-radius: 5px;
-	margin-top: 10px;
+#userfotoPreview {
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
-#restoreImage{
-	background-color: #dad9d9 !important;
-	margin-left: 20px;
+#restoreImage {
+    background-color: #dad9d9 !important;
+    margin-left: 20px;
     margin-bottom: 10px;
 }
 
 .form-group {
-        text-align: left;
-    }
+    text-align: left;
+}
 
 .form-group button {
     display: inline-block;
@@ -321,20 +374,71 @@ width:249px;
 }
 
 .form-group label {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .form-group {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .modal-body {
     margin: 30px;
 }
+
 .modal-dialog {
-    height: 600px; /* Fijar la altura del modal */
-    max-height: 600px; /* Asegurarse de que el modal no se agrande más de 600px */
+    height: 600px;
+    max-height: 600px;
 }
 
 .modal-content {
-    height: 100%; /* Hacer que el contenido del modal llene todo el espacio del modal */
+    height: 100%;
 }
 
+#DatosAcceso {
+    font-size: 18px;
+    padding: 10px 20px;
+
+}
+
+/* Botones */
+#BotonSalir {
+    color: #fffcfc !important;
+    background-color: rgb(235, 118, 118);
+    border-color: #d9edf7;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+#BotonSalir:hover {
+    background-color: rgb(238, 74, 74);
+    border-color: #d9edf7;
+
+}
+
+
+[class^="bi"] {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+#LogoTransporte {
+    margin-top: 4rem !important;
+}
+
+    .navbar-nav .btn {
+        margin-right: 10px; 
+    }
+    .navbar-collapse {
+        padding-top: 20px;
+    }
+
+    @media (max-width: 767.98px) {
+        .navbar-nav .btn {
+            margin: 10px 0;
+            margin-bottom: 10px;
+        }
+    }
+
+    #navbarNav{
+        margin-bottom: 10px;
+    }
