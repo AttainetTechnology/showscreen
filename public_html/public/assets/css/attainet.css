@@ -1,10 +1,3 @@
-Defino colores Globales 
-:root {
-  --borrar_fondo: 	red;
-  --borrar_texto: white;
-  --borrar_borde: darkred;
-  --verdeoscuro: green;
-}
 body,
 .form-control,
 .btn-group-sm>.btn, 
@@ -560,9 +553,37 @@ a:hover.btfichar {
 }
 
 /* Titulos de edición */
-.gc-full-page-title-72, .gc-full-page-title-145 {
+[class^="gc-full-page-title"] {
 	font-size: 25px !important;
 	color: #000000 !important;
 	margin-bottom: 20px;
 	margin-top: 20px;
+}
+
+/* MODALES EDICION USUARIO */
+
+#deleteImage{
+	margin-left: 25px;
+
+}
+
+#userfotoPreview{
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+#restoreImage{
+	background-color: #dad9d9 !important;
+	margin-left: 20px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
 }

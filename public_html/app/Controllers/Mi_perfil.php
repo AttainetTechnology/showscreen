@@ -6,7 +6,6 @@ class Mi_perfil extends BaseController
 { 
     public function index($id = null)
     {
-        // Redirigir a la vista de edición del perfil
         return $this->edit($id);
     }
 
@@ -43,7 +42,7 @@ class Mi_perfil extends BaseController
         // Verificar si el nombre de usuario ya existe
         $existingUser = $dbOriginal->table('users')
                                    ->where('username', $post_array['username'])
-                                   ->where('id !=', $userId) // Asegurarse de excluir el usuario actual
+                                   ->where('id !=', $userId)
                                    ->get()
                                    ->getRow();
 
@@ -56,6 +55,14 @@ class Mi_perfil extends BaseController
         $maxSize = 1024 * 1024; // 1MB
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
+        $id_empresa = $this->data['id_empresa'];
+        $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
+
+        if ($this->request->getPost('deleteImage')) {
+            array_map('unlink', glob($specificPath . "*"));
+            $updateDataCliente['userfoto'] = null;
+        }
+
         if ($imageFile->isValid() && !$imageFile->hasMoved()) {
             if ($imageFile->getSize() > $maxSize) {
                 $session->setFlashdata('error', 'El tamaño de la imagen excede el máximo permitido de 1MB.');
@@ -67,21 +74,17 @@ class Mi_perfil extends BaseController
                 return redirect()->back()->withInput();
             }
 
-            $originalName = $imageFile->getName();
-            $id_empresa = $this->data['id_empresa'];
-            $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
-
             if (!is_dir($specificPath)) {
                 mkdir($specificPath, 0777, true);
             } else {
                 array_map('unlink', glob($specificPath . "*"));
             }
 
-            $imageFile->move($specificPath, $originalName);
-            $imagePath = $specificPath . $originalName;
+            $imageFile->move($specificPath);
+            $imagePath = $specificPath . $imageFile->getName();
             $this->compressAndResizeImage($imagePath, 400, 200);
 
-            $updateDataCliente['userfoto'] = $userId . '/' . $originalName;
+            $updateDataCliente['userfoto'] = $userId . '/' . $imageFile->getName();
         }
 
         if (!empty($updateDataOriginal)) {
