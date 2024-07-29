@@ -10,9 +10,7 @@ use App\Models\Menu_familias_model; ?>
 		<div class="col-lg-12">
 			<h1 class="page-header">Panel de Control - Offertiles</h1>
 		</div>
-		<!-- /.col-lg-12 -->
 	</div>
-	<!-- /.row -->
 	<div class="row">
 		<div class="col-lg-3 col-md-6">
 			<a href="<?php echo site_url('Lista_produccion/pendientes') ?>">
@@ -119,10 +117,8 @@ use App\Models\Menu_familias_model; ?>
 		</div>
 		</a>
 	</div>
-	<!-- /.row -->
 	<div class="row">
 		<div class="col-lg-8">
-			<!-- /.panel -->
 			<div class="panel panel-default <? echo $clase; ?>">
 				<div class="panel-heading">
 					<i class="fa fa-bar-chart-o fa-fw"></i> <? echo $titulo; ?>
@@ -140,7 +136,6 @@ use App\Models\Menu_familias_model; ?>
 						</div>
 					</div>
 				</div>
-				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-12">
@@ -186,43 +181,26 @@ use App\Models\Menu_familias_model; ?>
 									</tbody>
 								</table>
 							</div>
-							<!-- /.table-responsive -->
 						</div>
-						<!-- /.col-lg-4 (nested) -->
 					</div>
-					<!-- /.row -->
 				</div>
-				<!-- /.panel-body -->
 			</div>
-			<!-- /.panel -->
-
 		</div>
-		<!-- /.col-lg-8 -->
 		<div class="col-lg-4">
 			<? if (isset($rutas)) : ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-truck fa-fw"></i> Rutas de Transporte
 					</div>
-					<!-- /.panel-heading -->
 					<div class="panel-body">
-
 						<? echo view('rutas_home');	?>
-
-						<!-- /.list-group -->
 					</div>
-					<!-- /.panel-body -->
 				</div>
 			<? endif; ?>
-			<!-- /.panel -->
-
-
-			<!-- Tu vista estadisticas.php -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<i class="fa fa-users fa-fw"></i> Incidencias
 				</div>
-				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<?php if (!empty($incidencias)) : ?>
 						<table class="table table-striped">
@@ -246,7 +224,7 @@ use App\Models\Menu_familias_model; ?>
 											<button type="button" class="btn btn-success btn-sm">
 												<i class="fa fa-check"></i>
 											</button>
-											<button type="button" class="btn btn-primary btn-sm">
+											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>">
 												<i class="fa fa-pencil"></i>
 											</button>
 										</td>
@@ -258,16 +236,40 @@ use App\Models\Menu_familias_model; ?>
 						<p>No hay incidencias</p>
 					<?php endif; ?>
 				</div>
-				<!-- /.panel-body -->
 			</div>
-
-
-
-
-			<!-- /.panel -->
-			<!-- /.col-lg-4 -->
 		</div>
-		<!-- /.row -->
 	</div>
-	<!-- /#page-wrapper -->
-	<?= $this->endSection() ?>
+</div>
+
+<!-- Modal Editar Incidencia -->
+<div class="modal fade" id="editIncidenciaModal" tabindex="-1" role="dialog" aria-labelledby="editIncidenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editIncidenciaModalLabel">Editar Incidencia</h5>
+                <button type="button" class="btn-close-custom" aria-label="Close" data-dismiss="modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editIncidenciaForm" action="<?= base_url('index/guardar') ?>" method="post">
+                    <div class="form-group">
+                        <label for="entradaHora">Hora de Entrada</label>
+                        <input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="salidaHora">Hora de Salida</label>
+                        <input type="time" class="form-control" id="salidaHora" name="salida_hora">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="incidenciaJustificada" name="incidencia_justificada">
+                        <label class="form-check-label" for="incidenciaJustificada">Incidencia Justificada</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= $this->endSection() ?>
