@@ -224,9 +224,14 @@ use App\Models\Menu_familias_model; ?>
 											<button type="button" class="btn btn-success btn-sm">
 												<i class="fa fa-check"></i>
 											</button>
-											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>">
-												<i class="fa fa-pencil"></i>
-											</button>
+											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal"
+        data-id="<?= $incidencia['id'] ?>"
+        data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>"
+        data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>"
+        data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>"
+        data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>">
+        <i class="fa fa-pencil"></i>
+    </button>
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -253,17 +258,22 @@ use App\Models\Menu_familias_model; ?>
             </div>
             <div class="modal-body">
                 <form id="editIncidenciaForm" action="<?= base_url('index/guardar') ?>" method="post">
+                    <input type="hidden" id="incidenciaId" name="id">
+                    <div class="form-group">
+                        <label for="entradaFecha">Fecha de Entrada</label>
+                        <input type="date" class="form-control" id="entradaFecha" name="entrada_fecha" required>
+                    </div>
                     <div class="form-group">
                         <label for="entradaHora">Hora de Entrada</label>
                         <input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
                     </div>
                     <div class="form-group">
+                        <label for="salidaFecha">Fecha de Salida</label>
+                        <input type="date" class="form-control" id="salidaFecha" name="salida_fecha">
+                    </div>
+                    <div class="form-group">
                         <label for="salidaHora">Hora de Salida</label>
                         <input type="time" class="form-control" id="salidaHora" name="salida_hora">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="incidenciaJustificada" name="incidencia_justificada">
-                        <label class="form-check-label" for="incidenciaJustificada">Incidencia Justificada</label>
                     </div>
                     <button type="submit" class="btn btn-primary float-end">Guardar</button>
                 </form>
@@ -271,5 +281,26 @@ use App\Models\Menu_familias_model; ?>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#editIncidenciaModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var entrada_fecha = button.data('entrada-fecha');
+            var entrada_hora = button.data('entrada-hora');
+            var salida_fecha = button.data('salida-fecha');
+            var salida_hora = button.data('salida-hora');
+
+            var modal = $(this);
+            modal.find('#incidenciaId').val(id);
+            modal.find('#entradaFecha').val(entrada_fecha);
+            modal.find('#entradaHora').val(entrada_hora);
+            modal.find('#salidaFecha').val(salida_fecha);
+            modal.find('#salidaHora').val(salida_hora);
+        });
+    });
+</script>
+
 
 <?= $this->endSection() ?>
