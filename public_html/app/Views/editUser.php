@@ -1,22 +1,18 @@
-<style>
-    .modal-backdrop.show {
-        background-color: #fff3cd;
-    }
-    #editUserModal {
-        display: none;
-    }
-</style>
+<!-- app/Views/edit_user_modal.php -->
+<?= $this->extend('layouts/main') ?>
+
+<?= $this->section('content') ?>
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editUserModalLabel">Editar usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location.href='https://dev.showscreen.app/usuarios'">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
+                    &times;
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="editUserForm" action="" method="post"> <!-- La URL se establecerá dinámicamente -->
+            <div class="modal-body" id="editform-body">
+                <form id="editUserForm" action="" method="post">
                     <?php $session = \Config\Services::session(); ?>
                     <?php if($session->getFlashdata('error')): ?>
                         <div class="alert alert-danger">
@@ -32,14 +28,17 @@
                             <label for="username">Nombre de usuario</label>
                             <input type="text" class="form-control" id="username" name="username" value="<?= isset($user) ? $user->username : '' ?>" required autocomplete="off">
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="<?= isset($user) ? $user->email : '' ?>" autocomplete="off">
                         </div>
+                        <br>
                         <div class="form-group">
                             <label for="password">Nueva contraseña</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="Mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y números" autocomplete="new-password">
                         </div>
+                        <br>
                         <div class="form-group" id="nivelAccesoGroup">
                         <label for="nivel_acceso">Nivel de acceso</label>
                         <select class="form-control" id="nivel_acceso" name="nivel_acceso" required>
@@ -48,18 +47,17 @@
                                 <option value="<?= $nivel->id_nivel ?>" <?= isset($nivel_acceso_usuario) && $nivel->id_nivel == $nivel_acceso_usuario ? 'selected' : '' ?>><?= $nivel->nombre_nivel ?></option>
                             <?php endforeach; ?>
                         </select>
+                        <br>
                     </div>
 
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-primary float-end" id="guardarModal">Guardar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!-- jQuery and Bootstrap JS -->
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
@@ -92,4 +90,4 @@ $(document).ready(function() {
     $('#editUserModal').modal('show');
 });
 </script>
-
+<?= $this->endSection() ?>

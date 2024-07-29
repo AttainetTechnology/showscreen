@@ -179,7 +179,7 @@ public function CerrarFichajesAbiertos($aviso){
     $hoy= date('Y-m-d');
 
     // Load the Fichajes model
-    $fichajes = model('Fichajes' );
+	$fichajes = new Fichajes($this->db);
 
     if (isset($fichajes)){
         $fichajesayer['fichajes']=$fichajes
@@ -194,13 +194,13 @@ public function CerrarFichajesAbiertos($aviso){
 			  foreach ($fila as $clave) {
 			  $entrada = $clave['entrada'];
 			} 
-			if ($entrada!=""){
-			  //echo "El usuario".$empleado." fichó. No tengo que hacer nada.<br>";
-			} else {
-			  //echo "El usuario".$empleado." <b>NO</b> fichó. Compruebo si tenía vacaciones.<br>";
-			  //Comprobamos si el usuario tenía vacaciones
-			  $this->CompruebaVacaciones($empleado);
-			}
+          // Verificar si $entrada se ha definido correctamente
+		  if (isset($entrada) && $entrada != "") {
+			// El usuario fichó. No tengo que hacer nada.
+		} else {
+			// El usuario NO fichó. Compruebo si tenía vacaciones.
+			$this->CompruebaVacaciones($empleado);
+		}
 		  }
 		  $session= session();
 		  $session->setFlashdata('exito', $aviso);
@@ -222,16 +222,17 @@ public function CerrarFichajesAbiertos($aviso){
 		  foreach ($fila as $clave) {
 		  $desde = $clave['desde'];
 		  } 
-		  if ($desde!=""){
-			echo "El usuario".$empleado." está de vacas.<br>";
+		
+		  if (isset($desde) && $desde != "") {
+			// echo "El usuario".$empleado." está de vacas.<br>";
 		  } else {
-			echo "El usuario".$empleado." no fichó, genero Ausencia.<br>";
+			// echo "El usuario".$empleado." no fichó, genero Ausencia.<br>";
 			$datos = [
 				'id_usuario'    => $empleado,
 				'entrada'       => $ayer,
 				'incidencia'    => 'Ausencia'
 			];
-			$fichajes = model('Fichajes_model', true,$this->db);
+			$fichajes = model('Fichajes', true,$this->db);
 			$fichajes->insert($datos);
 			$exito= $fichajes->affectedRows();
 			if($exito>0){

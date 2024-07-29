@@ -94,19 +94,15 @@ class Rutas_transporte extends BaseControllerGC
     {
         $session = session();
         $userId = $session->get('logged_in')['id_user'];
-
-        // Obtener los datos del formulario enviados en la solicitud POST
+    
         $post_array = $this->request->getPost();
-
-        // Preparar datos para la base de datos original, incluyendo 'email'
         $updateDataOriginal = ['email' => $post_array['email']];
         foreach (['username'] as $field) {
             if (!empty($post_array[$field])) {
                 $updateDataOriginal[$field] = $post_array[$field];
             }
         }
-
-        // Validar y hashear la contraseña si se proporciona
+    
         if (!empty($post_array['password'])) {
             if ($this->isValidPassword($post_array['password'])) {
                 $updateDataOriginal['password'] = md5($post_array['password']);
@@ -115,50 +111,46 @@ class Rutas_transporte extends BaseControllerGC
                 return redirect()->back()->withInput();
             }
         }
-
-        // Preparar datos para la base de datos del cliente, también incluyendo 'email'
+    
         $updateDataCliente = ['email' => $post_array['email']];
-
-        // Manejar la carga de la imagen
+    
         $imageFile = $this->request->getFile('userfoto');
         $maxSize = 1024 * 1024; // 1MB
-
+    
         if ($imageFile->isValid() && !$imageFile->hasMoved() && $imageFile->getSize() <= $maxSize) {
             $originalName = $imageFile->getName();
             $id_empresa = $this->data['id_empresa'];
             $id_user = $this->data['id_user'];
             $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $id_user . "/";
-
+    
             if (!is_dir($specificPath)) {
                 mkdir($specificPath, 0777, true);
             } else {
-                array_map('unlink', glob($specificPath . "*")); // Eliminar todos los archivos en el directorio
+                array_map('unlink', glob($specificPath . "*"));
             }
-
+    
             $imageFile->move($specificPath, $originalName);
             $imagePath = $specificPath . $originalName;
-            $this->compressAndResizeImage($imagePath, 400, 200); // Comprimir y redimensionar la imagen
-
-            $updateDataCliente['userfoto'] = $id_user . '/' . $originalName; // Modificar el nombre de la imagen para la base de datos del cliente
+            $this->compressAndResizeImage($imagePath, 400, 200);
+    
+            $updateDataCliente['userfoto'] = $id_user . '/' . $originalName;
         }
-
-        // Actualizar los datos en la base de datos original
-        $dbOriginal = db_connect(); // Conexión a la base de datos predeterminada
+    
         if (!empty($updateDataOriginal)) {
+            $dbOriginal = db_connect();
             $dbOriginal->table('users')->where('id', $userId)->update($updateDataOriginal);
         }
-
-        // Actualizar 'email' y 'userfoto' en la base de datos del cliente
+    
         $database = datos_user();
         $dbCliente = db_connect($database['new_db']);
         if (!empty($updateDataCliente)) {
             $dbCliente->table('users')->where('id', $userId)->update($updateDataCliente);
         }
-
+    
         $this->logAction('Transportista', 'Edita Datos Acceso', $post_array);
         return redirect()->to('/Rutas_transporte/rutas');
     }
-
+    
     private function isValidPassword($password)
     {
         if (strlen($password) < 8) {
@@ -188,27 +180,19 @@ class Rutas_transporte extends BaseControllerGC
     {   
         $session = session();
         $sessionData = $session->get('logged_in');
-        $userId = $sessionData['id_user']; // Obtener el id_user de la sesión
+        $userId = $sessionData['id_user'];
         $db = db_connect();
-
-        // Obtener los datos del usuario de la base de datos
+    
         $query = $db->table('users')->where('id', $userId)->get();
         $user = $query->getRow();
-
-        // Obtener los datos del usuario
+    
         $data = datos_user();
-
-        // Obtener la configuración de la base de datos del cliente
         $database = $data['new_db'];
-
-        // Conectar a la base de datos del cliente
         $dbClient = db_connect($database);
-
-        // Obtener los datos del usuario de la base de datos del cliente
+    
         $queryClient = $dbClient->table('users')->where('id', $userId)->get();
         $userClient = $queryClient->getRow();
-
-        // Añadir la ruta de la imagen al objeto de usuario
+    
         $id_empresa = $this->data['id_empresa'];
         $specificPath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
         if (isset($userClient->userfoto)) {
@@ -216,9 +200,10 @@ class Rutas_transporte extends BaseControllerGC
             $imageNameWithoutPrefix = substr($userClient->userfoto, $slashPosition + 1);
             $user->imagePath = $specificPath . $imageNameWithoutPrefix;
         }
-        // Devolver los datos del usuario
+    
         return $user;
     }
+    
 
     public function entregar_ruta($id_ruta) {
         $post_array = ['action' => 'Ruta FINALIZADA', 'id_ruta' => $id_ruta];

@@ -2,177 +2,174 @@
 namespace App\Controllers;
 use \Gumlet\ImageResize;
 
-//El CrudUsuarios conecta con la BDD principal
-class Mi_perfil extends BaseControllerGC
+class Mi_perfil extends BaseController
 { 
-  
-public function index()
-{
-		$data=datos_user();
-		$id_empresa = $data['empresa'];
-		$id = $data['id_user'];
-		//Fin Control de Login
-		
-		$crud = $this->_getClientDatabase();
-	
-		$crud->setSubject('Miperfil','Mi perfil');
+    public function index($id = null)
+    {
+        return $this->edit($id);
+    }
 
-		$crud->setTable('users');
-		$crud->columns(['nombre_usuario','apellidos_usuario','userfoto']);
-		$crud->callbackColumn('userfoto', array($this, 'userfoto'));
-		$crud->where([
-				'id' => $id
-			]);
-		$crud->unsetOperations();
-		$crud->unsetSettings();
-		$crud->unsetPrint();
-		$crud->unsetExport();
-		$crud->unsetExportExcel();
-		$crud->unsetFilters();
-		$crud->unsetSearchColumns(['nombre_usuario','apellidos_usuario','userfoto']);
-		$crud->setEdit();	
-		$crud->editFields(['id','nombre_usuario','apellidos_usuario','userfoto']);
+    public function save()
+    {
+        $session = session();
+        $userId = $this->request->getPost('id');
 
+        $post_array = $this->request->getPost();
+        $updateDataOriginal = ['email' => $post_array['email']];
+        foreach (['username'] as $field) {
+            if (!empty($post_array[$field])) {
+                $updateDataOriginal[$field] = $post_array[$field];
+            }
+        }
 
-		$crud->callbackBeforeUpdate(function ($stateParameters) {
-			$data = $stateParameters->data;
-			$primaryKeyValue = $stateParameters->primaryKeyValue;
-		
-			// Si el id no ha sido modificado, establecerlo al valor original
-			if (empty($data['id'])) {
-				$data['id'] = $primaryKeyValue;
-			}
-		
-			$stateParameters->data = $data;
-			return $stateParameters;
-		});
-		
+        if (!empty($post_array['password'])) {
+            if ($this->isValidPassword($post_array['password'])) {
+                $updateDataOriginal['password'] = md5($post_array['password']);
+            } else {
+                $session->setFlashdata('error', 'La contraseña no cumple con los requisitos de seguridad.');
+                return redirect()->back()->withInput();
+            }
+        }
 
-		        //Definimos la ruta de subida de archivos
-				$globalUploadPath =  'public/assets/uploads/files/' . $this->data['id_empresa'] . '/usuarios/';
-				if (!is_dir($globalUploadPath)) {
-					mkdir($globalUploadPath, 0777, true);
-				}
-				// Configuración de validaciones para la carga de archivos
-				$uploadValidations = [
-					'maxUploadSize' => '7M', // 20 Mega Bytes
-					'minUploadSize' => '1K', // 1 Kilo Byte
-					'allowedFileTypes' => [
-						'gif', 'jpeg', 'jpg', 'png', 'tiff'
-					]
-				];
-				
-			   //Formatos permitidos para 'userfoto'
-				$crud->setFieldUpload('userfoto', $globalUploadPath, $globalUploadPath, $uploadValidations);
-		
-				// Callback para mostrar la imagen del usuario en la vista columnas
-				$id_empresa= $this->data['id_empresa'];
-				$crud->callbackColumn('userfoto', function ($value, $row) use ($id_empresa) {
-					if ($value === null || $value === '') {
-						return '';
-					} else {
-						$specificPath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/";
-						return "<img src='" . base_url($specificPath . $value) . "' height='60' class='foto_user'>";
-					}
-				});
-						
-				//Elimina al usuario de la BDD1 y la carpeta de img del id que hemos eliminado de bbdd cliente
-				$crud->callbackBeforeDelete(function ($stateParameters) use ($globalUploadPath) {
-					$userId = $stateParameters->primaryKeyValue;           
-					$db = db_connect(); 
-					$db->table('users')->delete(['id' => $userId]);           
-					$userFolder = $globalUploadPath . $userId;
-					if (is_dir($userFolder)) {
-						array_map('unlink', glob("$userFolder/*.*"));
-						rmdir($userFolder);
-					}         
-					return $stateParameters;
-				});
-		
-				  // Creamos el directorio para subir el archivo
-				  $crud->callbackBeforeUpload(function ($stateParameters) use ($globalUploadPath) {
-					// Obtenemos la id del usuario
-					$userId = $_POST['pk_value'] ?? null;                 
-					 // Crea un directorio para el usuario si no existe.
-					$uploadPath = $globalUploadPath . $userId . '/';
-					 if (!is_dir($uploadPath) && !mkdir($uploadPath, 0755, true)) {
-						return false;
-					}        
-					// Busca todas las imágenes existentes en el directorio del usuario.
-					$existingImages = glob($uploadPath . "*.{jpg,jpeg,png}", GLOB_BRACE);
-					// Elimina todas las imágenes existentes en el directorio del usuario.
-					foreach ($existingImages as $image) {
-						unlink($image);
-					}
-					// Establece la ruta de subida en los parámetros del estado.
-					$stateParameters->uploadPath = $uploadPath;
-					return $stateParameters;
-				});
-				
+        $updateDataCliente = ['email' => $post_array['email']];
 
-				// Callback para que la ruta de las fotos incluyan la id del user
-				$crud->callbackAfterUpload(function ($result) {
-					// Si isSuccess no está definido o es falso, establece un valor predeterminado
-					$isSuccess = isset($result->isSuccess) ? $result->isSuccess : true;
+        $dbOriginal = db_connect();
+        if (!$dbOriginal) {
+            $session->setFlashdata('error', 'Error en la conexión a la base de datos.');
+            return redirect()->back()->withInput();
+        }
 
-					if ($isSuccess && is_string($result->uploadResult)) {
-						$fileName = $result->uploadResult;
-						$id_user = $_SESSION['logged_in']['id_user'] ?? ''; // Obtener el id_user de la sesión
-						$Newname = $id_user . "/" . $fileName;
-						$result->uploadResult = $Newname;
+        // Verificar si el nombre de usuario ya existe
+        $existingUser = $dbOriginal->table('users')
+                                   ->where('username', $post_array['username'])
+                                   ->where('id !=', $userId)
+                                   ->get()
+                                   ->getRow();
 
-						// Redimensión de archivos
-						$fullPath = $result->stateParameters->uploadPath . $fileName;
+        if ($existingUser) {
+            $session->setFlashdata('error', 'El nombre de usuario ya existe.');
+            return redirect()->back()->withInput();
+        }
 
-						if (file_exists($fullPath)) {
-							// Crea una nueva instancia de ImageResize y cambia tamaño img
-							$image = new ImageResize($fullPath);
-							$image->resizeToBestFit(400, 200);
+        $imageFile = $this->request->getFile('userfoto');
+        $maxSize = 1024 * 1024; // 1MB
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
-							// Guarda la imagen redimensionada en la misma ruta
-							$image->save($fullPath);
-						}
-					}
+        $id_empresa = $this->data['id_empresa'];
+        $specificPath = FCPATH . "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $userId . "/";
 
-					return $result;
-				});
+        if ($this->request->getPost('deleteImage')) {
+            array_map('unlink', glob($specificPath . "*"));
+            $updateDataCliente['userfoto'] = null;
+        }
 
-		$crud->callbackEditField('id',function ($fieldValue, $primaryKeyValue, $rowData) {
-			helper('controlacceso');
-			$nivel=control_login();
-			$data=datos_user();
-			$id = $data['id_user'];
-			//No permito cambiar passwords a niveles inferiores ni a trabajadores de planta
-			if (($nivel>'8')OR($id==$fieldValue)OR(($nivel>'4')AND($rowData->nivel_acceso=='1'))){
-				return '<div class="botones_user"><a href="'.base_url().'Password_miperfil#/edit/'. $fieldValue.'" class="btn btn-warning btn-sm"><i class="fa fa-user fa-fw"></i> Cambiar password</a></div>';
-				}
-		});
-		$crud->setLangString('modal_save', 'Guardar');
-		
-		//DISPLAY AS
-		$crud->displayAs('id',' ');
-		$crud->DisplayAs('nombre_usuario','Nombre');
-		$crud->DisplayAs('apellidos_usuario','Apellidos');
-		$crud->DisplayAs('userfoto','Foto');
-	
-		$output = $crud->render();
-		if ($output->isJSONResponse) {
-			header('Content-Type: application/json; charset=utf-8');
-			echo $output->output;
-			exit;
-		}	
-	
-        return $this->_GC_output('layouts/main', $output);
+        if ($imageFile->isValid() && !$imageFile->hasMoved()) {
+            if ($imageFile->getSize() > $maxSize) {
+                $session->setFlashdata('error', 'El tamaño de la imagen excede el máximo permitido de 1MB.');
+                return redirect()->back()->withInput();
+            }
+
+            if (!in_array($imageFile->getMimeType(), $allowedTypes)) {
+                $session->setFlashdata('error', 'El formato de la imagen no está permitido. Los formatos permitidos son JPEG, PNG y GIF.');
+                return redirect()->back()->withInput();
+            }
+
+            if (!is_dir($specificPath)) {
+                mkdir($specificPath, 0777, true);
+            } else {
+                array_map('unlink', glob($specificPath . "*"));
+            }
+
+            $imageFile->move($specificPath);
+            $imagePath = $specificPath . $imageFile->getName();
+            $this->compressAndResizeImage($imagePath, 400, 200);
+
+            $updateDataCliente['userfoto'] = $userId . '/' . $imageFile->getName();
+        }
+
+        if (!empty($updateDataOriginal)) {
+            $dbOriginal->table('users')->where('id', $userId)->update($updateDataOriginal);
+        }
+
+        $database = datos_user();
+        $dbCliente = db_connect($database['new_db']);
+        if (!empty($updateDataCliente)) {
+            $dbCliente->table('users')->where('id', $userId)->update($updateDataCliente);
+        }
+
+        $this->logAction('Usuario Planta', 'Edita Datos Acceso', $post_array);
+        return redirect()->to('/Mi_perfil/index/' . $userId);
+    }
+
+    private function isValidPassword($password)
+    {
+        if (strlen($password) < 8) {
+            return false;
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            return false;
+        }
+        if (!preg_match('/[a-z]/', $password)) {
+            return false;
+        }
+        if (!preg_match('/[0-9]/', $password)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function compressAndResizeImage($imagePath, $width, $height)
+    {
+        $image = new \Gumlet\ImageResize($imagePath);
+        $image->resizeToBestFit($width, $height);
+        $image->save($imagePath);
+    }
+
+    public function edit($id = null)
+    {   
+        if ($id === null) {
+            return redirect()->to('/');
+        }
+
+        $db = db_connect();
+        $query = $db->table('users')->where('id', $id)->get();
+        $user = $query->getRow();
+
+        if (!$user) {
+            return redirect()->to('/');
+        }
+
+        $data = datos_user();
+        $database = $data['new_db'];
+        $dbClient = db_connect($database);
+
+        $queryClient = $dbClient->table('users')->where('id', $id)->get();
+        $userClient = $queryClient->getRow();
+
+        $id_empresa = $this->data['id_empresa'];
+        $specificPath = "public/assets/uploads/files/" . $id_empresa . "/usuarios/" . $id . "/";
+        if (isset($userClient->userfoto)) {
+            $slashPosition = strpos($userClient->userfoto, '/');
+            $imageNameWithoutPrefix = substr($userClient->userfoto, $slashPosition + 1);
+            $user->imagePath = $specificPath . $imageNameWithoutPrefix;
+        }
+
+        $data['user'] = $user;
+        return view('edit_mi_perfil', $data);
+    }
+
+    public function getUserData($id)
+    {
+        $db = db_connect();
+        $query = $db->table('users')->where('id', $id)->get();
+        $user = $query->getRow();
+
+        if (!$user) {
+            return $this->response->setStatusCode(404)->setBody('Usuario no encontrado');
+        }
+
+        return $this->response->setJSON($user);
+    }
 }
-	
-
-function userfoto ($valor){
-		if ($valor==""){
-			return '';
-		}
-		if ($valor!=""){
-			return '<div class="userfoto"><img src="'.base_url().'/public/assets/uploads/usuarios/'.$valor.'" height="45px" width="auto"></div>';
-		}
-	}
-}
-
+?>

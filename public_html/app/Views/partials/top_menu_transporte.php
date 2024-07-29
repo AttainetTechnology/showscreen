@@ -13,19 +13,7 @@
         </div>
         <div class="col-4 text-end">
             <!-- Resto del código de la vista -->
-            <?php 
-                $session = session();
-                $session_data = $session->get('logged_in');
-                $display = 'none'; 
-                if ($session_data && array_key_exists('nivel', $session_data) && $session_data['nivel'] == 1) {
-                    $display = 'block'; 
-                }
-            ?>
-            <!-- Botón de datos de acceso -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal" style="display: <?= $display ?>;">
-                Datos Acceso
-            </button>
-            <?= view('editTransportista') ?>
+          
 
             <?php 
                 // Obtener sesión
@@ -77,11 +65,7 @@
                 ?>
             </div>
             <?php } // Fin de la condición ?>
-            <ul style="text-align: right !important;">
-                <!-- Opción para salir -->
-                <a href="<?php echo site_url('/home/logout') ?>" class="btn btn-primary" onclick="localStorage.clear();">Salir</a>
-                <br>
-            </ul>
+
 
         </div>
     </div>

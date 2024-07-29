@@ -1,11 +1,16 @@
 <?php
-
 namespace App\Models;
 
 use CodeIgniter\Model;
 
 class Pedidos_model extends Model
 {
+    protected $table = 'pedidos';
+    protected $primaryKey = 'id_pedido';
+    protected $allowedFields = [
+        'id_cliente', 'referencia', 'id_usuario', 'fecha_entrada', 'fecha_entrega', 'observaciones', 'total_pedido', 'estado'
+    ];
+
     public function obtener_datos_pedido($id_pedido)
     {
         helper('controlacceso');

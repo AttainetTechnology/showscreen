@@ -84,15 +84,41 @@ function groceryCRUDAddExtraColumn($crud, $columnName) {
 }
 
 
+function Pasa_a_Horas($value, $row)
+{
+    // Verifica que los valores de entrada y salida estén definidos
+    if (!isset($row->entrada) || !isset($row->salida)) {
+        return 'Datos insuficientes';
+    }
 
-function Pasa_a_Horas ($total){
-	$totalhoras = intval($total / 60);
-	$minutos = $total % 60;
-	if ($totalhoras == 0){
-		return $minutos . " minutos";
-	} else {
-		return $totalhoras . " horas y " . $minutos . " minutos";
-	}
-}
+    // Convertir las fechas y horas a objetos DateTime
+    $entrada = new \DateTime($row->entrada);
+    $salida = new \DateTime($row->salida);
+
+    // Calcular la diferencia
+    $intervalo = $entrada->diff($salida);
+
+    // Convertir la diferencia a minutos totales
+    $totalMinutos = ($intervalo->days * 24 * 60) + ($intervalo->h * 60) + $intervalo->i;
+
+    // Calcular días, horas y minutos
+    $dias = intval($totalMinutos / (24 * 60));
+    $totalMinutos = $totalMinutos % (24 * 60);
+    $totalhoras = intval($totalMinutos / 60);
+    $minutos = $totalMinutos % 60;
+
+    $resultado = '';
+    if ($dias > 0) {
+        $resultado .= $dias . ' días ';
+    }
+    if ($totalhoras > 0) {
+        $resultado .= $totalhoras . ' horas ';
+    }
+    if ($minutos > 0) {
+        $resultado .= $minutos . ' minutos';
+    }
+
+    return trim($resultado);
 }
 
+}

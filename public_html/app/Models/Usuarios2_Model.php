@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class Usuarios2_Model extends Model
 {
     protected $table = 'users';
+    protected $primaryKey = 'id';
     protected $allowedFields = ['id','nombre_usuario','apellidos_usuario','user_ficha', 'user_activo', 'userfoto','telefono','fecha_alta','fecha_baja','email'];
 
 public function findUserById($id)
@@ -15,5 +16,6 @@ public function findUserById($id)
                 ->where(['id' => $id])
                 ->first();
 }
+
 
 }

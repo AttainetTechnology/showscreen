@@ -3,25 +3,41 @@
 namespace App\Controllers;
 
 use \Gumlet\ImageResize;
+
 class Usuarios extends BaseControllerGC
 {
     public function index()
     {
         $crud = $this->_getClientDatabase();
         
+        // Obtener el NIF de la empresa
+        $dbConnectionsModel = new \App\Models\DbConnectionsModel();
+        $nif = $dbConnectionsModel->getNIF($this->data['id_empresa']);
+        
         // Configuración del CRUD
         $crud->setSubject('Usuario', 'Usuarios');
         $crud->setTable('users');
-        $crud->columns(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_activo', 'user_ficha', 'fecha_alta', 'fecha_baja', 'userfoto']);
+
+        if (!empty($nif)) {
+            $crud->columns(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_activo', 'user_ficha', 'fecha_alta', 'fecha_baja', 'userfoto']);
+        } else {
+            $crud->columns(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_activo', 'fecha_alta', 'fecha_baja', 'userfoto']);
+        }
+        
         $crud->unsetCssTheme();
+        
         // Configuración de los tipos de campo
-        $crud->fieldType('user_ficha', 'dropdown_search', ['0' => '❌', '1' => '✅']);
+        if (!empty($nif)) {
+            $crud->fieldType('user_ficha', 'dropdown_search', ['0' => '❌', '1' => '✅']);
+        }
         $crud->fieldType('user_activo', 'dropdown_search', ['0' => '❌', '1' => '✅']);
         $crud->fieldType('id', 'hidden');
 
         // Configuración de las etiquetas de visualización
         $crud->displayAs('id', ' ');
-        $crud->displayAs('user_ficha', 'Fichaje');
+        if (!empty($nif)) {
+            $crud->displayAs('user_ficha', 'Fichaje');
+        }
         $crud->displayAs('nombre_usuario', 'Nombre');
         $crud->displayAs('apellidos_usuario', 'Apellidos');
         $crud->displayAs('userfoto', 'Foto');
@@ -29,8 +45,14 @@ class Usuarios extends BaseControllerGC
 
         // Configuración de las columnas de búsqueda
         $crud->unsetSearchColumns(['userfoto']);
-        $crud->fields(['id', 'nombre_usuario', 'apellidos_usuario', 'email', 'telefono',  'user_activo', 'user_ficha', 'fecha_alta', 'fecha_baja','userfoto']);
-        $crud->addFields(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_ficha', 'fecha_alta']);
+
+        if (!empty($nif)) {
+            $crud->fields(['id', 'nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_activo', 'user_ficha', 'fecha_alta', 'fecha_baja', 'userfoto']);
+            $crud->addFields(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_ficha', 'fecha_alta']);
+        } else {
+            $crud->fields(['id', 'nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'user_activo', 'fecha_alta', 'fecha_baja', 'userfoto']);
+            $crud->addFields(['nombre_usuario', 'apellidos_usuario', 'email', 'telefono', 'fecha_alta']);
+        }
 
         //Añade fecha_alta automatico
         $crud->callbackAddForm(function ($data) {
@@ -38,22 +60,37 @@ class Usuarios extends BaseControllerGC
             return $data;
         });
 
-        //Callbacks Insertar en la tabla LOG las acciones realizadas
-    
+        $crud->callbackBeforeInsert(function ($stateParameters) {
+            $db = db_connect();
+            // Utiliza una consulta más directa para obtener el siguiente ID válido.
+            $query = $db->query('SELECT IFNULL(MAX(id), 0) as max_id FROM users');
+            $row = $query->getRow();
+            $maxId = $row->max_id;
+        
+            // Ajusta el ID solo si es necesario, simplificando la lógica.
+            $stateParameters->data['id'] = $maxId >= 10 ? $maxId + 1 : 11;
+        
+            $db->close(); // Cierra explícitamente la conexión a la base de datos si es necesario.
+            return $stateParameters;
+        });
+        
+
+        // Callbacks Insertar en la tabla LOG las acciones realizadas
         $crud->callbackAfterInsert(function ($stateParameters) {
             $this->logAction('Usuarios', 'Añade usuario', $stateParameters);
             return $stateParameters;
         });
+
         $crud->callbackAfterUpdate(function ($stateParameters) {
             $this->logAction('Usuarios', 'Edita usuario, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
             return $stateParameters;
         });
+
         $crud->callbackAfterDelete(function ($stateParameters) {
             $this->logAction('Usuarios', 'Elimina usuario, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
             return $stateParameters;
         });
 
-    
         // Callback para añadir 'Datos Acceso' en el modo edición
         $crud->callbackEditField('id', function ($fieldValue, $primaryKeyValue, $rowData) {
             $_SESSION['usuario_actual'] = $fieldValue;
@@ -65,8 +102,8 @@ class Usuarios extends BaseControllerGC
             return $this->nivel . '<input type="hidden" name="id" value="' . $fieldValue . '">';
         });
 
-        //Definimos la ruta de subida de archivos
-        $globalUploadPath =  'public/assets/uploads/files/' . $this->data['id_empresa'] . '/usuarios/';
+        // Definimos la ruta de subida de archivos
+        $globalUploadPath = 'public/assets/uploads/files/' . $this->data['id_empresa'] . '/usuarios/';
         if (!is_dir($globalUploadPath)) {
             mkdir($globalUploadPath, 0777, true);
         }
@@ -79,11 +116,11 @@ class Usuarios extends BaseControllerGC
             ]
         ];
         
-       //Formatos permitidos para 'userfoto'
+        // Formatos permitidos para 'userfoto'
         $crud->setFieldUpload('userfoto', $globalUploadPath, $globalUploadPath, $uploadValidations);
 
         // Callback para mostrar la imagen del usuario en la vista columnas
-        $id_empresa= $this->data['id_empresa'];
+        $id_empresa = $this->data['id_empresa'];
         $crud->callbackColumn('userfoto', function ($value, $row) use ($id_empresa) {
             if ($value === null || $value === '') {
                 return '';
@@ -92,30 +129,29 @@ class Usuarios extends BaseControllerGC
                 return "<img src='" . base_url($specificPath . $value) . "' height='60' class='foto_user'>";
             }
         });
-        
 
-        //Elimina al usuario de la BDD1 y la carpeta de img del id que hemos eliminado de bbdd cliente
+        // Elimina al usuario de la BDD1 y la carpeta de img del id que hemos eliminado de bbdd cliente
         $crud->callbackBeforeDelete(function ($stateParameters) use ($globalUploadPath) {
-            $userId = $stateParameters->primaryKeyValue;           
-            $db = db_connect(); 
-            $db->table('users')->delete(['id' => $userId]);           
+            $userId = $stateParameters->primaryKeyValue;
+            $db = db_connect();
+            $db->table('users')->delete(['id' => $userId]);
             $userFolder = $globalUploadPath . $userId;
             if (is_dir($userFolder)) {
                 array_map('unlink', glob("$userFolder/*.*"));
                 rmdir($userFolder);
-            }         
+            }
             return $stateParameters;
         });
 
-          // Creamos el directorio para subir el archivo
-          $crud->callbackBeforeUpload(function ($stateParameters) use ($globalUploadPath) {
+        // Creamos el directorio para subir el archivo
+        $crud->callbackBeforeUpload(function ($stateParameters) use ($globalUploadPath) {
             // Obtenemos la id del usuario
-            $userId = $_POST['pk_value'] ?? null;                 
-             // Crea un directorio para el usuario si no existe.
+            $userId = $_POST['pk_value'] ?? null;
+            // Crea un directorio para el usuario si no existe.
             $uploadPath = $globalUploadPath . $userId . '/';
-             if (!is_dir($uploadPath) && !mkdir($uploadPath, 0755, true)) {
+            if (!is_dir($uploadPath) && !mkdir($uploadPath, 0755, true)) {
                 return false;
-            }        
+            }
             // Busca todas las imágenes existentes en el directorio del usuario.
             $existingImages = glob($uploadPath . "*.{jpg,jpeg,png}", GLOB_BRACE);
             // Elimina todas las imágenes existentes en el directorio del usuario.
@@ -135,11 +171,11 @@ class Usuarios extends BaseControllerGC
             if ($isSuccess && is_string($result->uploadResult)) {
                 $fileName = $result->uploadResult;
                 $usuario = preg_replace('/[^a-zA-Z0-9_\-]/', '', $_SESSION['usuario_actual'] ?? '');
-                $Newname = $usuario."/".$fileName;
+                $Newname = $usuario . "/" . $fileName;
                 $result->uploadResult = $Newname;
 
                 // Redimensión de archivos
-                $fullPath = $result->stateParameters->uploadPath .$fileName;
+                $fullPath = $result->stateParameters->uploadPath . $fileName;
 
                 if (file_exists($fullPath)) {
                     // Crea una nueva instancia de ImageResize y cambia tamaño img
@@ -153,14 +189,15 @@ class Usuarios extends BaseControllerGC
 
             return $result;
         });
-   
-                      
-        $crud->setLangString('modal_save', 'Guardar Usuario');
-        $crud->setRelation('user_ficha', 'valoresboleanos', 'valor');
 
-        $output = $crud->render();     
+        $crud->setLangString('modal_save', 'Guardar Usuario');
+        if (!empty($nif)) {
+            $crud->setRelation('user_ficha', 'valoresboleanos', 'valor');
+        }
+
+        $output = $crud->render();
         return $this->_GC_output('layouts/main', $output);
-    } 
+    }
 
     public function show($id)
     {
@@ -180,5 +217,4 @@ class Usuarios extends BaseControllerGC
         // Pasar los niveles de acceso y el usuario a la vista
         return view('editUser', ['user' => $user, 'niveles_acceso' => $niveles_acceso]);
     }
-    
 }

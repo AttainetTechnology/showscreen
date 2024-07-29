@@ -20,19 +20,15 @@
             <div class="botonentrar"><a href="<?= base_url('/sal/') ?>/<?= $ausentes['id']; ?>" class="btn btn-danger btn-lg">TERMINAR JORNADA</a></div>
 
             <?php
-            // Obtener la URL actual
-            $current_url = current_url();
-            // Extraer el id_user de la URL
-            $url_parts = explode('/', $current_url);
-            $id_user = end($url_parts);
-
-            // Obtener el id_empresa usando el modelo Usuarios1_Model
-            $usuariosModel = new \App\Models\Usuarios1_Model();
-            $id_empresa = $usuariosModel->get_id_empresa($id_user);
-
-            // Obtener el NIF usando el modelo DbConnectionsModel
+            // Obtener el id_empresa desde la sesión
+            $id_empresa = session()->get('id');
             $dbConnectionsModel = new \App\Models\DbConnectionsModel();
+            // Obtiene el NIF de la empresa
             $nif = $dbConnectionsModel->getNIF($id_empresa);
+            if ($nif === null) {
+                die('No se encontró un NIF para el id_empresa proporcionado');
+            }
+
             // Construir la URL
             $url = "https://dev.showscreen.app/presentes/" . $nif;
             ?>

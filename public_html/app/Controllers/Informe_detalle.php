@@ -177,16 +177,17 @@ class Informe_detalle extends BaseController
                             ->orGroupStart()
                                 ->where('entrada>=', $desde_informe) // ENTRADAS
                                 ->where('entrada<=', $hasta_informe)
-                            ->groupEnd() 
-                            ->orGroupStart() 
+                            ->groupEnd()
+                            ->orGroupStart()
                                 ->where('salida>=', $desde_informe) // SALIDAS
                                 ->where('salida<=', $hasta_informe)
-                            ->groupEnd() 
-                            ->orGroupStart() 
+                            ->groupEnd()
+                            ->orGroupStart()
                                 ->where('entrada<=', $desde_informe) // COMPARA
                                 ->where('salida>=', $hasta_informe)
-                            ->groupEnd() 
+                            ->groupEnd()
                         ->groupEnd() // Cierra agrupación de condiciones
+                        ->where('entrada <', date('Y-m-d')) // Añadir esta línea para asegurarse de que no se incluyen futuras entradas
                         ->findAll(); // Ejecuta la consulta y devuelve los resultados
                     
                     // Obtener los días laborables
@@ -202,16 +203,17 @@ class Informe_detalle extends BaseController
                         if ($lab['sabado'] != 0) $workingDays[] = 6;
                         if ($lab['domingo'] != 0) $workingDays[] = 7;
                     }
-
+                
                     // Generar el rango de fechas del informe
                     $rangoFechasInforme = $this->generarRangoFechas($desde_informe, $hasta_informe);
-
+                
                     // Obtener las fechas con fichajes
                     $fichajes = $ausencias
                         ->select('entrada')
                         ->where('id_usuario', $id_user)
                         ->where('entrada>=', $desde_informe)
                         ->where('entrada<=', $hasta_informe)
+                        ->where('entrada <', date('Y-m-d')) // Añadir esta línea para asegurarse de que no se incluyen futuras entradas
                         ->findAll();
                     
                     $diasConRegistro = [];
@@ -219,17 +221,19 @@ class Informe_detalle extends BaseController
                         $entrada = new \DateTime($f['entrada']);
                         $diasConRegistro[] = $entrada->format("d/m/Y"); 
                     }
-
+                
                     // Calcular los días sin fichajes y filtrar los días no laborables
                     $diasSinAusencia = array_diff($rangoFechasInforme, $diasConRegistro);
                     $diasSinAusenciaLaborables = [];
+                    $hoy = new \DateTime();
+                    $hoy->setTime(0, 0);
                     foreach ($diasSinAusencia as $dia) {
                         $date = \DateTime::createFromFormat('d/m/Y', $dia);
-                        if (in_array($date->format('N'), $workingDays)) {
+                        if ($date && $date < $hoy && in_array($date->format('N'), $workingDays)) { // Filtrar solo los días anteriores a hoy
                             $diasSinAusenciaLaborables[] = $dia;
                         }
                     }
-
+                
                     // Si se encontraron ausencias, las añade al array de datos
                     if (!empty($diasSinAusenciaLaborables)) {
                         $data['ausencias'][$id_user] = $diasSinAusenciaLaborables;

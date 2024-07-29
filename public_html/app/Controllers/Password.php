@@ -87,7 +87,7 @@ class Password extends BaseControllerGC
         $post_array = $request->getPost();
         $post_array['id'] = $id;
 
-        unset($post_array['nombre_usuario']); // No se necesita este campo en la base de datos
+        unset($post_array['nombre_usuario']); 
 
         if (!empty($post_array['password'])) {
             if ($this->isValidPassword($post_array['password'])) {

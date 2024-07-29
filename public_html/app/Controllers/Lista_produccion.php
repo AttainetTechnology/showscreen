@@ -48,9 +48,11 @@ class Lista_produccion extends BaseControllerGC
             $crud->setActionButton('Parte', 'fa fa-print', function ($row) {
                 $uri = service('uri');
                 $uri = current_url(true);
-                $pg2 = $uri;
-                return base_url('partes/print/') . '/' . $row->id_lineapedido . '?volver=' . $pg2;
-            }, false);
+                $pg2 = urlencode($uri); 
+                $link = base_url('partes/print/') . '/' . $row->id_lineapedido . '?volver=' . $pg2;
+
+                return $link;
+            }, true);
         }
 
         if ($where_estado == '4') {
