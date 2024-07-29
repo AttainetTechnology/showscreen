@@ -1,14 +1,14 @@
 #container{
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap:4px;
 }
 #menu_lateral {
     width: 15% ! Important;
-    min-width: 220px;
+    min-width: 200px;
     height: 100vh;
     overflow: auto;
 }
 #contenido{
-		width: 85%!Important;
+		width: 81%!Important;
 	}
