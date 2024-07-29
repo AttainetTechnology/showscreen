@@ -216,7 +216,7 @@ use App\Models\Menu_familias_model; ?>
 			<? endif; ?>
 			<!-- /.panel -->
 
-			
+
 			<!-- Tu vista estadisticas.php -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -246,8 +246,8 @@ use App\Models\Menu_familias_model; ?>
 											<button type="button" class="btn btn-success btn-sm">
 												<i class="fa fa-check"></i>
 											</button>
-											<button type="button" class="btn btn-danger btn-sm">
-												<i class="fa fa-times"></i>
+											<button type="button" class="btn btn-primary btn-sm">
+												<i class="fa fa-pencil"></i>
 											</button>
 										</td>
 									</tr>

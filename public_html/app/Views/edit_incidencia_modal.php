@@ -1,0 +1,34 @@
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<div class="modal fade" id="editIncidenciaModal" tabindex="-1" role="dialog" aria-labelledby="editIncidenciaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editIncidenciaModalLabel">Editar Incidencia</h5>
+                <button type="button" class="btn-close-custom" aria-label="Close" data-dismiss="modal">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editIncidenciaForm" action="<?= base_url('ruta/para/guardar') ?>" method="post">
+                    <div class="form-group">
+                        <label for="entradaHora">Hora de Entrada</label>
+                        <input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="salidaHora">Hora de Salida</label>
+                        <input type="time" class="form-control" id="salidaHora" name="salida_hora">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="incidenciaJustificada" name="incidencia_justificada">
+                        <label class="form-check-label" for="incidenciaJustificada">Incidencia Justificada</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-end">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
