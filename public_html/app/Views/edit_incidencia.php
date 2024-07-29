@@ -1,7 +1,4 @@
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<!-- edit_incidencias.php -->
 <div class="modal fade" id="editIncidenciaModal" tabindex="-1" role="dialog" aria-labelledby="editIncidenciaModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -12,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editIncidenciaForm" action="<?= base_url('ruta/para/guardar') ?>" method="post">
+                <form id="editIncidenciaForm" action="<?= base_url('index/guardar') ?>" method="post">
                     <div class="form-group">
                         <label for="entradaHora">Hora de Entrada</label>
                         <input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
@@ -31,4 +28,3 @@
         </div>
     </div>
 </div>
-
