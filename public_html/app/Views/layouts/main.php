@@ -37,8 +37,6 @@ if ($data !== null && isset($data['favicon'])) {
 </head>
 <body>
   	<div id="container">
-		
-		<!-- Creo este visor para cargar las operaciones fake ajax sobre él -->
 		<div id="menu_lateral">
 		<!-- Muestra el menú -->
 		<?= $this->include('partials/menu_lateral') ?>

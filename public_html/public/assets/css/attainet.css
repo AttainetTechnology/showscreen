@@ -157,7 +157,7 @@ tr:has(.estado4) a {
 
 tr:has(.estado5) {
 	background-color: rgb(227, 247, 227) !Important;
-	color: #837575 !Important;
+	color: #ffffff !Important;
 }
 
 tr:has(.estado5) a {
@@ -514,10 +514,6 @@ Estilos para impresión
 	}
 }
 
-.accordion-item {
-    min-width: 13vw !important;
-}
-
 img.logo_app {
 	max-width: 80% !important;
 }
@@ -612,6 +608,7 @@ a:hover.btfichar {
 /* BOOTSTRAP */
 [class^="gc-full-page-title"] {
 	background-color: transparent !Important;
+	display: none;
 }
 
 /* BOOTSTRAP Botones*/
@@ -720,11 +717,11 @@ a:hover.btfichar {
 }
 
 [class^="gc-title"] {
-	font-size: 40px !important;
+	font-size: 26px !important;
 	color: #000000 !important;
 	margin-bottom: 30px;
-	margin-top: 30px;
-	margin-left: 40px;
+	margin-top: 0px;
+	border-bottom: 10px solid #f8bf4388;
 }
 
 [class^="gc-column-action"]{
