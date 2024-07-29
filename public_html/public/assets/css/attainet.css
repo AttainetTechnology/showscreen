@@ -772,6 +772,7 @@ a:hover.btfichar {
 
 .modal-body {
 	margin: 40px !important;
+	margin-top: 10px !important;
 }
 
 .modal-dialog {
@@ -779,9 +780,9 @@ a:hover.btfichar {
 	max-height: 650px;
 }
 
-.modal-content {
+/* .modal-content {
 	height: 100%;
-}
+} */
 
 .modal-header,
 .modal-body,
@@ -818,7 +819,8 @@ a:hover.btfichar {
 	justify-content: center;
 	gap: 4px;
 	/* Ajusta el espacio entre el ícono y el texto */
-	background-color: #f8bf43;
+	background-color: #f8bf43 !important;
+	border-color: #f8bf43 !important ;
 	border: none;
 	color: white;
 	padding: 10px 15px;
@@ -830,7 +832,7 @@ a:hover.btfichar {
 }
 
 .btn-custom:hover {
-	background-color: #ffae00;
+	background-color: #ffae00 !important;
 	text-decoration: none;
 }
 
