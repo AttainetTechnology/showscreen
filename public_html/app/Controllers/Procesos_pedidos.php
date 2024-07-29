@@ -85,7 +85,6 @@ class Procesos_pedidos extends BaseControllerGC {
         $procesos = $procesoModel->findAll();
         $clientes = $clienteModel->findAll(); 
         
-        log_message('debug', 'Renderizando vista de procesos_pedidos con datos');
 
         return view('procesos_pedidos', [
             'lineas' => $data,

@@ -9,7 +9,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editUserModal">Editar usuario</h5>
-                <button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
+                <button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url('/Rutas_transporte/rutas') ?>'">
                     &times;
                 </button>
             </div>

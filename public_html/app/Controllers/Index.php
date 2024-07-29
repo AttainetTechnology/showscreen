@@ -5,6 +5,8 @@ use App\Models\Config_model;
 use App\Models\Contador_model;
 use App\Models\Lineapedidosnew_model;
 use App\Models\Rutas_model;
+use App\Models\Incidencias_model;
+use App\Models\Usuarios2_Model;
 
 class Index extends BaseController
 {
@@ -13,6 +15,7 @@ class Index extends BaseController
     public function enmaquina()  { $this->index('3'); }
     public function terminados() { $this->index('4'); }
     
+      
     public function index($estado = 2)
     {
         /** APARTADO STANDARD PARA TODOS LOS CONTROLADORES **/ 
@@ -35,7 +38,36 @@ class Index extends BaseController
         
         $data['piezasfamilia'] = $this->pedidos_tabla($estado, $db);
         $data['rutas'] = $this->rutas_home($db);
-        
+    
+        // Obtener incidencias del día de hoy y del día anterior
+        $fechaHoy = date('Y-m-d');
+        $fechaAyer = date('Y-m-d', strtotime('-1 day'));
+        $incidencias_model = new Incidencias_model($db);
+        $data['incidencias'] = $incidencias_model
+            ->select('*')
+            ->select("DATE_FORMAT(entrada, '%H:%i') as entrada_hora")
+            ->select("DATE_FORMAT(COALESCE(salida, NOW()), '%H:%i') as salida_hora")
+            ->select("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) as duracion")
+            ->groupStart()
+                ->where('DATE(entrada)', $fechaHoy)
+                ->orWhere('DATE(entrada)', $fechaAyer)
+            ->groupEnd()
+            ->groupStart()
+                ->orWhere('incidencia', 'Menos de 8Horas')
+                ->orWhere('incidencia', 'sin cerrar')
+                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) < 480", null, false)
+                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) > 510", null, false)
+            ->groupEnd()
+            ->findAll();
+    
+        // Obtener nombres de usuarios
+        $usuarios_model = new Usuarios2_Model($db);
+        foreach ($data['incidencias'] as &$incidencia) {
+            $usuario = $usuarios_model->findUserById($incidencia['id_usuario']);
+            $incidencia['nombre_usuario'] = $usuario['nombre_usuario'] ?? 'Desconocido';
+        }
+    
+        // Definir el título y la clase según el estado
         if ($estado == 0) {
             $data['titulo'] = "Piezas en espera de material";
             $data['clase'] = "";

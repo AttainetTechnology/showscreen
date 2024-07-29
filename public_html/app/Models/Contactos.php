@@ -8,6 +8,7 @@ class Contactos extends Model
     protected $table      ='contactos';
     protected $primaryKey = 'id_contacto';
     protected $allowedFields = ['nombre','apellidos'];
+    
 }
 
 
