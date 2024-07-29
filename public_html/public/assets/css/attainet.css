@@ -407,7 +407,7 @@ span.extra {
 	background-color: #f2dedd;
 }
 
-/* Estilos para impresión */
+Estilos para impresión
 .col-print-1 {
 	width: 8%;
 	float: left;
@@ -512,6 +512,10 @@ span.extra {
 	.menu_lateral a.link-dark {
 		font-size: 15px;
 	}
+}
+
+.accordion-item {
+    min-width: 13vw !important;
 }
 
 img.logo_app {
@@ -721,6 +725,10 @@ a:hover.btfichar {
 	margin-bottom: 30px;
 	margin-top: 30px;
 	margin-left: 40px;
+}
+
+[class^="gc-column-action"]{
+	background-color: white !important;
 }
 
 /* MODALES EDICION USUARIO */

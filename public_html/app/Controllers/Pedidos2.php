@@ -84,8 +84,13 @@ function __construct()
 		
 		//ACCIONES
 		$crud->setActionButton('Imprimir', 'fa fa-print', function ($row) {
-			return site_url('pedidos/print/').$row->id_pedido;
-		}, false);
+			$uri = service('uri');
+			$uri = current_url(true);
+			$pg2 = urlencode($uri); 
+			$link = base_url('pedidos/print/') . '/' . $row->id_pedido. '?volver=' . $pg2;
+			return $link;
+		}, true);
+
 		//UNSETS
 
 		$crud->unsetRead();
