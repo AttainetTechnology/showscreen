@@ -130,7 +130,7 @@ tr:has(.estado0) {
 }
 
 tr:has(.estado0) a {
-	color: var(--negro);
+	background-color: white !Important;
 	text-decoration: none;
 }
 
@@ -139,15 +139,15 @@ tr:has(.estado1) {
 }
 
 tr:has(.estado2) {
-	background-color: rgb(255, 200, 200) !Important;
+	background-color: #fff3cd !Important;
 }
 
 tr:has(.estado3) {
-	background-color: rgb(220, 251, 255) !Important;
+	background-color: #d9edf7!Important;
 }
 
 tr:has(.estado4) {
-	background-color: rgb(157, 206, 164) !Important;
+	background-color: #dff0d8 !Important;
 }
 
 tr:has(.estado4) a {
@@ -156,7 +156,7 @@ tr:has(.estado4) a {
 }
 
 tr:has(.estado5) {
-	background-color: rgb(227, 247, 227) !Important;
+	background-color:#50b752 !Important;
 	color: #ffffff !Important;
 }
 
