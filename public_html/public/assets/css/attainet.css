@@ -125,14 +125,11 @@ tr:has(.ruta2) {
 	text-align: center !important;
 }
 
-tr:has(.estado0) {
-	background-color: var(--amarilloclaro) !Important;
-}
 
-tr:has(.estado0) a {
+/* tr:has(.estado0) a {
 	background-color: white !Important;
 	text-decoration: none;
-}
+} */
 
 tr:has(.estado1) {
 	background-color: #ff9933 !Important;
