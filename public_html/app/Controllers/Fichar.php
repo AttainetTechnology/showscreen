@@ -176,53 +176,10 @@ class Fichar extends BaseFichar
 			foreach ($fila as $clave) {
 				$entrada = $clave['entrada'];
 			} 
-			if (isset($entrada) && $entrada != "") {
-				// El usuario fichó. No tengo que hacer nada.
-			} else {
-				// El usuario NO fichó. Compruebo si tenía vacaciones.
-				$this->CompruebaVacaciones($empleado);
-			}
 		}
 		$session->setFlashdata('exito', $aviso);
 	}
 
-	public function CompruebaVacaciones($empleado)
-	{ 
-		$ayer = date('Y-m-d 00:00', strtotime("-1 days"));
-		$vacaciones = new Vacaciones_model($this->db);
-		$vacacionessayer['vacaciones'] = $vacaciones
-			->where('user_id', $empleado)
-			->where('desde <=', $ayer)
-			->where('hasta >=', $ayer)
-			->select('desde')
-			->findAll();
-
-		$session = session();
-		$aviso = '';
-		foreach ($vacacionessayer['vacaciones'] as $fila) {
-			foreach ($fila as $clave) {
-				$desde = $clave['desde'];
-			} 
-			if (isset($desde) && $desde != "") {
-				// El usuario está de vacaciones.
-			} else {
-				$datos = [
-					'id_usuario'    => $empleado,
-					'entrada'       => $ayer,
-					'incidencia'    => 'Ausencia'
-				];
-				$fichajes = new Fichajes($this->db);
-				$fichajes->insert($datos);
-				$exito = $fichajes->affectedRows();
-				if ($exito > 0) {
-					$aviso .= "Genero ausencia para el usuario: " . $empleado . "<br>";
-				} else {
-					$aviso .= "Error al generar ausencia para el usuario: " . $empleado . "<br>";
-				}
-			}
-		}
-		$session->setFlashdata('exito', $aviso);
-	}
 
 	public function Sal($id = null)
 	{

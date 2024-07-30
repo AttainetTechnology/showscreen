@@ -103,7 +103,7 @@
 								<th>Entrada</th>
 								<th>Salida</th>
 								<th>Incidencia</th>
-								<th>Justificación</th> <!-- Nueva columna añadida -->
+								<th>Justificada</th>
 							</tr>
 						</thead>
 						<?php foreach ($usuarios as $w) {
@@ -346,6 +346,7 @@
 							<tr>
 								<th>Nombre y apellidos</th>
 								<th>Fecha de la ausencia</th>
+								<th>Justificada</th>
 								<th>Total días</th>
 							</tr>
 						</thead>
@@ -354,11 +355,12 @@
 							$id_user = $u['id'];
 							if (isset($ausencias[$id_user]) && is_array($ausencias[$id_user])) {
 								$diasSinAusenciaLaborables = $ausencias[$id_user];
-								$fila_usuario = "<tr class='table-warning'><td>" . $u['nombre_usuario'] . " " . $u['apellidos_usuario'] . "</td><td></td><td><strong>" . count($diasSinAusenciaLaborables) . "</strong></td></tr>";
+								$fila_usuario = "<tr class='table-warning'><td>" . $u['nombre_usuario'] . " " . $u['apellidos_usuario'] . "</td><td></td><td></td><td><strong>" . count($diasSinAusenciaLaborables) . "</strong></td></tr>";
 								echo $fila_usuario;
 
 								foreach ($diasSinAusenciaLaborables as $dia) {
-									echo "<tr><td></td><td>" . $dia . "</td><td></td></tr>";
+									$justificada = isset($justificaciones[$id_user][$dia]) ? $justificaciones[$id_user][$dia] : 'No';
+									echo "<tr><td></td><td>" . $dia . "</td><td>" . $justificada . "</td><td></td></tr>";
 								}
 							}
 						}
@@ -367,6 +369,8 @@
 				</div>
 			</div>
 		<?php } // Cierro ausencias 
+		?>
+
 		?>
 	</div><!-- /#Printable area -->
 </div> <!-- Fondo -->

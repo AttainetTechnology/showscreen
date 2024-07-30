@@ -193,7 +193,7 @@ use App\Models\Menu_familias_model; ?>
 						<i class="fa fa-truck fa-fw"></i> Rutas de Transporte
 					</div>
 					<div class="panel-body">
-						<? echo view('rutas_home');	?>
+						<? echo view('rutas_home'); ?>
 					</div>
 				</div>
 			<? endif; ?>
@@ -221,12 +221,16 @@ use App\Models\Menu_familias_model; ?>
 										<td><?= $incidencia['salida_hora'] ?? 'No registrado' ?></td>
 										<td><?= $incidencia['incidencia'] ?></td>
 										<td>
-											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>" data-justificacion="<?= $incidencia['justificacion'] ?>"> <!-- Pasar justificación -->
-												<i class="fa fa-pencil"></i>
-											</button>
-											<button style="background-color: #FFC107 !important;" type="button" class="btn btn-success btn-sm" data-id="<?= $incidencia['id'] ?>" onclick="updateJustification(<?= $incidencia['id'] ?>)">
-												<i class="fa fa-check"></i>
-											</button>
+											<?php if ($incidencia['id'] != 0) : ?>
+												<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>" data-justificacion="<?= $incidencia['justificacion'] ?>">
+													<i class="fa fa-pencil"></i>
+												</button>
+												<button style="background-color: #FFC107 !important;" type="button" class="btn btn-success btn-sm" data-id="<?= $incidencia['id'] ?>" onclick="updateJustification(<?= $incidencia['id'] ?>)">
+													<i class="fa fa-check"></i>
+												</button>
+											<?php else : ?>
+												<span>N/A</span>
+											<?php endif; ?>
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -270,11 +274,9 @@ use App\Models\Menu_familias_model; ?>
 						<label for="salidaHora">Hora de Salida</label>
 						<input type="time" class="form-control" id="salidaHora" name="salida_hora">
 					</div>
-
 					<br>
-
 					<div class="form-group">
-						<label for="justificacion">Justificación</label>
+						<label for="justificacion">Justificada</label>
 						<input type="checkbox" id="justificacion" name="justificacion" value="SI">
 					</div>
 					<button type="submit" class="btn btn-primary float-end">Guardar</button>
@@ -331,8 +333,4 @@ use App\Models\Menu_familias_model; ?>
 		});
 	});
 </script>
-
-
-
-
 <?= $this->endSection() ?>
