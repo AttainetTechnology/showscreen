@@ -103,63 +103,48 @@
 								<th>Entrada</th>
 								<th>Salida</th>
 								<th>Incidencia</th>
+								<th>Justificación</th> <!-- Nueva columna añadida -->
 							</tr>
 						</thead>
-						<?php if (!empty($incidencias_informe)) { ?>
-							<br><br>
-							<div class="row">
-								<div class="col-sm-12 col-print-12">
-									<h2>Incidencias</h2>
-									Este listado muestra el total de fichajes incompletos o sin cerrar llevados a cabo durante el periodo seleccionado. <br><br>
-									<table class="table table-sm table-hover">
-										<thead>
-											<tr>
-												<th>Nombre y apellidos</th>
-												<th>Entrada</th>
-												<th>Salida</th>
-												<th>Incidencia</th>
-												<th>Justificación</th> <!-- Nueva columna añadida -->
-											</tr>
-										</thead>
-										<?php foreach ($usuarios as $w) {
-											$id_user = $w['id'];
-											$total_linea = 0;
-											$linea = "";
-											$fila_usuario = "";
-											if (!empty($incid[$id_user])) {
-												foreach ($incid[$id_user] as $f) {
-													$entrada = date_create($f['entrada']);
-													$entrada = date_format($entrada, 'd/m/Y - H:i');
-													$salida = date_create($f['salida']);
-													$salida = date_format($salida, 'd/m/Y - H:i');
-													$duracion = $f['duracion']; // Asumiendo que 'duracion' ya está calculada y disponible
+						<?php foreach ($usuarios as $w) {
+							$id_user = $w['id'];
+							$total_linea = 0;
+							$linea = "";
+							$fila_usuario = "";
+							if (!empty($incid[$id_user])) {
+								foreach ($incid[$id_user] as $f) {
+									$entrada = date_create($f['entrada']);
+									$entrada = date_format($entrada, 'd/m/Y - H:i');
+									$salida = date_create($f['salida']);
+									$salida = date_format($salida, 'd/m/Y - H:i');
+									$duracion = $f['duracion']; // Asumiendo que 'duracion' ya está calculada y disponible
 
-													// Determinar el tipo de incidencia basado en la duración
-													if ($duracion < 480) {
-														$tipo_incidencia = "Menos 8h";
-													} elseif ($duracion > 510) {
-														$tipo_incidencia = "Sin cerrar";
-													} else {
-														$tipo_incidencia = "Duración adecuada"; // O cualquier otro mensaje predeterminado
-													}
+									// Determinar el tipo de incidencia basado en la duración
+									if ($duracion < 480) {
+										$tipo_incidencia = "Menos 8h";
+									} elseif ($duracion > 510) {
+										$tipo_incidencia = "Sin cerrar";
+									} else {
+										$tipo_incidencia = "Duración adecuada"; // O cualquier otro mensaje predeterminado
+									}
 
-													// Si 'salida' es NULL, indicar que el fichaje no ha sido cerrado
-													if (is_null($f['salida'])) {
-														$tipo_incidencia = "Fichaje sin cerrar";
-													}
+									// Si 'salida' es NULL, indicar que el fichaje no ha sido cerrado
+									if (is_null($f['salida'])) {
+										$tipo_incidencia = "Fichaje sin cerrar";
+									}
 
-													$justificacion = !empty($f['justificacion']) ? $f['justificacion'] : " ";
+									$justificacion = !empty($f['justificacion']) ? $f['justificacion'] : " ";
 
-													$linea .= "
+									$linea .= "
                             <tr>
                                 <td></td>
                                 <td>" . $entrada . "</td>
                                 <td>" . ($f['salida'] ? $salida : "No cerrado") . "</td>
                                 <td>" . $tipo_incidencia . "</td>
-                                <td>" . $justificacion . "</td> 
+                                <td>" . $justificacion . "</td>
                             </tr>";
-												} // Cierro foreach incidencias
-												$fila_usuario = "
+								} // Cierro foreach incidencias
+								$fila_usuario = "
                         <tr class='table-warning'>
                             <td>" . $w['nombre_usuario'] . " " . $w['apellidos_usuario'] . "</td>
                             <td></td>
@@ -168,27 +153,22 @@
                             <td></td>
                         </tr>
                         ";
-											} // Cierro if empty incidencias
+							} // Cierro if empty incidencias
 
-											// Imprimo las líneas
-											if (!empty($fila_usuario)) {
-												echo $fila_usuario;
-											}
-											if (!empty($linea)) {
-												echo $linea;
-											}
-										} // Cierro foreach usuarios 
-										?>
-									</table>
-								</div>
-							</div>
-						<?php } // Cierro incidencias 
+							// Imprimo las líneas
+							if (!empty($fila_usuario)) {
+								echo $fila_usuario;
+							}
+							if (!empty($linea)) {
+								echo $linea;
+							}
+						} // Cierro foreach usuarios 
 						?>
-
 					</table>
 				</div>
 			</div>
-		<?php } //Cierro incidencias 
+		<?php } // Cierro incidencias 
+
 
 		// VACACIONES 
 		$workingDays = [];

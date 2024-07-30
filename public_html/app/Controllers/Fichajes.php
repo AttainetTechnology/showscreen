@@ -56,7 +56,7 @@ $crud->fieldType('extras', 'dropdown', [
 	'0' => ' '
 ]);
 $crud->fieldType('incidencia', 'dropdown', [
-	' '	=> '--',
+	' '	=> ' ',
 	'Menos de 8H' => 'Menos de 8H',
 	'sin cerrar' => 'Sin cerrar',
 	'Ausencia' => 'Ausencia'
@@ -64,7 +64,7 @@ $crud->fieldType('incidencia', 'dropdown', [
 
 $crud->fieldType('justificacion', 'dropdown', [
     'Sí' => 'Sí',
-    'No' => 'No'
+    'No' => 'No',
 ]);
 
 $crud->callbackColumn('total',array($this,'Pasa_a_Horas'));

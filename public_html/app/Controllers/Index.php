@@ -245,4 +245,29 @@ class Index extends BaseController
             return redirect()->back()->with('error', 'Error al actualizar la incidencia');
         }
     }
+    public function updateJustification()
+    {
+        if ($this->request->isAJAX()) {
+            $data = $this->request->getJSON();
+            $id = $data->id ?? null;
+            $justificacion = $data->justificacion ?? null;
+
+            if (empty($id) || empty($justificacion)) {
+                return $this->response->setJSON(['success' => false, 'message' => 'Datos no válidos.']);
+            }
+
+            helper('controlacceso');
+
+            // Saco los datos del usuario
+            $user_data = datos_user();
+            $db = db_connect($user_data['new_db']);
+            $incidencias_model = new Incidencias_model($db);
+
+            $update_data = [
+                'justificacion' => $justificacion
+            ];
+
+            $result = $incidencias_model->update($id, $update_data);
+        }
+    }
 }
