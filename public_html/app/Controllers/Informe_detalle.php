@@ -234,6 +234,38 @@ class Informe_detalle extends BaseController
                         }
                     }
                 
+                    // Filtrar los días sin fichajes que no están en la tabla de vacaciones
+                    $vacaciones = new Vacaciones_model($db);
+                    foreach ($diasSinAusenciaLaborables as $key => $dia) {
+                        $date = \DateTime::createFromFormat('d/m/Y', $dia);
+                        if ($date) {
+                            $fecha = $date->format('Y-m-d');
+                            $vacacion = $vacaciones
+                                ->where('user_id', $id_user)
+                                ->where('desde <=', $fecha)
+                                ->where('hasta >=', $fecha)
+                                ->first();
+                            if ($vacacion) {
+                                unset($diasSinAusenciaLaborables[$key]); // Si está en vacaciones, eliminar de las ausencias
+                            }
+                        }
+                    }
+                
+                    // Filtrar los días sin fichajes que no están en la tabla de festivos
+                    $festivos = new Festivos($db);
+                    foreach ($diasSinAusenciaLaborables as $key => $dia) {
+                        $date = \DateTime::createFromFormat('d/m/Y', $dia);
+                        if ($date) {
+                            $fecha = $date->format('Y-m-d');
+                            $festivo = $festivos
+                                ->where('fecha', $fecha)
+                                ->first();
+                            if ($festivo) {
+                                unset($diasSinAusenciaLaborables[$key]); // Si es festivo, eliminar de las ausencias
+                            }
+                        }
+                    }
+                
                     // Si se encontraron ausencias, las añade al array de datos
                     if (!empty($diasSinAusenciaLaborables)) {
                         $data['ausencias'][$id_user] = $diasSinAusenciaLaborables;
@@ -243,6 +275,7 @@ class Informe_detalle extends BaseController
                 }
             }
         }
+                
 
         echo view('header_partes');
         echo view('informe', (array)$data);
