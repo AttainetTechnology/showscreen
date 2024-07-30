@@ -70,6 +70,10 @@ class Index extends BaseController
             ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) < 480", null, false)
             ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) > 510", null, false)
             ->groupEnd()
+            ->groupStart()
+            ->where('justificacion IS NULL')
+            ->orWhere('justificacion', '')
+            ->groupEnd()
             ->findAll();
 
         // Obtener nombres de usuarios
@@ -178,31 +182,32 @@ class Index extends BaseController
     {
         // Control de login    
         helper('controlacceso');
-    
+
         // Saco los datos del usuario
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $incidencias_model = new Incidencias_model($db);
-    
+
         $id = $this->request->getPost('id');
         if (empty($id)) {
             return redirect()->back()->with('error', 'ID de incidencia no proporcionado');
         }
-    
+
         $entrada_fecha = $this->request->getPost('entrada_fecha');
         $entrada_hora = $this->request->getPost('entrada_hora');
         $salida_fecha = $this->request->getPost('salida_fecha');
         $salida_hora = $this->request->getPost('salida_hora');
-    
+        $justificacion = $this->request->getPost('justificacion') ? 'SI' : ' ';
+
         $entrada = $entrada_fecha . ' ' . $entrada_hora . ':00';
         $salida = !empty($salida_fecha) && !empty($salida_hora) ? $salida_fecha . ' ' . $salida_hora . ':00' : null;
-    
+
         // Calcular la duración en minutos
         $datetime1 = new \DateTime($entrada);
         $datetime2 = $salida ? new \DateTime($salida) : new \DateTime();
         $interval = $datetime1->diff($datetime2);
-        $duracion = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
-    
+        $duracion = ($interval->days * 24 * 60) + ($interval->h * 60) + ($interval->i);
+
         // Determinar el valor del campo 'incidencia'
         if ($duracion < 480) {
             $incidencia = 'Menos de 8H';
@@ -211,24 +216,33 @@ class Index extends BaseController
         } else {
             $incidencia = '';
         }
-    
-        // Actualizar la incidencia
+
+        // Preparar los datos para la actualización
         $data = [
             'entrada' => $entrada,
             'salida' => $salida,
             'incidencia' => $incidencia,
+            'justificacion' => $justificacion,
         ];
-    
+
         // Solo actualizar el campo incidencia cuando se requiere eliminar el texto
         if ($duracion >= 480 && $duracion <= 510) {
             $data['incidencia'] = '';
         }
-    
-        $incidencias_model->where('id', $id)->update($id, $data);
-    
-        return redirect()->back()->with('message', 'Incidencia actualizada correctamente');
+
+        // Depuración: imprimir los datos que se van a actualizar
+        error_log("Datos para actualizar la incidencia ID {$id}: " . json_encode($data));
+
+        // Ejecutar la actualización
+        $result = $incidencias_model->where('id', $id)->update($id, $data);
+
+        // Depuración: comprobar si la actualización fue exitosa
+        if ($result) {
+            error_log("Incidencia ID {$id} actualizada correctamente.");
+            return redirect()->back()->with('message', 'Incidencia actualizada correctamente');
+        } else {
+            error_log("Error al actualizar la incidencia ID {$id}.");
+            return redirect()->back()->with('error', 'Error al actualizar la incidencia');
+        }
     }
-    
-    
-    
 }

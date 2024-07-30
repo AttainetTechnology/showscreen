@@ -224,14 +224,10 @@ use App\Models\Menu_familias_model; ?>
 											<button type="button" class="btn btn-success btn-sm">
 												<i class="fa fa-check"></i>
 											</button>
-											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal"
-        data-id="<?= $incidencia['id'] ?>"
-        data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>"
-        data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>"
-        data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>"
-        data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>">
-        <i class="fa fa-pencil"></i>
-    </button>
+											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>" data-justificacion="<?= $incidencia['justificacion'] ?>"> <!-- Pasar justificación -->
+												<i class="fa fa-pencil"></i>
+											</button>
+
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -248,59 +244,69 @@ use App\Models\Menu_familias_model; ?>
 
 <!-- Modal Editar Incidencia -->
 <div class="modal fade" id="editIncidenciaModal" tabindex="-1" role="dialog" aria-labelledby="editIncidenciaModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editIncidenciaModalLabel">Editar Incidencia</h5>
-                <button type="button" class="btn-close-custom" aria-label="Close" data-dismiss="modal">
-                    &times;
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="editIncidenciaForm" action="<?= base_url('index/guardar') ?>" method="post">
-                    <input type="hidden" id="incidenciaId" name="id">
-                    <div class="form-group">
-                        <label for="entradaFecha">Fecha de Entrada</label>
-                        <input type="date" class="form-control" id="entradaFecha" name="entrada_fecha" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="entradaHora">Hora de Entrada</label>
-                        <input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="salidaFecha">Fecha de Salida</label>
-                        <input type="date" class="form-control" id="salidaFecha" name="salida_fecha">
-                    </div>
-                    <div class="form-group">
-                        <label for="salidaHora">Hora de Salida</label>
-                        <input type="time" class="form-control" id="salidaHora" name="salida_hora">
-                    </div>
-                    <button type="submit" class="btn btn-primary float-end">Guardar</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editIncidenciaModalLabel">Editar Incidencia</h5>
+				<button type="button" class="btn-close-custom" aria-label="Close" onclick="window.location.href='<?= base_url() ?>'">
+					&times;
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="editIncidenciaForm" action="<?= base_url('index/guardar') ?>" method="post">
+					<input type="hidden" id="incidenciaId" name="id">
+					<div class="form-group">
+						<label for="entradaFecha">Fecha de Entrada</label>
+						<input type="date" class="form-control" id="entradaFecha" name="entrada_fecha" required>
+					</div>
+					<div class="form-group">
+						<label for="entradaHora">Hora de Entrada</label>
+						<input type="time" class="form-control" id="entradaHora" name="entrada_hora" required>
+					</div>
+					<div class="form-group">
+						<label for="salidaFecha">Fecha de Salida</label>
+						<input type="date" class="form-control" id="salidaFecha" name="salida_fecha">
+					</div>
+					<div class="form-group">
+						<label for="salidaHora">Hora de Salida</label>
+						<input type="time" class="form-control" id="salidaHora" name="salida_hora">
+					</div>
+
+					<br>
+					
+					<div class="form-group">
+						<label for="justificacion">Justificación</label>
+						<input type="checkbox" id="justificacion" name="justificacion" value="SI">
+					</div>
+					<button type="submit" class="btn btn-primary float-end">Guardar</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        $('#editIncidenciaModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var entrada_fecha = button.data('entrada-fecha');
-            var entrada_hora = button.data('entrada-hora');
-            var salida_fecha = button.data('salida-fecha');
-            var salida_hora = button.data('salida-hora');
+	document.addEventListener('DOMContentLoaded', function() {
+		$('#editIncidenciaModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget);
+			var id = button.data('id');
+			var entrada_fecha = button.data('entrada-fecha');
+			var entrada_hora = button.data('entrada-hora');
+			var salida_fecha = button.data('salida-fecha');
+			var salida_hora = button.data('salida-hora');
+			var justificacion = button.data('justificacion');
 
-            var modal = $(this);
-            modal.find('#incidenciaId').val(id);
-            modal.find('#entradaFecha').val(entrada_fecha);
-            modal.find('#entradaHora').val(entrada_hora);
-            modal.find('#salidaFecha').val(salida_fecha);
-            modal.find('#salidaHora').val(salida_hora);
-        });
-    });
+			var modal = $(this);
+			modal.find('#incidenciaId').val(id);
+			modal.find('#entradaFecha').val(entrada_fecha);
+			modal.find('#entradaHora').val(entrada_hora);
+			modal.find('#salidaFecha').val(salida_fecha);
+			modal.find('#salidaHora').val(salida_hora);
+			modal.find('#justificacion').prop('checked', justificacion === 'SI');
+		});
+	});
 </script>
+
 
 
 <?= $this->endSection() ?>
