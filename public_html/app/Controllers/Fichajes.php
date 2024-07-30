@@ -49,7 +49,7 @@ $crud->where([
 $crud->setRelation('id_usuario','users','nombre_usuario');
 $crud->displayAs('total','Horas');
 $crud->displayAs('id_usuario','Nombre');
-$crud->displayAs('justificacion', 'Justificación');
+$crud->displayAs('justificacion', 'Justificada');
 //$crud->displayAs('id','Fecha');
 $crud->fieldType('extras', 'dropdown', [
 	'1' => 'Sí',

@@ -221,15 +221,12 @@ use App\Models\Menu_familias_model; ?>
 										<td><?= $incidencia['salida_hora'] ?? 'No registrado' ?></td>
 										<td><?= $incidencia['incidencia'] ?></td>
 										<td>
-										<button type="button" class="btn btn-success btn-sm" data-id="<?= $incidencia['id'] ?>" onclick="updateJustification(<?= $incidencia['id'] ?>)">
-												<i class="fa fa-check"></i>
-											</button>
-
-
 											<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>" data-justificacion="<?= $incidencia['justificacion'] ?>"> <!-- Pasar justificación -->
 												<i class="fa fa-pencil"></i>
 											</button>
-
+											<button style="background-color: #FFC107 !important;" type="button" class="btn btn-success btn-sm" data-id="<?= $incidencia['id'] ?>" onclick="updateJustification(<?= $incidencia['id'] ?>)">
+												<i class="fa fa-check"></i>
+											</button>
 										</td>
 									</tr>
 								<?php endforeach; ?>
@@ -311,19 +308,22 @@ use App\Models\Menu_familias_model; ?>
 			button.addEventListener('click', function() {
 				var incidenciaId = this.getAttribute('data-id');
 
-				if (confirm('¿Está seguro de que desea actualizar la justificación a "No"?')) {
+				if (confirm('¿Está seguro de NO justificar la incidencia?')) {
 					// Enviar la solicitud fetch
 					fetch('<?= base_url('index/updateJustification') ?>', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							'X-Requested-With': 'XMLHttpRequest',
-							'<?= csrf_token() ?>': '<?= csrf_hash() ?>'
-						},
-						body: JSON.stringify({ id: incidenciaId, justificacion: 'No' })
-					})
-					.catch(error => console.error('Error:', error));
-					
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'X-Requested-With': 'XMLHttpRequest',
+								'<?= csrf_token() ?>': '<?= csrf_hash() ?>'
+							},
+							body: JSON.stringify({
+								id: incidenciaId,
+								justificacion: 'No'
+							})
+						})
+						.catch(error => console.error('Error:', error));
+
 					// Recargar la página inmediatamente después de la confirmación
 					location.reload();
 				}

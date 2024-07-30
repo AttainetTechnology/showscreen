@@ -225,36 +225,40 @@ class Fichar extends BaseFichar
 	}
 
 	public function Sal($id = null)
-	{      
+	{
 		$presentes = model('Presentes', true, $this->db);
 		$data1 = $presentes->where('id_empleado', $id)->first();
-
+	
 		$fechaentrada = $data1['entrada']; 
 		$fichaextras = $data1['extras'];
 		$fichajes = model('Fichajes', true, $this->db);
-
+	
 		$ahora = date('Y-m-d H:i:s');
 		$date1 = date_create_from_format('Y-m-d H:i:s', $fechaentrada);
 		$date2 = date_create_from_format('Y-m-d H:i:s', $ahora);
-
+	
 		$diff = date_diff($date1, $date2);
-		$horas = $diff->h * 60;
-		$minutos = $diff->i;
-		$total = ($horas + $minutos);
-
-		if (($total < 465) && ($fichaextras != '1')) {
+		$totalHoras = $diff->h + ($diff->days * 24); // Asegurarse de sumar días convertidos a horas
+		$totalMinutos = $diff->i;
+		$totalTrabajado = ($totalHoras * 60) + $totalMinutos; // Total trabajado en minutos
+	
+		// Inicializar la incidencia
+		$incidencia = "";
+	
+		if ($totalTrabajado > (8 * 60 + 30)) { 
+			$incidencia = "Sin cerrar";
+		} elseif ($totalTrabajado < (8 * 60)) {
 			$incidencia = "Menos de 8H";
-		} else {
-			$incidencia = "";
 		}
-
+	
+		// Inserta el fichaje con la incidencia calculada
 		$data = [
 			'id_usuario' => $id,
 			'entrada' => $fechaentrada,
 			'salida' => $ahora,
 			'incidencia' => $incidencia,
 			'extras' => $fichaextras,
-			'total' => $total
+			'total' => $totalTrabajado
 		];
 		$fichajes->insert($data);
 		$exito = $fichajes->affectedRows();
@@ -263,13 +267,14 @@ class Fichar extends BaseFichar
 			$presentes->delete($id);
 			$resultado = "Fichaje de salida realizado correctamente.";
 			$session->setFlashdata('exito', $resultado);
-			return redirect()->to(base_url(). '/Fichar');
+			return redirect()->to(base_url() . '/Fichar');
 		} else {
 			$resultado = "Error al fichar la salida.";
 			$session->setFlashdata('error', $resultado);
 			return redirect()->back();
 		}
 	}
+	
 	
 	public function CambiaDeDia($aviso)
 	{    

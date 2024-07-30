@@ -128,8 +128,8 @@ class Informe_detalle extends BaseController
                    ->Where('entrada>', $desde_informe)
                    ->Where('entrada<', $hasta_informe)
                    ->GroupStart() // Inicia agrupación para condiciones OR
-                      ->orWhere('incidencia', 'Menos de 8H') // Esta condición podría ajustarse o eliminarse según la lógica exacta requerida
-                      ->orWhere('incidencia', 'sin cerrar') // Ídem
+                      ->orWhere('incidencia', 'Menos de 8H') 
+                      ->orWhere('incidencia', 'sin cerrar')
                       // Añade condiciones para duración menor a 8 horas (480 minutos) o mayor a 8 horas y 30 minutos (510 minutos)
                       ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) < 480", null, false)
                       ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) > 510", null, false)
