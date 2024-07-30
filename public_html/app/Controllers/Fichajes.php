@@ -39,7 +39,7 @@ public function SacaFichajes($titulo,$titulos,$comparador,$valor)
 
 $crud->setSubject($titulo,$titulos);
 $crud->setTable('fichajes');
-$crud->columns(['id_usuario','entrada','salida', 'total', 'incidencia','extras']);
+$crud->columns(['id_usuario','entrada','salida', 'total', 'incidencia','extras', 'justificacion']);
 $this->groceryCRUDAddExtraColumn($crud, 'fecha');
 if ($comparador!=''){
 $crud->where([
@@ -49,6 +49,7 @@ $crud->where([
 $crud->setRelation('id_usuario','users','nombre_usuario');
 $crud->displayAs('total','Horas');
 $crud->displayAs('id_usuario','Nombre');
+$crud->displayAs('justificacion', 'Justificación');
 //$crud->displayAs('id','Fecha');
 $crud->fieldType('extras', 'dropdown', [
 	'1' => 'Sí',
@@ -56,10 +57,16 @@ $crud->fieldType('extras', 'dropdown', [
 ]);
 $crud->fieldType('incidencia', 'dropdown', [
 	' '	=> '--',
-	'no8' => 'No 8 horas',
+	'Menos de 8H' => 'Menos de 8H',
 	'sin cerrar' => 'Sin cerrar',
 	'Ausencia' => 'Ausencia'
 ]);
+
+$crud->fieldType('justificacion', 'dropdown', [
+    'Sí' => 'Sí',
+    'No' => 'No'
+]);
+
 $crud->callbackColumn('total',array($this,'Pasa_a_Horas'));
 $crud->unsetRead();
 $crud->unsetSearchColumns(['entrada', 'salida','total']);
