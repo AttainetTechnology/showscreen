@@ -103,7 +103,6 @@
 								<th>Entrada</th>
 								<th>Salida</th>
 								<th>Incidencia</th>
-								<th>Justificada</th>
 							</tr>
 						</thead>
 						<?php foreach ($usuarios as $w) {
@@ -133,15 +132,12 @@
 										$tipo_incidencia = "Fichaje sin cerrar";
 									}
 
-									$justificacion = !empty($f['justificacion']) ? $f['justificacion'] : " ";
-
 									$linea .= "
                             <tr>
                                 <td></td>
                                 <td>" . $entrada . "</td>
                                 <td>" . ($f['salida'] ? $salida : "No cerrado") . "</td>
                                 <td>" . $tipo_incidencia . "</td>
-                                <td>" . $justificacion . "</td>
                             </tr>";
 								} // Cierro foreach incidencias
 								$fila_usuario = "
@@ -346,7 +342,6 @@
 							<tr>
 								<th>Nombre y apellidos</th>
 								<th>Fecha de la ausencia</th>
-								<th>Justificada</th>
 								<th>Total días</th>
 							</tr>
 						</thead>
@@ -357,11 +352,6 @@
 								$diasSinAusenciaLaborables = $ausencias[$id_user];
 								$fila_usuario = "<tr class='table-warning'><td>" . $u['nombre_usuario'] . " " . $u['apellidos_usuario'] . "</td><td></td><td></td><td><strong>" . count($diasSinAusenciaLaborables) . "</strong></td></tr>";
 								echo $fila_usuario;
-
-								foreach ($diasSinAusenciaLaborables as $dia) {
-									$justificada = isset($justificaciones[$id_user][$dia]) ? $justificaciones[$id_user][$dia] : 'No';
-									echo "<tr><td></td><td>" . $dia . "</td><td>" . $justificada . "</td><td></td></tr>";
-								}
 							}
 						}
 						?>

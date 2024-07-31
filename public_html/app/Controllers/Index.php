@@ -34,23 +34,23 @@ class Index extends BaseController
         // Control de login    
         helper('controlacceso');
         control_login();
-
+    
         // Saco los datos del usuario
         $data = datos_user();
-
+    
         // Conecto la BDD
         $db = db_connect($data['new_db']);
-
+    
         // Cargamos los módulos de la Home
         // Creo los 4 bloques que aparecen en la parte superior de la index
         $data['pendientes'] = $this->cuenta('0', $db);
         $data['en_cola']    = $this->cuenta('2', $db);
         $data['en_maquina'] = $this->cuenta('3', $db);
         $data['terminados'] = $this->cuenta('4', $db);
-
+    
         $data['piezasfamilia'] = $this->pedidos_tabla($estado, $db);
         $data['rutas'] = $this->rutas_home($db);
-
+    
         // Obtener incidencias del día de hoy y del día anterior
         $fechaHoy = date('Y-m-d');
         $fechaAyer = date('Y-m-d', strtotime('-1 day'));
@@ -61,28 +61,24 @@ class Index extends BaseController
             ->select("DATE_FORMAT(COALESCE(salida, NOW()), '%H:%i') as salida_hora")
             ->select("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) as duracion")
             ->groupStart()
-            ->where('DATE(entrada)', $fechaHoy)
-            ->orWhere('DATE(entrada)', $fechaAyer)
+                ->where('DATE(entrada)', $fechaHoy)
+                ->orWhere('DATE(entrada)', $fechaAyer)
             ->groupEnd()
             ->groupStart()
-            ->orWhere('incidencia', 'Menos de 8Horas')
-            ->orWhere('incidencia', 'sin cerrar')
-            ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) < 480", null, false)
-            ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) > 510", null, false)
-            ->groupEnd()
-            ->groupStart()
-            ->where('justificacion IS NULL')
-            ->orWhere('justificacion', '')
+                ->where('incidencia', 'Menos de 8Horas')
+                ->orWhere('incidencia', 'sin cerrar')
+                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) <", 480, false)
+                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) >", 510, false)
             ->groupEnd()
             ->findAll();
-
+    
         // Obtener nombres de usuarios
         $usuarios_model = new Usuarios2_Model($db);
         foreach ($data['incidencias'] as &$incidencia) {
             $usuario = $usuarios_model->findUserById($incidencia['id_usuario']);
             $incidencia['nombre_usuario'] = $usuario['nombre_usuario'] ?? 'Desconocido';
         }
-
+    
         // Definir el título y la clase según el estado
         if ($estado == 0) {
             $data['titulo'] = "Piezas en espera de material";
@@ -97,10 +93,11 @@ class Index extends BaseController
             $data['titulo'] = "Piezas terminadas";
             $data['clase'] = "panel-success";
         }
-
+    
         // Cargamos las vistas
         echo view('estadisticas', $data);
     }
+    
 
     // Esta función cuenta las líneas de una tabla
     function cuenta($estado, $db)
@@ -197,7 +194,6 @@ class Index extends BaseController
         $entrada_hora = $this->request->getPost('entrada_hora');
         $salida_fecha = $this->request->getPost('salida_fecha');
         $salida_hora = $this->request->getPost('salida_hora');
-        $justificacion = $this->request->getPost('justificacion') ? 'SI' : ' ';
 
         $entrada = $entrada_fecha . ' ' . $entrada_hora . ':00';
         $salida = !empty($salida_fecha) && !empty($salida_hora) ? $salida_fecha . ' ' . $salida_hora . ':00' : null;
@@ -222,7 +218,6 @@ class Index extends BaseController
             'entrada' => $entrada,
             'salida' => $salida,
             'incidencia' => $incidencia,
-            'justificacion' => $justificacion,
         ];
 
         // Solo actualizar el campo incidencia cuando se requiere eliminar el texto
@@ -245,29 +240,5 @@ class Index extends BaseController
             return redirect()->back()->with('error', 'Error al actualizar la incidencia');
         }
     }
-    public function updateJustification()
-    {
-        if ($this->request->isAJAX()) {
-            $data = $this->request->getJSON();
-            $id = $data->id ?? null;
-            $justificacion = $data->justificacion ?? null;
 
-            if (empty($id) || empty($justificacion)) {
-                return $this->response->setJSON(['success' => false, 'message' => 'Datos no válidos.']);
-            }
-
-            helper('controlacceso');
-
-            // Saco los datos del usuario
-            $user_data = datos_user();
-            $db = db_connect($user_data['new_db']);
-            $incidencias_model = new Incidencias_model($db);
-
-            $update_data = [
-                'justificacion' => $justificacion
-            ];
-
-            $result = $incidencias_model->update($id, $update_data);
-        }
-    }
 }

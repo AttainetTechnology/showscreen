@@ -17,11 +17,6 @@
                     <div class="form-group">
                         <label for="salidaHora">Hora de Salida</label>
                         <input type="time" class="form-control" id="salidaHora" name="salida_hora">
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="incidenciaJustificada" name="incidencia_justificada">
-                        <label class="form-check-label" for="incidenciaJustificada">Incidencia Justificada</label>
-                    </div>
                     <button type="submit" class="btn btn-primary float-end">Guardar</button>
                 </form>
             </div>

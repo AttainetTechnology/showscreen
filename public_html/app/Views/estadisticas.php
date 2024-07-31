@@ -222,7 +222,7 @@ use App\Models\Menu_familias_model; ?>
 										<td><?= $incidencia['incidencia'] ?></td>
 										<td>
 											<?php if ($incidencia['id'] != 0) : ?>
-												<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>" data-justificacion="<?= $incidencia['justificacion'] ?>">
+												<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editIncidenciaModal" data-id="<?= $incidencia['id'] ?>" data-entrada-fecha="<?= date('Y-m-d', strtotime($incidencia['entrada'])) ?>" data-entrada-hora="<?= date('H:i', strtotime($incidencia['entrada'])) ?>" data-salida-fecha="<?= !empty($incidencia['salida']) ? date('Y-m-d', strtotime($incidencia['salida'])) : '' ?>" data-salida-hora="<?= !empty($incidencia['salida']) ? date('H:i', strtotime($incidencia['salida'])) : '' ?>">
 													<i class="fa fa-pencil"></i>
 												</button>
 												<button style="background-color: #FFC107 !important;" type="button" class="btn btn-success btn-sm" data-id="<?= $incidencia['id'] ?>" onclick="updateJustification(<?= $incidencia['id'] ?>)">
@@ -275,10 +275,6 @@ use App\Models\Menu_familias_model; ?>
 						<input type="time" class="form-control" id="salidaHora" name="salida_hora">
 					</div>
 					<br>
-					<div class="form-group">
-						<label for="justificacion">Justificada</label>
-						<input type="checkbox" id="justificacion" name="justificacion" value="SI">
-					</div>
 					<button type="submit" class="btn btn-primary float-end">Guardar</button>
 				</form>
 			</div>
@@ -294,7 +290,6 @@ use App\Models\Menu_familias_model; ?>
 			var entrada_hora = button.data('entrada-hora');
 			var salida_fecha = button.data('salida-fecha');
 			var salida_hora = button.data('salida-hora');
-			var justificacion = button.data('justificacion');
 
 			var modal = $(this);
 			modal.find('#incidenciaId').val(id);
@@ -302,35 +297,9 @@ use App\Models\Menu_familias_model; ?>
 			modal.find('#entradaHora').val(entrada_hora);
 			modal.find('#salidaFecha').val(salida_fecha);
 			modal.find('#salidaHora').val(salida_hora);
-			modal.find('#justificacion').prop('checked', justificacion === 'SI');
+
 		});
-
-		// Añadir la función para el botón de justificación "No"
-		document.querySelectorAll('.btn-success').forEach(button => {
-			button.addEventListener('click', function() {
-				var incidenciaId = this.getAttribute('data-id');
-
-				if (confirm('¿Está seguro de NO justificar la incidencia?')) {
-					// Enviar la solicitud fetch
-					fetch('<?= base_url('index/updateJustification') ?>', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-								'X-Requested-With': 'XMLHttpRequest',
-								'<?= csrf_token() ?>': '<?= csrf_hash() ?>'
-							},
-							body: JSON.stringify({
-								id: incidenciaId,
-								justificacion: 'No'
-							})
-						})
-						.catch(error => console.error('Error:', error));
-
-					// Recargar la página inmediatamente después de la confirmación
-					location.reload();
-				}
-			});
-		});
+		
 	});
 </script>
 <?= $this->endSection() ?>

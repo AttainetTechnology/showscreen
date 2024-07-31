@@ -12,7 +12,6 @@ class Incidencias_model extends Model
         'entrada',
         'salida',
         'incidencia',
-        'justificacion',
         'id_usuario',
         'extras'
     ];
@@ -21,7 +20,7 @@ class Incidencias_model extends Model
         $data = array();
 		$db      = \Config\Database::connect();
 		$builder = $db->table($this->table);
-		$builder->select('fichajes.id, entrada, incidencia, justificacion, id_usuario, extras, nombre_usuario');
+		$builder->select('fichajes.id, entrada, incidencia, id_usuario, extras, nombre_usuario');
 		$builder->join('users', 'users.id = fichajes.id_usuario', 'right outer');
 		$condicion = "(fichajes.incidencia != '') OR (fichajes.extras != '')";
 		$builder->where($condicion);
