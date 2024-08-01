@@ -94,14 +94,14 @@
     <div class="column" id="col4">
         <div class="cabecera">
             <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
-            <select id="maquinaFilterCol4" style="width: 100%;" onchange="filtrarProcesosPorMaquina(this.value);">
-                <option value="">Todas las máquinas</option>
-                <?php if (isset($maquinas)) : ?>
-                    <?php foreach ($maquinas as $maquina) : ?>
-                        <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
+            <select id="maquinaFilterCol4" class="form-control" onchange="filtrarProcesosPorMaquina(this.value);">
+        <option value="">Todas las máquinas</option>
+        <?php if (isset($maquinas)) : ?>
+            <?php foreach ($maquinas as $maquina) : ?>
+                <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
         </div>
         <div class="resultados">
             <table id="sortableTable" class="table">
@@ -362,8 +362,7 @@
     }
 
     function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
-        selectedMachineId = idMaquina;
-        document.getElementById('tituloProcesosEnMaquina').textContent = `Procesos en ${nombreMaquina}`;
+        selectedMachineId = idMaquina;;
 
         // Mostrar todos los procesos no guardados y los de la máquina seleccionada
         document.querySelectorAll('#col4 .linea').forEach(row => {
