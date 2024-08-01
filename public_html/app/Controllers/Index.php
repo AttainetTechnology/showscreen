@@ -1,85 +1,41 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\Config_model;
 use App\Models\Contador_model;
 use App\Models\Lineapedidosnew_model;
 use App\Models\Rutas_model;
-use App\Models\Incidencias_model;
-use App\Models\Usuarios2_Model;
 
 class Index extends BaseController
 {
-    public function pendientes()
-    {
-        $this->index('0');
-    }
-    public function enmarcha()
-    {
-        $this->index('2');
-    }
-    public function enmaquina()
-    {
-        $this->index('3');
-    }
-    public function terminados()
-    {
-        $this->index('4');
-    }
-
+    public function pendientes() { $this->index('0'); }
+    public function enmarcha()   { $this->index('2'); }
+    public function enmaquina()  { $this->index('3'); }
+    public function terminados() { $this->index('4'); }
+    
     public function index($estado = 2)
     {
-        /** APARTADO STANDARD PARA TODOS LOS CONTROLADORES **/
+        /** APARTADO STANDARD PARA TODOS LOS CONTROLADORES **/ 
         // Control de login    
         helper('controlacceso');
         control_login();
-    
+        
         // Saco los datos del usuario
         $data = datos_user();
-    
+        
         // Conecto la BDD
         $db = db_connect($data['new_db']);
-    
+        
         // Cargamos los módulos de la Home
         // Creo los 4 bloques que aparecen en la parte superior de la index
         $data['pendientes'] = $this->cuenta('0', $db);
         $data['en_cola']    = $this->cuenta('2', $db);
         $data['en_maquina'] = $this->cuenta('3', $db);
         $data['terminados'] = $this->cuenta('4', $db);
-    
+        
         $data['piezasfamilia'] = $this->pedidos_tabla($estado, $db);
         $data['rutas'] = $this->rutas_home($db);
-    
-        // Obtener incidencias del día de hoy y del día anterior
-        $fechaHoy = date('Y-m-d');
-        $fechaAyer = date('Y-m-d', strtotime('-1 day'));
-        $incidencias_model = new Incidencias_model($db);
-        $data['incidencias'] = $incidencias_model
-            ->select('*')
-            ->select("DATE_FORMAT(entrada, '%H:%i') as entrada_hora")
-            ->select("DATE_FORMAT(COALESCE(salida, NOW()), '%H:%i') as salida_hora")
-            ->select("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) as duracion")
-            ->groupStart()
-                ->where('DATE(entrada)', $fechaHoy)
-                ->orWhere('DATE(entrada)', $fechaAyer)
-            ->groupEnd()
-            ->groupStart()
-                ->where('incidencia', 'Menos de 8Horas')
-                ->orWhere('incidencia', 'sin cerrar')
-                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) <", 480, false)
-                ->orWhere("TIMESTAMPDIFF(MINUTE, entrada, COALESCE(salida, NOW())) >", 510, false)
-            ->groupEnd()
-            ->findAll();
-    
-        // Obtener nombres de usuarios
-        $usuarios_model = new Usuarios2_Model($db);
-        foreach ($data['incidencias'] as &$incidencia) {
-            $usuario = $usuarios_model->findUserById($incidencia['id_usuario']);
-            $incidencia['nombre_usuario'] = $usuario['nombre_usuario'] ?? 'Desconocido';
-        }
-    
-        // Definir el título y la clase según el estado
+        
         if ($estado == 0) {
             $data['titulo'] = "Piezas en espera de material";
             $data['clase'] = "";
@@ -93,12 +49,11 @@ class Index extends BaseController
             $data['titulo'] = "Piezas terminadas";
             $data['clase'] = "panel-success";
         }
-    
+        
         // Cargamos las vistas
         echo view('estadisticas', $data);
     }
     
-
     // Esta función cuenta las líneas de una tabla
     function cuenta($estado, $db)
     {
@@ -107,20 +62,20 @@ class Index extends BaseController
             $query = $contador->where('estado', $estado)->countAllResults();
             return $query ?: "0";
         } catch (\Exception $e) {
-            // Log the error or handle it apropiadamente
+            // Log the error or handle it appropriately
             log_message('error', $e->getMessage());
             return "0";
         }
-    }
-
+    }   
+    
     public function pedidos_tabla($estado, $db)
     {
         // Control de login    
         helper('controlacceso');
-
+        
         // Saco los datos del usuario
         $data = datos_user();
-
+        
         // Conecto la BDD
         $db = db_connect($data['new_db']);
         $lineapedidos = new Lineapedidosnew_model($db);
@@ -136,7 +91,7 @@ class Index extends BaseController
                 ->orderby("id_familia", "asc")
                 ->groupby('id_familia')
                 ->findAll();
-
+            
             if ($query === false) {
                 // Log detailed error message
                 log_message('error', 'Query failed: ' . json_encode($db->error()));
@@ -145,17 +100,17 @@ class Index extends BaseController
 
             return $query;
         } catch (\Exception $e) {
-            // Log the error or handle it apropiadamente
+            // Log the error or handle it appropriately
             log_message('error', $e->getMessage());
             return [];
         }
     }
-
+    
     public function rutas_home($db)
-    {
+    {       
         $builder = new Rutas_model($db);
         try {
-            $query = $builder
+            $query = $builder 
                 ->where('rutas.estado_ruta <', '2')  // table name in lowercase
                 ->join('poblaciones_rutas', 'poblaciones_rutas.id_poblacion = rutas.poblacion')  // table name in lowercase
                 ->orderBy('poblacion', 'DESC')
@@ -167,78 +122,12 @@ class Index extends BaseController
                 log_message('error', 'Query failed: ' . json_encode($db->error()));
                 return [];
             }
-
+            
             return $query;
         } catch (\Exception $e) {
-            // Log the error or handle it apropiadamente
+            // Log the error or handle it appropriately
             log_message('error', $e->getMessage());
             return [];
         }
     }
-    public function guardar()
-    {
-        // Control de login    
-        helper('controlacceso');
-
-        // Saco los datos del usuario
-        $data = datos_user();
-        $db = db_connect($data['new_db']);
-        $incidencias_model = new Incidencias_model($db);
-
-        $id = $this->request->getPost('id');
-        if (empty($id)) {
-            return redirect()->back()->with('error', 'ID de incidencia no proporcionado');
-        }
-
-        $entrada_fecha = $this->request->getPost('entrada_fecha');
-        $entrada_hora = $this->request->getPost('entrada_hora');
-        $salida_fecha = $this->request->getPost('salida_fecha');
-        $salida_hora = $this->request->getPost('salida_hora');
-
-        $entrada = $entrada_fecha . ' ' . $entrada_hora . ':00';
-        $salida = !empty($salida_fecha) && !empty($salida_hora) ? $salida_fecha . ' ' . $salida_hora . ':00' : null;
-
-        // Calcular la duración en minutos
-        $datetime1 = new \DateTime($entrada);
-        $datetime2 = $salida ? new \DateTime($salida) : new \DateTime();
-        $interval = $datetime1->diff($datetime2);
-        $duracion = ($interval->days * 24 * 60) + ($interval->h * 60) + ($interval->i);
-
-        // Determinar el valor del campo 'incidencia'
-        if ($duracion < 480) {
-            $incidencia = 'Menos de 8H';
-        } elseif ($duracion > 510) {
-            $incidencia = 'sin cerrar';
-        } else {
-            $incidencia = '';
-        }
-
-        // Preparar los datos para la actualización
-        $data = [
-            'entrada' => $entrada,
-            'salida' => $salida,
-            'incidencia' => $incidencia,
-        ];
-
-        // Solo actualizar el campo incidencia cuando se requiere eliminar el texto
-        if ($duracion >= 480 && $duracion <= 510) {
-            $data['incidencia'] = '';
-        }
-
-        // Depuración: imprimir los datos que se van a actualizar
-        error_log("Datos para actualizar la incidencia ID {$id}: " . json_encode($data));
-
-        // Ejecutar la actualización
-        $result = $incidencias_model->where('id', $id)->update($id, $data);
-
-        // Depuración: comprobar si la actualización fue exitosa
-        if ($result) {
-            error_log("Incidencia ID {$id} actualizada correctamente.");
-            return redirect()->back()->with('message', 'Incidencia actualizada correctamente');
-        } else {
-            error_log("Error al actualizar la incidencia ID {$id}.");
-            return redirect()->back()->with('error', 'Error al actualizar la incidencia');
-        }
-    }
-
 }

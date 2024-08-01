@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,29 +13,20 @@
     <!-- Cargamos Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <!-- Iconos Bootstrap --> 
+    <!-- Iconos Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body>
     <div id="organizador">
-        <div class="column" id="col1">
-            <h4>Máquinas</h4>
-            <button id="verTodo" class="btn btn-warning btn-sm">Ver Todo</button><br><br>
-            <?php foreach ($maquinas as $maquina): ?>
-                <div class="boton-maquina">
-                <button class="btn maquina btn-sm" data-id-maquina="<?php echo $maquina['id_maquina']; ?>" data-nombre="<?php echo $maquina['nombre']; ?>" onclick="filtrarProcesosPorMaquina('<?php echo $maquina['id_maquina']; ?>', '<?php echo $maquina['nombre']; ?>')"><?php echo $maquina['nombre']; ?></button>
-                </div>
-                <?php endforeach; ?>
-    
-        </div>
         <div class="column" id="col2">
             <div class="cabecera">
                 <h4>Procesos listos para producir</h4>
-                <div id="searchContainer">              
+                <div id="searchContainer">
                     <select id="searchInput" style="width: 60%">
                         <option value="">Seleccione un proceso...</option>
-                        <?php if(isset($procesos)): ?>
-                            <?php foreach ($procesos as $proceso): ?>
+                        <?php if (isset($procesos)) : ?>
+                            <?php foreach ($procesos as $proceso) : ?>
                                 <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -43,57 +35,53 @@
                 </div>
             </div>
             <div class="resultados">
-            <table id="Tabla2" class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>id</th>
-                        <th>
-                            Cliente
-                            <select id="clienteFilter" style="width: 100%;" onchange="filtrarPorCliente(this.value);">
-                                <option value="">Todos</option>
-                                <?php if(isset($clientes)): ?>
-                                    <?php foreach ($clientes as $cliente): ?>
-                                        <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                        </th>
-                        <th>
-                        Medidas
-                        <select id="medidasFilter" style="width: 100%;" onchange="filtrarPorMedida(this.value);">
-                            <option value="">Orden ascendente</option>
-                            <option value="iniciales">Medidas Iniciales</option>
-                            <option value="finales">Medidas Finales</option>
-                        </select>
-                         </th>
-                        <th>Fecha Entrega</th>
-                        <th>Producto</th>
-                        <th>Nº Piezas</th>
-                        <th>Proceso</th>
-                        <th>Base</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($lineas as $linea): ?>
-                    <tr class="linea" 
-                        data-nombre-cliente="<?= esc($linea['cliente']); ?>" 
-                        data-nombre-proceso="<?= esc($linea['proceso']); ?>" 
-                        data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" 
-                        data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
-                        <td><input type="checkbox" name="selectedLine[]"></td>
-                        <td><?= $linea['id_linea_pedido']; ?></td>
-                        <td><?= $linea['cliente'] ?></td>
-                        <td><?= $linea['medidas'] ?></td>
-                        <td><?= $linea['fecha'] ?></td>
-                        <td><?= $linea['producto'] ?></td>
-                        <td><?= $linea['n_piezas'] ?></td>
-                        <td><?= $linea['proceso'] ?></td>
-                        <td><?= $linea['base'] ?></td>
-                    </tr>
-                 <?php endforeach; ?>
-                </tbody>
-            </table>
+                <table id="Tabla2" class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>id</th>
+                            <th>
+                                Cliente
+                                <select id="clienteFilter" style="width: 100%;" onchange="filtrarPorCliente(this.value);">
+                                    <option value="">Todos</option>
+                                    <?php if (isset($clientes)) : ?>
+                                        <?php foreach ($clientes as $cliente) : ?>
+                                            <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </th>
+                            <th>
+                                Medidas
+                                <select id="medidasFilter" style="width: 100%;" onchange="filtrarPorMedida(this.value);">
+                                    <option value="">Orden ascendente</option>
+                                    <option value="iniciales">Medidas Iniciales</option>
+                                    <option value="finales">Medidas Finales</option>
+                                </select>
+                            </th>
+                            <th>Fecha Entrega</th>
+                            <th>Producto</th>
+                            <th>Nº Piezas</th>
+                            <th>Proceso</th>
+                            <th>Base</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lineas as $linea) : ?>
+                            <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
+                                <td><input type="checkbox" name="selectedLine[]"></td>
+                                <td><?= $linea['id_linea_pedido']; ?></td>
+                                <td><?= $linea['cliente'] ?></td>
+                                <td><?= $linea['medidas'] ?></td>
+                                <td><?= $linea['fecha'] ?></td>
+                                <td><?= $linea['producto'] ?></td>
+                                <td><?= $linea['n_piezas'] ?></td>
+                                <td><?= $linea['proceso'] ?></td>
+                                <td><?= $linea['base'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="column" id="col3">
@@ -101,67 +89,69 @@
             <button data-action="move-right" class="btn btn-md btn-primary"><i class="bi bi-arrow-right"></i></button><br>
             <button data-action="confirm" class="btn btn-md btn-info"><i class="bi bi-floppy"></i></button><br>
             <button data-action="btn-terminado" class="btn btn-md btn-success"><i class="bi bi-clipboard2-check"></i></button><br>
-            <button data-action="btn-imprimir"  onclick="printDiv('printableArea')" class="btn btn-secondary btn-md"><i class='bi bi-printer'></i></button><br>
-            <button data-action="cancelar" onclick="window.location.reload();"  class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
+            <button data-action="btn-imprimir" onclick="printDiv('printableArea')" class="btn btn-secondary btn-md"><i class='bi bi-printer'></i></button><br>
+            <button data-action="cancelar" onclick="window.location.reload();" class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
         </div>
         <div class="column" id="col4">
             <div class="cabecera">
-            <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
+                <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
+                <select id="maquinaFilterCol4" style="width: 100%;" onchange="filtrarProcesosPorMaquina(this.value);">
+                    <option value="">Todas las máquinas</option>
+                    <?php if (isset($maquinas)) : ?>
+                        <?php foreach ($maquinas as $maquina) : ?>
+                            <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
             </div>
             <div class="resultados">
-            <table id="sortableTable" class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>id</th>
-                        <th>
-                            Cliente
-                            <select id="clienteFilterCol4" style="width: 100%;" onchange="filtrarPorClienteCol4(this.value);">
-                                <option value="">Todos</option>
-                                <?php if(isset($clientes)): ?>
-                                    <?php foreach ($clientes as $cliente): ?>
-                                        <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>
-                        </th>
-                        <th>Medidas</th>
-                        <th>Fecha Entrega</th>
-                        <th>Producto</th>
-                        <th>Nº Piezas</th>
-                        <th>Proceso</th>
-                        <th>Base</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($lineasEstado3 as $linea): ?>
-            <tr class="linea" 
-                data-nombre-cliente="<?= esc($linea['cliente']) ?>" 
-                data-nombre-proceso="<?= esc($linea['proceso']); ?>" 
-                data-id-maquina="<?= $linea['id_maquina']; ?>" 
-                data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>"> 
-                <td><input type="checkbox" name="selectedLine[]"></td>
-                <td><?= $linea['id_linea_pedido']; ?></td>
-                <td><?= $linea['cliente'] ?></td>
-                <td><?= $linea['medidas'] ?></td>
-                <td><?= $linea['fecha'] ?></td>
-                <td><?= $linea['producto'] ?></td>
-                <td><?= $linea['n_piezas'] ?></td>
-                <td><?= $linea['proceso'] ?></td>
-                <td><?= $linea['base'] ?></td>
-            </tr>
-            <?php endforeach; ?>
-
-
-                </tbody>
-            </table>
+                <table id="sortableTable" class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>id</th>
+                            <th>
+                                Cliente
+                                <select id="clienteFilterCol4" style="width: 100%;" onchange="filtrarPorClienteCol4(this.value);">
+                                    <option value="">Todos</option>
+                                    <?php if (isset($clientes)) : ?>
+                                        <?php foreach ($clientes as $cliente) : ?>
+                                            <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </th>
+                            <th>Medidas</th>
+                            <th>Fecha Entrega</th>
+                            <th>Producto</th>
+                            <th>Nº Piezas</th>
+                            <th>Proceso</th>
+                            <th>Base</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($lineasEstado3 as $linea) : ?>
+                            <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>" data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>">
+                                <td><input type="checkbox" name="selectedLine[]"></td>
+                                <td><?= $linea['id_linea_pedido']; ?></td>
+                                <td><?= $linea['cliente'] ?></td>
+                                <td><?= $linea['medidas'] ?></td>
+                                <td><?= $linea['fecha'] ?></td>
+                                <td><?= $linea['producto'] ?></td>
+                                <td><?= $linea['n_piezas'] ?></td>
+                                <td><?= $linea['proceso'] ?></td>
+                                <td><?= $linea['base'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div id="printableArea" style="display: none;">
             <div id="fondo">
                 <div id="printableContent">
                     <h1>Informe de Procesos en Máquinas</h1>
-                    <?php foreach ($maquinas as $maquina): ?>
+                    <?php foreach ($maquinas as $maquina) : ?>
                         <div>
                             <h2>Máquina: <?= esc($maquina['nombre']); ?></h2>
                             <table class="table table-sm table-hover">
@@ -178,8 +168,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($lineasEstado3 as $linea): ?>
-                                        <?php if ($linea['id_maquina'] == $maquina['id_maquina']): ?>
+                                    <?php foreach ($lineasEstado3 as $linea) : ?>
+                                        <?php if ($linea['id_maquina'] == $maquina['id_maquina']) : ?>
                                             <tr>
                                                 <td><?= esc($linea['id_linea_pedido']); ?></td>
                                                 <td><?= esc($linea['cliente']); ?></td>
@@ -201,34 +191,36 @@
         </div>
     </div>
 
+
+
     <script>
-       function printDiv(divId) {
-    // Verificar si hay una máquina seleccionada
-    if (!selectedMachineId) {
-        alert('¡Seleccione una máquina antes de imprimir!');
-        return;
-    }
+        function printDiv(divId) {
+            // Verificar si hay una máquina seleccionada
+            if (!selectedMachineId) {
+                alert('¡Seleccione una máquina antes de imprimir!');
+                return;
+            }
 
-    // Generar contenido imprimible solo para la máquina seleccionada
-    generarContenidoImprimible();
+            // Generar contenido imprimible solo para la máquina seleccionada
+            generarContenidoImprimible();
 
-    var printContents = document.getElementById(divId).innerHTML;
+            var printContents = document.getElementById(divId).innerHTML;
 
-    var printWindow = window.open('', '', 'height=600,width=800');
-    printWindow.document.write('<html><head><title>Impresión</title>');
-    printWindow.document.write('<style>');
-    printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
-    printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
-    printWindow.document.write('</style>');
-    printWindow.document.write('</head><body>');
-    printWindow.document.write(printContents);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-}
+            var printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Impresión</title>');
+            printWindow.document.write('<style>');
+            printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
+            printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
+            printWindow.document.write('</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write(printContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
-             // Añadir evento de clic a cada fila de la tabla
+            // Añadir evento de clic a cada fila de la tabla
             document.querySelectorAll('.linea').forEach(function(row) {
                 row.addEventListener('click', function(event) {
                     // Evitar que el evento se propague si se hace clic en el checkbox directamente
@@ -247,30 +239,30 @@
 
         function generarContenidoImprimible() {
             let printableArea = document.getElementById('printableArea');
-    let maquinas = <?php echo json_encode($maquinas); ?>;
-    let lineasEstado3 = <?php echo json_encode($lineasEstado3); ?>;
+            let maquinas = <?php echo json_encode($maquinas); ?>;
+            let lineasEstado3 = <?php echo json_encode($lineasEstado3); ?>;
 
-    // Obtener la fecha actual
-    let fechaActual = new Date();
-    // Formatear la fecha (p.ej., "DD/MM/YYYY")
-    let fechaFormateada = fechaActual.getDate() + '/' + (fechaActual.getMonth() + 1) + '/' + fechaActual.getFullYear();
+            // Obtener la fecha actual
+            let fechaActual = new Date();
+            // Formatear la fecha (p.ej., "DD/MM/YYYY")
+            let fechaFormateada = fechaActual.getDate() + '/' + (fechaActual.getMonth() + 1) + '/' + fechaActual.getFullYear();
 
-    let content = document.getElementById('printableContent');
-    // Añadir la fecha al contenido imprimible
-    content.innerHTML = `<h1>Informe de Procesos en Máquinas -  ${fechaFormateada}</h1>`;
+            let content = document.getElementById('printableContent');
+            // Añadir la fecha al contenido imprimible
+            content.innerHTML = `<h1>Informe de Procesos en Máquinas -  ${fechaFormateada}</h1>`;
 
-    // Filtrar las máquinas para encontrar la seleccionada
-    let maquinaSeleccionada = maquinas.find(maquina => maquina.id_maquina === selectedMachineId);
-    if (maquinaSeleccionada) {
-        let lineasMaquina = lineasEstado3.filter(linea => linea.id_maquina === selectedMachineId);
+            // Filtrar las máquinas para encontrar la seleccionada
+            let maquinaSeleccionada = maquinas.find(maquina => maquina.id_maquina === selectedMachineId);
+            if (maquinaSeleccionada) {
+                let lineasMaquina = lineasEstado3.filter(linea => linea.id_maquina === selectedMachineId);
 
-        if (lineasMaquina.length > 0) {
-            let maquinaDiv = document.createElement('div');
-            maquinaDiv.innerHTML = `<h2>Máquina: ${maquinaSeleccionada.nombre}</h2>`;
+                if (lineasMaquina.length > 0) {
+                    let maquinaDiv = document.createElement('div');
+                    maquinaDiv.innerHTML = `<h2>Máquina: ${maquinaSeleccionada.nombre}</h2>`;
 
-            let table = document.createElement('table');
-            table.className = 'table table-sm table-hover';
-            table.innerHTML = `
+                    let table = document.createElement('table');
+                    table.className = 'table table-sm table-hover';
+                    table.innerHTML = `
                 <thead>
                     <tr>
                         <th>ID Línea Pedido</th>
@@ -285,11 +277,11 @@
                 </thead>
                 <tbody></tbody>
             `;
-            let tbody = table.querySelector('tbody');
+                    let tbody = table.querySelector('tbody');
 
-            lineasMaquina.forEach(linea => {
-                let row = document.createElement('tr');
-                row.innerHTML = `
+                    lineasMaquina.forEach(linea => {
+                        let row = document.createElement('tr');
+                        row.innerHTML = `
                     <td>${linea.id_linea_pedido}</td>
                     <td>${linea.cliente}</td>
                     <td>${linea.medidas}</td>
@@ -299,402 +291,424 @@
                     <td>${linea.proceso}</td>
                     <td>${linea.base}</td>
                 `;
-                tbody.appendChild(row);
-            });
+                        tbody.appendChild(row);
+                    });
 
-maquinaDiv.appendChild(table);
-content.appendChild(maquinaDiv);
-}
-}
-}
+                    maquinaDiv.appendChild(table);
+                    content.appendChild(maquinaDiv);
+                }
+            }
+        }
     </script>
 </body>
 
 </html>
 <script>
-// Variables globales
-// Variables globales
-let selectedMachineId = null;
-let selectedClientFilterCol2 = '';
-let selectedProcesoFilterCol2 = '';
-let selectedClientFilterCol4 = '';
-let selectedProcesoFilterCol4 = '';
-let sortable;
+    // Variables globales
+    // Variables globales
+    let selectedMachineId = null;
+    let selectedClientFilterCol2 = '';
+    let selectedProcesoFilterCol2 = '';
+    let selectedClientFilterCol4 = '';
+    let selectedProcesoFilterCol4 = '';
+    let sortable;
 
-// Funciones de filtrado
-function aplicarFiltros(columna) {
-    const tableRows = document.querySelectorAll(`#col${columna} tbody tr`);
-    const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
-    const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
+    // Funciones de filtrado
+    function aplicarFiltros(columna) {
+        const tableRows = document.querySelectorAll(`#col${columna} tbody tr`);
+        const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
+        const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
 
-    tableRows.forEach(row => {
-        const cliente = row.getAttribute('data-nombre-cliente');
-        const proceso = row.getAttribute('data-nombre-proceso');
-        const idMaquina = row.getAttribute('data-id-maquina');
-        let display = true;
+        tableRows.forEach(row => {
+            const cliente = row.getAttribute('data-nombre-cliente');
+            const proceso = row.getAttribute('data-nombre-proceso');
+            const idMaquina = row.getAttribute('data-id-maquina');
+            let display = true;
 
-        if (cliente && clientFilter && !cliente.toLowerCase().includes(clientFilter)) {
-            display = false;
+            if (cliente && clientFilter && !cliente.toLowerCase().includes(clientFilter)) {
+                display = false;
+            }
+            if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
+                display = false;
+            }
+            if (columna === 4 && selectedMachineId && idMaquina !== selectedMachineId) {
+                display = false;
+            }
+
+            row.style.display = display ? '' : 'none';
+        });
+    }
+
+    function filtrarPorCliente(valor, columna) {
+        if (columna === 2) {
+            selectedClientFilterCol2 = valor.toLowerCase();
+        } else {
+            selectedClientFilterCol4 = valor.toLowerCase();
         }
-        if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
-            display = false;
-        }
-        if (columna === 4 && selectedMachineId && idMaquina !== selectedMachineId) {
-            display = false;
-        }
+        aplicarFiltros(columna);
+    }
 
-        row.style.display = display ? '' : 'none';
-    });
-}
-
-function filtrarPorCliente(valor, columna) {
-    if (columna === 2) {
-        selectedClientFilterCol2 = valor.toLowerCase();
-    } else {
+    function filtrarPorClienteCol4(valor) {
         selectedClientFilterCol4 = valor.toLowerCase();
+        aplicarFiltros(4);
     }
-    aplicarFiltros(columna);
-}
-function filtrarPorClienteCol4(valor) {
-    selectedClientFilterCol4 = valor.toLowerCase();
-    aplicarFiltros(4);
-}
 
 
-function filtrarPorProceso(valor, columna) {
-    if (columna === 2) {
-        selectedProcesoFilterCol2 = valor.toLowerCase();
-    } else {
-        selectedProcesoFilterCol4 = valor.toLowerCase();
-    }
-    aplicarFiltros(columna);
-}
-function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
-    selectedMachineId = idMaquina;
-    document.getElementById('tituloProcesosEnMaquina').textContent = `Procesos en ${nombreMaquina}`;
-    
-    // Mostrar todos los procesos no guardados y los de la máquina seleccionada
-    document.querySelectorAll('#col4 .linea').forEach(row => {
-        const estado = row.getAttribute('data-estado');
-        const idMaquinaFila = row.getAttribute('data-id-maquina');
-        
-        if (estado === 'no-guardado' || idMaquinaFila === idMaquina) {
-            row.style.display = '';
+    function filtrarPorProceso(valor, columna) {
+        if (columna === 2) {
+            selectedProcesoFilterCol2 = valor.toLowerCase();
         } else {
-            row.style.display = 'none';
+            selectedProcesoFilterCol4 = valor.toLowerCase();
         }
-    });
-}
-
-// Funciones de movimiento y confirmación
-function moverPedidos(selectorCheckbox, selectorTablaDestino) {
-    document.querySelectorAll(selectorCheckbox).forEach(checkbox => {
-        const filaOriginal = checkbox.closest('tr');
-        const tablaDestino = document.querySelector(selectorTablaDestino);
-        const nuevaFila = crearNuevaFila(filaOriginal);
-        tablaDestino.appendChild(nuevaFila);
-        filaOriginal.remove();
-        nuevaFila.classList.add('fondo-rojo');
-    });
-    actualizarColores();
-}
-
-function crearNuevaFila(filaOriginal) {
-    const nuevaFila = document.createElement('tr');
-    nuevaFila.className = 'linea';
-    nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
-    nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-    nuevaFila.setAttribute('data-estado', 'no-guardado'); 
-
-    const tdCheckbox = document.createElement('td');
-    const nuevoCheckbox = document.createElement('input');
-    nuevoCheckbox.type = 'checkbox';
-    tdCheckbox.appendChild(nuevoCheckbox);
-    nuevaFila.appendChild(tdCheckbox);
-
-    Array.from(filaOriginal.children).slice(1).forEach(td => {
-        nuevaFila.appendChild(td.cloneNode(true));
-    });
-
-    return nuevaFila;
-}
-
-
-function confirmarProcesos() {
-    const procesosActualizar = obtenerProcesos('.column:nth-child(4) table tbody tr', true);
-    const procesosRevertir = obtenerProcesos('.column:nth-child(2) table tbody tr', false);
-
-    if (selectedMachineId) {
-        localStorage.setItem('selectedMachineId', selectedMachineId);
+        aplicarFiltros(columna);
     }
 
-    if (procesosActualizar.length > 0) {
-        actualizarProcesos(procesosActualizar);
-    }
+    function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
+        selectedMachineId = idMaquina;
+        document.getElementById('tituloProcesosEnMaquina').textContent = `Procesos en ${nombreMaquina}`;
 
-    if (procesosRevertir.length > 0) {
-        revertirProcesos(procesosRevertir);
-    }
+        // Mostrar todos los procesos no guardados y los de la máquina seleccionada
+        document.querySelectorAll('#col4 .linea').forEach(row => {
+            const estado = row.getAttribute('data-estado');
+            const idMaquinaFila = row.getAttribute('data-id-maquina');
 
-    // Eliminar fondo rojo después de confirmar
-    document.querySelectorAll('.fondo-rojo').forEach(fila => {
-        fila.classList.remove('fondo-rojo');
-    });
-
-    actualizarColores();
-}
-
-function obtenerProcesos(selector, conOrden) {
-    return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
-        nombre_proceso: fila.getAttribute('data-nombre-proceso'),
-        id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
-        id_maquina: conOrden ? selectedMachineId : null,
-        orden: conOrden ? index + 1 : 0
-    }));
-}
-
-function actualizarProcesos(procesos) {
-    realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesos, () => {
-        actualizarEstadoLineaPedido();
-    });
-}
-
-function revertirProcesos(procesos) {
-    realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesos, () => {
-        localStorage.setItem('reloadedFromConfirm', 'true');
-        window.location.reload();
-    });
-}
-
-function actualizarEstadoLineaPedido() {
-    fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', { method: 'POST' })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                localStorage.setItem('reloadedFromConfirm', 'true');
-                window.location.reload();
+            if (estado === 'no-guardado' || idMaquinaFila === idMaquina) {
+                row.style.display = '';
             } else {
-                alert('Error al actualizar los estados de las líneas de pedido.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-// Funciones de utilidad
-function realizarPeticionAjax(url, procesos, callback) {
-    $.ajax({
-        url: url,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ procesos: procesos }),
-        success: function(response) {
-            if (response.success) {
-                if (callback) callback();
-            } else {
-                alert('Error al actualizar los procesos.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(xhr.responseText);
-            alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
-        }
-    });
-}
-
-function mostrarTodasLasLineas() {
-    document.querySelectorAll('#col4 .linea').forEach(linea => {
-        linea.style.display = '';
-    });
-}
-
-function actualizarColores() {
-    document.querySelectorAll('#col4 .linea').forEach(fila => {
-        fila.classList.toggle('sin-color', fila.getAttribute('data-guardado') === 'guardado');
-        fila.classList.toggle('verde-tenue', fila.getAttribute('data-guardado') !== 'guardado');
-    });
-}
-
-function seleccionarMaquinaGuardada() {
-    if (localStorage.getItem('reloadedFromConfirm') === 'true' || localStorage.getItem('reloadedFromTerminar') === 'true') {
-        const savedMachineId = localStorage.getItem('selectedMachineId');
-        if (savedMachineId) {
-            const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
-            if (maquina) maquina.click();
-        }
-        localStorage.removeItem('selectedMachineId');
-        localStorage.removeItem('reloadedFromConfirm');
-        localStorage.removeItem('reloadedFromTerminar');
-    }
-}
-
-
-// Inicialización y eventos
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar Select2
-    ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
-        $(selector).select2();
-    });
-
-    seleccionarMaquinaGuardada();
-
-    // Eventos de filtrado
-    $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
-    $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
-    $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
-    $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
-    $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
-
-    // Evento para limpiar filtros
-    $('#clearFilters').on('click', () => {
-        ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
-            $(selector).val('').trigger('change');
-        });
-        if (sortable) sortable.option("disabled", true);
-    });
-
-    // Eventos de botones
-    document.querySelectorAll('button[data-action]').forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            if (action === 'move-right') {
-                if (!selectedMachineId) {
-                    alert('¡Seleccione una máquina!');
-                    return;
-                }
-                moverPedidos('input[type="checkbox"]:checked', '.column:nth-child(4) table tbody');
-            } else if (action === 'move-left') {
-                moverPedidos('.column:nth-child(4) input[type="checkbox"]:checked', '.column:nth-child(2) table tbody');
-            } else if (action === 'confirm') {
-                confirmarProcesos();
+                row.style.display = 'none';
             }
         });
-    });
 
-    // Eventos de máquinas
-    document.querySelectorAll('.maquina').forEach(maquina => {
-        maquina.addEventListener('click', function() {
-            selectedMachineId = this.getAttribute('data-id-maquina');
-            filtrarProcesosPorMaquina(selectedMachineId, this.getAttribute('data-nombre'));
-            if (sortable) sortable.option("disabled", false);
-        });
-    });
-
-    // Evento para ver todo
-    $('#verTodo').on('click', () => {
-        selectedMachineId = null;
-        selectedClientFilterCol4 = '';
-        selectedProcesoFilterCol4 = '';
-        $('#clienteFilterCol4, #searchInputCol4').val('').trigger('change');
-        mostrarTodasLasLineas();
-        document.getElementById('tituloProcesosEnMaquina').textContent = 'Procesos en máquinas';
-        if (sortable) sortable.option("disabled", true);
-    });
-
-    // Inicializar Sortable
-    var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
-    sortable = Sortable.create(el, {
-        animation: 150,
-        onEnd: function(evt) {
-            actualizarOrdenProcesos();
+        if (sortable) {
+            sortable.option("disabled", false); // Habilitar Sortable al seleccionar una máquina
         }
-    });
-
-    document.querySelector('button[data-action="btn-terminado"]').addEventListener('click', function() {
-        marcarComoTerminado(this);
-    });
-
-
-    sortable.option("disabled", true);
-});
-
-// Eventos adicionales
-document.addEventListener('click', function(event) {
-    if (event.target.matches('button[data-action="confirm"]')) {
-        actualizarOrdenProcesos();
     }
 
-    const targetTerminado = event.target.closest('button[data-action="btn-terminado"]');
-    if (targetTerminado) {
-        event.preventDefault();
-        marcarComoTerminado(targetTerminado);
-    }
-});
+    // Funciones de movimiento y confirmación
+    function moverPedidos(selectorCheckbox, selectorTablaDestino) {
+        document.querySelectorAll(selectorCheckbox).forEach(checkbox => {
+            const filaOriginal = checkbox.closest('tr');
+            const tablaDestino = document.querySelector(selectorTablaDestino);
 
-function actualizarOrdenProcesos() {
-    const filas = document.querySelectorAll('#sortableTable tbody tr');
-    let ordenes = Array.from(filas)
-        .filter(fila => fila.getAttribute('data-id-maquina') === selectedMachineId)
-        .map((fila, index) => ({
-            id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
-            nombre_proceso: fila.getAttribute('data-nombre-proceso').trim(),
-            orden: index + 1,
-            id_maquina: fila.getAttribute('data-id-maquina').trim()
-        }));
-
-    console.log('Ordenes a enviar:', ordenes);
-
-    fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ordenes: ordenes })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            console.log('Orden actualizado correctamente.');
-            console.log('Procesos actualizados:', data.procesos_actualizados);
-            if (data.procesos_no_encontrados.length > 0) {
-                console.warn('Algunos procesos no se encontraron:', data.procesos_no_encontrados);
+            if (!tablaDestino) {
+                console.error('El selector de la tabla destino no encontró ningún elemento:', selectorTablaDestino);
+                return;
             }
-        } else {
-            alert('Error al actualizar el orden: ' + data.error);
-        }
-    })
-}
+
+            const nuevaFila = crearNuevaFila(filaOriginal);
+            tablaDestino.appendChild(nuevaFila);
+            filaOriginal.remove();
+            nuevaFila.classList.add('fondo-rojo');
+        });
+        actualizarColores();
+    }
+
+    function crearNuevaFila(filaOriginal) {
+        const nuevaFila = document.createElement('tr');
+        nuevaFila.className = 'linea';
+        nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
+        nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
+        nuevaFila.setAttribute('data-estado', 'no-guardado');
+
+        const tdCheckbox = document.createElement('td');
+        const nuevoCheckbox = document.createElement('input');
+        nuevoCheckbox.type = 'checkbox';
+        tdCheckbox.appendChild(nuevoCheckbox);
+        nuevaFila.appendChild(tdCheckbox);
+
+        Array.from(filaOriginal.children).slice(1).forEach(td => {
+            nuevaFila.appendChild(td.cloneNode(true));
+        });
+
+        return nuevaFila;
+    }
 
 
-function marcarComoTerminado(button) {
-    const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
-    let lineItems = Array.from(selectedLines).map(line => {
-        const row = line.closest('tr');
-        return {
-            idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
-            nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
-        };
-    });
+    function confirmarProcesos() {
+        const procesosActualizar = obtenerProcesos('.column:nth-child(4) table tbody tr', true);
+        const procesosRevertir = obtenerProcesos('.column:nth-child(2) table tbody tr', false);
 
-    if (lineItems.length > 0) {
-        button.disabled = true;
-
-        // Guardar la máquina seleccionada en el almacenamiento local
         if (selectedMachineId) {
             localStorage.setItem('selectedMachineId', selectedMachineId);
         }
 
-        fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ lineItems: lineItems })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Recargar la página
-                localStorage.setItem('reloadedFromTerminar', 'true');
-                window.location.reload();
-            } else {
-                alert('Error al actualizar los estados.');
-            }
-        })
-        .catch(error => {
-            console.error("Error en la solicitud:", error);
-            alert('Error al actualizar los estados.');
-        })
-        .finally(() => {
-            button.disabled = false;
+        if (procesosActualizar.length > 0) {
+            actualizarProcesos(procesosActualizar);
+        }
+
+        if (procesosRevertir.length > 0) {
+            revertirProcesos(procesosRevertir);
+        }
+
+        // Eliminar fondo rojo después de confirmar
+        document.querySelectorAll('.fondo-rojo').forEach(fila => {
+            fila.classList.remove('fondo-rojo');
+        });
+
+        actualizarColores();
+    }
+
+    function obtenerProcesos(selector, conOrden) {
+        return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
+            nombre_proceso: fila.getAttribute('data-nombre-proceso'),
+            id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+            id_maquina: conOrden ? selectedMachineId : null,
+            orden: conOrden ? index + 1 : 0
+        }));
+    }
+
+    function actualizarProcesos(procesos) {
+        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesos, () => {
+            actualizarEstadoLineaPedido();
         });
     }
-}
+
+    function revertirProcesos(procesos) {
+        realizarPeticionAjax('<?php echo base_url('procesos_pedidos/revertirEstadoProcesos'); ?>', procesos, () => {
+            localStorage.setItem('reloadedFromConfirm', 'true');
+            window.location.reload();
+        });
+    }
+
+    function actualizarEstadoLineaPedido() {
+        fetch('<?php echo base_url('procesos_pedidos/actualizarEstadoLineaPedido'); ?>', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('reloadedFromConfirm', 'true');
+                    window.location.reload();
+                } else {
+                    alert('Error al actualizar los estados de las líneas de pedido.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Funciones de utilidad
+    function realizarPeticionAjax(url, procesos, callback) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                procesos: procesos
+            }),
+            success: function(response) {
+                if (response.success) {
+                    if (callback) callback();
+                } else {
+                    alert('Error al actualizar los procesos.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                alert('Error en la solicitud AJAX. Revisa la consola para más detalles.');
+            }
+        });
+    }
+
+    function mostrarTodasLasLineas() {
+        document.querySelectorAll('#col4 .linea').forEach(linea => {
+            linea.style.display = '';
+        });
+    }
+
+    function actualizarColores() {
+        document.querySelectorAll('#col4 .linea').forEach(fila => {
+            fila.classList.toggle('sin-color', fila.getAttribute('data-guardado') === 'guardado');
+            fila.classList.toggle('verde-tenue', fila.getAttribute('data-guardado') !== 'guardado');
+        });
+    }
+
+    function seleccionarMaquinaGuardada() {
+        if (localStorage.getItem('reloadedFromConfirm') === 'true' || localStorage.getItem('reloadedFromTerminar') === 'true') {
+            const savedMachineId = localStorage.getItem('selectedMachineId');
+            if (savedMachineId) {
+                const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
+                if (maquina) maquina.click();
+            }
+            localStorage.removeItem('selectedMachineId');
+            localStorage.removeItem('reloadedFromConfirm');
+            localStorage.removeItem('reloadedFromTerminar');
+        }
+    }
 
 
+    // Inicialización y eventos
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar Select2
+        ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
+            $(selector).select2();
+        });
+
+        seleccionarMaquinaGuardada();
+
+        // Eventos de filtrado
+        $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
+        $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
+        $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
+        $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
+        $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
+
+        // Evento para limpiar filtros
+        $('#clearFilters').on('click', () => {
+            ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+                $(selector).val('').trigger('change');
+            });
+            if (sortable) sortable.option("disabled", true);
+        });
+
+        // Eventos de botones
+        document.querySelectorAll('button[data-action]').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                if (action === 'move-right') {
+                    if (!selectedMachineId) {
+                        alert('¡Seleccione una máquina!');
+                        return;
+                    }
+                    moverPedidos('input[type="checkbox"]:checked', '#col4 table tbody');
+                } else if (action === 'move-left') {
+                    moverPedidos('#col4 input[type="checkbox"]:checked', '#col2 table tbody');
+                } else if (action === 'confirm') {
+                    confirmarProcesos();
+                }
+            });
+        });
+
+        // Eventos de máquinas
+        document.querySelectorAll('.maquina').forEach(maquina => {
+            maquina.addEventListener('click', function() {
+                selectedMachineId = this.getAttribute('data-id-maquina');
+                filtrarProcesosPorMaquina(selectedMachineId, this.getAttribute('data-nombre'));
+                if (sortable) sortable.option("disabled", false);
+            });
+        });
+
+        // Evento para ver todo
+        $('#verTodo').on('click', () => {
+            selectedMachineId = null;
+            selectedClientFilterCol4 = '';
+            selectedProcesoFilterCol4 = '';
+            $('#clienteFilterCol4, #searchInputCol4').val('').trigger('change');
+            mostrarTodasLasLineas();
+            document.getElementById('tituloProcesosEnMaquina').textContent = 'Procesos en máquinas';
+            if (sortable) sortable.option("disabled", true);
+        });
+
+        // Inicializar Sortable
+        var el = document.getElementById('sortableTable').getElementsByTagName('tbody')[0];
+        sortable = Sortable.create(el, {
+            animation: 150,
+            onEnd: function(evt) {
+                actualizarOrdenProcesos();
+            }
+        });
+
+        document.querySelector('button[data-action="btn-terminado"]').addEventListener('click', function() {
+            marcarComoTerminado(this);
+        });
+
+        sortable.option("disabled", true); // Deshabilitar Sortable inicialmente
+    });
+
+    // Eventos adicionales
+    document.addEventListener('click', function(event) {
+        if (event.target.matches('button[data-action="confirm"]')) {
+            actualizarOrdenProcesos();
+        }
+
+        const targetTerminado = event.target.closest('button[data-action="btn-terminado"]');
+        if (targetTerminado) {
+            event.preventDefault();
+            marcarComoTerminado(targetTerminado);
+        }
+    });
+
+    function actualizarOrdenProcesos() {
+        const filas = document.querySelectorAll('#sortableTable tbody tr');
+        let ordenes = Array.from(filas)
+            .filter(fila => fila.getAttribute('data-id-maquina') === selectedMachineId)
+            .map((fila, index) => ({
+                id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+                nombre_proceso: fila.getAttribute('data-nombre-proceso').trim(),
+                orden: index + 1,
+                id_maquina: fila.getAttribute('data-id-maquina').trim()
+            }));
+
+        console.log('Ordenes a enviar:', ordenes);
+
+        fetch('<?php echo base_url('procesos_pedidos/actualizarOrdenProcesos'); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ordenes: ordenes
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Orden actualizado correctamente.');
+                    console.log('Procesos actualizados:', data.procesos_actualizados);
+                    if (data.procesos_no_encontrados.length > 0) {
+                        console.warn('Algunos procesos no se encontraron:', data.procesos_no_encontrados);
+                    }
+                } else {
+                    alert('Error al actualizar el orden: ' + data.error);
+                }
+            });
+    }
+
+
+
+    function marcarComoTerminado(button) {
+        const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
+        let lineItems = Array.from(selectedLines).map(line => {
+            const row = line.closest('tr');
+            return {
+                idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
+                nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
+            };
+        });
+
+        if (lineItems.length > 0) {
+            button.disabled = true;
+
+            // Guardar la máquina seleccionada en el almacenamiento local
+            if (selectedMachineId) {
+                localStorage.setItem('selectedMachineId', selectedMachineId);
+            }
+
+            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        lineItems: lineItems
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Recargar la página
+                        localStorage.setItem('reloadedFromTerminar', 'true');
+                        window.location.reload();
+                    } else {
+                        alert('Error al actualizar los estados.');
+                    }
+                })
+                .catch(error => {
+                    console.error("Error en la solicitud:", error);
+                    alert('Error al actualizar los estados.');
+                })
+                .finally(() => {
+                    button.disabled = false;
+                });
+        }
+    }
 </script>
