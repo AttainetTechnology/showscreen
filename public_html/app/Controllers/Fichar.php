@@ -56,7 +56,6 @@ class Fichar extends BaseFichar
 		
 		$datos = new Hoy($this->db);
 		$diahoy = $datos->where('id', 1)->findAll();
-
 		if ($diahoy) {
 			$fechaguardada = $diahoy[0]['hoy'];
 			if ($hoy == $fechaguardada) {
