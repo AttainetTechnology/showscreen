@@ -17,180 +17,178 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
-<body>
-    <div id="organizador">
-        <div class="column" id="col2">
-            <div class="cabecera">
-                <h4>Procesos listos para producir</h4>
-                <div id="searchContainer">
-                    <select id="searchInput" style="width: 60%">
-                        <option value="">Seleccione un proceso...</option>
-                        <?php if (isset($procesos)) : ?>
-                            <?php foreach ($procesos as $proceso) : ?>
-                                <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </select>
-                    <button id="clearFilters" class="btn btn-sm btn-light">Eliminar Filtros</button>
-                </div>
-            </div>
-            <div class="resultados">
-                <table id="Tabla2" class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>id</th>
-                            <th>
-                                Cliente
-                                <select id="clienteFilter" style="width: 100%;" onchange="filtrarPorCliente(this.value);">
-                                    <option value="">Todos</option>
-                                    <?php if (isset($clientes)) : ?>
-                                        <?php foreach ($clientes as $cliente) : ?>
-                                            <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </select>
-                            </th>
-                            <th>
-                                Medidas
-                                <select id="medidasFilter" style="width: 100%;" onchange="filtrarPorMedida(this.value);">
-                                    <option value="">Orden ascendente</option>
-                                    <option value="iniciales">Medidas Iniciales</option>
-                                    <option value="finales">Medidas Finales</option>
-                                </select>
-                            </th>
-                            <th>Fecha Entrega</th>
-                            <th>Producto</th>
-                            <th>Nº Piezas</th>
-                            <th>Proceso</th>
-                            <th>Base</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($lineas as $linea) : ?>
-                            <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
-                                <td><input type="checkbox" name="selectedLine[]"></td>
-                                <td><?= $linea['id_linea_pedido']; ?></td>
-                                <td><?= $linea['cliente'] ?></td>
-                                <td><?= $linea['medidas'] ?></td>
-                                <td><?= $linea['fecha'] ?></td>
-                                <td><?= $linea['producto'] ?></td>
-                                <td><?= $linea['n_piezas'] ?></td>
-                                <td><?= $linea['proceso'] ?></td>
-                                <td><?= $linea['base'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="column" id="col3">
-            <button data-action="move-left" class="btn btn-md btn-primary"><i class="bi bi-arrow-left"></i></button><br>
-            <button data-action="move-right" class="btn btn-md btn-primary"><i class="bi bi-arrow-right"></i></button><br>
-            <button data-action="confirm" class="btn btn-md btn-info"><i class="bi bi-floppy"></i></button><br>
-            <button data-action="btn-terminado" class="btn btn-md btn-success"><i class="bi bi-clipboard2-check"></i></button><br>
-            <button data-action="btn-imprimir" onclick="printDiv('printableArea')" class="btn btn-secondary btn-md"><i class='bi bi-printer'></i></button><br>
-            <button data-action="cancelar" onclick="window.location.reload();" class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
-        </div>
-        <div class="column" id="col4">
-            <div class="cabecera">
-                <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
-                <select id="maquinaFilterCol4" style="width: 100%;" onchange="filtrarProcesosPorMaquina(this.value);">
-                    <option value="">Todas las máquinas</option>
-                    <?php if (isset($maquinas)) : ?>
-                        <?php foreach ($maquinas as $maquina) : ?>
-                            <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+<div id="organizador">
+    <div class="column" id="col2">
+        <div class="cabecera">
+            <h4>Procesos listos para producir</h4>
+            <div id="searchContainer">
+                <select id="searchInput" style="width: 60%">
+                    <option value="">Seleccione un proceso...</option>
+                    <?php if (isset($procesos)) : ?>
+                        <?php foreach ($procesos as $proceso) : ?>
+                            <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
-            </div>
-            <div class="resultados">
-                <table id="sortableTable" class="table">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>id</th>
-                            <th>
-                                Cliente
-                                <select id="clienteFilterCol4" style="width: 100%;" onchange="filtrarPorClienteCol4(this.value);">
-                                    <option value="">Todos</option>
-                                    <?php if (isset($clientes)) : ?>
-                                        <?php foreach ($clientes as $cliente) : ?>
-                                            <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </select>
-                            </th>
-                            <th>Medidas</th>
-                            <th>Fecha Entrega</th>
-                            <th>Producto</th>
-                            <th>Nº Piezas</th>
-                            <th>Proceso</th>
-                            <th>Base</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($lineasEstado3 as $linea) : ?>
-                            <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>" data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>">
-                                <td><input type="checkbox" name="selectedLine[]"></td>
-                                <td><?= $linea['id_linea_pedido']; ?></td>
-                                <td><?= $linea['cliente'] ?></td>
-                                <td><?= $linea['medidas'] ?></td>
-                                <td><?= $linea['fecha'] ?></td>
-                                <td><?= $linea['producto'] ?></td>
-                                <td><?= $linea['n_piezas'] ?></td>
-                                <td><?= $linea['proceso'] ?></td>
-                                <td><?= $linea['base'] ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <button id="clearFilters" class="btn btn-sm btn-light">Eliminar Filtros</button>
             </div>
         </div>
-        <div id="printableArea" style="display: none;">
-            <div id="fondo">
-                <div id="printableContent">
-                    <h1>Informe de Procesos en Máquinas</h1>
-                    <?php foreach ($maquinas as $maquina) : ?>
-                        <div>
-                            <h2>Máquina: <?= esc($maquina['nombre']); ?></h2>
-                            <table class="table table-sm table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID Línea Pedido</th>
-                                        <th>Cliente</th>
-                                        <th>Medidas</th>
-                                        <th>Fecha Entrega</th>
-                                        <th>Producto</th>
-                                        <th>Nº Piezas</th>
-                                        <th>Proceso</th>
-                                        <th>Base</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($lineasEstado3 as $linea) : ?>
-                                        <?php if ($linea['id_maquina'] == $maquina['id_maquina']) : ?>
-                                            <tr>
-                                                <td><?= esc($linea['id_linea_pedido']); ?></td>
-                                                <td><?= esc($linea['cliente']); ?></td>
-                                                <td><?= esc($linea['medidas']); ?></td>
-                                                <td><?= esc($linea['fecha']); ?></td>
-                                                <td><?= esc($linea['producto']); ?></td>
-                                                <td><?= esc($linea['n_piezas']); ?></td>
-                                                <td><?= esc($linea['proceso']); ?></td>
-                                                <td><?= esc($linea['base']); ?></td>
-                                            </tr>
-                                        <?php endif; ?>
+        <div class="resultados">
+            <table id="Tabla2" class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAllCol2" class="selectAll"></th>
+                        <th>id</th>
+                        <th>
+                            Cliente
+                            <select id="clienteFilter" style="width: 100%;" onchange="filtrarPorCliente(this.value);">
+                                <option value="">Todos</option>
+                                <?php if (isset($clientes)) : ?>
+                                    <?php foreach ($clientes as $cliente) : ?>
+                                        <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
                                     <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php endif; ?>
+                            </select>
+                        </th>
+                        <th>
+                            Medidas
+                            <select id="medidasFilter" style="width: 100%;" onchange="filtrarPorMedida(this.value);">
+                                <option value="">Orden ascendente</option>
+                                <option value="iniciales">Medidas Iniciales</option>
+                                <option value="finales">Medidas Finales</option>
+                            </select>
+                        </th>
+                        <th>Fecha Entrega</th>
+                        <th>Producto</th>
+                        <th>Nº Piezas</th>
+                        <th>Proceso</th>
+                        <th>Base</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($lineas as $linea) : ?>
+                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
+                            <td><input type="checkbox" class="checkboxCol2" name="selectedLineCol2[]"></td>
+                            <td><?= $linea['id_linea_pedido']; ?></td>
+                            <td><?= $linea['cliente'] ?></td>
+                            <td><?= $linea['medidas'] ?></td>
+                            <td><?= $linea['fecha'] ?></td>
+                            <td><?= $linea['producto'] ?></td>
+                            <td><?= $linea['n_piezas'] ?></td>
+                            <td><?= $linea['proceso'] ?></td>
+                            <td><?= $linea['base'] ?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column" id="col3">
+        <button data-action="move-left" class="btn btn-md btn-primary"><i class="bi bi-arrow-left"></i></button><br>
+        <button data-action="move-right" class="btn btn-md btn-primary"><i class="bi bi-arrow-right"></i></button><br>
+        <button data-action="confirm" class="btn btn-md btn-info"><i class="bi bi-floppy"></i></button><br>
+        <button data-action="btn-terminado" class="btn btn-md btn-success"><i class="bi bi-clipboard2-check"></i></button><br>
+        <button data-action="btn-imprimir" onclick="printDiv('printableArea')" class="btn btn-secondary btn-md"><i class='bi bi-printer'></i></button><br>
+        <button data-action="cancelar" onclick="window.location.reload();" class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
+    </div>
+    <div class="column" id="col4">
+        <div class="cabecera">
+            <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
+            <select id="maquinaFilterCol4" style="width: 100%;" onchange="filtrarProcesosPorMaquina(this.value);">
+                <option value="">Todas las máquinas</option>
+                <?php if (isset($maquinas)) : ?>
+                    <?php foreach ($maquinas as $maquina) : ?>
+                        <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="resultados">
+            <table id="sortableTable" class="table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAllCol4" class="selectAll"></th>
+                        <th>id</th>
+                        <th>
+                            Cliente
+                            <select id="clienteFilterCol4" style="width: 100%;" onchange="filtrarPorClienteCol4(this.value);">
+                                <option value="">Todos</option>
+                                <?php if (isset($clientes)) : ?>
+                                    <?php foreach ($clientes as $cliente) : ?>
+                                        <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </th>
+                        <th>Medidas</th>
+                        <th>Fecha Entrega</th>
+                        <th>Producto</th>
+                        <th>Nº Piezas</th>
+                        <th>Proceso</th>
+                        <th>Base</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($lineasEstado3 as $linea) : ?>
+                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>" data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>">
+                            <td><input type="checkbox" class="checkboxCol4" name="selectedLineCol4[]"></td>
+                            <td><?= $linea['id_linea_pedido']; ?></td>
+                            <td><?= $linea['cliente'] ?></td>
+                            <td><?= $linea['medidas'] ?></td>
+                            <td><?= $linea['fecha'] ?></td>
+                            <td><?= $linea['producto'] ?></td>
+                            <td><?= $linea['n_piezas'] ?></td>
+                            <td><?= $linea['proceso'] ?></td>
+                            <td><?= $linea['base'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="printableArea" style="display: none;">
+        <div id="fondo">
+            <div id="printableContent">
+                <h1>Informe de Procesos en Máquinas</h1>
+                <?php foreach ($maquinas as $maquina) : ?>
+                    <div>
+                        <h2>Máquina: <?= esc($maquina['nombre']); ?></h2>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID Línea Pedido</th>
+                                    <th>Cliente</th>
+                                    <th>Medidas</th>
+                                    <th>Fecha Entrega</th>
+                                    <th>Producto</th>
+                                    <th>Nº Piezas</th>
+                                    <th>Proceso</th>
+                                    <th>Base</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lineasEstado3 as $linea) : ?>
+                                    <?php if ($linea['id_maquina'] == $maquina['id_maquina']) : ?>
+                                        <tr>
+                                            <td><?= esc($linea['id_linea_pedido']); ?></td>
+                                            <td><?= esc($linea['cliente']); ?></td>
+                                            <td><?= esc($linea['medidas']); ?></td>
+                                            <td><?= esc($linea['fecha']); ?></td>
+                                            <td><?= esc($linea['producto']); ?></td>
+                                            <td><?= esc($linea['n_piezas']); ?></td>
+                                            <td><?= esc($linea['proceso']); ?></td>
+                                            <td><?= esc($linea['base']); ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
-
+</div>
 
 
     <script>
@@ -577,6 +575,16 @@
                 }
             });
         });
+        document.querySelectorAll('.selectAll').forEach(selectAllCheckbox => {
+        selectAllCheckbox.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita que el checkbox principal se marque o desmarque
+            const columnId = this.id === 'selectAllCol2' ? 'Col2' : 'Col4';
+            const checkboxes = document.querySelectorAll(`input[name="selectedLine${columnId}[]"]`);
+            const isChecked = !this.classList.contains('highlight');
+            checkboxes.forEach(checkbox => checkbox.checked = isChecked);
+            this.classList.toggle('highlight', isChecked);
+        });
+    });
 
         // Eventos de máquinas
         document.querySelectorAll('.maquina').forEach(maquina => {
