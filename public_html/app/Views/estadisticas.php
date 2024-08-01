@@ -223,40 +223,8 @@ use App\Models\Menu_familias_model; ?>
 					<i class="fa fa-users fa-fw"></i> Incidencias
 				</div>
 				<!-- /.panel-heading -->
-				<div class="panel-body">
-					<?php if (!empty($incidencias)) : ?>
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Usuario</th>
-									<th>Entrada</th>
-									<th>Salida</th>
-									<th>Incidencia</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($incidencias as $incidencia) : ?>
-									<tr>
-										<td><?= $incidencia['nombre_usuario'] ?></td>
-										<td><?= $incidencia['entrada_hora'] ?></td>
-										<td><?= $incidencia['salida_hora'] ?? 'No registrado' ?></td>
-										<td><?= $incidencia['incidencia'] ?></td>
-										<td>
-											<button type="button" class="btn btn-success btn-sm">
-												<i class="fa fa-check"></i>
-											</button>
-											<button type="button" class="btn btn-danger btn-sm">
-												<i class="fa fa-times"></i>
-											</button>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-							</tbody>
-						</table>
-					<?php else : ?>
+				<div class="panel-body">					
 						<p>No hay incidencias</p>
-					<?php endif; ?>
 				</div>
 				<!-- /.panel-body -->
 			</div>
