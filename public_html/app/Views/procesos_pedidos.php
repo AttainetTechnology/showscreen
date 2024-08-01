@@ -378,6 +378,10 @@
                 row.style.display = 'none';
             }
         });
+
+        if (sortable) {
+            sortable.option("disabled", false); // Habilitar Sortable al seleccionar una máquina
+        }
     }
 
     // Funciones de movimiento y confirmación
@@ -574,7 +578,6 @@
             });
         });
 
-
         // Eventos de máquinas
         document.querySelectorAll('.maquina').forEach(maquina => {
             maquina.addEventListener('click', function() {
@@ -608,8 +611,7 @@
             marcarComoTerminado(this);
         });
 
-
-        sortable.option("disabled", true);
+        sortable.option("disabled", true); // Deshabilitar Sortable inicialmente
     });
 
     // Eventos adicionales
@@ -658,8 +660,9 @@
                 } else {
                     alert('Error al actualizar el orden: ' + data.error);
                 }
-            })
+            });
     }
+
 
 
     function marcarComoTerminado(button) {
