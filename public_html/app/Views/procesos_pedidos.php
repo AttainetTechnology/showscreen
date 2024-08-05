@@ -95,13 +95,13 @@
         <div class="cabecera">
             <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
             <select id="maquinaFilterCol4" class="form-control" onchange="filtrarProcesosPorMaquina(this.value);">
-        <option value="">Todas las máquinas</option>
-        <?php if (isset($maquinas)) : ?>
-            <?php foreach ($maquinas as $maquina) : ?>
-                <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
-            <?php endforeach; ?>
-        <?php endif; ?>
-    </select>
+                <option value="">Todas las máquinas</option>
+                <?php if (isset($maquinas)) : ?>
+                    <?php foreach ($maquinas as $maquina) : ?>
+                        <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
         </div>
         <div class="resultados">
             <table id="sortableTable" class="table">
@@ -191,76 +191,76 @@
 </div>
 
 
-    <script>
-        function printDiv(divId) {
-            // Verificar si hay una máquina seleccionada
-            if (!selectedMachineId) {
-                alert('¡Seleccione una máquina antes de imprimir!');
-                return;
-            }
-
-            // Generar contenido imprimible solo para la máquina seleccionada
-            generarContenidoImprimible();
-
-            var printContents = document.getElementById(divId).innerHTML;
-
-            var printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>Impresión</title>');
-            printWindow.document.write('<style>');
-            printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
-            printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
-            printWindow.document.write('</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(printContents);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+<script>
+    function printDiv(divId) {
+        // Verificar si hay una máquina seleccionada
+        if (!selectedMachineId) {
+            alert('¡Seleccione una máquina antes de imprimir!');
+            return;
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Añadir evento de clic a cada fila de la tabla
-            document.querySelectorAll('.linea').forEach(function(row) {
-                row.addEventListener('click', function(event) {
-                    // Evitar que el evento se propague si se hace clic en el checkbox directamente
-                    if (event.target.type !== 'checkbox') {
-                        const checkbox = this.querySelector('input[type="checkbox"]');
-                        checkbox.checked = !checkbox.checked;
-                    }
-                });
+        // Generar contenido imprimible solo para la máquina seleccionada
+        generarContenidoImprimible();
+
+        var printContents = document.getElementById(divId).innerHTML;
+
+        var printWindow = window.open('', '', 'height=600,width=800');
+        printWindow.document.write('<html><head><title>Impresión</title>');
+        printWindow.document.write('<style>');
+        printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
+        printWindow.document.write('th, td { border: 1px solid black; padding: 8px; text-align: left; }');
+        printWindow.document.write('</style>');
+        printWindow.document.write('</head><body>');
+        printWindow.document.write(printContents);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Añadir evento de clic a cada fila de la tabla
+        document.querySelectorAll('.linea').forEach(function(row) {
+            row.addEventListener('click', function(event) {
+                // Evitar que el evento se propague si se hace clic en el checkbox directamente
+                if (event.target.type !== 'checkbox') {
+                    const checkbox = this.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                }
             });
-
-            actualizarColores();
-            generarContenidoImprimible();
-            seleccionarMaquinaGuardada();
-
         });
 
-        function generarContenidoImprimible() {
-            let printableArea = document.getElementById('printableArea');
-            let maquinas = <?php echo json_encode($maquinas); ?>;
-            let lineasEstado3 = <?php echo json_encode($lineasEstado3); ?>;
+        actualizarColores();
+        generarContenidoImprimible();
+        seleccionarMaquinaGuardada();
 
-            // Obtener la fecha actual
-            let fechaActual = new Date();
-            // Formatear la fecha (p.ej., "DD/MM/YYYY")
-            let fechaFormateada = fechaActual.getDate() + '/' + (fechaActual.getMonth() + 1) + '/' + fechaActual.getFullYear();
+    });
 
-            let content = document.getElementById('printableContent');
-            // Añadir la fecha al contenido imprimible
-            content.innerHTML = `<h1>Informe de Procesos en Máquinas -  ${fechaFormateada}</h1>`;
+    function generarContenidoImprimible() {
+        let printableArea = document.getElementById('printableArea');
+        let maquinas = <?php echo json_encode($maquinas); ?>;
+        let lineasEstado3 = <?php echo json_encode($lineasEstado3); ?>;
 
-            // Filtrar las máquinas para encontrar la seleccionada
-            let maquinaSeleccionada = maquinas.find(maquina => maquina.id_maquina === selectedMachineId);
-            if (maquinaSeleccionada) {
-                let lineasMaquina = lineasEstado3.filter(linea => linea.id_maquina === selectedMachineId);
+        // Obtener la fecha actual
+        let fechaActual = new Date();
+        // Formatear la fecha (p.ej., "DD/MM/YYYY")
+        let fechaFormateada = fechaActual.getDate() + '/' + (fechaActual.getMonth() + 1) + '/' + fechaActual.getFullYear();
 
-                if (lineasMaquina.length > 0) {
-                    let maquinaDiv = document.createElement('div');
-                    maquinaDiv.innerHTML = `<h2>Máquina: ${maquinaSeleccionada.nombre}</h2>`;
+        let content = document.getElementById('printableContent');
+        // Añadir la fecha al contenido imprimible
+        content.innerHTML = `<h1>Informe de Procesos en Máquinas -  ${fechaFormateada}</h1>`;
 
-                    let table = document.createElement('table');
-                    table.className = 'table table-sm table-hover';
-                    table.innerHTML = `
+        // Filtrar las máquinas para encontrar la seleccionada
+        let maquinaSeleccionada = maquinas.find(maquina => maquina.id_maquina === selectedMachineId);
+        if (maquinaSeleccionada) {
+            let lineasMaquina = lineasEstado3.filter(linea => linea.id_maquina === selectedMachineId);
+
+            if (lineasMaquina.length > 0) {
+                let maquinaDiv = document.createElement('div');
+                maquinaDiv.innerHTML = `<h2>Máquina: ${maquinaSeleccionada.nombre}</h2>`;
+
+                let table = document.createElement('table');
+                table.className = 'table table-sm table-hover';
+                table.innerHTML = `
                 <thead>
                     <tr>
                         <th>ID Línea Pedido</th>
@@ -275,11 +275,11 @@
                 </thead>
                 <tbody></tbody>
             `;
-                    let tbody = table.querySelector('tbody');
+                let tbody = table.querySelector('tbody');
 
-                    lineasMaquina.forEach(linea => {
-                        let row = document.createElement('tr');
-                        row.innerHTML = `
+                lineasMaquina.forEach(linea => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
                     <td>${linea.id_linea_pedido}</td>
                     <td>${linea.cliente}</td>
                     <td>${linea.medidas}</td>
@@ -289,15 +289,15 @@
                     <td>${linea.proceso}</td>
                     <td>${linea.base}</td>
                 `;
-                        tbody.appendChild(row);
-                    });
+                    tbody.appendChild(row);
+                });
 
-                    maquinaDiv.appendChild(table);
-                    content.appendChild(maquinaDiv);
-                }
+                maquinaDiv.appendChild(table);
+                content.appendChild(maquinaDiv);
             }
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>
@@ -399,54 +399,55 @@
         });
         actualizarColores();
     }
+
     function crearNuevaFila(filaOriginal) {
-    const nuevaFila = document.createElement('tr');
-    nuevaFila.className = 'linea';
-    nuevaFila.setAttribute('data-id-maquina', selectedMachineId); // Asegura que el ID de la máquina esté correctamente asignado
-    nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-    nuevaFila.setAttribute('data-estado', 'no-guardado');
+        const nuevaFila = document.createElement('tr');
+        nuevaFila.className = 'linea';
+        nuevaFila.setAttribute('data-id-maquina', selectedMachineId); // Asegura que el ID de la máquina esté correctamente asignado
+        nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
+        nuevaFila.setAttribute('data-estado', 'no-guardado');
 
-    const tdCheckbox = document.createElement('td');
-    const nuevoCheckbox = document.createElement('input');
-    nuevoCheckbox.type = 'checkbox';
-    tdCheckbox.appendChild(nuevoCheckbox);
-    nuevaFila.appendChild(tdCheckbox);
+        const tdCheckbox = document.createElement('td');
+        const nuevoCheckbox = document.createElement('input');
+        nuevoCheckbox.type = 'checkbox';
+        tdCheckbox.appendChild(nuevoCheckbox);
+        nuevaFila.appendChild(tdCheckbox);
 
-    Array.from(filaOriginal.children).slice(1).forEach(td => {
-        nuevaFila.appendChild(td.cloneNode(true));
-    });
+        Array.from(filaOriginal.children).slice(1).forEach(td => {
+            nuevaFila.appendChild(td.cloneNode(true));
+        });
 
-    return nuevaFila;
-}
-
-function confirmarProcesos() {
-    // Guardar la máquina seleccionada en el almacenamiento local antes de confirmar
-    if (selectedMachineId) {
-        localStorage.setItem('selectedMachineId', selectedMachineId);
-    }
-    const procesosActualizar = obtenerProcesos('#col4 tbody tr', true);
-    const procesosRevertir = obtenerProcesos('#col2 tbody tr', false);
-
-    if (procesosActualizar.length > 0) {
-        actualizarProcesos(procesosActualizar);
+        return nuevaFila;
     }
 
-    if (procesosRevertir.length > 0) {
-        revertirProcesos(procesosRevertir);
-    }
-}
+    function confirmarProcesos() {
+        // Guardar la máquina seleccionada en el almacenamiento local antes de confirmar
+        if (selectedMachineId) {
+            localStorage.setItem('selectedMachineId', selectedMachineId);
+        }
+        const procesosActualizar = obtenerProcesos('#col4 tbody tr', true);
+        const procesosRevertir = obtenerProcesos('#col2 tbody tr', false);
 
-function obtenerProcesos(selector, conOrden) {
-    return Array.from(document.querySelectorAll(selector)).filter(fila => {
-        const filaMaquinaId = fila.getAttribute('data-id-maquina');
-        return filaMaquinaId && (conOrden ? filaMaquinaId === selectedMachineId : true);
-    }).map((fila, index) => ({
-        nombre_proceso: fila.getAttribute('data-nombre-proceso'),
-        id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
-        id_maquina: conOrden ? selectedMachineId : fila.getAttribute('data-id-maquina'),
-        orden: conOrden ? index + 1 : 0
-    }));
-}
+        if (procesosActualizar.length > 0) {
+            actualizarProcesos(procesosActualizar);
+        }
+
+        if (procesosRevertir.length > 0) {
+            revertirProcesos(procesosRevertir);
+        }
+    }
+
+    function obtenerProcesos(selector, conOrden) {
+        return Array.from(document.querySelectorAll(selector)).filter(fila => {
+            const filaMaquinaId = fila.getAttribute('data-id-maquina');
+            return filaMaquinaId && (conOrden ? filaMaquinaId === selectedMachineId : true);
+        }).map((fila, index) => ({
+            nombre_proceso: fila.getAttribute('data-nombre-proceso'),
+            id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+            id_maquina: conOrden ? selectedMachineId : fila.getAttribute('data-id-maquina'),
+            orden: conOrden ? index + 1 : 0
+        }));
+    }
 
 
     function actualizarProcesos(procesos) {
@@ -515,71 +516,71 @@ function obtenerProcesos(selector, conOrden) {
     }
 
     function seleccionarMaquinaGuardada() {
-    // Revisar si hay un ID de máquina guardado
-    const savedMachineId = localStorage.getItem('selectedMachineId');
-    if (savedMachineId) {
-        const maquina = document.querySelector(`#maquinaFilterCol4 option[value="${savedMachineId}"]`);
-        if (maquina) {
-            // Selecciona la opción en el select y simula un cambio para aplicar el filtro
-            maquina.selected = true;
-            filtrarProcesosPorMaquina(savedMachineId);
+        // Revisar si hay un ID de máquina guardado
+        const savedMachineId = localStorage.getItem('selectedMachineId');
+        if (savedMachineId) {
+            const maquina = document.querySelector(`#maquinaFilterCol4 option[value="${savedMachineId}"]`);
+            if (maquina) {
+                // Selecciona la opción en el select y simula un cambio para aplicar el filtro
+                maquina.selected = true;
+                filtrarProcesosPorMaquina(savedMachineId);
+            }
+            localStorage.removeItem('selectedMachineId'); // Elimina la máquina guardada del almacenamiento local
         }
-        localStorage.removeItem('selectedMachineId'); // Elimina la máquina guardada del almacenamiento local
     }
-}
 
     // Inicialización y eventos
     document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar Select2
-    ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
-        $(selector).select2();
-    });
-
-    // Seleccionar la máquina guardada (si hay alguna)
-    seleccionarMaquinaGuardada();
-
-    // Eventos de filtrado
-    $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
-    $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
-    $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
-    $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
-    $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
-
-    // Evento para limpiar filtros
-    $('#clearFilters').on('click', () => {
-        ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
-            $(selector).val('').trigger('change');
+        // Inicializar Select2
+        ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
+            $(selector).select2();
         });
-        if (sortable) sortable.option("disabled", true);
-    });
 
-    // Eventos de botones
-    document.querySelectorAll('button[data-action]').forEach(button => {
-        button.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            if (action === 'move-right') {
-                if (!selectedMachineId) {
-                    alert('¡Seleccione una máquina!');
-                    return;
+        // Seleccionar la máquina guardada (si hay alguna)
+        seleccionarMaquinaGuardada();
+
+        // Eventos de filtrado
+        $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
+        $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
+        $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
+        $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
+        $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
+
+        // Evento para limpiar filtros
+        $('#clearFilters').on('click', () => {
+            ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+                $(selector).val('').trigger('change');
+            });
+            if (sortable) sortable.option("disabled", true);
+        });
+
+        // Eventos de botones
+        document.querySelectorAll('button[data-action]').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                if (action === 'move-right') {
+                    if (!selectedMachineId) {
+                        alert('¡Seleccione una máquina!');
+                        return;
+                    }
+                    moverPedidos('input[type="checkbox"]:checked', '#col4 table tbody');
+                } else if (action === 'move-left') {
+                    moverPedidos('#col4 input[type="checkbox"]:checked', '#col2 table tbody');
+                } else if (action === 'confirm') {
+                    confirmarProcesos();
                 }
-                moverPedidos('input[type="checkbox"]:checked', '#col4 table tbody');
-            } else if (action === 'move-left') {
-                moverPedidos('#col4 input[type="checkbox"]:checked', '#col2 table tbody');
-            } else if (action === 'confirm') {
-                confirmarProcesos();
-            }
+            });
         });
-    });
         document.querySelectorAll('.selectAll').forEach(selectAllCheckbox => {
-        selectAllCheckbox.addEventListener('click', function(event) {
-            event.preventDefault(); // Evita que el checkbox principal se marque o desmarque
-            const columnId = this.id === 'selectAllCol2' ? 'Col2' : 'Col4';
-            const checkboxes = document.querySelectorAll(`input[name="selectedLine${columnId}[]"]`);
-            const isChecked = !this.classList.contains('highlight');
-            checkboxes.forEach(checkbox => checkbox.checked = isChecked);
-            this.classList.toggle('highlight', isChecked);
+            selectAllCheckbox.addEventListener('click', function(event) {
+                event.preventDefault(); // Evita que el checkbox principal se marque o desmarque
+                const columnId = this.id === 'selectAllCol2' ? 'Col2' : 'Col4';
+                const checkboxes = document.querySelectorAll(`input[name="selectedLine${columnId}[]"]`);
+                const isChecked = !this.classList.contains('highlight');
+                checkboxes.forEach(checkbox => checkbox.checked = isChecked);
+                this.classList.toggle('highlight', isChecked);
+            });
         });
-    });
 
         // Eventos de máquinas
         document.querySelectorAll('.maquina').forEach(maquina => {
@@ -669,49 +670,49 @@ function obtenerProcesos(selector, conOrden) {
 
 
     function marcarComoTerminado(button) {
-    // Selecciona los checkboxes marcados en la columna 4
-    const selectedLines = document.querySelectorAll('#col4 input[name="selectedLineCol4[]"]:checked');
+        // Selecciona los checkboxes marcados en la columna 4
+        const selectedLines = document.querySelectorAll('#col4 input[name="selectedLineCol4[]"]:checked');
 
-    let lineItems = Array.from(selectedLines).map(line => {
-        const row = line.closest('tr');
-        return {
-            idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
-            nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
-        };
-    });
+        let lineItems = Array.from(selectedLines).map(line => {
+            const row = line.closest('tr');
+            return {
+                idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
+                nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
+            };
+        });
 
-    if (lineItems.length > 0) {
-        button.disabled = true;
+        if (lineItems.length > 0) {
+            button.disabled = true;
 
-        // Guardar la máquina seleccionada en el almacenamiento local
-        if (selectedMachineId) {
-            localStorage.setItem('selectedMachineId', selectedMachineId);
-        }
+            // Guardar la máquina seleccionada en el almacenamiento local
+            if (selectedMachineId) {
+                localStorage.setItem('selectedMachineId', selectedMachineId);
+            }
 
-        fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    lineItems: lineItems
+            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        lineItems: lineItems
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    localStorage.setItem('reloadedFromTerminar', 'true');
-                    window.location.reload();
-                } else {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('reloadedFromTerminar', 'true');
+                        window.location.reload();
+                    } else {
+                        alert('Error al actualizar los estados.');
+                    }
+                })
+                .catch(error => {
                     alert('Error al actualizar los estados.');
-                }
-            })
-            .catch(error => {
-                alert('Error al actualizar los estados.');
-            })
-            .finally(() => {
-                button.disabled = false;
-            });
+                })
+                .finally(() => {
+                    button.disabled = false;
+                });
+        }
     }
-}
 </script>
