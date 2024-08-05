@@ -59,7 +59,19 @@
                             </select>
                         </th>
                         <th>Fecha Entrega</th>
-                        <th>Producto</th>
+                        <th>
+                            Producto
+                            <select id="productoFilterCol2" style="width: 100%;" onchange="filtrarPorProducto(this.value, 2);">
+                                <option value="">Todos</option>
+                                <?php if (isset($productos)) : ?>
+                                    <?php foreach ($productos as $producto) : ?>
+                                        <option value="<?= esc($producto['nombre_producto']) ?>"><?= esc($producto['nombre_producto']) ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+
+                        </th>
+
                         <th>Nº Piezas</th>
                         <th>Proceso</th>
                         <th>Base</th>
@@ -67,7 +79,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($lineas as $linea) : ?>
-                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
+                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-nombre-producto="<?= esc($linea['producto']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
                             <td><input type="checkbox" class="checkboxCol2" name="selectedLineCol2[]"></td>
                             <td><?= $linea['id_linea_pedido']; ?></td>
                             <td><?= $linea['cliente'] ?></td>
@@ -78,6 +90,7 @@
                             <td><?= $linea['proceso'] ?></td>
                             <td><?= $linea['base'] ?></td>
                         </tr>
+
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -131,7 +144,19 @@
                         </th>
                         <th>Medidas</th>
                         <th>Fecha Entrega</th>
-                        <th>Producto</th>
+                        <th>
+                            Producto
+                            <select id="productoFilterCol4" style="width: 100%;" onchange="filtrarPorProducto(this.value, 4);">
+                                <option value="">Todos</option>
+                                <?php if (isset($productos)) : ?>
+                                    <?php foreach ($productos as $producto) : ?>
+                                        <option value="<?= esc($producto['nombre_producto']) ?>"><?= esc($producto['nombre_producto']) ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+
+                        </th>
+
                         <th>Nº Piezas</th>
                         <th>Proceso</th>
                         <th>Base</th>
@@ -139,7 +164,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($lineasEstado3 as $linea) : ?>
-                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>" data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>">
+                        <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']) ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-nombre-producto="<?= esc($linea['producto']); ?>" data-id-maquina="<?= $linea['id_maquina']; ?>" data-estado="<?= esc($linea['guardado']) ? 'guardado' : 'no-guardado'; ?>">
                             <td><input type="checkbox" class="checkboxCol4" name="selectedLineCol4[]"></td>
                             <td><?= $linea['id_linea_pedido']; ?></td>
                             <td><?= $linea['cliente'] ?></td>
@@ -150,6 +175,7 @@
                             <td><?= $linea['proceso'] ?></td>
                             <td><?= $linea['base'] ?></td>
                         </tr>
+
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -327,6 +353,9 @@
     let selectedProcesoFilterCol2 = '';
     let selectedClientFilterCol4 = '';
     let selectedProcesoFilterCol4 = '';
+    let selectedProductoFilterCol2 = '';
+    let selectedProductoFilterCol4 = '';
+
     let sortable;
 
     // Funciones de filtrado
@@ -334,11 +363,13 @@
         const tableRows = document.querySelectorAll(`#col${columna} tbody tr`);
         const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
         const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
+        const productoFilter = columna === 2 ? selectedProductoFilterCol2 : selectedProductoFilterCol4;
         const maquinaFilter = columna === 4 ? selectedMachineId : null;
 
         tableRows.forEach(row => {
             const cliente = row.getAttribute('data-nombre-cliente');
             const proceso = row.getAttribute('data-nombre-proceso');
+            const producto = row.getAttribute('data-nombre-producto');
             const idMaquina = row.getAttribute('data-id-maquina');
             let display = true;
 
@@ -346,6 +377,9 @@
                 display = false;
             }
             if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
+                display = false;
+            }
+            if (producto && productoFilter && !producto.toLowerCase().includes(productoFilter)) {
                 display = false;
             }
             if (columna === 4 && maquinaFilter && idMaquina !== maquinaFilter) {
@@ -415,6 +449,15 @@
             // Ordenar las filas usando la función de comparación
             rows.sort(compareFunction).forEach(row => tbody.appendChild(row));
         }
+    }
+
+    function filtrarPorProducto(valor, columna) {
+        if (columna === 2) {
+            selectedProductoFilterCol2 = valor.toLowerCase();
+        } else {
+            selectedProductoFilterCol4 = valor.toLowerCase();
+        }
+        aplicarFiltros(columna);
     }
 
     // Funciones de movimiento y confirmación
@@ -568,7 +611,7 @@
     // Inicialización y eventos
     document.addEventListener('DOMContentLoaded', function() {
         // Inicializar Select2
-        ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
+        ['#searchInput', '#clienteFilter', '#medidasFilter', '#productoFilterCol2', '#productoFilterCol4', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
             $(selector).select2();
         });
 
@@ -584,7 +627,7 @@
 
         // Evento para limpiar filtros
         $('#clearFilters').on('click', () => {
-            ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+            ['#searchInput', '#clienteFilter', '#productoFilterCol2', '#productoFilterCol4', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
                 $(selector).val('').trigger('change');
             });
             if (sortable) sortable.option("disabled", true);
