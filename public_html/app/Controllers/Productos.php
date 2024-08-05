@@ -156,7 +156,7 @@ class Productos extends BaseControllerGC
         $allProcesses = $query->getResult();
 
         $builder = $dbClient->table('procesos_productos');
-        $builder->select('*');
+        $builder->select('procesos_productos.*, procesos.nombre_proceso');
         $builder->where(['id_producto' => $id]);
         $builder->join('procesos', 'procesos.id_proceso=procesos_productos.id_proceso', 'left');
         $builder->orderby('orden', 'asc');
@@ -164,7 +164,11 @@ class Productos extends BaseControllerGC
 
         $orderedProcesses = $query->getResult();
 
-        return view('procesos_view', ['producto' => $producto, 'procesos' => $orderedProcesses, 'allProcesses' => $allProcesses]);
+        return view('procesos_view', [
+            'producto' => $producto,
+            'procesos' => $orderedProcesses,
+            'allProcesses' => $allProcesses
+        ]);
     }
 
     public function updateOrder()

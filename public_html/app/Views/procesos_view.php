@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,42 +16,50 @@
     <!-- Incluir Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
-<style>
-    .modal-backdrop.show {
-        background-color: #fff3cd;
-    }
-    .placeholder {
-        user-select: none;
-        pointer-events: none;
-    }
-    li.ui-state-default {
-        list-style-type: none;
-    }
-    /* Estilo para las cartas */
-    .ui-state-default {
-        border: 1px solid #ddd;
-        background-color: #f8f9fa;
-        padding: 8px 16px;
-        border-radius: 4px;
-        margin-bottom: 4px;
-        box-shadow: 0 2px 1px rgba(0,0,0,0.05);
-        cursor: pointer; /* Cambio para mejorar la indicación de que se puede arrastrar */
-    }
-    /* Estilo cuando se arrastra */
-    .ui-state-default.ui-sortable-helper {
-        box-shadow: 0 4px 2px rgba(0,0,0,0.1);
-    }
-    /* Estilo para los contenedores conectados */
-    .connectedSortable {
-        min-height: 50px; /* Asegura que el contenedor siempre es visible y arrastrable */
-        padding: 10px;
-        border: 1px dashed #ccc;
-    }
-</style>
+    <style>
+        .modal-backdrop.show {
+            background-color: #fff3cd;
+        }
+
+        .placeholder {
+            user-select: none;
+            pointer-events: none;
+        }
+
+        li.ui-state-default {
+            list-style-type: none;
+        }
+
+        /* Estilo para las cartas */
+        .ui-state-default {
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            box-shadow: 0 2px 1px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            /* Cambio para mejorar la indicación de que se puede arrastrar */
+        }
+
+        /* Estilo cuando se arrastra */
+        .ui-state-default.ui-sortable-helper {
+            box-shadow: 0 4px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para los contenedores conectados */
+        .connectedSortable {
+            min-height: 50px;
+            /* Asegura que el contenedor siempre es visible y arrastrable */
+            padding: 10px;
+            border: 1px dashed #ccc;
+        }
+    </style>
     <!-- Modal -->
     <div class="modal fade" id="procesosModal" tabindex="-1" role="dialog" aria-labelledby="procesosModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document"> 
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="procesosModalLabel">Producto: <?= $producto->nombre_producto ?></h5>
@@ -59,23 +68,30 @@
                     <div class="row">
                         <div class="col-md-6">
                             <h6>Todos los Procesos</h6>
-                            <?php if(!empty($allProcesses)): ?>
+                            <?php if (!empty($allProcesses)) : ?>
                                 <ul id="sortable" class="connectedSortable">
-                                    <?php foreach($allProcesses as $proceso): ?>
+                                    <?php foreach ($allProcesses as $proceso) : ?>
                                         <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>"><?= $proceso->nombre_proceso ?></li>
                                     <?php endforeach; ?>
                                 </ul>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <p>No hay procesos disponibles.</p>
                             <?php endif; ?>
                         </div>
                         <div class="col-md-6">
                             <h6>Ordenar Procesos</h6>
                             <ul class="connectedSortable" style="border: 1px solid #000; margin: 10px; padding: 10px; min-height: 50px;" id="orderList">
-                                <!-- Aquí se moverán los procesos para ordenar -->
+                                <?php if (!empty($procesos)) : ?>
+                                    <?php foreach ($procesos as $proceso) : ?>
+                                        <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>"><?= $proceso->nombre_proceso ?></li>
+                                    <?php endforeach; ?>
+                                <?php else : ?>
+                                    <li class="placeholder">No hay procesos asociados.</li>
+                                <?php endif; ?>
                             </ul>
                             <input type="hidden" id="order" value="">
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -91,13 +107,13 @@
         $('.close-button').click(function() {
             window.history.back();
         });
-        $('#procesosModal').on('hidden.bs.modal', function (e) {
+        $('#procesosModal').on('hidden.bs.modal', function(e) {
             window.history.back();
         });
         $(document).ready(function() {
             // Mostrar el modal al cargar la página
             $('#procesosModal').modal('show');
-        
+
             // Hacer que los elementos sean ordenables
             $("#sortable, .connectedSortable").sortable({
                 connectWith: ".connectedSortable",
@@ -115,13 +131,13 @@
                     $('#order').val(JSON.stringify(order));
                 }
             }).disableSelection();
-        
+
             // Mostrar u ocultar el placeholder dependiendo de si hay elementos
             $(".connectedSortable").on("sortreceive sortremove", function(event, ui) {
                 var hasChildren = $(this).children('li').length > 0;
                 $(this).find(".placeholder").toggle(!hasChildren);
             });
-        
+
             // Al hacer click en 'Guardar Orden'
             $('#saveOrder').click(function() {
                 // Obtener el orden desde el input oculto
@@ -139,7 +155,9 @@
                     });
                 }
                 // Enviar los datos al servidor
-                $.post('updateOrder', { data: JSON.stringify(data) })
+                $.post('updateOrder', {
+                        data: JSON.stringify(data)
+                    })
                     .done(function() {
                         alert('Procesos guardados');
                         window.location.href = 'https://dev.showscreen.app/productos';
