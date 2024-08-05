@@ -53,7 +53,7 @@
                         <th>
                             Medidas
                             <select id="medidasFilter" style="width: 100%;" onchange="filtrarPorMedida(this.value);">
-                                <option value="">Orden ascendente</option>
+                                <option value="">Sin Orden</option>
                                 <option value="iniciales">Medidas Iniciales</option>
                                 <option value="finales">Medidas Finales</option>
                             </select>
@@ -242,7 +242,16 @@
         generarContenidoImprimible();
         seleccionarMaquinaGuardada();
 
+        // Guardar el orden original de las filas
+        const tbody = document.querySelector('#Tabla2 tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        originalOrder = rows.map((row, index) => ({
+            element: row,
+            index: index
+        }));
     });
+
 
     function generarContenidoImprimible() {
         let printableArea = document.getElementById('printableArea');
@@ -387,6 +396,38 @@
 
         if (sortable) {
             sortable.option("disabled", false); // Habilitar Sortable al seleccionar una máquina
+        }
+    }
+
+    function filtrarPorMedida(valor) {
+        const tbody = document.querySelector('#Tabla2 tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        if (valor === "") {
+            // Restaurar el orden original
+            originalOrder.sort((a, b) => a.index - b.index).forEach(item => tbody.appendChild(item.element));
+        } else {
+            // Función para extraer la medida desde el texto
+            const getMedida = (texto, tipo) => {
+                const partes = texto.split('-').map(parte => parseFloat(parte.trim()) || 0);
+                if (tipo === 'iniciales') {
+                    return partes[0]; // Primera medida (antes del '-')
+                } else if (tipo === 'finales') {
+                    return partes[1] || 0; // Segunda medida (después del '-') o 0 si no existe
+                }
+                return 0;
+            };
+
+            // Función de comparación para ordenar las filas
+            const compareFunction = (a, b) => {
+                const medidaA = getMedida(a.querySelector('td:nth-child(4)').textContent, valor);
+                const medidaB = getMedida(b.querySelector('td:nth-child(4)').textContent, valor);
+
+                return medidaA - medidaB; // Orden ascendente
+            };
+
+            // Ordenar las filas usando la función de comparación
+            rows.sort(compareFunction).forEach(row => tbody.appendChild(row));
         }
     }
 
