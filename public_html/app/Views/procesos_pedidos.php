@@ -420,6 +420,10 @@
 }
 
 function confirmarProcesos() {
+    // Guardar la máquina seleccionada en el almacenamiento local antes de confirmar
+    if (selectedMachineId) {
+        localStorage.setItem('selectedMachineId', selectedMachineId);
+    }
     const procesosActualizar = obtenerProcesos('#col4 tbody tr', true);
     const procesosRevertir = obtenerProcesos('#col2 tbody tr', false);
 
@@ -511,60 +515,61 @@ function obtenerProcesos(selector, conOrden) {
     }
 
     function seleccionarMaquinaGuardada() {
-        if (localStorage.getItem('reloadedFromConfirm') === 'true' || localStorage.getItem('reloadedFromTerminar') === 'true') {
-            const savedMachineId = localStorage.getItem('selectedMachineId');
-            if (savedMachineId) {
-                const maquina = document.querySelector(`.maquina[data-id-maquina="${savedMachineId}"]`);
-                if (maquina) maquina.click();
-            }
-            localStorage.removeItem('selectedMachineId');
-            localStorage.removeItem('reloadedFromConfirm');
-            localStorage.removeItem('reloadedFromTerminar');
+    // Revisar si hay un ID de máquina guardado
+    const savedMachineId = localStorage.getItem('selectedMachineId');
+    if (savedMachineId) {
+        const maquina = document.querySelector(`#maquinaFilterCol4 option[value="${savedMachineId}"]`);
+        if (maquina) {
+            // Selecciona la opción en el select y simula un cambio para aplicar el filtro
+            maquina.selected = true;
+            filtrarProcesosPorMaquina(savedMachineId);
         }
+        localStorage.removeItem('selectedMachineId'); // Elimina la máquina guardada del almacenamiento local
     }
-
+}
 
     // Inicialización y eventos
     document.addEventListener('DOMContentLoaded', function() {
-        // Inicializar Select2
-        ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
-            $(selector).select2();
+    // Inicializar Select2
+    ['#searchInput', '#clienteFilter', '#medidasFilter', '#clienteFilterCol4', '#searchInputCol4'].forEach(selector => {
+        $(selector).select2();
+    });
+
+    // Seleccionar la máquina guardada (si hay alguna)
+    seleccionarMaquinaGuardada();
+
+    // Eventos de filtrado
+    $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
+    $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
+    $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
+    $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
+    $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
+
+    // Evento para limpiar filtros
+    $('#clearFilters').on('click', () => {
+        ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+            $(selector).val('').trigger('change');
         });
+        if (sortable) sortable.option("disabled", true);
+    });
 
-        seleccionarMaquinaGuardada();
-
-        // Eventos de filtrado
-        $('#searchInput').on('change', e => filtrarPorProceso(e.target.value, 2));
-        $('#clienteFilter').on('change', e => filtrarPorCliente(e.target.value, 2));
-        $('#clienteFilterCol4').on('change', e => filtrarPorCliente(e.target.value, 4));
-        $('#searchInputCol4').on('change', e => filtrarPorProceso(e.target.value, 4));
-        $('#medidasFilter').on('change', e => filtrarPorMedida(e.target.value));
-
-        // Evento para limpiar filtros
-        $('#clearFilters').on('click', () => {
-            ['#searchInput', '#clienteFilter', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
-                $(selector).val('').trigger('change');
-            });
-            if (sortable) sortable.option("disabled", true);
-        });
-
-        // Eventos de botones
-        document.querySelectorAll('button[data-action]').forEach(button => {
-            button.addEventListener('click', function() {
-                const action = this.getAttribute('data-action');
-                if (action === 'move-right') {
-                    if (!selectedMachineId) {
-                        alert('¡Seleccione una máquina!');
-                        return;
-                    }
-                    moverPedidos('input[type="checkbox"]:checked', '#col4 table tbody');
-                } else if (action === 'move-left') {
-                    moverPedidos('#col4 input[type="checkbox"]:checked', '#col2 table tbody');
-                } else if (action === 'confirm') {
-                    confirmarProcesos();
+    // Eventos de botones
+    document.querySelectorAll('button[data-action]').forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            if (action === 'move-right') {
+                if (!selectedMachineId) {
+                    alert('¡Seleccione una máquina!');
+                    return;
                 }
-            });
+                moverPedidos('input[type="checkbox"]:checked', '#col4 table tbody');
+            } else if (action === 'move-left') {
+                moverPedidos('#col4 input[type="checkbox"]:checked', '#col2 table tbody');
+            } else if (action === 'confirm') {
+                confirmarProcesos();
+            }
         });
+    });
         document.querySelectorAll('.selectAll').forEach(selectAllCheckbox => {
         selectAllCheckbox.addEventListener('click', function(event) {
             event.preventDefault(); // Evita que el checkbox principal se marque o desmarque
