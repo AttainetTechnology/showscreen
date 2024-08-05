@@ -373,13 +373,13 @@
             const idMaquina = row.getAttribute('data-id-maquina');
             let display = true;
 
-            if (cliente && clientFilter && !cliente.toLowerCase().includes(clientFilter)) {
+            if (clientFilter && cliente && !cliente.toLowerCase().includes(clientFilter)) {
                 display = false;
             }
-            if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
+            if (procesoFilter && proceso && !proceso.toLowerCase().includes(procesoFilter)) {
                 display = false;
             }
-            if (producto && productoFilter && !producto.toLowerCase().includes(productoFilter)) {
+            if (productoFilter && producto && !producto.toLowerCase().includes(productoFilter)) {
                 display = false;
             }
             if (columna === 4 && maquinaFilter && idMaquina !== maquinaFilter) {
@@ -389,6 +389,7 @@
             row.style.display = display ? '' : 'none';
         });
     }
+
 
     function filtrarPorCliente(valor, columna) {
         if (columna === 2) {
@@ -414,10 +415,25 @@
         aplicarFiltros(columna);
     }
 
-    function filtrarProcesosPorMaquina(idMaquina) {
+    function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
         selectedMachineId = idMaquina;
+        console.log("Maquina seleccionada:", selectedMachineId);
+
+        document.querySelectorAll('#col4 .linea').forEach(row => {
+            const estado = row.getAttribute('data-estado');
+            const idMaquinaFila = row.getAttribute('data-id-maquina');
+            const shouldDisplay = (estado === 'no-guardado' || idMaquinaFila === idMaquina);
+            row.style.display = shouldDisplay ? '' : 'none';
+            console.log("Fila:", row, "Visible:", shouldDisplay);
+        });
+
+        if (sortable) {
+            sortable.option("disabled", false); // Habilitar Sortable al seleccionar una máquina
+            console.log("Sortable activado");
+        }
         aplicarFiltros(4);
     }
+
 
     function filtrarPorMedida(valor) {
         const tbody = document.querySelector('#Tabla2 tbody');
