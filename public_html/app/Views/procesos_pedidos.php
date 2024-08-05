@@ -94,14 +94,23 @@
     <div class="column" id="col4">
         <div class="cabecera">
             <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
-            <select id="maquinaFilterCol4" class="form-control" onchange="filtrarProcesosPorMaquina(this.value);">
-                <option value="">Todas las máquinas</option>
-                <?php if (isset($maquinas)) : ?>
-                    <?php foreach ($maquinas as $maquina) : ?>
-                        <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
+            <div style="display: inline-block; vertical-align: middle;">
+                <select id="maquinaFilterCol4" class="form-control d-inline-block" style="width: auto;" onchange="filtrarProcesosPorMaquina(this.value);">
+                    <option value="">Todas las máquinas</option>
+                    <?php if (isset($maquinas)) : ?>
+                        <?php foreach ($maquinas as $maquina) : ?>
+                            <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div style="display: inline-block; vertical-align: middle;">
+                <button id="clearMachineFilter" class="btn btn-sm btn-light ms-2" onclick="eliminarFiltroMaquina()" style="height: 38px;">
+                    <i class="bi bi-x-circle"></i> Eliminar Filtro
+                </button>
+            </div>
+
+
         </div>
         <div class="resultados">
             <table id="sortableTable" class="table">
@@ -665,6 +674,29 @@
                     alert('Error al actualizar el orden: ' + data.error);
                 }
             });
+    }
+
+
+    function eliminarFiltroMaquina() {
+        // Restablecer el valor del select de máquinas a vacío (sin selección)
+        document.getElementById('maquinaFilterCol4').value = '';
+
+        // Eliminar la máquina seleccionada de la variable global
+        selectedMachineId = null;
+
+        // Mostrar todas las filas en la columna 4
+        mostrarTodasLasLineas();
+
+        // Deshabilitar el sortable si no hay una máquina seleccionada
+        if (sortable) {
+            sortable.option("disabled", true);
+        }
+    }
+
+    function mostrarTodasLasLineas() {
+        document.querySelectorAll('#col4 .linea').forEach(linea => {
+            linea.style.display = ''; // Mostrar todas las líneas
+        });
     }
 
 
