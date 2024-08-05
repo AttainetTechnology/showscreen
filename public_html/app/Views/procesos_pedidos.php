@@ -399,60 +399,51 @@
         });
         actualizarColores();
     }
-
     function crearNuevaFila(filaOriginal) {
-        const nuevaFila = document.createElement('tr');
-        nuevaFila.className = 'linea';
-        nuevaFila.setAttribute('data-id-maquina', selectedMachineId);
-        nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
-        nuevaFila.setAttribute('data-estado', 'no-guardado');
+    const nuevaFila = document.createElement('tr');
+    nuevaFila.className = 'linea';
+    nuevaFila.setAttribute('data-id-maquina', selectedMachineId); // Asegura que el ID de la máquina esté correctamente asignado
+    nuevaFila.setAttribute('data-nombre-proceso', filaOriginal.getAttribute('data-nombre-proceso'));
+    nuevaFila.setAttribute('data-estado', 'no-guardado');
 
-        const tdCheckbox = document.createElement('td');
-        const nuevoCheckbox = document.createElement('input');
-        nuevoCheckbox.type = 'checkbox';
-        tdCheckbox.appendChild(nuevoCheckbox);
-        nuevaFila.appendChild(tdCheckbox);
+    const tdCheckbox = document.createElement('td');
+    const nuevoCheckbox = document.createElement('input');
+    nuevoCheckbox.type = 'checkbox';
+    tdCheckbox.appendChild(nuevoCheckbox);
+    nuevaFila.appendChild(tdCheckbox);
 
-        Array.from(filaOriginal.children).slice(1).forEach(td => {
-            nuevaFila.appendChild(td.cloneNode(true));
-        });
+    Array.from(filaOriginal.children).slice(1).forEach(td => {
+        nuevaFila.appendChild(td.cloneNode(true));
+    });
 
-        return nuevaFila;
+    return nuevaFila;
+}
+
+function confirmarProcesos() {
+    const procesosActualizar = obtenerProcesos('#col4 tbody tr', true);
+    const procesosRevertir = obtenerProcesos('#col2 tbody tr', false);
+
+    if (procesosActualizar.length > 0) {
+        actualizarProcesos(procesosActualizar);
     }
 
-
-    function confirmarProcesos() {
-        const procesosActualizar = obtenerProcesos('.column:nth-child(4) table tbody tr', true);
-        const procesosRevertir = obtenerProcesos('.column:nth-child(2) table tbody tr', false);
-
-        if (selectedMachineId) {
-            localStorage.setItem('selectedMachineId', selectedMachineId);
-        }
-
-        if (procesosActualizar.length > 0) {
-            actualizarProcesos(procesosActualizar);
-        }
-
-        if (procesosRevertir.length > 0) {
-            revertirProcesos(procesosRevertir);
-        }
-
-        // Eliminar fondo rojo después de confirmar
-        document.querySelectorAll('.fondo-rojo').forEach(fila => {
-            fila.classList.remove('fondo-rojo');
-        });
-
-        actualizarColores();
+    if (procesosRevertir.length > 0) {
+        revertirProcesos(procesosRevertir);
     }
+}
 
-    function obtenerProcesos(selector, conOrden) {
-        return Array.from(document.querySelectorAll(selector)).map((fila, index) => ({
-            nombre_proceso: fila.getAttribute('data-nombre-proceso'),
-            id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
-            id_maquina: conOrden ? selectedMachineId : null,
-            orden: conOrden ? index + 1 : 0
-        }));
-    }
+function obtenerProcesos(selector, conOrden) {
+    return Array.from(document.querySelectorAll(selector)).filter(fila => {
+        const filaMaquinaId = fila.getAttribute('data-id-maquina');
+        return filaMaquinaId && (conOrden ? filaMaquinaId === selectedMachineId : true);
+    }).map((fila, index) => ({
+        nombre_proceso: fila.getAttribute('data-nombre-proceso'),
+        id_linea_pedido: fila.querySelector('td:nth-child(2)').textContent.trim(),
+        id_maquina: conOrden ? selectedMachineId : fila.getAttribute('data-id-maquina'),
+        orden: conOrden ? index + 1 : 0
+    }));
+}
+
 
     function actualizarProcesos(procesos) {
         realizarPeticionAjax('<?php echo base_url('procesos_pedidos/actualizarEstadoProcesos'); ?>', procesos, () => {
@@ -673,49 +664,49 @@
 
 
     function marcarComoTerminado(button) {
-        const selectedLines = document.querySelectorAll('input[name="selectedLine[]"]:checked');
-        let lineItems = Array.from(selectedLines).map(line => {
-            const row = line.closest('tr');
-            return {
-                idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
-                nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
-            };
-        });
+    // Selecciona los checkboxes marcados en la columna 4
+    const selectedLines = document.querySelectorAll('#col4 input[name="selectedLineCol4[]"]:checked');
 
-        if (lineItems.length > 0) {
-            button.disabled = true;
+    let lineItems = Array.from(selectedLines).map(line => {
+        const row = line.closest('tr');
+        return {
+            idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
+            nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
+        };
+    });
 
-            // Guardar la máquina seleccionada en el almacenamiento local
-            if (selectedMachineId) {
-                localStorage.setItem('selectedMachineId', selectedMachineId);
-            }
+    if (lineItems.length > 0) {
+        button.disabled = true;
 
-            fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        lineItems: lineItems
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Recargar la página
-                        localStorage.setItem('reloadedFromTerminar', 'true');
-                        window.location.reload();
-                    } else {
-                        alert('Error al actualizar los estados.');
-                    }
-                })
-                .catch(error => {
-                    console.error("Error en la solicitud:", error);
-                    alert('Error al actualizar los estados.');
-                })
-                .finally(() => {
-                    button.disabled = false;
-                });
+        // Guardar la máquina seleccionada en el almacenamiento local
+        if (selectedMachineId) {
+            localStorage.setItem('selectedMachineId', selectedMachineId);
         }
+
+        fetch('<?php echo base_url('procesos_pedidos/marcarTerminado'); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lineItems: lineItems
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.setItem('reloadedFromTerminar', 'true');
+                    window.location.reload();
+                } else {
+                    alert('Error al actualizar los estados.');
+                }
+            })
+            .catch(error => {
+                alert('Error al actualizar los estados.');
+            })
+            .finally(() => {
+                button.disabled = false;
+            });
     }
+}
 </script>
