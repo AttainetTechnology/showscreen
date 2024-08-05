@@ -334,6 +334,7 @@
         const tableRows = document.querySelectorAll(`#col${columna} tbody tr`);
         const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
         const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
+        const maquinaFilter = columna === 4 ? selectedMachineId : null;
 
         tableRows.forEach(row => {
             const cliente = row.getAttribute('data-nombre-cliente');
@@ -347,7 +348,7 @@
             if (proceso && procesoFilter && !proceso.toLowerCase().includes(procesoFilter)) {
                 display = false;
             }
-            if (columna === 4 && selectedMachineId && idMaquina !== selectedMachineId) {
+            if (columna === 4 && maquinaFilter && idMaquina !== maquinaFilter) {
                 display = false;
             }
 
@@ -379,24 +380,9 @@
         aplicarFiltros(columna);
     }
 
-    function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
-        selectedMachineId = idMaquina;;
-
-        // Mostrar todos los procesos no guardados y los de la máquina seleccionada
-        document.querySelectorAll('#col4 .linea').forEach(row => {
-            const estado = row.getAttribute('data-estado');
-            const idMaquinaFila = row.getAttribute('data-id-maquina');
-
-            if (estado === 'no-guardado' || idMaquinaFila === idMaquina) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        if (sortable) {
-            sortable.option("disabled", false); // Habilitar Sortable al seleccionar una máquina
-        }
+    function filtrarProcesosPorMaquina(idMaquina) {
+        selectedMachineId = idMaquina;
+        aplicarFiltros(4);
     }
 
     function filtrarPorMedida(valor) {
