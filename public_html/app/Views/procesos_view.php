@@ -52,7 +52,11 @@
                         <?php if (!empty($allProcesses)) : ?>
                             <ul id="sortable" class="connectedSortable">
                                 <?php foreach ($allProcesses as $proceso) : ?>
-                                    <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>"><?= $proceso->nombre_proceso ?></li>
+                                    <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
+                                        <?= $proceso->nombre_proceso ?>
+                                        <i class="fas <?= $proceso->restriccion ? 'fa-lock' : 'fa-lock-open' ?> candado" style="color: <?= $proceso->restriccion ? 'red' : 'gray' ?>;" data-id="<?= $proceso->id_proceso ?>" data-restriccion="<?= $proceso->restriccion ?>">
+                                        </i>
+                                    </li>
                                 <?php endforeach; ?>
                             </ul>
                         <?php else : ?>
@@ -74,6 +78,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" onclick="window.location.href='<?= base_url('productos') ?>';">Cerrar</button>
 
@@ -87,6 +92,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 <script>
     $(document).ready(function() {
         $('#procesosModal').modal('show');
@@ -109,6 +116,24 @@
         $(".connectedSortable").on("sortreceive sortremove", function(event, ui) {
             var hasChildren = $(this).children('li').length > 0;
             $(this).find(".placeholder").toggle(!hasChildren);
+        });
+
+        $('.candado').click(function() {
+            var icon = $(this);
+            var idProceso = icon.data('id');
+            var restriccion = icon.data('restriccion');
+            var nuevaRestriccion = restriccion ? 0 : 1;
+
+            $.post('<?= base_url('procesos/updateRestriction') ?>', {
+                id_proceso: idProceso,
+                restriccion: nuevaRestriccion
+            }).done(function() {
+                icon.toggleClass('fa-lock fa-lock-open');
+                icon.css('color', nuevaRestriccion ? 'red' : 'gray');
+                icon.data('restriccion', nuevaRestriccion);
+            }).fail(function() {
+                alert('Error al actualizar la restricción');
+            });
         });
 
         $('#saveOrder').click(function() {

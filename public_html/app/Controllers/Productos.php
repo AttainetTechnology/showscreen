@@ -177,20 +177,42 @@ class Productos extends BaseControllerGC
         $data = usuario_sesion();
         $dbClient = db_connect($data['new_db']);
         $postData = $this->request->getPost();
+
         if (!isset($postData['data']) || !is_string($postData['data'])) {
             return $this->response->setStatusCode(400, 'Bad Request: Missing or invalid data parameter');
         }
-        $newOrder = json_decode($postData['data'], true);
 
+        $newOrder = json_decode($postData['data'], true);
         $id_producto = $newOrder[0]['id_producto'];
         $dbClient->table('procesos_productos')->where('id_producto', $id_producto)->delete();
 
+        $procesosAnteriores = [];
+
         foreach ($newOrder as $item) {
+            $id_proceso = $item['id_proceso'];
+            $orden = $item['orden'];
+
+            // Verificar si el proceso tiene restricción
+            $proceso = $dbClient->table('procesos')->where('id_proceso', $id_proceso)->get()->getRow();
+
+            if ($proceso->restriccion == 1) {
+                // Si el proceso tiene restricción, agregar todos los procesos anteriores a la lista de restricciones
+                $restricciones = implode(',', $procesosAnteriores);
+            } else {
+                // Si no tiene restricción, las restricciones son vacías
+                $restricciones = '';
+            }
+
+            // Insertar el proceso en la tabla procesos_productos
             $dbClient->table('procesos_productos')->insert([
-                'id_producto' => $item['id_producto'],
-                'id_proceso' => $item['id_proceso'],
-                'orden' => $item['orden']
+                'id_producto' => $id_producto,
+                'id_proceso' => $id_proceso,
+                'orden' => $orden,
+                'restriccion' => $restricciones
             ]);
+
+            // Añadir el proceso actual a la lista de procesos anteriores
+            $procesosAnteriores[] = $id_proceso;
         }
 
         return $this->response->setStatusCode(200, 'Order updated successfully');
