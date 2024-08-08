@@ -36,19 +36,4 @@ class Procesos extends BaseControllerGC
         return $this->_GC_output("layouts/main", $output);
     }
 
-
-    public function updateRestriction()
-    {
-        $idProceso = $this->request->getPost('id_proceso');
-        $restriccion = $this->request->getPost('restriccion');
-
-        helper('controlacceso');
-        $data = usuario_sesion();
-        $db = db_connect($data['new_db']);
-        $builder = $db->table('procesos');
-        $builder->where('id_proceso', $idProceso);
-        $builder->update(['restriccion' => $restriccion]);
-
-        return $this->response->setStatusCode(200, 'Restriction updated successfully');
-    }
 }
