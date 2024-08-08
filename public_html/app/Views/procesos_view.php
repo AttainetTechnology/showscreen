@@ -12,6 +12,7 @@
 
     /* Estilo para las cartas */
     .ui-state-default {
+        position: relative;
         border: 1px solid #ddd;
         background-color: #f8f9fa;
         padding: 8px 16px;
@@ -34,6 +35,23 @@
         padding: 10px;
         border: 1px dashed #ccc;
     }
+
+    /* Estilo para el botón de eliminar */
+    .remove-process {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .remove-process:hover {
+        color: #bd2130;
+    }
 </style>
 
 <div class="modal fade" id="procesosModal" tabindex="-1" role="dialog" aria-labelledby="procesosModalLabel" aria-hidden="true">
@@ -54,7 +72,7 @@
                                 <?php foreach ($allProcesses as $proceso) : ?>
                                     <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
                                         <?= $proceso->nombre_proceso ?>
-                                        <i class="fas <?= $proceso->restriccion ? 'fa-lock' : 'fa-lock-open' ?> candado" style="color: <?= $proceso->restriccion ? 'red' : 'gray' ?>;" data-id="<?= $proceso->id_proceso ?>" data-restriccion="<?= $proceso->restriccion ?>">
+                                        <i class="fas <?= $proceso->restriccion ? 'fa-lock' : 'fa-lock-open' ?> candado" style="color: <?= $proceso->restriccion ? 'orange' : 'gray' ?>;" data-id="<?= $proceso->id_proceso ?>" data-restriccion="<?= $proceso->restriccion ?>">
                                         </i>
                                     </li>
                                 <?php endforeach; ?>
@@ -68,7 +86,13 @@
                         <ul class="connectedSortable" style="border: 1px solid #000; margin: 10px; padding: 10px; min-height: 50px;" id="orderList">
                             <?php if (!empty($procesos)) : ?>
                                 <?php foreach ($procesos as $proceso) : ?>
-                                    <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>"><?= $proceso->nombre_proceso ?></li>
+                                    <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
+                                        <?= $proceso->nombre_proceso ?>
+                                        <?= $proceso->restriccion ? '🔒' : '' ?>
+                                        <button class="remove-process" data-id="<?= $proceso->id_proceso ?>">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </li>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <li class="placeholder">No hay procesos asociados.</li>
@@ -78,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" onclick="window.location.href='<?= base_url('productos') ?>';">Cerrar</button>
@@ -96,30 +121,98 @@
 
 <script>
     $(document).ready(function() {
+        // Mostrar el modal al cargar la página
         $('#procesosModal').modal('show');
 
-        $("#sortable, .connectedSortable").sortable({
-            connectWith: ".connectedSortable",
-            items: "li:not(.placeholder)",
-            update: function(event, ui) {
-                var order = [];
-                $('#orderList').children('li').each(function(index) {
-                    var id = $(this).data('id');
-                    if (id) {
-                        order.push([id, index + 1]);
-                    }
-                });
-                $('#order').val(JSON.stringify(order));
-            }
-        }).disableSelection();
-
-        $(".connectedSortable").on("sortreceive sortremove", function(event, ui) {
-            var hasChildren = $(this).children('li').length > 0;
-            $(this).find(".placeholder").toggle(!hasChildren);
+        // Manejar la eliminación del proceso
+        $(document).on('click', '.remove-process', function() {
+            eliminarProceso($(this));
         });
 
-        $('.candado').click(function() {
-            var icon = $(this);
+        // Inicializar listas ordenables
+        inicializarSortable();
+
+        // Manejar el click en el candado para actualizar la restricción
+        $(document).on('click', '.candado', function() {
+            actualizarRestriccion($(this));
+        });
+
+        // Guardar el orden al hacer click en el botón de guardar
+        $('#saveOrder').click(function() {
+            guardarOrden();
+        });
+
+        // Regresar al historial anterior al cerrar el modal
+        $('#procesosModal').on('hidden.bs.modal', function() {
+            window.history.back();
+        });
+
+        function eliminarProceso(elemento) {
+            elemento.closest('li').remove(); // Elimina el proceso de la lista
+            actualizarOrden(); // Actualiza el orden después de eliminar
+        }
+
+        function actualizarOrden() {
+            var orden = [];
+            $('#orderList').children('li').each(function(index) {
+                var id = $(this).data('id');
+                if (id) {
+                    orden.push([id, index + 1]);
+                }
+            });
+            $('#order').val(JSON.stringify(orden));
+        }
+
+        function inicializarSortable() {
+            $("#sortable").sortable({
+                connectWith: "#orderList",
+                items: "li:not(.placeholder)",
+                receive: function(event, ui) {
+                    if (this !== ui.item.parent()[0]) {
+                        $(ui.sender).sortable('cancel');
+                    }
+                }
+            }).disableSelection();
+
+            $("#orderList").sortable({
+                items: "li:not(.placeholder)",
+                receive: function(event, ui) {
+                    manejarRecepcionElemento(ui.item);
+                    actualizarOrden();
+                },
+                update: actualizarOrden
+            }).disableSelection();
+
+            $(".connectedSortable").on("sortreceive sortremove", function() {
+                var tieneElementos = $(this).children('li').length > 0;
+                $(this).find(".placeholder").toggle(!tieneElementos);
+            });
+        }
+
+        function manejarRecepcionElemento(elemento) {
+            var idProceso = elemento.data('id');
+            var restriccion = elemento.find('.candado').data('restriccion');
+
+            elemento.find('.candado').remove(); // Eliminar cualquier candado existente
+
+            if (restriccion) {
+                elemento.append(crearCandado(idProceso));
+            }
+
+            if (!elemento.find('.remove-process').length) {
+                elemento.append(crearBotonEliminar(idProceso));
+            }
+        }
+
+        function crearCandado(idProceso) {
+            return '<i class="fas fa-lock candado" style="color: orange;" data-id="' + idProceso + '" data-restriccion="1"></i>';
+        }
+
+        function crearBotonEliminar(idProceso) {
+            return '<button class="remove-process" data-id="' + idProceso + '"><i class="fas fa-trash"></i></button>';
+        }
+
+        function actualizarRestriccion(icon) {
             var idProceso = icon.data('id');
             var restriccion = icon.data('restriccion');
             var nuevaRestriccion = restriccion ? 0 : 1;
@@ -128,41 +221,43 @@
                 id_proceso: idProceso,
                 restriccion: nuevaRestriccion
             }).done(function() {
-                icon.toggleClass('fa-lock fa-lock-open');
-                icon.css('color', nuevaRestriccion ? 'red' : 'gray');
+                if (nuevaRestriccion) {
+                    icon.addClass('fa-lock').removeClass('fa-lock-open').css('color', 'orange');
+                } else {
+                    icon.remove();
+                }
                 icon.data('restriccion', nuevaRestriccion);
             }).fail(function() {
                 alert('Error al actualizar la restricción');
             });
-        });
+        }
 
-        $('#saveOrder').click(function() {
-            var order = JSON.parse($('#order').val());
+        function guardarOrden() {
+            var orden = JSON.parse($('#order').val());
             var url = window.location.pathname;
-            var id_producto = url.substring(url.lastIndexOf('/') + 1);
-            var data = [];
-            for (var i = 0; i < order.length; i++) {
-                data.push({
-                    id_producto: id_producto,
-                    id_proceso: order[i][0],
-                    orden: order[i][1]
-                });
-            }
-            $.post('updateOrder', {
-                    data: JSON.stringify(data)
-                })
-                .done(function() {
-                    alert('Procesos guardados');
-                    window.location.href = '<?= base_url('productos') ?>';
-                })
-                .fail(function() {
-                    alert('Ha habido un error');
-                });
-        });
+            var idProducto = obtenerIdProducto(url);
 
-        $('#procesosModal').on('hidden.bs.modal', function() {
-            window.history.back();
-        });
+            var data = orden.map(function(item) {
+                return {
+                    id_producto: idProducto,
+                    id_proceso: item[0],
+                    orden: item[1]
+                };
+            });
+
+            $.post('updateOrder', {
+                data: JSON.stringify(data)
+            }).done(function() {
+                alert('Procesos guardados');
+                window.location.href = '<?= base_url('productos') ?>';
+            }).fail(function() {
+                alert('Ha habido un error');
+            });
+        }
+
+        function obtenerIdProducto(url) {
+            return url.substring(url.lastIndexOf('/') + 1);
+        }
     });
 </script>
 
