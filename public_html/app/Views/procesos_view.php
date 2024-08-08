@@ -70,11 +70,11 @@
                         <?php if (!empty($allProcesses)) : ?>
                             <ul id="sortable" class="connectedSortable">
                                 <?php foreach ($allProcesses as $proceso) : ?>
-                                    <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
-                                        <?= $proceso->nombre_proceso ?>
-                                        <i class="fas <?= $proceso->restriccion ? 'fa-lock' : 'fa-lock-open' ?> candado" style="color: <?= $proceso->restriccion ? 'orange' : 'gray' ?>;" data-id="<?= $proceso->id_proceso ?>" data-restriccion="<?= $proceso->restriccion ?>">
-                                        </i>
-                                    </li>
+                                    <?php if (!in_array($proceso->id_proceso, array_column($procesos, 'id_proceso'))) : ?>
+                                        <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
+                                            <?= $proceso->nombre_proceso ?>
+                                        </li>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </ul>
                         <?php else : ?>
@@ -88,7 +88,6 @@
                                 <?php foreach ($procesos as $proceso) : ?>
                                     <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
                                         <?= $proceso->nombre_proceso ?>
-                                        <?= $proceso->restriccion ? '🔒' : '' ?>
                                         <button class="remove-process" data-id="<?= $proceso->id_proceso ?>">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -102,7 +101,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary close-button" data-dismiss="modal" onclick="window.location.href='<?= base_url('productos') ?>';">Cerrar</button>
@@ -132,11 +130,6 @@
         // Inicializar listas ordenables
         inicializarSortable();
 
-        // Manejar el click en el candado para actualizar la restricción
-        $(document).on('click', '.candado', function() {
-            actualizarRestriccion($(this));
-        });
-
         // Guardar el orden al hacer click en el botón de guardar
         $('#saveOrder').click(function() {
             guardarOrden();
@@ -148,8 +141,15 @@
         });
 
         function eliminarProceso(elemento) {
+            var idProceso = elemento.data('id');
+            var nombreProceso = elemento.closest('li').text().trim();
             elemento.closest('li').remove(); // Elimina el proceso de la lista
             actualizarOrden(); // Actualiza el orden después de eliminar
+
+            // Mover el proceso de vuelta a "Todos los Procesos" si no está ya allí
+            if ($('#sortable').find('[data-id="' + idProceso + '"]').length === 0) {
+                $('#sortable').append('<li class="ui-state-default" data-id="' + idProceso + '">' + nombreProceso + '</li>');
+            }
         }
 
         function actualizarOrden() {
@@ -168,7 +168,10 @@
                 connectWith: "#orderList",
                 items: "li:not(.placeholder)",
                 receive: function(event, ui) {
-                    if (this !== ui.item.parent()[0]) {
+                    var idProceso = ui.item.data('id');
+
+                    // Verificar si el proceso ya está en "Ordenar Procesos"
+                    if ($('#orderList').find('[data-id="' + idProceso + '"]').length > 0) {
                         $(ui.sender).sortable('cancel');
                     }
                 }
@@ -179,6 +182,9 @@
                 receive: function(event, ui) {
                     manejarRecepcionElemento(ui.item);
                     actualizarOrden();
+
+                    // Eliminar el proceso de "Todos los Procesos" al moverlo a "Ordenar Procesos"
+                    $('#sortable').find('[data-id="' + ui.item.data('id') + '"]').remove();
                 },
                 update: actualizarOrden
             }).disableSelection();
@@ -191,45 +197,14 @@
 
         function manejarRecepcionElemento(elemento) {
             var idProceso = elemento.data('id');
-            var restriccion = elemento.find('.candado').data('restriccion');
-
-            elemento.find('.candado').remove(); // Eliminar cualquier candado existente
-
-            if (restriccion) {
-                elemento.append(crearCandado(idProceso));
-            }
 
             if (!elemento.find('.remove-process').length) {
                 elemento.append(crearBotonEliminar(idProceso));
             }
         }
 
-        function crearCandado(idProceso) {
-            return '<i class="fas fa-lock candado" style="color: orange;" data-id="' + idProceso + '" data-restriccion="1"></i>';
-        }
-
         function crearBotonEliminar(idProceso) {
             return '<button class="remove-process" data-id="' + idProceso + '"><i class="fas fa-trash"></i></button>';
-        }
-
-        function actualizarRestriccion(icon) {
-            var idProceso = icon.data('id');
-            var restriccion = icon.data('restriccion');
-            var nuevaRestriccion = restriccion ? 0 : 1;
-
-            $.post('<?= base_url('procesos/updateRestriction') ?>', {
-                id_proceso: idProceso,
-                restriccion: nuevaRestriccion
-            }).done(function() {
-                if (nuevaRestriccion) {
-                    icon.addClass('fa-lock').removeClass('fa-lock-open').css('color', 'orange');
-                } else {
-                    icon.remove();
-                }
-                icon.data('restriccion', nuevaRestriccion);
-            }).fail(function() {
-                alert('Error al actualizar la restricción');
-            });
         }
 
         function guardarOrden() {
