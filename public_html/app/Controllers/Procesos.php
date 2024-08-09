@@ -39,7 +39,6 @@ class Procesos extends BaseControllerGC
         return redirect()->to(base_url('procesos'));
     }
 
-
     public function restriccion($primaryKey)
     {
         $data = datos_user();
@@ -64,6 +63,9 @@ class Procesos extends BaseControllerGC
                 'restriccion' => $restricciones_string
             ]);
 
+            // Llamar a la función para actualizar la tabla de procesos_productos
+            $this->updateOrderAfterRestrictionChange($primaryKey, $restricciones_string);
+
             // Redirigimos a la URL capturada
             return redirect()->to($redirect_url);
         }
@@ -78,6 +80,57 @@ class Procesos extends BaseControllerGC
         return view('edit_procesos', $data);
     }
 
+    private function updateOrderAfterRestrictionChange($id_proceso, $restricciones)
+    {
+        // Aquí debes integrar la lógica para actualizar la tabla procesos_productos
+        $data = datos_user();
+        $dbClient = db_connect($data['new_db']);
+
+        // Obtén los productos asociados al proceso modificado
+        $productos = $dbClient->table('procesos_productos')->where('id_proceso', $id_proceso)->get()->getResultArray();
+
+        foreach ($productos as $producto) {
+            $id_producto = $producto['id_producto'];
+
+            // Llama a la función de actualización
+            $this->updateOrderLogic($dbClient, $id_producto);
+        }
+    }
+
+    private function updateOrderLogic($dbClient, $id_producto)
+    {
+        $newOrder = $dbClient->table('procesos_productos')->where('id_producto', $id_producto)->orderBy('orden', 'ASC')->get()->getResultArray();
+        $dbClient->table('procesos_productos')->where('id_producto', $id_producto)->delete();
+
+        foreach ($newOrder as $item) {
+            $id_proceso = $item['id_proceso'];
+            $orden = $item['orden'];
+
+            $proceso = $dbClient->table('procesos')->where('id_proceso', $id_proceso)->get()->getRow();
+            $restricciones = $proceso->restriccion;
+
+            if (!empty($restricciones)) {
+                $restriccionesArray = explode(',', $restricciones);
+                $builder = $dbClient->table('procesos_productos');
+                $builder->select('id_proceso');
+                $builder->where('id_producto', $id_producto);
+                $query = $builder->get();
+                $procesosProducto = $query->getResultArray();
+                $procesosProductoIds = array_column($procesosProducto, 'id_proceso');
+                $restriccionesFiltradas = array_intersect($restriccionesArray, $procesosProductoIds);
+                $restriccionesFiltradasString = implode(',', $restriccionesFiltradas);
+            } else {
+                $restriccionesFiltradasString = '';
+            }
+            $dbClient->table('procesos_productos')->insert([
+                'id_producto' => $id_producto,
+                'id_proceso' => $id_proceso,
+                'orden' => $orden,
+                'restriccion' => $restriccionesFiltradasString
+            ]);
+        }
+    }
+
     public function delete($id)
     {
         $data = datos_user();
@@ -86,12 +139,12 @@ class Procesos extends BaseControllerGC
         $procesoModel->delete($id);
         return redirect()->to(base_url('procesos'));
     }
+
     public function getPreviousProceso($id)
     {
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-        // Obtener el proceso anterior
         $proceso = $procesoModel->where('id_proceso <', $id)->orderBy('id_proceso', 'DESC')->first();
         if ($proceso) {
             return $proceso['id_proceso'];
@@ -105,7 +158,6 @@ class Procesos extends BaseControllerGC
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-        // Obtener el siguiente proceso
         $proceso = $procesoModel->where('id_proceso >', $id)->orderBy('id_proceso', 'ASC')->first();
         if ($proceso) {
             return $proceso['id_proceso'];
