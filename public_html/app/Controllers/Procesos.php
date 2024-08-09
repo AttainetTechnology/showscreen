@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\Proceso; // Asegúrate de que este modelo exista
+use App\Models\Proceso;
 use CodeIgniter\Controller;
 
 class Procesos extends BaseControllerGC
@@ -11,38 +11,33 @@ class Procesos extends BaseControllerGC
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-
-        $crud = $this->_getClientDatabase();
-        $crud->setSubject('Proceso', 'Procesos');
-        $crud->setTable('procesos');
-        $crud->columns(['nombre_proceso']);
-        $crud->fields(['nombre_proceso', 'estado_proceso']);
-        $crud->fieldType('estado_proceso', 'dropdown', ['1' => 'Activo', '0' => 'Inactivo']);
-        $crud->requiredFields(['nombre_proceso']);
-        $crud->unsetRead();
-        $crud->setLangString('modal_save', 'Guardar Proceso');
-
-        $crud->callbackColumn('nombre_proceso', function ($value, $row) {
-            $button = '<a href="' . base_url('procesos/restriccion/' . $row->id_proceso) . '" class="btn btn-warning" style="float: right;">Restricción</a>';
-            return '<div style="display: flex; justify-content: space-between; align-items: center;">' . $value . $button . '</div>';
-        });
-
-        $crud->callbackAfterInsert(function ($stateParameters) {
-            $this->logAction('Procesos', 'Añade proceso', $stateParameters);
-            return $stateParameters;
-        });
-        $crud->callbackAfterUpdate(function ($stateParameters) {
-            $this->logAction('Procesos', 'Edita proceso, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
-            return $stateParameters;
-        });
-        $crud->callbackAfterDelete(function ($stateParameters) {
-            $this->logAction('Procesos', 'Elimina proceso, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
-            return $stateParameters;
-        });
-
-        $output = $crud->render();
-        return $this->_GC_output("layouts/main", $output);
+        $procesos = $procesoModel->findAll();
+        return view('procesos', ['procesos' => $procesos]);
     }
+
+    public function add()
+    {
+        return view('add_procesos');
+    }
+
+    public function create()
+    {
+        $data = datos_user();
+        $db = db_connect($data['new_db']);
+        $procesoModel = new Proceso($db);
+
+        $nombre_proceso = $this->request->getPost('nombre_proceso');
+        $estado_proceso = $this->request->getPost('estado_proceso');
+
+        $procesoModel->insert([
+            'nombre_proceso' => $nombre_proceso,
+            'estado_proceso' => $estado_proceso,
+            'restriccion' => null 
+        ]);
+
+        return redirect()->to(base_url('procesos'));
+    }
+
 
     public function restriccion($primaryKey)
     {
@@ -52,28 +47,36 @@ class Procesos extends BaseControllerGC
         $procesos = $procesoModel->where('id_proceso !=', $primaryKey)->findAll();
         $proceso_principal = $procesoModel->find($primaryKey);
 
+        if ($this->request->is('post')) {
+            // Obtiene los datos del formulario
+            $nombre_proceso = $this->request->getPost('nombre_proceso');
+            $estado_proceso = $this->request->getPost('estado_proceso');
+            $restricciones = $this->request->getPost('restricciones');
+
+            // Actualiza el proceso en la base de datos
+            $restricciones_string = $restricciones ? implode(',', $restricciones) : '';
+            $procesoModel->update($primaryKey, [
+                'nombre_proceso' => $nombre_proceso,
+                'estado_proceso' => $estado_proceso,
+                'restriccion' => $restricciones_string
+            ]);
+
+            // Redirige a la lista de procesos
+            return redirect()->to(base_url('procesos'));
+        }
         $data = [
             'proceso_principal' => $proceso_principal,
             'procesos' => $procesos,
             'primaryKey' => $primaryKey
         ];
-
         return view('edit_procesos', $data);
     }
-
-    public function guardarRestriccion()
+    public function delete($id)
     {
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-
-        $primaryKey = $this->request->getPost('primaryKey');
-        $restricciones = $this->request->getPost('restricciones');
-
-        $restricciones_string = implode(',', $restricciones);
-
-        $procesoModel->update($primaryKey, ['restriccion' => $restricciones_string]);
-
+        $procesoModel->delete($id);
         return redirect()->to(base_url('procesos'));
     }
 }

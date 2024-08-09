@@ -1,12 +1,27 @@
 <?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Editar Restricciones del Proceso: <?= $proceso_principal['nombre_proceso'] ?></h2>
-    <br>
-    <form action="<?= base_url('procesos/guardarRestriccion') ?>" method="post">
-        <input type="hidden" name="primaryKey" value="<?= $primaryKey ?>">
 
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Editar Proceso: <?= $proceso_principal['nombre_proceso'] ?></h2>
+
+
+    <form action="<?= base_url('procesos/restriccion/' . $proceso_principal['id_proceso']); ?>" method="post">
+        <div class="form-group">
+            <label for="nombre_proceso">Nombre del Proceso</label>
+            <input type="text" class="form-control" id="nombre_proceso" name="nombre_proceso" value="<?= esc($proceso_principal['nombre_proceso']); ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="estado_proceso">Estado del Proceso</label>
+            <select class="form-control" id="estado_proceso" name="estado_proceso" required>
+                <option value="activo" <?= $proceso_principal['estado_proceso'] == 'activo' ? 'selected' : ''; ?>>Activo</option>
+                <option value="inactivo" <?= $proceso_principal['estado_proceso'] == 'inactivo' ? 'selected' : ''; ?>>Inactivo</option>
+            </select>
+        </div>
+
+        <br>
+        <h3 class="text-center mb-4">Editar Restricciones</h3>
+        
         <?php 
             $restricciones_actuales = explode(',', $proceso_principal['restriccion']);
         ?>
@@ -27,7 +42,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <button type="submit" class="btn btn-primary float-end mt-3">Guardar Restricciones</button>
+        <button type="submit" class="btn btn-success float-end mt-3">Guardar Cambios</button>
     </form>
 </div>
 
@@ -57,4 +72,5 @@
         box-shadow: 0 0 11px rgba(33,33,33,.2); 
     }
 </style>
+
 <?= $this->endSection() ?>
