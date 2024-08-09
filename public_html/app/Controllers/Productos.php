@@ -171,6 +171,8 @@ class Productos extends BaseControllerGC
         ]);
     }
 
+
+
     public function updateOrder()
     {
         helper('controlacceso');
@@ -186,33 +188,40 @@ class Productos extends BaseControllerGC
         $id_producto = $newOrder[0]['id_producto'];
         $dbClient->table('procesos_productos')->where('id_producto', $id_producto)->delete();
 
-        $procesosAnteriores = [];
-
         foreach ($newOrder as $item) {
             $id_proceso = $item['id_proceso'];
             $orden = $item['orden'];
 
-            // Verificar si el proceso tiene restricción
+            // Obtener las restricciones del proceso actual
             $proceso = $dbClient->table('procesos')->where('id_proceso', $id_proceso)->get()->getRow();
+            $restricciones = $proceso->restriccion;
 
-            if ($proceso->restriccion == 1) {
-                // Si el proceso tiene restricción, agregar todos los procesos anteriores a la lista de restricciones
-                $restricciones = implode(',', $procesosAnteriores);
+            if (!empty($restricciones)) {
+                $restriccionesArray = explode(',', $restricciones);
+
+                // Filtrar las restricciones para que solo incluyan procesos asociados al mismo producto
+                $builder = $dbClient->table('procesos_productos');
+                $builder->select('id_proceso');
+                $builder->where('id_producto', $id_producto);
+                $query = $builder->get();
+                $procesosProducto = $query->getResultArray();
+
+                $procesosProductoIds = array_column($procesosProducto, 'id_proceso');
+                $restriccionesFiltradas = array_intersect($restriccionesArray, $procesosProductoIds);
+
+                // Convertir las restricciones filtradas de nuevo a string
+                $restriccionesFiltradasString = implode(',', $restriccionesFiltradas);
             } else {
-                // Si no tiene restricción, las restricciones son vacías
-                $restricciones = '';
+                $restriccionesFiltradasString = '';
             }
 
-            // Insertar el proceso en la tabla procesos_productos
+            // Insertar el proceso en la tabla procesos_productos con las restricciones filtradas
             $dbClient->table('procesos_productos')->insert([
                 'id_producto' => $id_producto,
                 'id_proceso' => $id_proceso,
                 'orden' => $orden,
-                'restriccion' => $restricciones
+                'restriccion' => $restriccionesFiltradasString
             ]);
-
-            // Añadir el proceso actual a la lista de procesos anteriores
-            $procesosAnteriores[] = $id_proceso;
         }
 
         return $this->response->setStatusCode(200, 'Order updated successfully');
