@@ -63,7 +63,6 @@ class Procesos extends BaseControllerGC
                 'restriccion' => $restricciones_string
             ]);
 
-            // Llamar a la función para actualizar la tabla de procesos_productos
             $this->updateOrderAfterRestrictionChange($primaryKey, $restricciones_string);
 
             // Redirigimos a la URL capturada
@@ -81,18 +80,13 @@ class Procesos extends BaseControllerGC
     }
 
     private function updateOrderAfterRestrictionChange($id_proceso, $restricciones)
-    {
-        // Aquí debes integrar la lógica para actualizar la tabla procesos_productos
+    {      
         $data = datos_user();
         $dbClient = db_connect($data['new_db']);
-
         // Obtén los productos asociados al proceso modificado
         $productos = $dbClient->table('procesos_productos')->where('id_proceso', $id_proceso)->get()->getResultArray();
-
         foreach ($productos as $producto) {
             $id_producto = $producto['id_producto'];
-
-            // Llama a la función de actualización
             $this->updateOrderLogic($dbClient, $id_producto);
         }
     }
