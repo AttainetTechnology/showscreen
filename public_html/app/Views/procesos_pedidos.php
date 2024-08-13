@@ -79,20 +79,29 @@
                 </thead>
                 <tbody>
                     <?php foreach ($lineas as $linea) : ?>
+                        <?php
+                        // Verificar si la clave 'restriccion' está definida antes de intentar acceder a ella
+                        $restriccion = isset($linea['restriccion']) ? $linea['restriccion'] : null;
+                        ?>
                         <tr class="linea" data-nombre-cliente="<?= esc($linea['cliente']); ?>" data-nombre-proceso="<?= esc($linea['proceso']); ?>" data-nombre-producto="<?= esc($linea['producto']); ?>" data-med-inicial="<?= isset($linea['med_inicial']) ? esc($linea['med_inicial']) : '0'; ?>" data-med-final="<?= isset($linea['med_final']) ? esc($linea['med_final']) : '0'; ?>">
                             <td><input type="checkbox" class="checkboxCol2" name="selectedLineCol2[]"></td>
-                            <td><?= $linea['id_linea_pedido']; ?></td>
-                            <td><?= $linea['cliente'] ?></td>
-                            <td><?= $linea['medidas'] ?></td>
-                            <td><?= $linea['fecha'] ?></td>
-                            <td><?= $linea['producto'] ?></td>
-                            <td><?= $linea['n_piezas'] ?></td>
-                            <td><?= $linea['proceso'] ?></td>
-                            <td><?= $linea['base'] ?></td>
+                            <td><?= esc($linea['id_linea_pedido']); ?></td>
+                            <td><?= esc($linea['cliente']); ?></td>
+                            <td><?= esc($linea['medidas']); ?></td>
+                            <td><?= esc($linea['fecha']); ?></td>
+                            <td><?= esc($linea['producto']); ?></td>
+                            <td><?= esc($linea['n_piezas']); ?></td>
+                            <td>
+                                <?= esc($linea['proceso']); ?>
+                                <?php if ($restriccion !== null && $restriccion !== '0' && $restriccion !== '') : ?>
+                                    <span style="margin-left: 5px;">🔒</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= esc($linea['base']); ?></td>
                         </tr>
-
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
         </div>
     </div>
@@ -172,7 +181,13 @@
                             <td><?= $linea['fecha'] ?></td>
                             <td><?= $linea['producto'] ?></td>
                             <td><?= $linea['n_piezas'] ?></td>
-                            <td><?= $linea['proceso'] ?></td>
+                            <td>
+                                <?= esc($linea['proceso']); ?>
+                                <?php if ($linea['restriccion'] !== null && $linea['restriccion'] !== '0' && $linea['restriccion'] !== '') : ?>
+                                    <span style="margin-left: 5px;">🔒</span>
+                                <?php endif; ?>
+                            </td>
+
                             <td><?= $linea['base'] ?></td>
                         </tr>
 

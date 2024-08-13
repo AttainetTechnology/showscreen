@@ -52,10 +52,12 @@ class Procesos_pedidos extends BaseControllerGC
                         'proceso' => $proceso['nombre_proceso'],
                         'medidas' => $linea['med_inicial'] . ' - ' . $linea['med_final'],
                         'base' => $linea['nom_base'],
+                        'restriccion' => $procesoPedido['restriccion'] ?? null, 
                     ];
                 }
             }
         }
+
 
         // Obtener líneas con estado = 3 y ordenar por el campo 'id_maquina'
         $lineasEstado3 = $procesosPedidoModel->where('estado', 3)->orderBy('id_maquina', 'ASC')->orderBy('orden', 'ASC')->findAll();
@@ -79,7 +81,8 @@ class Procesos_pedidos extends BaseControllerGC
                 'medidas' => $lineaPedido['med_inicial'] . ' - ' . $lineaPedido['med_final'],
                 'orden' => $lineaEstado3['orden'],
                 'base' => $lineaPedido['nom_base'],
-                'guardado' => $lineaEstado3['guardado'] ?? 'nuevo'
+                'guardado' => $lineaEstado3['guardado'] ?? 'nuevo',
+                'restriccion' => $lineaEstado3['restriccion'] ?? null
             ];
         }
 
@@ -502,7 +505,7 @@ class Procesos_pedidos extends BaseControllerGC
         $procesosPedidoModel = new ProcesosPedido($db);
         $procesosProductosModel = new ProcesosProductos($db);
 
-        //Añadir que filtre por id_lineapedido
+        // Obtener líneas de pedido con estado = 2
         $lineasConEstado2 = $lineaPedidoModel->where('estado', 2)->findAll();
 
         foreach ($lineasConEstado2 as $linea) {
@@ -523,6 +526,7 @@ class Procesos_pedidos extends BaseControllerGC
                         'id_linea_pedido' => $linea['id_lineapedido'],
                         'id_maquina' => null,
                         'estado' => 2,
+                        'restriccion' => $procesoProducto['restriccion'] ?? null, // Copia el campo restricciones
                     ]);
                 }
             }
