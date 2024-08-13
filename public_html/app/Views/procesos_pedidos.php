@@ -803,16 +803,35 @@
 
 
     function marcarComoTerminado(button) {
+        // Detener la propagación y comportamiento por defecto del evento
+        event.stopPropagation();
+        event.preventDefault();
+
         // Selecciona los checkboxes marcados en la columna 4
         const selectedLines = document.querySelectorAll('#col4 input[name="selectedLineCol4[]"]:checked');
 
-        let lineItems = Array.from(selectedLines).map(line => {
+        let lineItems = [];
+        let hasRestriction = false; // Variable para verificar si hay alguna restricción
+
+        selectedLines.forEach(line => {
             const row = line.closest('tr');
-            return {
+            const restriccion = row.querySelector('td:nth-child(8) span'); // Verifica si existe el ícono de restricción
+
+            if (restriccion) {
+                hasRestriction = true;
+            }
+
+            lineItems.push({
                 idLineaPedido: row.querySelector('td:nth-child(2)').textContent.trim(),
                 nombreProceso: row.querySelector('td:nth-child(8)').textContent.trim()
-            };
+            });
         });
+
+        // Si alguna línea tiene restricción, muestra la alerta y detén el proceso
+        if (hasRestriction) {
+            alert('Uno o más procesos seleccionados tienen restricciones pendientes. No se pueden marcar como terminados.');
+            return;
+        }
 
         if (lineItems.length > 0) {
             button.disabled = true;

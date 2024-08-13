@@ -347,6 +347,10 @@ class Procesos_pedidos extends BaseControllerGC
                 continue;
             }
 
+            if (!empty($procesoInfo['restriccion'])) {
+                return $this->response->setJSON(['error' => 'No se puede terminar el proceso, tiene restricciones pendientes.']);
+            }
+
             $idMaquina = $procesoInfo['id_maquina'] ?? null;
 
             if (is_null($idMaquina)) {
@@ -411,6 +415,7 @@ class Procesos_pedidos extends BaseControllerGC
         log_message('debug', 'Finalización de marcarTerminado'); // Debug
         return $this->response->setJSON(['success' => 'Estados actualizados y líneas eliminadas']);
     }
+
     private function eliminarRestricciones($idLineaPedido, $idProcesoTerminado)
     {
         $data = usuario_sesion();
@@ -536,27 +541,27 @@ class Procesos_pedidos extends BaseControllerGC
         $lineaPedidoModel = new LineaPedido($db);
         $procesosPedidoModel = new ProcesosPedido($db);
         $procesosProductosModel = new ProcesosProductos($db);
-    
+
         // Obtener líneas de pedido con estado = 2
         $lineasConEstado2 = $lineaPedidoModel->where('estado', 2)->findAll();
-    
+
         foreach ($lineasConEstado2 as $linea) {
             $idProducto = $linea['id_producto'];
-            
+
             // Obtener todos los procesos asociados a este producto
             $procesosProductos = $procesosProductosModel->where('id_producto', $idProducto)->findAll();
-    
+
             foreach ($procesosProductos as $procesoProducto) {
                 // Comprobar si ya existe una línea con este id_proceso y id_linea_pedido
                 $existe = $procesosPedidoModel->where([
                     'id_proceso' => $procesoProducto['id_proceso'],
                     'id_linea_pedido' => $linea['id_lineapedido']
                 ])->first();
-    
+
                 $dataUpdate = [
                     'restriccion' => $procesoProducto['restriccion']
                 ];
-    
+
                 if (!$existe) {
                     $dataInsert = [
                         'id_proceso' => $procesoProducto['id_proceso'],
@@ -565,7 +570,7 @@ class Procesos_pedidos extends BaseControllerGC
                         'estado' => 2,
                         'restriccion' => $procesoProducto['restriccion'],
                     ];
-    
+
                     $procesosPedidoModel->insert($dataInsert);
                 } else {
                     // Actualizar las restricciones si no coinciden
@@ -575,8 +580,7 @@ class Procesos_pedidos extends BaseControllerGC
                 }
             }
         }
-    
+
         return $lineasConEstado2;
     }
-      
 }
