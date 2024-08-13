@@ -52,7 +52,7 @@ class Procesos_pedidos extends BaseControllerGC
                         'proceso' => $proceso['nombre_proceso'],
                         'medidas' => $linea['med_inicial'] . ' - ' . $linea['med_final'],
                         'base' => $linea['nom_base'],
-                        'restriccion' => $procesoPedido['restriccion'] ?? null, 
+                        'restriccion' => $procesoPedido['restriccion'] ?? null,
                     ];
                 }
             }
@@ -356,17 +356,21 @@ class Procesos_pedidos extends BaseControllerGC
 
             log_message('debug', 'Actualizando estado del proceso: ' . json_encode($procesoInfo));
 
+            // Cambiar el estado del proceso a 4
             $procesosPedidoModel
                 ->where('id_linea_pedido', $idLineaPedido)
                 ->where('id_proceso', $idProceso)
                 ->set(['estado' => 4])
                 ->update();
 
-            $this->logAction('ORGANIZADOR', "Proceso marcado como terminado Id_linea: $idLineaPedido", ['idLineaPedido' => $idLineaPedido, 'idProceso' => $idProceso, 'estado' => 4]);
-
+            // Eliminar el registro del proceso terminado
             $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->where('id_proceso', $idProceso)->delete();
 
+            // Reordenar los procesos en la máquina
             $this->reordenarProcesosParaMaquina($idMaquina);
+
+            //Eliminar id_proceso de las restricciones en otros procesos
+            $this->eliminarRestricciones($idLineaPedido, $idProceso);
 
             $todosEnEstado4 = true;
             $procesos = $procesosPedidoModel->where('id_linea_pedido', $idLineaPedido)->findAll();
@@ -406,6 +410,36 @@ class Procesos_pedidos extends BaseControllerGC
         }
         log_message('debug', 'Finalización de marcarTerminado'); // Debug
         return $this->response->setJSON(['success' => 'Estados actualizados y líneas eliminadas']);
+    }
+    private function eliminarRestricciones($idLineaPedido, $idProcesoTerminado)
+    {
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $procesosPedidoModel = new ProcesosPedido($db);
+
+        // Obtener todos los procesos que pertenecen al mismo id_linea_pedido
+        $procesosRelacionados = $procesosPedidoModel
+            ->where('id_linea_pedido', $idLineaPedido)
+            ->findAll();
+
+        foreach ($procesosRelacionados as $proceso) {
+            $restricciones = $proceso['restriccion'] ? explode(',', $proceso['restriccion']) : [];
+
+            // Verificar si el idProcesoTerminado está en la lista de restricciones
+            if (in_array($idProcesoTerminado, $restricciones)) {
+                // Filtrar el idProcesoTerminado fuera de la lista de restricciones
+                $nuevasRestricciones = array_filter($restricciones, function ($value) use ($idProcesoTerminado) {
+                    return $value != $idProcesoTerminado;
+                });
+
+                // Actualizar la restricción en la base de datos
+                $procesosPedidoModel
+                    ->where('id_proceso', $proceso['id_proceso'])
+                    ->where('id_linea_pedido', $proceso['id_linea_pedido'])
+                    ->set(['restriccion' => implode(',', $nuevasRestricciones)])
+                    ->update();
+            }
+        }
     }
 
     public function actualizarOrdenProcesos()
@@ -495,8 +529,6 @@ class Procesos_pedidos extends BaseControllerGC
         // Pasar la lista de clientes a la vista
         return view('procesos_pedidos', ['clientes' => $clientes]);
     }
-
-
     public function obtenerLineasPedidoConEstado2YCrearProcesos()
     {
         $data = datos_user();
@@ -504,34 +536,47 @@ class Procesos_pedidos extends BaseControllerGC
         $lineaPedidoModel = new LineaPedido($db);
         $procesosPedidoModel = new ProcesosPedido($db);
         $procesosProductosModel = new ProcesosProductos($db);
-
+    
         // Obtener líneas de pedido con estado = 2
         $lineasConEstado2 = $lineaPedidoModel->where('estado', 2)->findAll();
-
+    
         foreach ($lineasConEstado2 as $linea) {
             $idProducto = $linea['id_producto'];
+            
+            // Obtener todos los procesos asociados a este producto
             $procesosProductos = $procesosProductosModel->where('id_producto', $idProducto)->findAll();
-
+    
             foreach ($procesosProductos as $procesoProducto) {
                 // Comprobar si ya existe una línea con este id_proceso y id_linea_pedido
                 $existe = $procesosPedidoModel->where([
                     'id_proceso' => $procesoProducto['id_proceso'],
                     'id_linea_pedido' => $linea['id_lineapedido']
                 ])->first();
-
-                // Si no existe, insertar la nueva fila
+    
+                $dataUpdate = [
+                    'restriccion' => $procesoProducto['restriccion']
+                ];
+    
                 if (!$existe) {
-                    $procesosPedidoModel->insert([
+                    $dataInsert = [
                         'id_proceso' => $procesoProducto['id_proceso'],
                         'id_linea_pedido' => $linea['id_lineapedido'],
                         'id_maquina' => null,
                         'estado' => 2,
-                        'restriccion' => $procesoProducto['restriccion'] ?? null, // Copia el campo restricciones
-                    ]);
+                        'restriccion' => $procesoProducto['restriccion'],
+                    ];
+    
+                    $procesosPedidoModel->insert($dataInsert);
+                } else {
+                    // Actualizar las restricciones si no coinciden
+                    if ($existe['restriccion'] !== $procesoProducto['restriccion']) {
+                        $procesosPedidoModel->update($existe['id_relacion'], $dataUpdate);
+                    }
                 }
             }
         }
-
+    
         return $lineasConEstado2;
     }
+      
 }
