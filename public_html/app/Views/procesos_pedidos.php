@@ -801,21 +801,17 @@
     }
 
 
-
     function marcarComoTerminado(button) {
-        // Detener la propagación y comportamiento por defecto del evento
         event.stopPropagation();
         event.preventDefault();
 
-        // Selecciona los checkboxes marcados en la columna 4
         const selectedLines = document.querySelectorAll('#col4 input[name="selectedLineCol4[]"]:checked');
-
         let lineItems = [];
-        let hasRestriction = false; // Variable para verificar si hay alguna restricción
+        let hasRestriction = false;
 
         selectedLines.forEach(line => {
             const row = line.closest('tr');
-            const restriccion = row.querySelector('td:nth-child(8) span'); // Verifica si existe el ícono de restricción
+            const restriccion = row.querySelector('td:nth-child(8) span');
 
             if (restriccion) {
                 hasRestriction = true;
@@ -827,16 +823,9 @@
             });
         });
 
-        // Si alguna línea tiene restricción, muestra la alerta y detén el proceso
-        if (hasRestriction) {
-            alert('Uno o más procesos seleccionados tienen restricciones pendientes. No se pueden marcar como terminados.');
-            return;
-        }
-
         if (lineItems.length > 0) {
             button.disabled = true;
 
-            // Guardar la máquina seleccionada en el almacenamiento local
             if (selectedMachineId) {
                 localStorage.setItem('selectedMachineId', selectedMachineId);
             }
@@ -852,11 +841,15 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
+                    if (data.error) {
+                        let message = 'Uno o más procesos seleccionados tienen restricciones pendientes.\n\n';
+                        data.procesosConRestricciones.forEach(item => {
+                            message += `${item.nombre_proceso}\nRestringido por: ${item.restricciones.join(', ')}\n\n`;
+                        });
+                        alert(message);
+                    } else {
                         localStorage.setItem('reloadedFromTerminar', 'true');
                         window.location.reload();
-                    } else {
-                        alert('Error al actualizar los estados.');
                     }
                 })
                 .catch(error => {
