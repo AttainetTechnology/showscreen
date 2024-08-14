@@ -311,6 +311,7 @@
         // Filtrar las máquinas para encontrar la seleccionada
         let maquinaSeleccionada = maquinas.find(maquina => maquina.id_maquina === selectedMachineId);
         if (maquinaSeleccionada) {
+            // Filtrar las líneas por la máquina seleccionada
             let lineasMaquina = lineasEstado3.filter(linea => linea.id_maquina === selectedMachineId);
 
             if (lineasMaquina.length > 0) {
@@ -337,18 +338,21 @@
                 let tbody = table.querySelector('tbody');
 
                 lineasMaquina.forEach(linea => {
-                    let row = document.createElement('tr');
-                    row.innerHTML = `
-                    <td>${linea.id_linea_pedido}</td>
-                    <td>${linea.cliente}</td>
-                    <td>${linea.medidas}</td>
-                    <td>${linea.fecha}</td>
-                    <td>${linea.producto}</td>
-                    <td>${linea.n_piezas}</td>
-                    <td>${linea.proceso}</td>
-                    <td>${linea.base}</td>
-                `;
-                    tbody.appendChild(row);
+                    // Verificar si la columna 'restriccion' está vacía
+                    if (!linea.restriccion || linea.restriccion === '0' || linea.restriccion === '') {
+                        let row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${linea.id_linea_pedido}</td>
+                        <td>${linea.cliente}</td>
+                        <td>${linea.medidas}</td>
+                        <td>${linea.fecha}</td>
+                        <td>${linea.producto}</td>
+                        <td>${linea.n_piezas}</td>
+                        <td>${linea.proceso}</td>
+                        <td>${linea.base}</td>
+                    `;
+                        tbody.appendChild(row);
+                    }
                 });
 
                 maquinaDiv.appendChild(table);
