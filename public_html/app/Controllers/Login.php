@@ -19,7 +19,7 @@ class Login extends LoginController
         $gClient->setHttpClient(new \GuzzleHttp\Client(['verify' => __DIR__ . '/../../cacert.pem']));
         $gClient->setClientId('76432046723-b6fuespefbntj888her8v4koi71f8h2a.apps.googleusercontent.com');
         $gClient->setClientSecret('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');
-        $gClient->setRedirectUri('https://dev.showscreen.app/google_login');
+        $gClient->setRedirectUri('https://showscreen.app/google_login');
         $gClient->addScope("https://www.googleapis.com/auth/userinfo.email");
         $gClient->addScope("https://www.googleapis.com/auth/userinfo.profile");
 

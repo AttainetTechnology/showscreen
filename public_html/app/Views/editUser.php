@@ -84,7 +84,7 @@ $(document).ready(function() {
     }
 
     $('#editUserModal').on('hidden.bs.modal', function(e) {
-        window.location.href = 'https://dev.showscreen.app/usuarios/';
+        window.location.href = 'https://showscreen.app/usuarios/';
     });
 
     $('#editUserModal').modal('show');

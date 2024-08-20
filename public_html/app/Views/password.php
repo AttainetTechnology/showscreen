@@ -27,7 +27,7 @@
                 clearInterval(checkExist);
     
                 // Hace una petición AJAX para obtener el nombre del usuario
-                $.get('https://dev.showscreen.app/usuarios/getNombreUsuario/' + userId, function(response) {
+                $.get('https://showscreen.app/usuarios/getNombreUsuario/' + userId, function(response) {
                     // Añade el nombre del usuario justo antes del elemento .gc-form-standalone-body
                     $('<div class="form-group"><label></label><input type="text" readonly class="form-control" value="' + response.nombre_usuario + '"></div>').insertBefore('.gc-form-standalone-body');
   
@@ -44,7 +44,7 @@
 <script>
     $(document).on('click', '.gc-close-button', function(e) {
         e.preventDefault();
-        window.location.href = 'https://dev.showscreen.app/usuarios/';
+        window.location.href = 'https://showscreen.app/usuarios/';
     });
 </script>
 <?= $this->endSection()?>
