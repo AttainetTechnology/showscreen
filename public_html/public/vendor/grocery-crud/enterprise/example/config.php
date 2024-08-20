@@ -70,8 +70,8 @@ return [
     // If the maximum number is 1 then as we only have one button as a dropdown list the translation
     // is "Actions" rather than "More"
     'max_action_buttons' => [
-        'mobile' => 1,
-        'desktop' => 2
+        'mobile' => 3,
+        'desktop' => 3
     ],
 
     // Choose between 'left' or 'right'
