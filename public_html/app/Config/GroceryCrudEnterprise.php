@@ -28,8 +28,8 @@ class GroceryCrudEnterprise extends BaseConfig
             'paging_options' => ['10', '25', '50', '100'],
 
             // The environment is important so we can have specific configurations for specific environments
-            'environment' => 'development',
-            //'environment' => 'production',
+            //'environment' => 'development',
+            'environment' => 'production',
 
             // Currently you can choose between 'bootstrap-v3', 'bootstrap-v4' and 'bootstrap-v5'
             'skin' => 'bootstrap-v5',
