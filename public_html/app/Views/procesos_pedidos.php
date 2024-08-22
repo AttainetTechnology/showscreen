@@ -26,6 +26,11 @@
                     <select id="searchInput" class="form-control d-inline-block" style="width: auto;">
                         <option value="">Seleccione un proceso...</option>
                         <?php if (isset($procesos)) : ?>
+                            <?php
+                            usort($procesos, function ($a, $b) {
+                                return strcmp($a['nombre_proceso'], $b['nombre_proceso']);
+                            });
+                            ?>
                             <?php foreach ($procesos as $proceso) : ?>
                                 <option value="<?= esc($proceso['nombre_proceso']) ?>"><?= esc($proceso['nombre_proceso']) ?></option>
                             <?php endforeach; ?>
@@ -34,27 +39,34 @@
                 </div>
                 <div style="display: inline-block; vertical-align: middle;">
                     <button id="clearFilters" class="btn btn-sm btn-light ms-2">
-                        <i class="bi bi-x-circle"></i> Eliminar Filtros
+                        <i class="bi bi-x-circle"></i>Eliminar Filtros
                     </button>
                 </div>
             </div>
-
-
             <div class="resultados">
                 <table id="Tabla2" class="table">
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="selectAllCol2" class="selectAll"></th>
-                            <th>id</th>
+                            <th>
+                                id
+                                <br>
+                                <input type="text" id="idSearchInputCol2" class="form-control d-inline-block" style="width: 70%; font-size: 1em; border: 1px solid #989A9C;" placeholder="ID" onkeyup="filtrarPorIdCol2();">
+                            </th>
                             <th>
                                 Cliente
                                 <select id="clienteFilter" style="width: 100%;" onchange="filtrarPorCliente(this.value);">
                                     <option value="">Todos</option>
-                                    <?php if (isset($clientes)) : ?>
-                                        <?php foreach ($clientes as $cliente) : ?>
-                                            <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
+                                    <?php if (isset($clientes)) : ?>>
+                                    <?php
+                                        usort($clientes, function ($a, $b) {
+                                            return strcmp($a['nombre_cliente'], $b['nombre_cliente']);
+                                        });
+                                    ?>
+                                    <?php foreach ($clientes as $cliente) : ?>
+                                        <option value="<?= esc($cliente['nombre_cliente']) ?>"><?= esc($cliente['nombre_cliente']) ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                                 </select>
                             </th>
                             <th>
@@ -71,14 +83,26 @@
                                 <select id="productoFilterCol2" style="width: 100%;" onchange="filtrarPorProducto(this.value, 2);">
                                     <option value="">Todos</option>
                                     <?php if (isset($productos)) : ?>
+                                        <?php
+                                        usort($productos, function ($a, $b) {
+                                            $aNombre = preg_replace('/[^\p{L}\p{N}\s]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $a['nombre_producto']));
+                                            $bNombre = preg_replace('/[^\p{L}\p{N}\s]/u', '', iconv('UTF-8', 'ASCII//TRANSLIT', $b['nombre_producto']));
+
+                                            if (is_numeric($aNombre[0]) && !is_numeric($bNombre[0])) {
+                                                return 1;
+                                            } elseif (!is_numeric($aNombre[0]) && is_numeric($bNombre[0])) {
+                                                return -1;
+                                            } else {
+                                                return strcmp($aNombre, $bNombre);
+                                            }
+                                        });
+                                        ?>
                                         <?php foreach ($productos as $producto) : ?>
                                             <option value="<?= esc($producto['nombre_producto']) ?>"><?= esc($producto['nombre_producto']) ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
-
                             </th>
-
                             <th>Nº Piezas</th>
                             <th>Proceso</th>
                             <th>Base</th>
@@ -121,8 +145,6 @@
             <button data-action="cancelar" onclick="window.location.reload();" class="btn btn-md btn-warning"><i class="bi bi-arrow-clockwise"></i></button><br>
         </div>
         <div class="column" id="col4">
-
-
             <div class="cabecera">
                 <h4 id="tituloProcesosEnMaquina">Procesos en máquina</h4>
                 <br>
@@ -130,6 +152,11 @@
                     <select id="maquinaFilterCol4" class="form-control d-inline-block" style="width: auto;" onchange="filtrarProcesosPorMaquina(this.value);">
                         <option value="">Todas las máquinas</option>
                         <?php if (isset($maquinas)) : ?>
+                            <?php
+                            usort($maquinas, function ($a, $b) {
+                                return strcmp($a['nombre'], $b['nombre']);
+                            });
+                            ?>
                             <?php foreach ($maquinas as $maquina) : ?>
                                 <option value="<?= esc($maquina['id_maquina']) ?>"><?= esc($maquina['nombre']) ?></option>
                             <?php endforeach; ?>
@@ -138,7 +165,7 @@
                 </div>
                 <div style="display: inline-block; vertical-align: middle;">
                     <button id="clearMachineFilter" class="btn btn-sm btn-light ms-2" onclick="eliminarFiltroMaquina()">
-                        <i class="bi bi-x-circle"></i> Eliminar Filtro
+                        <i class="bi bi-x-circle"></i> Eliminar Filtros
                     </button>
                 </div>
             </div>
@@ -147,7 +174,11 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" id="selectAllCol4" class="selectAll"></th>
-                            <th>id</th>
+                            <th>
+                                id
+                                <br>
+                                <input type="text" id="idSearchInputCol4" class="form-control d-inline-block" style="width: 70%; font-size: 1em; border: 1px solid #989A9C;" placeholder="ID" onkeyup="filtrarPorIdCol4();">
+                            </th>
                             <th>
                                 Cliente
                                 <select id="clienteFilterCol4" style="width: 100%;" onchange="filtrarPorClienteCol4(this.value);">
@@ -339,6 +370,7 @@
         });
 
         actualizarColores();
+        actualizarColoresCol2();
         generarContenidoImprimible();
         seleccionarMaquinaGuardada();
 
@@ -428,6 +460,8 @@
     let selectedProcesoFilterCol4 = '';
     let selectedProductoFilterCol2 = '';
     let selectedProductoFilterCol4 = '';
+    let idFilterCol2 = '';
+    let idFilterCol4 = '';
 
     let sortable;
 
@@ -452,6 +486,7 @@
         const clientFilter = columna === 2 ? selectedClientFilterCol2 : selectedClientFilterCol4;
         const procesoFilter = columna === 2 ? selectedProcesoFilterCol2 : selectedProcesoFilterCol4;
         const productoFilter = columna === 2 ? selectedProductoFilterCol2 : selectedProductoFilterCol4;
+        const idFilter = columna === 2 ? idFilterCol2 : idFilterCol4;
         const maquinaFilter = columna === 4 ? selectedMachineId : null;
 
         tableRows.forEach(row => {
@@ -459,6 +494,7 @@
             const proceso = row.getAttribute('data-nombre-proceso');
             const producto = row.getAttribute('data-nombre-producto');
             const idMaquina = row.getAttribute('data-id-maquina');
+            const id = row.querySelector('td:nth-child(2)').textContent.trim();
             let display = true;
 
             if (clientFilter && cliente && !cliente.toLowerCase().includes(clientFilter)) {
@@ -470,9 +506,13 @@
             if (productoFilter && producto && !producto.toLowerCase().includes(productoFilter)) {
                 display = false;
             }
+            if (idFilter && id && !id.toUpperCase().includes(idFilter)) {
+                display = false;
+            }
             if (columna === 4 && maquinaFilter && idMaquina !== maquinaFilter) {
                 display = false;
             }
+
 
             row.style.display = display ? '' : 'none';
         });
@@ -495,6 +535,10 @@
 
 
     function filtrarPorProceso(valor, columna) {
+        // Deseleccionar todos los checkboxes seleccionados previamente
+        document.querySelectorAll(`#col${columna} input[type="checkbox"]:checked`).forEach(checkbox => {
+            checkbox.checked = false;
+        });
         if (columna === 2) {
             selectedProcesoFilterCol2 = valor.toLowerCase();
         } else {
@@ -503,7 +547,24 @@
         aplicarFiltros(columna);
     }
 
+    function filtrarPorIdCol2() {
+        var input = document.getElementById("idSearchInputCol2");
+        idFilterCol2 = input.value.toUpperCase();
+        aplicarFiltros(2);
+    }
+
+    function filtrarPorIdCol4() {
+        var input = document.getElementById("idSearchInputCol4");
+        idFilterCol4 = input.value.toUpperCase();
+        aplicarFiltros(4);
+    }
+
     function filtrarProcesosPorMaquina(idMaquina, nombreMaquina) {
+        // Deseleccionar todos los checkboxes seleccionados previamente
+        document.querySelectorAll('#col4 input[type="checkbox"]:checked').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
         selectedMachineId = idMaquina;
         console.log("Maquina seleccionada:", selectedMachineId);
 
@@ -581,6 +642,7 @@
             nuevaFila.classList.add('fondo-rojo');
         });
         actualizarColores();
+        actualizarColoresCol2();
     }
 
     function crearNuevaFila(filaOriginal) {
@@ -698,6 +760,12 @@
         });
     }
 
+    function actualizarColoresCol2() {
+        document.querySelectorAll('#col2 .linea').forEach(fila => {
+            fila.classList.toggle('proceso-col2', fila.getAttribute('data-guardado') !== 'guardado');
+        });
+    }
+
     function seleccionarMaquinaGuardada() {
         // Revisar si hay un ID de máquina guardado
         const savedMachineId = localStorage.getItem('selectedMachineId');
@@ -731,9 +799,10 @@
 
         // Evento para limpiar filtros
         $('#clearFilters').on('click', () => {
-            ['#searchInput', '#clienteFilter', '#productoFilterCol2', '#productoFilterCol4', '#clienteFilterCol4', '#medidasFilter'].forEach(selector => {
+            ['#searchInput', '#clienteFilter', '#productoFilterCol2', '#productoFilterCol4', '#clienteFilterCol4', '#medidasFilter', ].forEach(selector => {
                 $(selector).val('').trigger('change');
             });
+            $('#idSearchInputCol2').val('').trigger('keyup');
             if (sortable) sortable.option("disabled", true);
         });
 
@@ -754,13 +823,19 @@
                 }
             });
         });
+
         document.querySelectorAll('.selectAll').forEach(selectAllCheckbox => {
             selectAllCheckbox.addEventListener('click', function(event) {
                 event.preventDefault(); // Evita que el checkbox principal se marque o desmarque
                 const columnId = this.id === 'selectAllCol2' ? 'Col2' : 'Col4';
                 const checkboxes = document.querySelectorAll(`input[name="selectedLine${columnId}[]"]`);
                 const isChecked = !this.classList.contains('highlight');
-                checkboxes.forEach(checkbox => checkbox.checked = isChecked);
+                // Filtrar solo los checkboxes visibles
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.offsetParent !== null) { // Verifica si el checkbox es visible
+                        checkbox.checked = isChecked;
+                    }
+                });
                 this.classList.toggle('highlight', isChecked);
             });
         });
