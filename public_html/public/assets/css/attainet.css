@@ -842,7 +842,3 @@ a:hover.btfichar {
 .btn-custom i {
 	margin: 0;
 }
-
-[class^="gc-footer"]{
-	display: none !important;
-}
