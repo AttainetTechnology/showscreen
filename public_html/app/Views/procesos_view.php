@@ -70,7 +70,7 @@
                         <?php if (!empty($allProcesses)) : ?>
                             <ul id="sortable" class="connectedSortable">
                                 <?php foreach ($allProcesses as $proceso) : ?>
-                                    <?php if (!in_array($proceso->id_proceso, array_column($procesos, 'id_proceso'))) : ?>
+                                    <?php if ($proceso->estado_proceso == 1 && !in_array($proceso->id_proceso, array_column($procesos, 'id_proceso'))) : ?>
                                         <li class="ui-state-default" data-id="<?= $proceso->id_proceso ?>">
                                             <?= $proceso->nombre_proceso ?>
                                         </li>
@@ -80,6 +80,7 @@
                         <?php else : ?>
                             <p>No hay procesos disponibles.</p>
                         <?php endif; ?>
+
                     </div>
                     <div class="col-md-6">
                         <h6>Ordenar Procesos</h6>

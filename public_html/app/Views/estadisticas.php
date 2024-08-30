@@ -201,14 +201,9 @@ use App\Models\Menu_familias_model; ?>
 				<div class="panel-heading">
 					<i class="fa fa-users fa-fw"></i> Incidencias
 				</div>
-<<<<<<< HEAD
-				<div class="panel-body">
-					Próximamente
-=======
 				<!-- /.panel-heading -->
 				<div class="panel-body">					
 						<p>No hay incidencias</p>
->>>>>>> d0b98aa39d1b71467a63ba0d5f8c4bbe22fe836d
 				</div>
 			</div>
 		</div>

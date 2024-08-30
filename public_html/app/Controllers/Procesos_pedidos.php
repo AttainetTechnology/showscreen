@@ -360,6 +360,9 @@ class Procesos_pedidos extends BaseControllerGC
                 ->where('id_proceso', $idProceso)
                 ->set(['estado' => 4])
                 ->update();
+
+            // Registrar en el log la actualización del estado del proceso
+            $this->logAction('Organizador', "El proceso $nombreProcesoLimpio para id $idLineaPedido terminada", $data);
             // Reordenar los procesos en la máquina
             $this->reordenarProcesosParaMaquina($idMaquina);
             // Eliminar id_proceso de las restricciones en otros procesos
@@ -620,6 +623,9 @@ class Procesos_pedidos extends BaseControllerGC
 
         // Asegurarse de que la línea de pedido esté en estado 3
         $this->actualizarEstadoLinea($lineaPedidoModel, $idLineaPedido);
+
+        // Registrar en el log la actualización del estado de la línea de pedido
+        $this->logAction('Organizador', "Proceso con ID $idLineaPedido fue actualizado a estado 3.", $data);
 
         // Gestionar las restricciones basadas en procesos en estado 2 o 3
         $this->gestionarRestricciones($procesosPedidoModel, $procesosProductosModel, $idLineaPedido, $idProducto, $idProcesoActual, $idRelacion);

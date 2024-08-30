@@ -1,0 +1,421 @@
+AWSTATS DATA FILE 7.7 (build 20161204)
+# If you remove this file, all statistics for date 202407 will be lost/reset.
+# Last config file used to build this data file was /etc/awstats/awstats.showscreen.app.conf.
+
+# Position (offset in bytes) in this file for beginning of each section for
+# direct I/O access. If you made changes somewhere in this file, you should
+# also remove completely the MAP section (AWStats will rewrite it at next
+# update).
+BEGIN_MAP 28
+POS_GENERAL 1997                
+POS_TIME 2685                
+POS_VISITOR 3546                
+POS_DAY 7166                
+POS_DOMAIN 7548                
+POS_LOGIN 7947                
+POS_ROBOT 8102                
+POS_WORMS 8538                
+POS_EMAILSENDER 8669                
+POS_EMAILRECEIVER 8812                
+POS_SESSION 8888                
+POS_SIDER 9052                
+POS_FILETYPES 9960                
+POS_DOWNLOADS 10140               
+POS_OS 10188               
+POS_BROWSER 10344               
+POS_SCREENSIZE 10917               
+POS_UNKNOWNREFERER 10991               
+POS_UNKNOWNREFERERBROWSER 11078               
+POS_ORIGIN 11160               
+POS_SEREFERRALS 11296               
+POS_PAGEREFS 11459               
+POS_SEARCHWORDS 11637               
+POS_KEYWORDS 11789               
+POS_MISC 2348                
+POS_ERRORS 11848               
+POS_CLUSTER 7803                
+POS_SIDER_404 11994               
+END_MAP
+
+# LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
+# FirstTime   = Date of first visit for history file
+# LastTime    = Date of last visit for history file
+# LastUpdate  = Date of last update - Nb of parsed records - Nb of parsed old records - Nb of parsed new records - Nb of parsed corrupted - Nb of parsed dropped
+# TotalVisits = Number of visits
+# TotalUnique = Number of unique visitors
+# MonthHostsKnown   = Number of hosts known
+# MonthHostsUnKnown = Number of hosts unknown
+BEGIN_GENERAL 8
+LastLine 20240801002655 1270 390329 15214730459654
+FirstTime 20240720085250
+LastTime 20240731212048
+LastUpdate 20240820043316 1270 0 1259 0 10
+TotalVisits 115                 
+TotalUnique 93                  
+MonthHostsKnown 0                   
+MonthHostsUnknown 93                  
+END_GENERAL
+
+# Misc ID - Pages - Hits - Bandwidth
+BEGIN_MISC 10
+DirectorSupport 0 0 0
+QuickTimeSupport 0 0 0
+JavascriptDisabled 0 0 0
+RealPlayerSupport 0 0 0
+WindowsMediaPlayerSupport 0 0 0
+PDFSupport 0 0 0
+AddToFavourites 0 30 0
+FlashSupport 0 0 0
+TotalMisc 0 0 0
+JavaEnabled 0 0 0
+END_MISC
+
+# Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
+BEGIN_TIME 24
+0 13 13 19461 13 13 44452
+1 1 1 1497 0 0 0
+2 10 10 14970 13 14 44469
+3 2 2 2666 3 5 29157
+4 1 1 1497 1 1 24
+5 1 1 1169 3 6 5913
+6 1 1 1497 2 7 6115
+7 1 1 1497 3 5 10594
+8 6 6 8338 10 13 24707
+9 22 22 32302 16 17 22495
+10 14 14 8758 2 10 29105
+11 90 183 1057065 56 93 1468764
+12 3 3 4498 1 2 5454
+13 54 121 1014730 32 50 578623
+14 196 396 2619997 88 146 1791928
+15 11 11 16481 13 15 44541
+16 3 3 3823 3 9 16411
+17 2 2 2994 2 2 48
+18 11 11 16474 12 15 27868
+19 2 2 2994 2 2 48
+20 4 4 5988 5 5 22166
+21 5 5 7492 6 6 1617
+22 2 2 2362 4 4 23646
+23 1 1 1497 2 3 1246
+END_TIME
+
+# Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
+# [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
+# The 10 first Hits must be first (order not required for others)
+BEGIN_VISITOR 93
+79.117.235.9 215 443 2725880 20240731144354
+170.253.55.139 122 250 1938963 20240731145716
+23.111.114.116 4 4 5988 20240724002932
+49.51.206.130 3 3 4491 20240725020737
+49.51.179.103 3 3 4498 20240731125649
+43.157.40.112 3 3 4491 20240729021446
+43.157.66.187 3 3 4491 20240727000142
+43.130.62.164 2 2 2994 20240722083728
+35.91.216.43 2 2 2994 20240720091643
+43.155.136.16 2 2 2994 20240722180836
+43.135.149.154 1 1 1497 20240725152100
+223.244.35.77 1 1 1497 20240724080354
+182.44.10.67 1 1 1504 20240731212048
+58.49.233.126 1 1 1497 20240728215706
+180.102.134.69 1 1 1497 20240725145003
+18.236.222.21 1 1 1497 20240722092902
+35.90.122.232 1 1 1497 20240720091924
+43.163.0.99 1 1 1497 20240726021454
+34.221.1.77 1 1 1497 20240727090758
+168.151.111.60 1 1 1169 20240720161308
+43.135.166.178 1 1 1497 20240721151751
+18.237.118.157 1 1 1497 20240728092129
+35.89.217.146 1 1 1497 20240720091635
+128.199.55.52 1 1 1497 20240723181314
+135.148.195.11 1 1 1497 20240728061931
+35.85.28.164 1 1 1497 20240724090943
+188.245.62.173 1 1 1497 20240725011059
+178.254.38.45 1 1 1485 20240722084108
+80.248.227.19 1 1 1497 20240723182232
+122.180.178.56 2 2 2362 20240726221434
+170.106.104.42 1 1 1497 20240723152214
+103.48.197.28 2 2 2362 20240727140613
+49.7.227.204 1 1 1497 20240724174954
+43.128.110.17 1 1 1497 20240728023613
+222.79.104.23 1 1 1497 20240727110549
+43.130.32.224 1 1 1497 20240728155101
+188.166.157.197 1 1 1504 20240731185941
+199.244.88.224 1 1 1485 20240728162013
+134.122.45.183 1 1 1497 20240725190814
+43.163.6.35 2 2 2994 20240725002722
+212.142.160.70 1 2 5022 20240731113351
+205.237.95.117 1 1 1169 20240720161150
+43.130.31.48 2 2 2994 20240727001920
+43.134.142.8 1 1 1504 20240731152257
+170.253.52.203 1 1 1169 20240725105748
+34.215.205.18 1 1 1497 20240720091316
+95.216.45.37 1 1 1181 20240721114341
+34.221.202.222 1 1 1497 20240727090802
+34.211.51.230 1 1 1497 20240726093143
+43.130.37.62 1 1 1497 20240724002305
+3.14.66.30 1 1 1169 20240722030835
+103.48.197.124 2 2 2362 20240728084806
+35.88.65.14 1 1 1497 20240728092124
+43.135.169.77 1 1 1497 20240722154416
+223.15.245.170 1 1 1497 20240723175541
+5.133.192.146 1 1 1497 20240724123824
+195.201.111.82 2 2 2350 20240721114355
+35.165.77.122 1 1 1497 20240725090943
+18.191.29.122 1 1 1169 20240727053123
+43.163.1.85 1 1 1497 20240726003407
+212.142.160.101 2 4 10044 20240731145627
+35.88.91.203 1 1 1497 20240731091959
+122.176.198.61 2 2 2362 20240728095757
+46.6.149.170 1 2 5022 20240731115429
+43.130.39.101 2 2 2994 20240726152845
+43.153.216.189 1 1 1497 20240726001916
+121.229.185.160 1 1 1497 20240720211955
+43.159.128.68 1 1 1497 20240727181037
+185.49.170.197 1 1 535 20240731103013
+205.169.39.43 1 1 1169 20240725102955
+43.163.6.124 1 1 1497 20240726023729
+3.68.89.5 1 1 1497 20240721201955
+104.128.235.173 1 1 1497 20240725034105
+135.148.195.16 1 1 1497 20240721073836
+35.92.41.132 1 1 1497 20240731091952
+52.24.164.95 1 1 1497 20240722092902
+54.187.99.126 1 1 1497 20240721090420
+222.249.228.245 1 1 1497 20240724145152
+43.163.3.58 1 1 1497 20240727183510
+35.92.35.68 1 1 1497 20240724090941
+182.42.110.255 2 2 2994 20240727231127
+43.131.44.218 2 2 2994 20240727154200
+43.155.152.154 1 1 1504 20240731151402
+43.133.66.151 1 1 1497 20240728021311
+5.196.160.191 2 2 2362 20240720113843
+43.133.38.182 1 1 1497 20240729002150
+43.130.47.136 2 2 2994 20240728093036
+43.131.249.153 1 1 1497 20240721091927
+150.109.16.20 1 1 1497 20240720151509
+182.44.8.254 1 1 1497 20240723045951
+43.135.129.233 2 2 2994 20240728001938
+159.223.7.0 1 1 1497 20240721185029
+167.71.17.90 1 1 1497 20240727200645
+END_VISITOR
+
+# Date - Pages - Hits - Bandwidth - Visits
+BEGIN_DAY 11
+20240720 15 15 21167 13
+20240721 14 14 19998 13
+20240722 10 10 14630 10
+20240723 9 9 13473 9
+20240724 8 8 11976 8
+20240725 11 11 15811 11
+20240726 10 10 14338 9
+20240727 14 14 19998 13
+20240728 14 14 19682 12
+20240729 2 2 2994 2
+20240731 349 709 4695980 15
+END_DAY
+
+# Domain - Pages - Hits - Bandwidth
+# The 10 first Pages must be first (order not required for others)
+BEGIN_DOMAIN 14
+es 343 703 4686635
+us 50 50 73533
+de 13 13 18805
+cn 12 12 17971
+sg 11 11 16474
+in 8 8 9448
+kr 5 5 7492
+ru 4 4 5988
+nl 2 2 2994
+ca 2 2 2666
+gb 1 1 1504
+se 2 2 2994
+fr 2 2 2362
+fi 1 1 1181
+END_DOMAIN
+
+# Cluster ID - Pages - Hits - Bandwidth
+BEGIN_CLUSTER 0
+END_CLUSTER
+
+# Login - Pages - Hits - Bandwidth - Last visit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_LOGIN 0
+END_LOGIN
+
+# Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
+# The 10 first Hits must be first (order not required for others)
+BEGIN_ROBOT 9
+Googlebot/ 8 3748 20240727152559 5
+AhrefsBot/ 7 2488 20240726052732 5
+bingbot/ 5 3567 20240729033846 2
+bot[\s_+:,\.\;\/\\-] 5 1661 20240724161112 4
+no_user_agent 2 6858 20240724160627 0
+curl 2 3001 20240731221239 0
+unknown 1 56 20240723182232 1
+oBot/ 1 41 20240721103536 1
+python 1 1497 20240720213025 0
+END_ROBOT
+
+# Worm ID - Hits - Bandwidth - Last visit
+# The 5 first Hits must be first (order not required for others)
+BEGIN_WORMS 0
+END_WORMS
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first Hits must be first (order not required for others)
+BEGIN_EMAILSENDER 0
+END_EMAILSENDER
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first hits must be first (order not required for others)
+BEGIN_EMAILRECEIVER 0
+END_EMAILRECEIVER
+
+# Session range - Number of visits
+BEGIN_SESSION 3
+1h+ 2
+0s-30s 111
+30s-2mn 2
+END_SESSION
+
+# URL - Pages - Bandwidth - Entry - Exit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_SIDER 26
+/ 278 2368469 103 98
+/Select_empresa/ 31 106250 0 0
+/usuarios 29 101244 0 1
+/Index 22 204149 1 1
+/Index/ 17 142621 2 1
+/login 16 21404 9 14
+/empresas 16 88717 0 0
+/productos 7 27212 0 0
+/Contactos_empresa/add/1703 6 20970 0 0
+/contactos 6 30812 0 0
+/rutas_transporte/rutas 2 19596 0 0
+/pedidos2 3 30008 0 0
+/pedidos2/entregados 3 30714 0 0
+/lista_produccion/todoslospartes 3 31934 0 0
+/ublic 1 535 0 0
+/Mi_perfil/getUserData/3 1 122 0 0
+/Mi_perfil/index/1 1 10516 0 0
+/productos/4 1 7959 0 0
+/Mi_perfil/index/3 1 10515 0 0
+/presentes/53793566 1 6991 0 0
+/lista_produccion/enmarcha 3 32102 0 0
+/Mi_perfil/getUserData/1 1 122 0 0
+/procesos_pedidos/index 2 72255 0 0
+/ausentes 1 6957 0 0
+/vendor/grocery-crud/icons/font-awesome-v5/webfonts/fa-solid-900.woff2 3 234804 0 0
+/Fichar 1 6990 0 0
+END_SIDER
+
+# Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
+BEGIN_FILETYPES 6
+png 11 35686 0 0
+Unknown 127 761824 0 0
+html 326 2617340 0 0
+woff2 3 234804 0 0
+js 17 744365 0 0
+css 332 456028 0 0
+END_FILETYPES
+
+# Downloads - Hits - Bandwidth
+BEGIN_DOWNLOADS 0
+END_DOWNLOADS
+
+# OS ID - Hits
+BEGIN_OS ID - Hits - Pages 7
+unix 1 1
+macosx 76 38
+linuxandroid 7 6
+win7 3 2
+ios_iphone 60 60
+win10 647 327
+linux 22 22
+END_OS
+
+# Browser ID - Hits - Pages
+BEGIN_BROWSER 25
+chrome105.0.0.0 2 2
+chrome91.0.4472.114 1 1
+safari 2 2
+opera89.0.4447.51 4 4
+firefox43.0 1 1
+chrome84.0.4147.89 1 1
+chrome107.0.0.0 1 1
+chrome112.0.0.0 1 1
+chrome86.0.4240.110 1 1
+chrome80.0.3987.162 1 1
+chrome87.0.4280.141 1 1
+chrome117.0.5938.132 1 1
+firefox120.0 1 1
+safari13.0.3 58 58
+chrome83.0.4103.97 18 18
+chrome127.0.0.0 693 337
+chrome126.0.0.0 9 6
+opera100.0.0.0 1 1
+firefox91.0 1 1
+chrome101.0.4951.54 1 1
+chrome109.0.0.0 2 1
+chrome114.0.0.0 6 6
+chrome121.0.6167.160 2 2
+chrome121.0.0.0 5 5
+chrome120.0.0.0 2 2
+END_BROWSER
+
+# Screen size - Hits
+BEGIN_SCREENSIZE 0
+END_SCREENSIZE
+
+# Unknown referer OS - Last visit date
+BEGIN_UNKNOWNREFERER 0
+END_UNKNOWNREFERER
+
+# Unknown referer Browser - Last visit date
+BEGIN_UNKNOWNREFERERBROWSER 0
+END_UNKNOWNREFERERBROWSER
+
+# Origin - Pages - Hits 
+BEGIN_ORIGIN 6
+From0 86 86
+From1 0 0
+From2 4 4
+From3 2 2
+From4 364 724
+From5 0 0
+END_ORIGIN
+
+# Search engine referers ID - Pages - Hits
+BEGIN_SEREFERRALS 1
+www_google_com 4 4
+END_SEREFERRALS
+
+# External page referers - Pages - Hits
+# The 10 first Pages must be first (order not required for others)
+BEGIN_PAGEREFS 1
+https://my.siteground.com 2 2
+END_PAGEREFS
+
+# Search keyphrases - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_SEARCHWORDS 0
+END_SEARCHWORDS
+
+# Search keywords - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_KEYWORDS 0
+END_KEYWORDS
+
+# Errors - Hits - Bandwidth
+BEGIN_ERRORS 5
+500 83 1147881
+404 26 18011
+302 74 773844
+301 91 2160
+403 107 2093374
+END_ERRORS
+
+# URL with 404 errors - Hits - Last URL referrer
+BEGIN_SIDER_404 3
+/assets/css/attainet.css 10 https://showscreen.app/Select_empresa/
+/assets/uploads/files/logo_attainet_rect.png 9 https://showscreen.app/
+/publicpublic/assets/uploads/favicon 7 -
+END_SIDER_404

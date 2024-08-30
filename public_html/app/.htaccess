@@ -7,7 +7,7 @@
 
 # Permitir acceso a un directorio específico
 <IfModule authz_core_module>
-    <Directory "'http://showscreen.es/'">
+    <Directory "'https://showscreen.app/'">
         Require all granted
     </Directory>
 </IfModule>

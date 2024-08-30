@@ -12,9 +12,13 @@ class Procesos extends BaseControllerGC
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-        $procesos = $procesoModel->orderBy('nombre_proceso', 'ASC')->findAll();
-        return view('procesos', ['procesos' => $procesos]);
+        $procesos = $procesoModel->where('estado_proceso', 1)->orderBy('nombre_proceso', 'ASC')->findAll();
+
+        // Pasar estado_proceso a la vista para mostrar botón correcto
+        return view('procesos', ['procesos' => $procesos, 'estado_proceso' => 1]);
     }
+
+
 
     public function add()
     {
@@ -51,12 +55,20 @@ class Procesos extends BaseControllerGC
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-        $procesos = $procesoModel->where('id_proceso !=', $primaryKey)->findAll();
+        $procesos = $procesoModel->where('id_proceso !=', $primaryKey)->orderBy('nombre_proceso', 'ASC')->findAll();
+        $proceso_principal = $procesoModel->find($primaryKey);
+
+        // Filtrar solo los procesos activos (estado_proceso = 1)
+        $procesos = $procesoModel->where('id_proceso !=', $primaryKey)
+            ->where('estado_proceso', 1)
+            ->orderBy('nombre_proceso', 'ASC')
+            ->findAll();
+
         $proceso_principal = $procesoModel->find($primaryKey);
 
         // Verificar que estado_proceso esté bien definido
         if ($proceso_principal['estado_proceso'] === null) {
-            $proceso_principal['estado_proceso'] = '1'; // Valor por defecto si no está definido
+            $proceso_principal['estado_proceso'] = '1';
         }
 
         $previous_proceso_id = $this->getPreviousProceso($primaryKey);
@@ -64,7 +76,7 @@ class Procesos extends BaseControllerGC
 
         if ($this->request->is('post')) {
             $nombre_proceso = $this->request->getPost('nombre_proceso');
-            $estado_proceso = $this->request->getPost('estado_proceso') ?? '1'; // Asegura que sea 1 por defecto
+            $estado_proceso = $this->request->getPost('estado_proceso') ?? '1';
             $restricciones = $this->request->getPost('restricciones');
             $redirect_url = $this->request->getPost('redirect_url');
 
@@ -74,6 +86,9 @@ class Procesos extends BaseControllerGC
                 'estado_proceso' => $estado_proceso,
                 'restriccion' => $restricciones_string
             ]);
+
+            $log = "Actualización de restriccion del proceso ID: {$primaryKey}";
+            $this->logAction('Procesos', $log, $data);
 
             $this->updateOrderAfterRestrictionChange($primaryKey, $restricciones_string);
 
@@ -136,14 +151,29 @@ class Procesos extends BaseControllerGC
         }
     }
 
-    public function delete($id)
+    public function cambiaEstado($id, $estado_actual)
     {
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $procesoModel = new Proceso($db);
-        $procesoModel->delete($id);
-        return redirect()->to(base_url('procesos'));
+
+        // Obtener el proceso actual
+        $proceso = $procesoModel->find($id);
+
+        // Alternar el estado del proceso
+        $nuevo_estado = ($proceso['estado_proceso'] == 1) ? 0 : 1;
+
+        // Actualizar el estado del proceso
+        $procesoModel->update($id, ['estado_proceso' => $nuevo_estado]);
+
+        // Redirigir de vuelta a la vista que estaba antes del cambio
+        if ($estado_actual == 1) {
+            return redirect()->to(base_url('procesos'));
+        } else {
+            return redirect()->to(base_url('procesos/inactivos'));
+        }
     }
+
 
     public function getPreviousProceso($id)
     {
@@ -169,5 +199,16 @@ class Procesos extends BaseControllerGC
         } else {
             return $id;
         }
+    }
+
+    public function inactivos()
+    {
+        $data = datos_user();
+        $db = db_connect($data['new_db']);
+        $procesoModel = new Proceso($db);
+        $procesos = $procesoModel->where('estado_proceso', 0)->orderBy('nombre_proceso', 'ASC')->findAll();
+
+        // Pasar estado_proceso a la vista para mostrar botón correcto
+        return view('procesos', ['procesos' => $procesos, 'estado_proceso' => 0]);
     }
 }

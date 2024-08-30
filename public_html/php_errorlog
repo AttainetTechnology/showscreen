@@ -1,3 +1,39 @@
 [27-Jun-2024 08:58:34 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.29. in /home/customer/www/crm.showscreen.es/public_html/vendor/composer/platform_check.php on line 24
 [27-Jun-2024 15:36:44 Europe/Madrid] PHP Fatal error:  Cannot declare class Config\Database, because the name is already in use in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Database/Database.php on line 10
 [27-Jun-2024 15:37:08 Europe/Madrid] PHP Fatal error:  Cannot use "parent" when current class scope has no parent in /home/customer/www/crm.showscreen.es/public_html/vendor/codeigniter4/codeigniter4/system/Database/Database.php on line 192
+[31-Jul-2024 05:30:11 CST6CDT] PHP Warning:  require(/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php): Failed to open stream: No such file or directory in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55
+[31-Jul-2024 05:30:11 CST6CDT] PHP Fatal error:  Uncaught Error: Failed opening required '/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php' (include_path='.:/usr/local/php82/pear') in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php(38): composerRequireae1b9e54700fbea261c44d80afdb0dc5('6124b4c8570aa39...', '/home/customer/...')
+#1 /home/customer/www/showscreen.app/public_html/vendor/autoload.php(25): ComposerAutoloaderInitae1b9e54700fbea261c44d80afdb0dc5::getLoader()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(147): include('/home/customer/...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(132): CodeIgniter\Autoloader\Autoloader->loadComposerAutoloader(Object(Config\Modules))
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(244): CodeIgniter\Autoloader\Autoloader->initialize(Object(Config\Autoload), Object(Config\Modules))
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(54): CodeIgniter\Boot::loadAutoloader()
+#6 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#7 {main}
+  thrown in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55
+[31-Jul-2024 05:40:58 CST6CDT] PHP Warning:  require(/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php): Failed to open stream: No such file or directory in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55
+[31-Jul-2024 05:40:58 CST6CDT] PHP Fatal error:  Uncaught Error: Failed opening required '/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php' (include_path='.:/usr/local/php82/pear') in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php(38): composerRequireae1b9e54700fbea261c44d80afdb0dc5('6124b4c8570aa39...', '/home/customer/...')
+#1 /home/customer/www/showscreen.app/public_html/vendor/autoload.php(25): ComposerAutoloaderInitae1b9e54700fbea261c44d80afdb0dc5::getLoader()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(147): include('/home/customer/...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(132): CodeIgniter\Autoloader\Autoloader->loadComposerAutoloader(Object(Config\Modules))
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(244): CodeIgniter\Autoloader\Autoloader->initialize(Object(Config\Autoload), Object(Config\Modules))
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(54): CodeIgniter\Boot::loadAutoloader()
+#6 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#7 {main}
+  thrown in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55
+[31-Jul-2024 05:47:45 CST6CDT] PHP Warning:  require(/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php): Failed to open stream: No such file or directory in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55
+[31-Jul-2024 05:47:45 CST6CDT] PHP Fatal error:  Uncaught Error: Failed opening required '/home/customer/www/showscreen.app/public_html/vendor/composer/../myclabs/deep-copy/src/DeepCopy/deep_copy.php' (include_path='.:/usr/local/php82/pear') in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php:55
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php(38): composerRequireae1b9e54700fbea261c44d80afdb0dc5('6124b4c8570aa39...', '/home/customer/...')
+#1 /home/customer/www/showscreen.app/public_html/vendor/autoload.php(25): ComposerAutoloaderInitae1b9e54700fbea261c44d80afdb0dc5::getLoader()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(147): include('/home/customer/...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Autoloader/Autoloader.php(132): CodeIgniter\Autoloader\Autoloader->loadComposerAutoloader(Object(Config\Modules))
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(244): CodeIgniter\Autoloader\Autoloader->initialize(Object(Config\Autoload), Object(Config\Modules))
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(54): CodeIgniter\Boot::loadAutoloader()
+#6 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#7 {main}
+  thrown in /home/customer/www/showscreen.app/public_html/vendor/composer/autoload_real.php on line 55

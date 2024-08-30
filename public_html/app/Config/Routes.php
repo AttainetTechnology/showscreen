@@ -74,4 +74,3 @@ $routes->get('usuarios/(:num)', 'Usuarios::show/$1');
 
 $routes->post('procesos_pedidos/actualizarEstadoProcesos', 'Procesos_pedidos::actualizarEstadoProcesos');
 
-$routes->get('presentes', 'Fichar::index');
