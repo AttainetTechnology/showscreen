@@ -71,10 +71,10 @@ class Productos extends BaseControllerGC
 
         $uploadValidations = [
             'maxUploadSize' => '7M',
-            'minUploadSize' => '1K',
+            'minUploadSize' => '200B',
             'allowedFileTypes' => ['gif', 'jpeg', 'jpg', 'png', 'tiff']
         ];
-
+        
         $crud->setFieldUpload('imagen', $globalUploadPath, $globalUploadPath, $uploadValidations);
 
         $id_empresa = $this->data['id_empresa'];
