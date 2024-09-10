@@ -360,8 +360,7 @@
 			</div>
 		<?php } // Cierro ausencias 
 		?>
-
-		?>
+		
 	</div><!-- /#Printable area -->
 </div> <!-- Fondo -->
 <?php
