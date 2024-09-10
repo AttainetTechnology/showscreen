@@ -9,32 +9,32 @@ AWSTATS DATA FILE 7.7 (build 20161204)
 BEGIN_MAP 28
 POS_GENERAL 1997                
 POS_TIME 2678                
-POS_VISITOR 7343                
-POS_DAY 9668                
-POS_DOMAIN 3378                
-POS_LOGIN 3714                
-POS_ROBOT 3869                
-POS_WORMS 4243                
-POS_EMAILSENDER 4374                
-POS_EMAILRECEIVER 4517                
-POS_SESSION 9881                
-POS_SIDER 10065               
-POS_FILETYPES 4652                
-POS_DOWNLOADS 4876                
-POS_OS 4924                
-POS_BROWSER 5074                
-POS_SCREENSIZE 5593                
-POS_UNKNOWNREFERER 5667                
-POS_UNKNOWNREFERERBROWSER 5754                
-POS_ORIGIN 5836                
-POS_SEREFERRALS 5974                
-POS_PAGEREFS 6152                
-POS_SEARCHWORDS 6300                
-POS_KEYWORDS 6452                
+POS_VISITOR 7910                
+POS_DAY 11124               
+POS_DOMAIN 3416                
+POS_LOGIN 3780                
+POS_ROBOT 3935                
+POS_WORMS 4455                
+POS_EMAILSENDER 4586                
+POS_EMAILRECEIVER 4729                
+POS_SESSION 11436               
+POS_SIDER 11630               
+POS_FILETYPES 4864                
+POS_DOWNLOADS 5094                
+POS_OS 5142                
+POS_BROWSER 5293                
+POS_SCREENSIZE 5944                
+POS_UNKNOWNREFERER 6018                
+POS_UNKNOWNREFERERBROWSER 6105                
+POS_ORIGIN 6187                
+POS_SEREFERRALS 6325                
+POS_PAGEREFS 6503                
+POS_SEARCHWORDS 6651                
+POS_KEYWORDS 6803                
 POS_MISC 2341                
-POS_ERRORS 6511                
-POS_CLUSTER 3570                
-POS_SIDER_404 6642                
+POS_ERRORS 6862                
+POS_CLUSTER 3636                
+POS_SIDER_404 6994                
 END_MAP
 
 # LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
@@ -46,70 +46,72 @@ END_MAP
 # MonthHostsKnown   = Number of hosts known
 # MonthHostsUnKnown = Number of hosts unknown
 BEGIN_GENERAL 8
-LastLine 20240906023602 19225 6336493 0
+LastLine 20240910030708 20156 6643928 0
 FirstTime 20240901004208
-LastTime 20240906021457
-LastUpdate 20240906042856 19225 18313 890 0 22
-TotalVisits 68                  
-TotalUnique 58                  
+LastTime 20240910030708
+LastUpdate 20240910043325 20156 19680 454 0 22
+TotalVisits 98                  
+TotalUnique 81                  
 MonthHostsKnown 0                   
-MonthHostsUnknown 58                  
+MonthHostsUnknown 81                  
 END_GENERAL
 
 # Misc ID - Pages - Hits - Bandwidth
 BEGIN_MISC 10
-RealPlayerSupport 0 0 0
+FlashSupport 0 0 0
+AddToFavourites 0 23 0
+PDFSupport 0 0 0
+QuickTimeSupport 0 0 0
 JavascriptDisabled 0 0 0
 WindowsMediaPlayerSupport 0 0 0
-AddToFavourites 0 12 0
-DirectorSupport 0 0 0
-QuickTimeSupport 0 0 0
-JavaEnabled 0 0 0
 TotalMisc 0 0 0
-FlashSupport 0 0 0
-PDFSupport 0 0 0
+RealPlayerSupport 0 0 0
+DirectorSupport 0 0 0
+JavaEnabled 0 0 0
 END_MISC
 
 # Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
 BEGIN_TIME 24
-0 3 3 4464 3 3 72
+0 3 3 4464 4 4 1220
 1 3 3 4452 1 3 506
 2 2 2 2964 6 7 24511
-3 4 5 9462 4 4 485
-4 3 3 4464 5 8 1802
-5 3 5 11156 2 3 460
-6 38 57 125795 16 20 54342
-7 33 97 325664 7 34 19114
-8 669 1592 6091774 21 654 549447
-9 99 219 1427185 11 59 147993
-10 196 514 2835501 16 33 55940
-11 68 175 1089990 4 15 13316
-12 1 1 1488 3 4 1268
-13 2 2 2964 1 3 1242
-14 2 2 2636 3 3 854
-15 77 174 674815 6 40 44459
-16 704 1824 7980233 14 470 482763
-17 98 223 785401 2 162 105968
-18 8 8 10416 4 11 9389
-19 4 4 5952 3 5 10932
-20 2 2 2976 2 2 48
-21 1 1 1488 2 2 24
-22 1 1 1488 1 1 24
-23 1 2 4998 12 17 18079
+3 6 7 14301 11 20 106594
+4 5 5 7440 8 11 2998
+5 6 10 22312 4 5 508
+6 74 201 1903495 19 26 83201
+7 44 122 454609 11 39 42260
+8 671 1594 6094750 22 655 549471
+9 144 360 2049423 16 74 176264
+10 197 515 2838852 17 34 55964
+11 149 499 6006805 13 37 102093
+12 1 1 1488 5 8 3314
+13 3 3 4452 3 6 6720
+14 127 273 1874795 13 13 1706
+15 78 175 676303 9 45 46091
+16 706 1828 7990229 14 472 493623
+17 100 225 790240 8 168 107997
+18 10 10 13392 6 15 15303
+19 6 7 12450 4 8 16432
+20 3 3 4464 3 5 5918
+21 1 1 1488 4 5 3072
+22 1 1 1488 1 4 898
+23 2 3 6486 13 20 18199
 END_TIME
 
 # Domain - Pages - Hits - Bandwidth
 # The 10 first Pages must be first (order not required for others)
-BEGIN_DOMAIN 9
-es 1964 4853 21297010
-us 23 25 41244
-ca 10 16 35284
-cn 8 8 11904
-de 6 6 8904
+BEGIN_DOMAIN 11
+es 2257 5753 30608915
+us 34 39 70017
+ca 14 22 49791
+cn 11 11 16368
+de 7 7 10392
+ru 6 6 4464
 sg 4 4 5940
-ru 4 4 2976
-in 2 2 2976
-se 1 1 1488
+in 3 3 4464
+se 3 3 4464
+fr 2 2 4839
+nl 1 1 1488
 END_DOMAIN
 
 # Cluster ID - Pages - Hits - Bandwidth
@@ -123,13 +125,16 @@ END_LOGIN
 
 # Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
 # The 10 first Hits must be first (order not required for others)
-BEGIN_ROBOT 7
-Googlebot/ 14 12931 20240903230536 3
-AhrefsBot/ 7 3956 20240906023552 4
-bingbot/ 7 4126 20240905153723 6
+BEGIN_ROBOT 10
+Googlebot/ 16 14148 20240909120510 4
+AhrefsBot/ 13 7538 20240910001228 7
+bingbot/ 10 4264 20240908115647 9
+dataprovider\.com 5 11741 20240907031819 1
 curl 5 9291 20240904080124 0
+netEstate[\x20]NE[\x20]Crawler 3 3048 20240906210450 1
+unknown 3 216 20240909231444 3
 archive\.org_bot 2 2976 20240902062333 0
-unknown 2 144 20240905063414 2
+bot[\s_+:,\.\;\/\\-] 2 1560 20240906152711 1
 SemrushBot/ 1 1476 20240905065422 0
 END_ROBOT
 
@@ -150,14 +155,14 @@ END_EMAILRECEIVER
 
 # Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
 BEGIN_FILETYPES 8
-woff2 4 313072 0 0
-jpg 105 101590 0 0
-css 2164 2443287 0 0
-Unknown 1224 4777359 0 0
-js 27 1238072 0 0
-html 794 11669378 0 0
-png 596 844955 0 0
-jpeg 5 20013 0 0
+Unknown 1370 5691598 0 0
+woff2 17 1174020 0 0
+png 727 1984629 0 0
+html 955 13692751 0 0
+jpg 136 257522 0 0
+css 2514 3199994 0 0
+js 107 4633866 0 0
+jpeg 25 146762 0 0
 END_FILETYPES
 
 # Downloads - Hits - Bandwidth
@@ -166,37 +171,44 @@ END_DOWNLOADS
 
 # OS ID - Hits
 BEGIN_OS ID - Hits - Pages 6
+macosx 2720 1067
+ios_iphone 37 35
+win10 3076 1224
+win7 5 5
+linuxandroid 9 9
 linux 4 2
-win10 2433 1044
-macosx 2448 942
-win7 4 4
-linuxandroid 6 6
-ios_iphone 24 24
 END_OS
 
 # Browser ID - Hits - Pages
-BEGIN_BROWSER 21
-chrome83.0.4103.61 2 2
-chrome106.0.0.0 1 1
-chrome92.0.4515.159 2 1
-chrome78.0.3904.62 1 1
-chrome101.0.4951.54 1 1
-opera80.4.4244.7786 1 1
-chrome103.0.5060.114 3 3
-chrome126.0.0.0 8 6
+BEGIN_BROWSER 28
+chrome79.0.3945.79 6 3
 firefox44.0 1 1
-chrome74.0.3729.169 1 1
-safari13.0.3 24 24
-chrome117.0.5938.132 10 5
-chrome127.0.0.0 213 96
-chrome108.0.0.0 4 4
-chrome91.0.4472.114 1 1
-chrome118.0.0.0 1 1
-chrome122.0.0.0 2 2
+chrome126.0.0.0 12 10
+safari13.0.3 33 33
 chrome124.0.0.0 2 2
+chrome118.0.0.0 1 1
+chrome78.0.3904.62 2 2
+chrome122.0.0.0 2 2
+chrome101.0.4951.54 1 1
+chrome92.0.4515.159 2 1
 chrome118.0.5993.80 1 1
-chrome79.0.3945.79 4 2
-chrome128.0.0.0 4636 1866
+safari 4 2
+chrome105.0.0.0 1 1
+chrome106.0.0.0 1 1
+chrome128.0.0.0 5536 2159
+firefox125.0 1 1
+chrome80.0.3987.162 1 1
+chrome109.0.0.0 2 1
+chrome117.0.5938.132 12 6
+opera80.4.4244.7786 1 1
+chrome127.0.0.0 213 96
+chrome95.0.4638.69 1 1
+chrome83.0.4103.61 3 3
+chrome91.0.4472.114 1 1
+chrome103.0.5060.114 3 3
+chrome108.0.0.0 6 6
+chrome74.0.3729.169 1 1
+firefox123 1 1
 END_BROWSER
 
 # Screen size - Hits
@@ -213,17 +225,17 @@ END_UNKNOWNREFERERBROWSER
 
 # Origin - Pages - Hits 
 BEGIN_ORIGIN 6
-From0 45 46
+From0 68 70
 From1 0 0
-From2 7 7
+From2 8 8
 From3 0 0
-From4 1970 4866
+From4 2266 5773
 From5 0 0
 END_ORIGIN
 
 # Search engine referers ID - Pages - Hits
 BEGIN_SEREFERRALS 2
-google_com 5 5
+google_com 6 6
 www_google_com 2 2
 END_SEREFERRALS
 
@@ -244,238 +256,279 @@ END_KEYWORDS
 
 # Errors - Hits - Bandwidth
 BEGIN_ERRORS 4
-301 57 1344
-500 1354 896348
-404 51 64393
-302 51 486323
+500 1369 906278
+301 88 2088
+302 72 618953
+404 72 167256
 END_ERRORS
 
 # URL with 404 errors - Hits - Last URL referrer
-BEGIN_SIDER_404 12
-/atom.xml 5 -
-/assets/css/attainet.css 5 https://showscreen.app/Select_empresa/
-/sitemap_index.xml 6 -
-/sitemaps.xml 5 -
-/Public/home/js/check.js 2 -
-/.well-known/security.txt 2 -
-/static/admin/javascript/hetong.js 3 -
-/sitemap.xml 5 -
-/sitemap.xml.gz 7 -
-/proveedores 1 https://showscreen.app/Index
-/sitemap.txt 5 -
+BEGIN_SIDER_404 17
+/productos_necesidad 1 https://showscreen.app/Index
+/sitemap_index.xml 8 -
+/sitemap.txt 7 -
 /publicpublic/assets/uploads/favicon7/logos/offertiles_logo-04b4b.png 5 -
+//feed/ 1 -
+/.well-known/security.txt 3 -
+/assets/css/attainet.css 7 https://showscreen.app/Select_empresa/
+/atom.xml 7 -
+/sitemap.xml.gz 9 -
+/humans.txt 1 http://www.showscreen.app/humans.txt
+/ads.txt 2 http://www.showscreen.app/ads.txt
+/static/admin/javascript/hetong.js 3 -
+/Public/home/js/check.js 2 -
+/sitemaps.xml 6 -
+/sitemap.xml 8 -
+/proveedores 1 https://showscreen.app/Index
+/security.txt 1 http://www.showscreen.app/security.txt
 END_SIDER_404
 
 # Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
 # [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
 # The 10 first Hits must be first (order not required for others)
-BEGIN_VISITOR 58
+BEGIN_VISITOR 81
 46.6.57.152 789 2040 7662414 20240903164913
 170.253.53.129 761 1805 6806706 20240904082327
-170.253.63.197 316 791 4957414 20240905111306
+170.253.63.197 577 1597 13803632 20240909145302
 79.117.235.27 96 213 1860480 20240901165107
-195.211.77.142 2 2 2976 20240902185717
+88.21.28.198 32 94 465687 20240909093812
+195.211.77.142 4 4 4464 20240907090113
+43.159.128.172 2 2 2976 20240908173154
 195.211.77.140 2 2 0 20240902185708
-43.133.38.182 2 2 2976 20240903032049
 15.204.182.106 2 2 2976 20240904015957
 205.169.39.127 2 3 6158 20240902062433
-205.169.39.179 2 3 6158 20240904055248
-43.130.32.245 1 1 1488 20240901044826
-23.82.110.236 1 1 1488 20240905132122
-43.159.129.209 1 1 1488 20240902004649
-128.199.18.180 1 1 1488 20240905193226
-205.169.39.25 1 1 1488 20240902065006
-43.159.128.237 1 1 1488 20240904072848
-205.169.39.0 1 2 4998 20240903031127
-111.231.1.45 1 1 1488 20240905063455
-205.169.39.13 1 2 4998 20240902062553
 124.225.164.130 1 1 1488 20240902200557
-170.106.101.31 1 1 1488 20240901183612
-178.60.128.7 1 2 4998 20240905094736
-43.130.62.164 1 1 1488 20240902183925
-43.130.39.101 1 1 1488 20240902031354
-43.130.47.136 1 1 1488 20240905123142
-159.223.77.76 1 1 1476 20240904014216
-47.89.195.210 1 1 1488 20240902183139
-49.51.72.76 1 1 1488 20240901103147
-205.169.39.8 1 2 4998 20240902062912
-110.166.71.39 1 1 1488 20240901044347
-43.159.143.187 1 1 1488 20240905171853
-49.51.47.100 1 1 1488 20240902202339
-134.209.248.142 1 1 1488 20240903185452
-205.169.39.12 1 2 4998 20240904055233
-47.88.94.28 1 1 1488 20240902183139
-222.79.103.59 1 1 1488 20240903225812
-47.254.85.182 1 1 1488 20240902183139
-3.68.89.5 1 1 1488 20240904212648
-43.157.40.112 1 1 1488 20240903091341
-223.15.245.170 1 1 1488 20240902081229
-42.83.147.53 1 1 1488 20240904140811
-170.106.171.77 1 1 1488 20240901004208
-62.141.44.236 1 1 1476 20240905022251
-207.154.202.79 1 1 1476 20240904131518
-158.69.25.39 1 1 1488 20240902192239
-88.99.26.177 1 1 1488 20240902063647
-178.60.128.6 1 2 4998 20240905094735
-43.163.8.36 1 1 1488 20240901162042
-34.122.147.229 1 2 4998 20240903235246
-182.40.104.255 1 1 1488 20240905000207
-192.36.109.116 1 1 1488 20240904044156
-43.159.128.172 1 1 1488 20240901175112
+139.59.74.176 1 1 1488 20240907201956
+164.90.219.198 1 1 1488 20240909195241
 134.209.158.52 1 1 1488 20240901194838
-170.106.82.193 1 1 1488 20240902154742
+49.51.183.220 1 1 1488 20240908144133
+35.92.134.107 1 2 5010 20240906194641
+60.188.57.0 1 1 1488 20240906021457
+23.82.110.236 1 1 1488 20240905132122
+205.169.39.8 1 2 4998 20240902062912
+162.218.123.157 1 1 1488 20240904194045
+111.231.1.45 1 1 1488 20240905063455
+43.130.62.164 1 1 1488 20240902183925
+209.160.116.160 1 1 3351 20240906173855
+110.166.71.39 1 1 1488 20240901044347
+167.71.14.210 1 1 1488 20240909130425
+182.40.104.255 1 1 1488 20240905000207
+205.169.39.25 1 1 1488 20240902065006
+47.254.85.182 1 1 1488 20240902183139
 43.130.32.224 1 1 1488 20240901155925
 34.123.170.104 1 2 4998 20240902062414
-162.218.123.157 1 1 1488 20240904194045
-60.188.57.0 1 1 1488 20240906021457 20240906021457 /
+62.141.44.236 1 1 1476 20240905022251
+134.209.248.142 1 1 1488 20240903185452
+49.51.72.76 1 1 1488 20240901103147
+3.68.89.5 1 1 1488 20240904212648
+178.60.128.7 1 2 4998 20240905094736
+43.135.129.233 1 1 1488 20240909185021
+51.195.232.197 1 1 1488 20240908111740
+43.157.40.112 1 1 1488 20240903091341
+43.159.128.237 1 1 1488 20240904072848
+88.99.26.177 1 1 1488 20240902063647
+74.85.220.94 1 2 4998 20240909161227
+203.33.203.148 1 1 1488 20240907155731
+34.122.147.229 1 2 4998 20240903235246
+158.69.25.39 1 1 1488 20240902192239
+178.60.128.6 1 2 4998 20240905094735
+205.169.39.12 1 2 4998 20240904055233
+43.130.37.62 1 1 1488 20240907045156
+43.133.38.182 2 2 2976 20240903032049
+222.79.103.59 1 1 1488 20240903225812
+49.51.47.100 1 1 1488 20240902202339
+43.159.140.236 1 1 1488 20240910030708 20240910030708 /
+205.169.39.13 1 2 4998 20240902062553
+43.130.32.245 1 1 1488 20240901044826
+223.15.245.170 1 1 1488 20240902081229
+43.130.39.101 1 1 1488 20240902031354
+205.169.39.0 1 2 4998 20240903031127
+43.159.129.209 1 1 1488 20240902004649
+47.88.94.28 1 1 1488 20240902183139
+149.56.150.60 1 1 3351 20240907031754
+159.223.77.76 1 1 1476 20240904014216
+170.106.171.77 1 1 1488 20240901004208
+123.207.198.35 1 1 1488 20240908081653
+128.199.18.180 1 1 1488 20240905193226
+43.163.8.36 1 1 1488 20240901162042
+170.106.101.31 1 1 1488 20240901183612
+170.106.82.193 2 2 2976 20240908070310
+205.169.39.16 1 2 4998 20240908055108
+43.159.143.187 1 1 1488 20240905171853
+170.106.197.109 1 1 1488 20240907041134
+113.219.218.197 1 1 1488 20240909081939
+205.169.39.123 2 3 6158 20240908055124
+93.158.90.73 1 1 1488 20240909231444
+51.75.35.26 1 1 3351 20240907104211
+168.151.102.140 1 2 4998 20240909161117
+47.89.195.210 1 1 1488 20240902183139
+42.83.147.53 1 1 1488 20240904140811
+43.130.47.136 1 1 1488 20240905123142
+192.36.109.116 1 1 1488 20240904044156
+205.169.39.179 2 3 6158 20240904055248
+5.133.192.131 1 1 1488 20240906181425
+207.154.202.79 1 1 1476 20240904131518
 END_VISITOR
 
 # Date - Pages - Hits - Bandwidth - Visits
-BEGIN_DAY 6
+BEGIN_DAY 10
 20240901 106 223 1875360 11
 20240902 810 1922 6559063 25
 20240903 767 1956 7968329 9
 20240904 13 15 25672 11
 20240905 325 802 4977814 11
-20240906 1 1 1488 1
+20240906 130 496 6831821 6
+20240907 8 8 14142 7
+20240908 8 10 18596 7
+20240909 174 418 2508857 10
+20240910 1 1 1488 1
 END_DAY
 
 # Session range - Number of visits
-BEGIN_SESSION 5
-5mn-15mn 1
-0s-30s 59
+BEGIN_SESSION 6
 30mn-1h 1
+5mn-15mn 3
 1h+ 5
-30s-2mn 1
+30s-2mn 2
+0s-30s 84
+2mn-5mn 2
 END_SESSION
 
 # URL - Pages - Bandwidth - Entry - Exit
 # The 10 first Pages must be first (order not required for others)
-BEGIN_SIDER 126
-/productos 831 1793090 6 7
-/ 776 11593683 56 56
-/productos/updateOrder 67 0 0 0
-/log 36 44420 0 1
-/Index 24 222259 2 1
-/procesos 24 243690 0 0
+BEGIN_SIDER 134
+/ 928 13577378 82 83
+/productos 881 1961104 8 8
+/productos/updateOrder 70 0 0 0
+/log 42 57634 1 1
+/Index 37 358514 2 1
+/procesos 27 274491 0 0
+/Select_empresa/ 21 61972 0 0
+/vendor/grocery-crud/icons/font-awesome-v5/webfonts/fa-solid-900.woff2 17 1174020 0 1
 /maquinas 17 35677 0 0
-/Select_empresa/ 15 44266 0 0
-/procesos_pedidos/index 13 446932 0 0
-/procesos/restriccion/29 9 91870 0 0
-/productos/140 1 11322 0 0
-/procesos/restriccion/34 4 40584 0 0
-/productos/48 1 11336 0 0
-/google_login 6 348 1 0
-/productos/32 2 22910 0 0
-/procesos_pedidos/getProcesosEstado4 1 260 0 0
-/procesos_pedidos/actualizarEstadoYEliminarRestricciones/1262 1 74 0 0
-/productos/24 2 22747 0 0
-/productos/121 1 11380 0 0
-/productos/42 1 11357 0 0
-/procesos/restriccion/22 1 10138 0 0
-/productos/19 6 68362 0 0
-/procesos/restriccion/33 3 30593 0 0
-/productos/129 1 11353 0 0
-/login 3 3816 2 2
-/procesos/restriccion/21 1 10156 0 0
-/procesos/restriccion/26 1 10135 0 0
-/productos/160 2 22665 0 0
-/productos/49 1 11355 0 0
-/productos/27 1 11374 0 0
-/procesos/restriccion/20 2 20294 0 0
-/procesos/restriccion/28 1 10145 0 0
-/productos/12 2 22668 0 0
-/productos/5 2 22690 0 0
-/rutas_transporte/rutas 1 10403 0 0
-/productos/111 1 11321 0 0
-/procesos/restriccion/25 1 10163 0 0
-/procesos/restriccion/18 2 20310 0 0
-/productos/114 1 11338 0 0
-/productos/26 2 22755 0 0
-/productos/170 1 11381 0 0
-/productos/31 3 34410 0 0
-/productos/72 1 11375 0 0
-/productos/18 2 22765 0 0
-/productos/88 1 11342 0 0
-/productos/23 2 22880 0 0
-/productos/30 1 11382 0 0
-/presentes/53793566 1 6893 0 0
-/procesos/restriccion/3 1 10141 0 0
-/usuarios 7 14541 0 0
-/productos/166 2 22663 0 0
-/productos/40 1 11324 0 0
-/productos/109 1 11373 0 0
-/contactos 1 1148 1 0
-/productos/99 1 11374 0 0
-/productos/25 1 11371 0 0
-/productos/128 1 11355 0 0
-/productos/165 1 11306 0 0
-/procesos_pedidos/actualizarEstadoLineaPedido 1 72 0 0
-/ausentes 1 7057 0 0
-/productos/167 1 11353 0 0
-/pedidos2/enmarcha 3 28442 0 0
-/productos/16 3 34016 0 0
-/productos/77 3 34093 0 0
-/procesos_pedidos/marcarTerminado 2 206 0 0
-/productos/28 2 22758 0 0
-/productos/51 1 11342 0 0
-/lista_produccion/pendientes 3 29824 0 0
-/productos/4 2 22968 0 0
-/productos/76 3 34085 0 0
-/productos/17 2 22773 0 0
-/procesos/inactivos 6 57589 0 0
-/productos/22 2 22743 0 0
-/procesos/restriccion/17 1 10141 0 0
-/productos/14 4 45766 0 0
-/productos/164 1 11309 0 0
-/productos/21 1 11367 0 0
-/productos/179 1 11322 0 0
-/productos/163 1 11309 0 0
-/productos/29 1 11374 0 0
-/informes 3 11392 0 0
-/procesos/restriccion/1 1 10351 0 0
-/productos/52 1 11351 0 0
-/productos/63 2 22694 0 0
-/productos/47 1 11337 0 0
-/productos/171 1 11373 0 0
-/productos/36 2 22966 0 0
-/productos/173 1 11368 0 0
-/productos/110 1 11322 0 0
-/productos/169 1 11373 0 0
-/productos/174 2 22768 0 0
-/productos/74 1 11333 0 0
-/procesos/restriccion/27 2 20303 0 0
-/productos/138 1 11366 0 0
-/productos/46 1 11339 0 0
-/Index/ 3 31429 0 0
-/productos/75 1 11331 0 0
-/productos/139 1 11368 0 0
-/productos/67 1 11362 0 0
-/productos/100 1 11319 0 0
-/productos/8 1 11336 0 0
-/procesos/add 2 18704 0 0
-/procesos_pedidos/actualizarEstadoProcesos 1 58 0 0
-/productos/172 1 11367 0 0
-/productos/9 1 11348 0 0
-/productos/15 1 11336 0 0
-/procesos/restriccion/35 5 50654 0 0
-/productos/178 1 11311 0 0
-/productos/20 2 22763 0 0
-/procesos/restriccion/31 5 51011 0 0
-/procesos/restriccion/30 5 51016 0 0
-/procesos/restriccion/14 4 40622 0 0
-/productos/73 1 11334 0 0
-/procesos/restriccion/19 1 10132 0 0
+/pedidos2 16 117008 0 0
 /procesos/restriccion/23 1 10141 0 0
-/productos/159 1 11315 0 0
-/productos/45 1 11340 0 0
+/procesos/restriccion/28 1 10145 0 0
+/procesos/restriccion/33 3 30593 0 0
+/Pedidos2/Linea_pedidos/16790 9 32421 0 1
 /productos/97 1 11354 0 0
-/procesos/restriccion/32 3 30591 0 0
-/vendor/grocery-crud/icons/font-awesome-v5/webfonts/fa-solid-900.woff2 4 313072 0 0
-/productos/13 1 11339 0 0
-/procesos/restriccion/24 1 10133 0 0
+/productos/72 1 11375 0 0
+/procesos/restriccion/30 5 51016 0 0
+/procesos/restriccion/20 2 20294 0 0
+/productos/140 1 11322 0 0
+/productos/77 3 34093 0 0
+/lista_produccion/pendientes 3 29824 0 0
+/procesos/restriccion/27 2 20303 0 0
+/Ruta_pedido/rutas/16790/1711 9 74471 0 0
+/procesos/restriccion/26 1 10135 0 0
+/productos/167 1 11353 0 0
+/productos/166 2 22663 0 0
+/procesos/restriccion/14 4 40622 0 0
+/productos/121 1 11380 0 0
+/productos/172 1 11367 0 0
+/productos/24 3 34408 0 0
+/productos/171 1 11373 0 0
+/productos/75 1 11331 0 0
+/productos/14 4 45766 0 0
+/productos/111 1 11321 0 0
+/productos/17 2 22773 0 0
+/productos/88 1 11342 0 0
+/productos/100 1 11319 0 0
+/productos/47 1 11337 0 0
+/procesos/restriccion/29 9 91870 0 0
+/productos/30 1 11382 0 0
+/productos/22 2 22743 0 0
+/productos/163 1 11309 0 0
+/productos/27 1 11374 0 0
+/procesos_pedidos/actualizarEstadoYEliminarRestricciones/1262 1 74 0 0
+/productos/42 1 11357 0 0
+/lista_produccion/enmarcha 6 59966 0 0
+/productos/12 2 22668 0 0
 /productos/35 2 22741 0 0
+/productos/21 1 11367 0 0
 /productos/115 1 11338 0 0
-/productos/96 1 11355 0 0
+/procesos/restriccion/1 2 21242 0 0
+/productos/169 1 11373 0 0
+/productos/20 2 22763 0 0
+/productos/51 1 11342 0 0
+/productos/45 1 11340 0 0
+/productos/32 2 22910 0 0
+/Mi_perfil/index/1 4 40027 0 0
+/productos/15 1 11336 0 0
+/productos/139 1 11368 0 0
+/productos/74 1 11333 0 0
+/productos/138 1 11366 0 0
+/productos/8 1 11336 0 0
+/procesos_pedidos/index 15 539859 0 0
+/pedidos2/enmarcha 3 28442 0 0
+/productos/31 3 34410 0 0
+/productos/25 1 11371 0 0
+/productos/174 2 22768 0 0
+/productos/52 1 11351 0 0
+/productos/40 1 11324 0 0
+/productos/170 1 11381 0 0
+/productos/63 2 22694 0 0
+/productos/110 1 11322 0 0
+/procesos/restriccion/22 1 10138 0 0
+/productos/114 1 11338 0 0
+/procesos/inactivos 8 76879 0 0
+/procesos/restriccion/32 3 30591 0 0
+/productos/19 6 68362 0 0
+/productos/16 3 34016 0 0
+/productos/49 1 11355 0 0
+/productos/46 1 11339 0 0
+/productos/129 1 11353 0 0
 /procesos_pedidos/actualizarOrdenProcesos 5 1481 0 0
+/Ruta_pedido/rutas/16789/1713 3 24821 0 0
+/productos/28 2 22758 0 0
+/productos/128 1 11355 0 0
+/procesos/restriccion/18 2 20310 0 0
+/productos/67 1 11362 0 0
+/productos/165 1 11306 0 0
+/productos/18 2 22765 0 0
+/procesos_pedidos/getProcesosEstado4 1 260 0 0
+/rutas_transporte/rutas 1 10403 0 0
+/productos/48 1 11336 0 0
+/productos/5 2 22690 0 0
+/productos/173 1 11368 0 0
+/productos/29 1 11374 0 0
+/productos/26 2 22755 0 0
+/procesos/add 2 18704 0 0
+/procesos/restriccion/17 1 10141 0 0
+/productos/178 1 11311 0 0
+/productos/179 1 11322 0 0
+/productos/23 2 22880 0 0
+/procesos/restriccion/24 1 10133 0 0
+/procesos/restriccion/34 4 40584 0 0
+/Index/ 6 53401 1 0
+/contactos 1 1148 1 0
+/productos/109 1 11373 0 0
+/productos/164 1 11309 0 0
+/presentes/53793566 1 6893 0 0
+/productos/13 1 11339 0 0
+/productos/160 2 22665 0 0
+/procesos/restriccion/25 1 10163 0 0
+/procesos/restriccion/35 5 50654 0 0
+/productos/159 1 11315 0 0
+/login 4 4996 2 2
+/productos/36 6 69837 0 0
+/productos/4 3 34629 0 0
+/informes 6 22732 0 0
+/procesos/restriccion/21 1 10156 0 0
+/procesos/restriccion/31 5 51011 0 0
+/Pedidos2/Linea_pedidos/16789 3 10808 0 0
+/productos/96 1 11355 0 0
+/productos/99 1 11374 0 0
+/procesos_pedidos/marcarTerminado 2 206 0 0
+/procesos/restriccion/19 1 10132 0 0
+/procesos_pedidos/actualizarEstadoProcesos 1 58 0 0
+/productos/76 3 34085 0 0
+/procesos/restriccion/3 1 10141 0 0
+/productos/73 1 11334 0 0
+/usuarios 7 14541 0 0
+/ausentes 1 7057 0 0
+/procesos_pedidos/actualizarEstadoLineaPedido 1 72 0 0
+/google_login 8 464 1 0
+/productos/9 1 11348 0 0
+/Mi_perfil/getUserData/1 4 496 0 0
 END_SIDER
