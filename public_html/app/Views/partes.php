@@ -53,7 +53,12 @@
                                         <strong><? echo date("d-m-Y", strtotime($p->fecha_entrega)); ?></strong>
                                     </div>
                                 </div>
-                                <img src="<?php echo base_url("public/assets/uploads/files"); ?>/<? echo $prod->imagen; ?>" class="imagen_parte" /><br />
+                                <?php
+                                $session = session();
+                                $id_empresa = $session->get('logged_in')['id_empresa']; // Obtener id_empresa de la sesión
+                                ?>
+                                <img src="<?php echo base_url("public/assets/uploads/files/$id_empresa/productos/") . $prod->imagen; ?>" class="imagen_parte" /><br />
+
                             </div>
                             <!-- END Cabecera -->
                         </div><!-- /.row -->
@@ -131,7 +136,12 @@
                                                         <strong><?php echo date("d-m-Y", strtotime($p->fecha_entrega)); ?></strong>
                                                     </div>
                                                 </div>
-                                                <img src="<?php echo base_url("public/assets/uploads/files/"); ?>/<?php echo $prod->imagen; ?>" class="imagen_parte" /><br />
+                                                <?php
+                                                $session = session();
+                                                $id_empresa = $session->get('logged_in')['id_empresa']; // Obtener id_empresa de la sesión
+                                                ?>
+                                                <img src="<?php echo base_url("public/assets/uploads/files/$id_empresa/productos/") . $prod->imagen; ?>" class="imagen_parte" /><br />
+
                                             </div>
                                             <!-- END Cabecera -->
 
