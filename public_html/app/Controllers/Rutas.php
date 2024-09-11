@@ -116,7 +116,7 @@ class Rutas extends BaseControllerGC
 		$crud->setLangString('modal_save', 'Guardar Ruta');
 
 		// Restricciones basadas en el nivel de acceso
-		if ($this->nivel < '8') {
+		if ($this->nivel < '6') {
 			$crud->unsetDelete();
 			$crud->unsetAdd();
 			$crud->unsetRead();
