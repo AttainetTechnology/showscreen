@@ -32,29 +32,107 @@ div#fondo_rutas {
     page-break-after: always;
     position: relative;
 }
-
 @media print {
+
     body {
-        font-size: 12px;
+        font-size: 22px !important;
     }
 
     .pie_de_parte {
-        display: block !Important;
+        display: block !important;
+        page-break-inside: avoid;
     }
 
     .pagina2 {
-        padding-top: 0px;
-        display: block !Important;
+        padding-top: 0;
+        display: block !important;
         page-break-before: always;
         position: relative;
         border-bottom: none;
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .pagina1 {
         display: block;
         page-break-after: always;
         position: relative;
+    }
+
+    .table {
+        page-break-inside: avoid;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table tr {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        page-break-inside: avoid;
+    }
+
+    .row,
+    .col-xs-12 {
+        page-break-inside: avoid;
+    }
+
+    /* Márgenes para la impresión */
+    @page {
+        size: A4;
+        margin-left: 15mm;
+        margin-right: 15mm;
+        margin-top: 15mm;
+        margin-bottom: 15mm;
+    }
+
+    #printableArea {
+        padding-left: 15mm; 
+        padding-right: 15mm;
+        overflow: hidden;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between; 
+        align-items: flex-start; 
+        margin: 5px !important;
+    }
+    #parte_fila_left {
+        flex: 0 1 48%;
+        margin-right: 2%;
+        box-sizing: border-box;
+        margin-left: 15px !important;
+    }
+    #parte_fila_left img {
+        max-width: 100%; 
+        height: auto;
+        display: block;
+    }
+
+    #parte_fila_left address,
+    #parte_fila_left strong {
+        word-wrap: break-word;
+        overflow: hidden;
+        max-width: 100%;
+    }
+
+    #parte_fila_right {
+        flex: 0 1 48%; 
+        text-align: right;
+        padding-right: 15px !important;
+    }
+
+    #parte_fila_right .capa-numero-parte,
+    #parte_fila_right h3,
+    #parte_fila_right .parte-fechas {
+        text-align: right !important;
+    }
+    #parte_fila_right img {
+        max-width: 80%;
+        height: auto;
     }
 }
 
@@ -63,6 +141,7 @@ div#printableArea {
     background-color: #ffffff;
     margin: 10px;
     min-height: 1159px;
+    padding: 5rem;
 
 }
 
@@ -223,7 +302,7 @@ div.total {
     max-width: 165px;
     margin-bottom: 25px;
     margin-top: 30px;
-   margin-left: 20px;
+    margin-left: 20px;
 }
 
 img.logo_partes {
@@ -359,8 +438,8 @@ img.imagen_parte {
 
 #restoreImage {
     background-color: #dad9d9 !important;
-    margin-left: 20px;
-    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-bottom: 20px;
 }
 
 .form-group {
@@ -425,34 +504,37 @@ img.imagen_parte {
     margin-top: 4rem !important;
 }
 
+.navbar-nav .btn {
+    margin-right: 10px;
+}
+
+.navbar-collapse {
+    padding-top: 20px;
+}
+
+@media (max-width: 767.98px) {
     .navbar-nav .btn {
-        margin-right: 10px; 
-    }
-    .navbar-collapse {
-        padding-top: 20px;
-    }
-
-    @media (max-width: 767.98px) {
-        .navbar-nav .btn {
-            margin: 10px 0;
-            margin-bottom: 10px;
-        }
-    }
-
-    #navbarNav{
+        margin: 10px 0;
         margin-bottom: 10px;
     }
-    
+}
+
+#navbarNav {
+    margin-bottom: 10px;
+}
+
 .btn-close-custom {
-	background-color: transparent;
-	border: none;
-	font-size: 2.5rem;
-	color: #000;
-	cursor: pointer;
-	padding: 0;
-	margin-right: 35px;
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: #000;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 35px;
     margin-top: -10px;
 }
+
 .btn-close-custom:hover {
-	color: #ff0000; /* Cambia el color al pasar el cursor */
+    color: #ff0000;
+    /* Cambia el color al pasar el cursor */
 }
