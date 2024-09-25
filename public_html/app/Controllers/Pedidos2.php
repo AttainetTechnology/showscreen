@@ -398,35 +398,32 @@ class Pedidos2 extends BaseControllerGC
 		$crud->unsetRead();
 
 
-		$crud->callbackAfterUpdate(function ($stateParameters) {
-			$this->logAction('Linea pedido', 'Edita línea de pedido, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
-
-			// Obtener el id_pedido desde el array 'data'
-			$id_pedido = $stateParameters->data['id_pedido'];
-
-			// Recalcular el total del pedido
-			$this->actualizarTotalPedido($id_pedido);
-
-			return $stateParameters;
-		});
-
 		$crud->callbackAfterInsert(function ($stateParameters) use ($id_pedido) {
 			$this->logAction('Linea pedido', 'Añade línea de pedido', $stateParameters);
-
-			// Recalcular el total del pedido
 			$this->actualizarTotalPedido($id_pedido);
+			return $stateParameters;
+		});
+		$crud->callbackAfterUpdate(function ($stateParameters) {
+			$this->logAction('Linea pedido', 'Edita línea de pedido, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
+			$this->actualizarTotalPedido($stateParameters->primaryKeyValue);
+
+			// Obtener el id_lineapedido desde el array 'data'
+			$id_lineapedido = $stateParameters->data['id_lineapedido'];
+
+			// Actualizar el estado de la línea de pedido
+			$nuevo_estado = $stateParameters->data['estado'];
+			$this->actualizarEstadoProceso($id_lineapedido, $nuevo_estado);
 
 			return $stateParameters;
 		});
+
 
 		$crud->callbackAfterDelete(function ($stateParameters) use ($id_pedido) {
 			$this->logAction('Linea pedido', 'Elimina línea de pedido, ID: ' . $stateParameters->primaryKeyValue, $stateParameters);
-
-			// Recalcular el total del pedido tras eliminar una línea
 			$this->actualizarTotalPedido($id_pedido);
-
 			return $stateParameters;
 		});
+
 
 		$output = $crud->render();
 
@@ -544,88 +541,51 @@ class Pedidos2 extends BaseControllerGC
 			log_message('debug', 'No se actualiza el estado porque el nuevo estado es nulo o vacío para la línea de pedido: ' . $id_lineapedido);
 			return;
 		}
-
+	
 		// Conectarse a la base de datos
 		$data = usuario_sesion();
 		$db = db_connect($data['new_db']);
-
+	
 		// Actualizar el estado en la tabla procesos_pedidos
 		$builder_procesos = $db->table('procesos_pedidos');
 		$builder_procesos->set('estado', $nuevo_estado);
 		$builder_procesos->where('id_linea_pedido', $id_lineapedido);
-
-		// Verificar el resultado de la actualización
 		$updateResult = $builder_procesos->update();
+	
 		if ($updateResult) {
 			log_message('debug', 'Estado actualizado correctamente para id_lineapedido: ' . $id_lineapedido . ' con el nuevo estado: ' . $nuevo_estado);
-
+	
 			// Obtener el id_pedido correspondiente al id_lineapedido
 			$builder_linea = $db->table('linea_pedidos');
 			$builder_linea->select('id_pedido');
 			$builder_linea->where('id_lineapedido', $id_lineapedido);
 			$query = $builder_linea->get();
-
+	
 			if ($query->getNumRows() > 0) {
 				$id_pedido = $query->getRow()->id_pedido;
 
-				// Comprobar si alguna línea del pedido está en un estado menor a 4
+				// Obtener el estado más bajo de las líneas asociadas al pedido
 				$builder_verificar = $db->table('linea_pedidos');
-				$builder_verificar->select('estado');
+				$builder_verificar->selectMin('estado');  // Obtener el estado mínimo
 				$builder_verificar->where('id_pedido', $id_pedido);
-				$builder_verificar->where('estado <', '4');
 				$query_verificar = $builder_verificar->get();
-
-				// Si alguna línea está en estado menor a 4, no cambiar el estado del pedido
+	
 				if ($query_verificar->getNumRows() > 0) {
-					log_message('debug', 'El pedido no puede actualizarse porque al menos una línea está en un estado menor a 4 para id_pedido: ' . $id_pedido);
-					return;
-				}
-
-				// Comprobar si todas las líneas del pedido están en estado 4 o 5
-				$builder_comprobar = $db->table('linea_pedidos');
-				$builder_comprobar->select('estado');
-				$builder_comprobar->where('id_pedido', $id_pedido);
-				$query_comprobar = $builder_comprobar->get();
-
-				$todasEnEstado4 = true;
-				$todasEnEstado5 = true;
-
-				foreach ($query_comprobar->getResult() as $linea) {
-					if ($linea->estado != '4') {
-						$todasEnEstado4 = false;
-					}
-					if ($linea->estado != '5') {
-						$todasEnEstado5 = false;
-					}
-				}
-
-				// Determinar el estado del pedido
-				if ($todasEnEstado5) {
-					// Si todas las líneas están en estado 5, actualizar el estado del pedido a 5
+					$estado_minimo = $query_verificar->getRow()->estado;
+	
+					// Actualizar el estado del pedido al estado mínimo encontrado
 					$builder_pedido = $db->table('pedidos');
-					$builder_pedido->set('estado', '5');
+					$builder_pedido->set('estado', $estado_minimo);
 					$builder_pedido->where('id_pedido', $id_pedido);
 					$pedidoUpdateResult = $builder_pedido->update();
-
+	
 					if ($pedidoUpdateResult) {
-						log_message('debug', 'Estado del pedido actualizado a 5 para id_pedido: ' . $id_pedido);
-					} else {
-						log_message('error', 'Error al actualizar el estado del pedido para id_pedido: ' . $id_pedido);
-					}
-				} elseif ($todasEnEstado4 || !$todasEnEstado5) {
-					// Si todas las líneas están en estado 4 o hay una mezcla de 4 y 5, actualizar el estado del pedido a 4
-					$builder_pedido = $db->table('pedidos');
-					$builder_pedido->set('estado', '4');
-					$builder_pedido->where('id_pedido', $id_pedido);
-					$pedidoUpdateResult = $builder_pedido->update();
-
-					if ($pedidoUpdateResult) {
-						log_message('debug', 'Estado del pedido actualizado a 4 para id_pedido: ' . $id_pedido);
+						log_message('debug', 'Estado del pedido actualizado a ' . $estado_minimo . ' para id_pedido: ' . $id_pedido);
 					} else {
 						log_message('error', 'Error al actualizar el estado del pedido para id_pedido: ' . $id_pedido);
 					}
 				} else {
-					log_message('debug', 'Las líneas del pedido no están completamente en estado 4 o 5 para id_pedido: ' . $id_pedido);
+					log_message('error', 'No se encontró un estado válido para el pedido con id_pedido: ' . $id_pedido);
 				}
 			} else {
 				log_message('error', 'No se encontró el id_pedido para la línea de pedido: ' . $id_lineapedido);
@@ -634,7 +594,7 @@ class Pedidos2 extends BaseControllerGC
 			log_message('error', 'Error al actualizar el estado en procesos_pedidos para id_lineapedido: ' . $id_lineapedido);
 		}
 	}
-
+	
 	/* Funciones de salida - Vistas */
 
 	function _output_sencillo($output = null)
