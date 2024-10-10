@@ -20,8 +20,9 @@ class Pedidos2 extends BaseControllerGC
 	}
 	public function enmarcha()
 	{
-		$this->todos('estado<', '4');
+		$this->todos('estado<=', '4');
 	}
+
 	public function terminados()
 	{
 		$this->todos('estado=', '4');
@@ -541,26 +542,26 @@ class Pedidos2 extends BaseControllerGC
 			log_message('debug', 'No se actualiza el estado porque el nuevo estado es nulo o vacío para la línea de pedido: ' . $id_lineapedido);
 			return;
 		}
-	
+
 		// Conectarse a la base de datos
 		$data = usuario_sesion();
 		$db = db_connect($data['new_db']);
-	
+
 		// Actualizar el estado en la tabla procesos_pedidos
 		$builder_procesos = $db->table('procesos_pedidos');
 		$builder_procesos->set('estado', $nuevo_estado);
 		$builder_procesos->where('id_linea_pedido', $id_lineapedido);
 		$updateResult = $builder_procesos->update();
-	
+
 		if ($updateResult) {
 			log_message('debug', 'Estado actualizado correctamente para id_lineapedido: ' . $id_lineapedido . ' con el nuevo estado: ' . $nuevo_estado);
-	
+
 			// Obtener el id_pedido correspondiente al id_lineapedido
 			$builder_linea = $db->table('linea_pedidos');
 			$builder_linea->select('id_pedido');
 			$builder_linea->where('id_lineapedido', $id_lineapedido);
 			$query = $builder_linea->get();
-	
+
 			if ($query->getNumRows() > 0) {
 				$id_pedido = $query->getRow()->id_pedido;
 
@@ -569,16 +570,16 @@ class Pedidos2 extends BaseControllerGC
 				$builder_verificar->selectMin('estado');  // Obtener el estado mínimo
 				$builder_verificar->where('id_pedido', $id_pedido);
 				$query_verificar = $builder_verificar->get();
-	
+
 				if ($query_verificar->getNumRows() > 0) {
 					$estado_minimo = $query_verificar->getRow()->estado;
-	
+
 					// Actualizar el estado del pedido al estado mínimo encontrado
 					$builder_pedido = $db->table('pedidos');
 					$builder_pedido->set('estado', $estado_minimo);
 					$builder_pedido->where('id_pedido', $id_pedido);
 					$pedidoUpdateResult = $builder_pedido->update();
-	
+
 					if ($pedidoUpdateResult) {
 						log_message('debug', 'Estado del pedido actualizado a ' . $estado_minimo . ' para id_pedido: ' . $id_pedido);
 					} else {
@@ -594,7 +595,7 @@ class Pedidos2 extends BaseControllerGC
 			log_message('error', 'Error al actualizar el estado en procesos_pedidos para id_lineapedido: ' . $id_lineapedido);
 		}
 	}
-	
+
 	/* Funciones de salida - Vistas */
 
 	function _output_sencillo($output = null)
