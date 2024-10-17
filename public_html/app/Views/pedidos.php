@@ -1,6 +1,10 @@
+<style>
+    #printableArea{
+        font-size: 18px;
+    }
+</style>
 <?php
 
-use App\Models\Usuarios_model;
 // Comienza el foreach		
 foreach ($pedido as $ped) { ?>
     <div id="fondo">
