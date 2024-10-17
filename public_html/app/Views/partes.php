@@ -1,34 +1,58 @@
+<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/partes.css') ?>?v=<?= time() ?>">
 <?php foreach ($lineas as $l) { ?>
     <?php foreach ($productos as $prod) { ?>
         <?php foreach ($pedidos as $p) { ?>
             <?php foreach ($clientes as $cli) { ?>
                 <div id="fondo">
                     <?php
-                    // Verifica si 'pg2' está definido en la URL, si no lo está asigna un valor por defecto
                     $volver = isset($_GET['pg2']) ? $_GET['pg2'] : 'javascript:window.close();';
                     ?>
-                    <!-- Si no hay una URL para volver, se usará un enlace para cerrar la ventana -->
-                    <a href="<?php echo $volver; ?>" class="btn btn-warning btn-sm">Cerrar</a>
-
-                    <a href="javascript:void(0);" onclick="verificarYMarcarLinea(<?php echo $l->id_lineapedido; ?>, '<?php echo $volver; ?>');" class="btn btn-info btn-sm">Cerrar y marcar línea como recibida</a>
-
+                    <a href="javascript:void(0);" onclick="verificarYMarcarLinea(<?php echo $l->id_lineapedido; ?>);" class="btn btn-info btn-sm">
+                        Cerrar y marcar línea como recibida
+                    </a>
                     <script>
-                        function verificarYMarcarLinea(id_lineapedido, volver) {
+                        function verificarYMarcarLinea(id_lineapedido, id_pedido) {
                             fetch('<?php echo base_url(); ?>/Partes_controller/verificarEstadoProcesos/' + id_lineapedido)
                                 .then(response => response.json())
                                 .then(data => {
                                     if (data.status === 'error') {
                                         alert(data.message);
                                     } else {
-                                        window.location.href = '<?php echo base_url(); ?>/Partes_controller/CambiaEstado/' + id_lineapedido + '?volver=' + volver;
+                                        // Cambiar el estado
+                                        return fetch('<?php echo base_url(); ?>/Partes_controller/CambiaEstado/' + id_lineapedido);
                                     }
+                                })
+                                .then(() => {
+                                    // Redirigir a la página deseada una vez que se complete la operación
+                                    window.location.href = '<?php echo base_url(); ?>/pedidos/edit/' + id_pedido;
                                 })
                                 .catch(error => console.error('Error:', error));
                         }
                     </script>
+                    <input type="button" onclick="printAndCloseModal('printableArea')" value="Imprimir Parte" class="btn btn-success btn-sm" />
 
-                    <input type="button" onclick="printDiv('printableArea')" value="Imprimir Parte" class="btn btn-success btn-sm" />
+                    <script>
+                        function printAndCloseModal(divId) {
+                            printDiv(divId);
+                            const modal = document.querySelector('.modal');
+                            if (modal) {
+                                const modalInstance = bootstrap.Modal.getInstance(modal);
+                                modalInstance.hide();
+                            }
+                        }
+                        function printDiv(divId) {
+                            var printContents = document.getElementById(divId).innerHTML;
+                            var originalContents = document.body.innerHTML;
+
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                            window.location.reload();
+                        }
+                    </script>
+
                     <div id="printableArea">
+                        <link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/partes.css') ?>?v=<?= time() ?>">
                         <!-- Cabecera -->
                         <div class="row">
                             <div id="parte_fila_left">
@@ -122,7 +146,7 @@
                                                     <strong><?php echo $p->referencia; ?></strong>
                                                 </address>
                                             </div>
-                                            <div id="parte_fila_right" class="imagenparte">
+                                            <div id="parte_fila_right" class="imagenparte imgParte2hoja">
                                                 <div class="capa-numero-parte">
                                                     <div class="numero_parte">Id: <strong><?php echo $p->id_pedido; ?></strong></div>
                                                 </div>
@@ -133,7 +157,6 @@
                                                 <img src="<?php echo base_url("public/assets/uploads/files/" . $this->data['id_empresa'] . "/productos/" . $prod->imagen); ?>" class="imagen_parte" /><br />
                                             </div>
                                             <!-- END Cabecera -->
-
                                             <div class="row"> <!-- DIV ROW-->
                                                 <div class="col-xs-12 table-responsive" id="tabla_tipopieza"> <!-- DIV COL XS 12-->
                                                     <table class="table">
@@ -240,5 +263,5 @@
             } // Cierro foreach clientes
         } //Cierro foreach productos	
     }
-}   
+}
 ?>

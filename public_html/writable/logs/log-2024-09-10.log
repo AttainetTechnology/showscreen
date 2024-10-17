@@ -212,3 +212,439 @@ INFO - 2024-09-10 12:11:18 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2024-09-10 12:11:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-09-10 12:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-09-10 12:11:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2024-09-10 15:03:52 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'uxwbzidt4pgtk'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'uxwbzidt4pgtk', Object(SensitiveParameterValue), 'dbwr1uywfqywfo', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index()
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-09-10 15:03:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: presentes]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `hoy`
+WHERE `id` = :id:', [...], false)
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->index()
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 15:37:14 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2024-09-10 15:37:14 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3
+[Method: GET, Route: Ruta_pedido/rutas/16937/2425]
+in SYSTEMPATH/Database/BaseConnection.php on line 688.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN :id:
+AND `user_activo` = :user_activo:', [...], false)
+ 2 APPPATH/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-09-10 15:37:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 317.
+ 1 SYSTEMPATH/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN ()
+AND `user_activo` = \'1\'')
+ 2 SYSTEMPATH/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN ()
+AND `user_activo` = \'1\'')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN :id:
+AND `user_activo` = :user_activo:', [...], false)
+ 4 APPPATH/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-09-10 15:37:14 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 312.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN ()
+AND `user_activo` = \'1\'', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN ()
+AND `user_activo` = \'1\'')
+ 3 SYSTEMPATH/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN ()
+AND `user_activo` = \'1\'')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `nombre_usuario`, `apellidos_usuario`
+FROM `users`
+WHERE `id` IN :id:
+AND `user_activo` = :user_activo:', [...], false)
+ 5 APPPATH/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 15:37:23 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'uxwbzidt4pgtk'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'uxwbzidt4pgtk', Object(SensitiveParameterValue), 'dbwr1uywfqywfo', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-09-10 15:37:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: presentes/12884219]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `hoy`
+WHERE `id` = :id:', [...], false)
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 15:38:09 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'uxwbzidt4pgtk'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'uxwbzidt4pgtk', Object(SensitiveParameterValue), 'dbwr1uywfqywfo', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-09-10 15:38:09 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: presentes/12884219]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `hoy`
+WHERE `id` = :id:', [...], false)
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 15:38:12 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'uxwbzidt4pgtk'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'uxwbzidt4pgtk', Object(SensitiveParameterValue), 'dbwr1uywfqywfo', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index()
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-09-10 15:38:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: presentes/]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `hoy`
+WHERE `id` = :id:', [...], false)
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->index()
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 15:38:30 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'uxwbzidt4pgtk'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'uxwbzidt4pgtk', Object(SensitiveParameterValue), 'dbwr1uywfqywfo', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+#6 /home/customer/www/showscreen.app/public_html/app/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2024-09-10 15:38:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: presentes/12884219]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `hoy`
+WHERE `id` = :id:', [...], false)
+ 3 SYSTEMPATH/Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH/Controllers/Fichar.php(59): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH/Controllers/Fichar.php(26): App\Controllers\Fichar->CompruebaDia()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->index('12884219')
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-09-10 16:42:13 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: partes/print/41402]
+in APPPATH/Views/partes.php on line 11.
+ 1 APPPATH/Views/partes.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Views/partes.php', 11)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/partes.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('partes', [], true)
+ 5 APPPATH/Controllers/Partes_controller.php(122): view('partes', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->parte_print('41402')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-09-10 17:01:25 --> ErrorException: A non-numeric value encountered
+[Method: POST, Route: Pedidos2/Linea_pedidos/16937]
+in APPPATH/Controllers/Pedidos2.php on line 478.
+ 1 APPPATH/Controllers/Pedidos2.php(478): CodeIgniter\Debug\Exceptions->errorHandler(2, 'A non-numeric value encountered', '/home/customer/www/showscreen.app/public_html/app/Controllers/Pedidos2.php', 478)
+ 2 FCPATH/vendor/grocery-crud/enterprise/src/GroceryCrud/Core/State/StateAbstract.php(1154): App\Controllers\Pedidos2->saca_precio_linea(Object(stdClass))
+ 3 FCPATH/vendor/grocery-crud/enterprise/src/GroceryCrud/Core/State/StateAbstract.php(322): GroceryCrud\Core\State\StateAbstract->beforeStateOperation([...], Object(stdClass))
+ 4 FCPATH/vendor/grocery-crud/enterprise/src/GroceryCrud/Core/State/UpdateState.php(101): GroceryCrud\Core\State\StateAbstract->stateOperationWithCallbacks(Object(stdClass), 'Update', Object(Closure))
+ 5 FCPATH/vendor/grocery-crud/enterprise/src/GroceryCrud/Core/GroceryCrud.php(2940): GroceryCrud\Core\State\UpdateState->render()
+ 6 APPPATH/Controllers/Pedidos2.php(405): GroceryCrud\Core\GroceryCrud->render()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Pedidos2->Linea_pedidos('16937')
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pedidos2))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-09-10 17:29:00 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-10 17:29:00 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-10 17:29:01 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-10 17:29:01 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-10 17:29:01 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(125): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(42): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('16937', '2425')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-10 17:29:01 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+CRITICAL - 2024-09-10 18:07:06 --> ErrorException: Undefined property: CodeIgniter\View\View::$session
+[Method: GET, Route: partes/print/43565]
+in APPPATH/Views/partes.php on line 135.
+ 1 APPPATH/Views/partes.php(135): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: CodeIgniter\\View\\View::$session', '/home/customer/www/showscreen.app/public_html/app/Views/partes.php', 135)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/partes.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('partes', [], true)
+ 5 APPPATH/Controllers/Partes_controller.php(122): view('partes', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->parte_print('43565')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

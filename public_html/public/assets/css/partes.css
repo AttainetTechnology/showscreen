@@ -22,20 +22,12 @@ div#fondo_rutas {
     display: block !Important;
     page-break-before: always;
     position: relative;
-    border-bottom: 10px solid #eee;
-    margin-bottom: 70px;
     padding-top: 70px;
-}
-
-.pagina1 {
-    display: block;
-    page-break-after: always;
-    position: relative;
 }
 @media print {
 
     body {
-        font-size: 22px !important;
+        font-size: 15px !important;
     }
 
     .pie_de_parte {
@@ -43,14 +35,6 @@ div#fondo_rutas {
         page-break-inside: avoid;
     }
 
-    .pagina2 {
-        padding-top: 0;
-        display: block !important;
-        page-break-before: always;
-        position: relative;
-        border-bottom: none;
-        margin-bottom: 0;
-    }
 
     .pagina1 {
         display: block;
@@ -140,7 +124,7 @@ div#printableArea {
     padding: 25px 70px;
     background-color: #ffffff;
     margin: 10px;
-    min-height: 1159px;
+    /* min-height: 1159px; */
     padding: 5rem;
 
 }
@@ -270,6 +254,8 @@ div.total {
     width: 100%;
     height: 100px;
     display: none;
+    margin-left: 15px !important;
+    margin-right: 10px !important;
 }
 
 .revisado {
@@ -475,7 +461,9 @@ img.imagen_parte {
 }
 
 .modal-content {
-    height: 100%;
+    height: 80vh;
+    width: 60vw;
+    margin-left: -179px;
 }
 
 #DatosAcceso {
@@ -542,4 +530,11 @@ img.imagen_parte {
 .btn-close-custom:hover {
     color: #ff0000;
     /* Cambia el color al pasar el cursor */
+}
+.pedido-completo-pie{
+    margin-left: 15px;
+}
+.imgParte2hoja{
+    margin-right: -25px !important;
+
 }

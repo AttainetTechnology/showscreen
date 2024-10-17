@@ -1,0 +1,414 @@
+.estado1 { background-color: #ff9933 !important; }
+.estado2 { background-color: #fff3cd !important; }
+.estado3 { background-color: #fcebfa !important; }
+.estado4 { background-color: #dff0d8 !important; }
+.estado5 { background-color: #50b752b0 !important; color: #ffffff !important; }
+.estado6 { background-color: #ff6c6ccc !important; color: #ffffff !important; }
+
+.fondo-verde {
+    background-color: #dff0d8 !important; /* Fondo verde */
+}
+.estado-pendiente {
+    background-color: #ffcccb !important; /* Color para Pendiente (opcional) */
+}
+.estado-no-preparado {
+    background-color: #f0e68c !important; /* Color para No preparado (opcional) */
+}
+
+.ag-icon-filter {
+    display: none !important;
+}
+
+.acciones-col {
+    width: 240px !important;
+}
+
+.btnEliminarfiltros:hover {
+    background-color: #C7C8CC !important;
+    color: #F5F5F7 !important;
+}
+
+.btnEliminarfiltros {
+    background-color: #B7B7B7 !important;
+    color: #F5F5F7 !important;
+    height: 30px;
+    font-size: 14px !important;
+    border: none;
+}
+
+.btnAddPedido {
+    background-color: #e4eff7 !important;
+    color: #1d9dd5;
+    font-size: 14px !important;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin-left: 20px;
+}
+
+.btnAddPedido:hover {
+    background-color: #337ab7 !important;
+    color: #e4eff7 !important;
+}
+
+.titlepedidos {
+    margin-top: 50px;
+}
+
+.btnEditar {
+    background-color: #337ab7 !important;
+    color: white !important;
+    border-radius: 5px !important;
+    width: 65px;
+    height: 27px !important;
+
+}
+
+.btnEditar:hover {
+    background-color: #0B2F9F !important;
+    color: white;
+}
+
+.btnEliminar {
+    background-color: #d9534f !important;
+    color: white !important;
+    border-radius: 5px !important;
+    width: 72px;
+    height: 27px !important;
+
+}
+
+.btnEliminar:hover {
+    background-color: #0B2F9F !important;
+    color: white !important;
+}
+
+.btnImprimir {
+    background-color: #e4eff7 !important;
+    color: #1d9dd5 !important;
+    border-radius: 5px !important;
+    width: 78px;
+    height: 27px;
+
+}
+
+.btnImprimir:hover {
+    background-color: #0B2F9F!important;
+    color: #e4eff7 !important;
+}
+
+.btnImprimirParte {
+    background-color: #e4eff7 !important;
+    color: #1d9dd5 !important;
+    width: 60px;
+    border-radius: 5px !important;
+    height: 27px;
+}
+
+.btnImprimirParte:hover {
+    background-color: #0B2F9F !important;
+    color: #e4eff7 !important;
+}
+
+.titlepedidosmostrar{
+    margin-top: 30px;
+    margin-left: 25px;
+}
+
+
+.ag-header-cell-text {
+    font-size: 16px !important;
+
+}
+
+.ag-header-cell {
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    border: none;
+}
+
+.ag-floating-filter-input {
+    border-radius: 4px;
+    width: 100%;
+}
+
+.ag-icon {
+    color: #1d9dd5;
+}
+
+input[class^=ag-] {
+    margin: 5px;
+    background-color: var(--ag-background-color);
+    height: 30px !important;
+}
+
+.ag-theme-alpine .ag-cell {
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.ag-theme-alpine .ag-cell.acciones-col {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#pedidoTable {
+    margin-right: 20px;
+    padding-left: 10px;
+}
+
+.ag-body-viewport {
+    padding-right: 20px;
+    padding-left: 10px;
+}
+
+/* EDIT PEDIDO */
+
+form label {
+    font-size: 16px;
+}
+
+
+form .form-control {
+    height: 40px;
+    font-size: 15px !important;
+}
+
+form select.form-control {
+    font-size: 15px !important;
+}
+
+.btnGuardar {
+    height: 27px;
+    font-size: 14px !important;
+}
+
+/* LINEA DE PEDIDO */
+
+.btnAddLinea {
+    background-color: #e4eff7 !important;
+    color: #1d9dd5 !important;
+    margin-top: 10px;
+    height: 27px;
+    margin-left: 20px;
+}
+
+.btnAddLinea:hover {
+    background-color: #337ab7 !important;
+    color: #e4eff7 !important;
+}
+
+.btnrecarga:hover {
+    background-color: #ffc107a8 !important;
+    color: #e4eff7 !important;
+}
+
+
+.icono {
+    font-size: 16px !important;
+    /* Tamaño del ícono más pequeño */
+    vertical-align: middle;
+    /* Alinea el ícono con el texto */
+    margin-left: -5px;
+}
+
+/* Ajustar la altura del modal */
+
+
+.botoneseditPedido, .botoneseditRuta {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100%;
+}
+
+.btnAddRuta,
+.btnEliminarfiltros {
+    flex-grow: 0;
+}
+/* 
+.modal-body {
+    margin: 23px !important;
+    margin-top: 5px !important;
+
+} */
+
+.tituloRutas {
+    font-size: 25px;
+    margin: 26px;
+}
+
+.btnEliminarfiltrosRuta:hover {
+    background-color: #C7C8CC !important;
+    color: #F5F5F7 !important;
+}
+
+.btnEliminarfiltrosRuta {
+    background-color: #B7B7B7 !important;
+    color: #F5F5F7 !important;
+    font-size: 14px !important;
+    height: 27px;
+    border: none;
+    border-radius: 8px;
+}
+
+.btnAddRuta {
+    background-color: #e4eff7 !important;
+    color: #1d9dd5 !important;
+    font-size: 14px !important;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+}
+
+.btnAddRuta:hover {
+    background-color: #337ab7 !important;
+    color: #e4eff7 !important;
+}
+
+.btnEditarRuta {
+    background-color: #337ab7 !important;
+    color: white !important;
+    border-radius: 5px !important;
+    height: 27px;
+    width: 70px;
+    border: none;
+}
+
+.btnEditarRuta:hover {
+    background-color: #0B2F9F !important;
+    color: white;
+}
+
+.btnEliminarRuta {
+    background-color: #d9534f !important;
+    color: white !important;
+    border-radius: 5px !important;
+    width: 80px;
+    height: 27px;
+    border: none;
+
+}
+
+.btnEliminarRuta:hover {
+    background-color: #0B2F9F !important;
+    color: white !important;
+}
+
+
+.botoneseditPedido, .botoneseditRuta {
+    display: flex;
+}
+.botoneseditRuta{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.botoneseditPedido.hidden {
+    display: none !important;
+}
+
+
+.btnModaladdruta {
+    display: flex;
+    justify-content: right;
+    gap: 15px;
+    
+}
+
+.btnGuardarRuta {
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    height: 30px;
+    padding: 0 15px; 
+    font-size: 17px !important;
+}
+
+.btnVolverRuta {
+    background-color: #B7B7B7 !important;
+    color: #F5F5F7 !important;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    height: 30px;
+    padding: 0 15px; 
+    font-size: 17px !important;
+}
+
+.btnVolverRuta:hover {
+    background-color: #949292 !important;
+    color: #F5F5F7 !important;
+}
+
+
+.ag-root-wrapper {
+    min-width: 1200px;
+    margin-left: 20px;
+
+}
+
+.modal.fade .modal-dialog {
+    max-height: 90vh;
+}
+
+.modal-body {
+    max-height: 70vh; 
+
+}
+
+.addpedido, .titlepedidosadd {
+    margin-left: 2vw;
+    margin-top: 6vh;
+}
+
+.editpedido{
+    margin-left: 1vw !important;
+    margin-right: 3vw !important;
+}
+
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1500px !important;
+    }
+}
+
+.buttonsEditProductProveedAbajo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px; 
+    margin-top: 20px; 
+}
+
+ .volverButton {
+    background-color: #adabab !important;
+    color: #F5F5F7 !important;
+    height: 30px;
+    font-size: 14px !important;
+    border: none;
+}
+
+.volverButton {
+    background-color: #a9aaad !important;
+    color: #F5F5F7 !important;
+}
+.btnsMostrarPedido{
+    margin-top: 20px;
+}
+.btnsEditPedido{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
