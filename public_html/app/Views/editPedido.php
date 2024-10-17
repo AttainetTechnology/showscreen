@@ -283,7 +283,6 @@
                     }
                 });
             });
-
             // Función para mostrar el modal del parte
             function mostrarParte(id_lineapedido) {
                 $.ajax({
@@ -314,12 +313,12 @@
                         $('#parteModal').modal('show');
                     }
                 }
+                // Limpiar el indicador cuando el modal se cierre manualmente
                 $('#parteModal').on('hidden.bs.modal', function() {
                     sessionStorage.removeItem('modalParteAbierto');
                     sessionStorage.removeItem('modalParteId');
                 });
             });
-
             function printDiv(divId) {
                 var printContents = document.getElementById(divId).innerHTML;
                 var originalContents = document.body.innerHTML;

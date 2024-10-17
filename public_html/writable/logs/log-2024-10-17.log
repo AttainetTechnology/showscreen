@@ -565,3 +565,275 @@ INFO - 2024-10-17 09:13:32 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2024-10-17 09:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-10-17 09:13:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-10-17 09:13:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-17 10:14:11 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: Partes_controller/CambiaEstado/44049]
+in APPPATH/Controllers/Partes_controller.php on line 161.
+ 1 APPPATH/Controllers/Partes_controller.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Controllers/Partes_controller.php', 161)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->CambiaEstado('44049')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 10:16:32 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: Partes_controller/CambiaEstado/44080]
+in APPPATH/Controllers/Partes_controller.php on line 161.
+ 1 APPPATH/Controllers/Partes_controller.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Controllers/Partes_controller.php', 161)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->CambiaEstado('44080')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 10:23:01 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: Partes_controller/CambiaEstado/44078]
+in APPPATH/Controllers/Partes_controller.php on line 161.
+ 1 APPPATH/Controllers/Partes_controller.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Controllers/Partes_controller.php', 161)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->CambiaEstado('44078')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 10:31:02 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: Partes_controller/CambiaEstado/44085]
+in APPPATH/Controllers/Partes_controller.php on line 161.
+ 1 APPPATH/Controllers/Partes_controller.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Controllers/Partes_controller.php', 161)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->CambiaEstado('44085')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 10:31:52 --> ErrorException: Undefined variable $volver
+[Method: GET, Route: Partes_controller/CambiaEstado/44085]
+in APPPATH/Controllers/Partes_controller.php on line 161.
+ 1 APPPATH/Controllers/Partes_controller.php(161): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $volver', '/home/customer/www/showscreen.app/public_html/app/Controllers/Partes_controller.php', 161)
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Partes_controller->CambiaEstado('44085')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Partes_controller))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:01:36 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index/]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:45 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index/]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:47 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index/]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:52 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index/]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:53 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index/]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:56 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:02:56 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:03:00 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:03:14 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:03:29 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:03:29 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:03:45 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:04:09 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:04:21 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2024-10-17 11:04:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2024-10-17 11:04:32 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:05:30 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-17 11:05:31 --> DivisionByZeroError: Division by zero
+[Method: GET, Route: Index]
+in APPPATH/Views/estadisticas.php on line 167.
+ 1 SYSTEMPATH/View/View.php(234): include()
+ 2 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('estadisticas', [], true)
+ 4 APPPATH/Controllers/Index.php(54): view('estadisticas', [...])
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Index->index()
+ 6 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Index))
+ 7 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
