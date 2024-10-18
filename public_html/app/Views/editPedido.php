@@ -11,12 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <h2 class="titleditPedido">Editar Pedido</h2>
     <div class="mb-3">
         <label for="acciones" class="form-label"></label>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2">s
             <a href="<?= base_url('pedidos/print/' . $pedido->id_pedido . '?volver=' . urlencode(current_url())) ?>" class="btn btn-info btn-sm" target="_blank">
                 <i class="fa fa-print"></i> Imprimir Pedido
             </a>
@@ -302,7 +302,7 @@
                 });
             }
 
-        
+
             function printDiv(divId) {
                 var printContents = document.getElementById(divId).innerHTML;
                 var originalContents = document.body.innerHTML;
