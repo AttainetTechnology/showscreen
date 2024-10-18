@@ -453,8 +453,8 @@ form select.form-control {
 }
 .volverLineaPed{
     float: right;
-    margin-top: -70px !important;
+    margin-top: -50px !important;
 }
 .ag-theme-alpine .ag-header {
-    height: 30px; /* Ajusta la altura del encabezado de la tabla */
+    height: 30px; 
 }
