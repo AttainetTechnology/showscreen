@@ -5,25 +5,19 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 <style>
-    /* Aplicar estilo al select de Select2 */
+
 .select2-container--default .select2-selection--single {
-    border: 1px solid #ced4da; /* Mismo borde que otros campos */
-    border-radius: 4px; /* Ajustar el borde redondeado */
+    border: 1px solid #ced4da;
+    border-radius: 4px; 
    height: 35px;
 }
-
-/* Ajustar el texto del placeholder */
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-    color: #6c757d; /* Color similar al placeholder en otros campos */
+    color: #6c757d;
 }
-
-/* Quitar el borde azul que aparece al hacer clic */
 .select2-container--default .select2-selection--single:focus {
     outline: none;
     box-shadow: none;
 }
-
-/* Estilo de la flecha desplegable de Select2 */
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 100%;
 }
@@ -71,13 +65,11 @@
 </div>
 <script>
     $(document).ready(function() {
-        // Iniciar Select2 en el campo select
         $('#id_cliente').select2({
-            placeholder: 'Seleccione empresa', // Placeholder para una guía intuitiva
-            width: '100%' // Hacer que el select ocupe todo el ancho del contenedor
+            placeholder: 'Seleccione empresa', 
+            width: '100%'
         });
 
-        // Botón de volver
         document.getElementById('volverButton').addEventListener('click', function() {
             window.location.href = '<?= base_url('pedidos/enmarcha') ?>';
         });
