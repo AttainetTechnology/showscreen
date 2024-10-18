@@ -75,7 +75,7 @@
         </div>
         <div class="form-group">
             <label for="observaciones">Observaciones:</label>
-            <textarea id="observaciones" name="observaciones" class="form-control" style="height: 0px;"><?= esc($pedido->observaciones) ?></textarea>
+            <textarea id="observaciones" name="observaciones" class="form-control" style="height: 60px;"><?= esc($pedido->observaciones) ?></textarea>
         </div>
         <div class="form-group" style="font-size:15px;">
             <label>ID del Pedido:</label>
