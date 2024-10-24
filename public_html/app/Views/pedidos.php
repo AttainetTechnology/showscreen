@@ -1,6 +1,6 @@
 <style>
     #printableArea{
-        font-size: 28px !important;
+        font-size: 25px !important;
     }
 </style>
 <?php
@@ -8,11 +8,11 @@
 // Comienza el foreach		
 foreach ($pedido as $ped) { ?>
     <div id="fondo">
-        <input type="button" onclick="printDiv('printableArea')" value="Imprimir Pedido" class="btn btn-success btnsm" />
+        <input type="button" onclick="printDiv('printableArea')" value="Imprimir Pedido" class="btn btn-success btn-sm" />
 
         <div id="printableArea">
             <!-- Primera página -->
-            <div class="fila">
+            <div class="fila" >
                 <div id="fila_left">
                     <?php
                     $data = datos_user();
@@ -54,7 +54,7 @@ foreach ($pedido as $ped) { ?>
 
             <div class="row">
                 <div class="col-xs-12 table-responsive" id="tabla_tipopieza">
-                    <table class="table">
+                    <table class="table"  style=" font-size:16px !important;">
                         <thead>
                             <tr>
                                 <th>Unidades</th>
@@ -65,18 +65,18 @@ foreach ($pedido as $ped) { ?>
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style=" font-size:35px !important;">
                             <?php $total = 0; ?>
                             <?php 
-                            $lineas_pag1 = array_slice($lineas, 0, 18); 
+                            $lineas_pag1 = array_slice($lineas, 0); 
                             foreach ($lineas_pag1 as $l) { ?>
                                 <tr>
-                                    <td><b><?php echo $l->n_piezas; ?> </b></td>
-                                    <td><b><?php echo $l->nombre_producto; ?> </b></td>
-                                    <td><b><?php echo $l->nom_base; ?></b></td>
-                                    <td><b><?php echo $l->med_inicial; ?></b></td>
-                                    <td><b><?php echo $l->med_final; ?></b></td>
-                                    <td><b><?php echo $l->total_linea; ?></b> &euro;</td>
+                                <td style=" font-size:16px !important;" ><b><?php echo $l->n_piezas; ?> </b></td>
+                                        <td style=" font-size:16px !important;" ><b><?php echo $l->nombre_producto; ?> </b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->nom_base; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->med_inicial; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->med_final; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>
                                     <?php $total += $l->total_linea; ?>
                                 </tr>
                             <?php } ?>
@@ -91,7 +91,7 @@ foreach ($pedido as $ped) { ?>
                 <!-- Segunda página - Tabla para los registros restantes -->
                 <div class="row">
                     <div class="col-xs-12 table-responsive" id="tabla_tipopieza_2">
-                        <table class="table">
+                        <table class="table" style="font-size:16px !important;">
                             <thead>
                                 <tr>
                                     <th>Unidades</th>
@@ -102,17 +102,17 @@ foreach ($pedido as $ped) { ?>
                                     <th>Total</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style=" font-size:35px !important;">
                                 <?php 
                                 $lineas_pag2 = array_slice($lineas, 9); // Registros desde el noveno en adelante
                                 foreach ($lineas_pag2 as $l) { ?>
                                     <tr>
-                                        <td><b><?php echo $l->n_piezas; ?> </b></td>
-                                        <td><b><?php echo $l->nombre_producto; ?> </b></td>
-                                        <td><b><?php echo $l->nom_base; ?></b></td>
-                                        <td><b><?php echo $l->med_inicial; ?></b></td>
-                                        <td><b><?php echo $l->med_final; ?></b></td>
-                                        <td><b><?php echo $l->total_linea; ?></b> &euro;</td>
+                                        <td style=" font-size:16px !important;" ><b><?php echo $l->n_piezas; ?> </b></td>
+                                        <td style=" font-size:16px !important;" ><b><?php echo $l->nombre_producto; ?> </b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->nom_base; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->med_inicial; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->med_final; ?></b></td>
+                                        <td style=" font-size:16px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>
                                         <?php $total += $l->total_linea; ?>
                                     </tr>
                                 <?php } ?>
