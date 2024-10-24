@@ -1,3 +1,8 @@
+<style>
+    #printableArea{
+        font-size: 18px;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/partes.css') ?>?v=<?= time() ?>">
 <?php foreach ($lineas as $l) { ?>
     <?php foreach ($productos as $prod) { ?>
@@ -76,7 +81,6 @@
                             <!-- Aquí modificamos la ruta de la imagen para que incluya el id_empresa -->
                             <img src="<?php echo base_url("public/assets/uploads/files/" . $this->data['id_empresa'] . "/productos/" . $prod->imagen); ?>" class="imagen_parte" /><br />
                         </div>
-
                         <!-- END Cabecera -->
                     </div><!-- /.row -->
                     <!-- Table row -->
@@ -122,7 +126,7 @@
                             <?php
                             $i = '1';
                             foreach ($procesos as $proc) { ?>
-                                <?php if ($i == '7') { ?><div class="detalles-pie">
+                                <?php if ($i == '6') { ?><div class="detalles-pie">
 
                                         Entrada: <? echo date("d-m-Y", strtotime($p->fecha_entrada)); ?> &nbsp;
                                         Entrega:
@@ -232,7 +236,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <div class="pie_de_parte">
+                    <div class="pie_de_parte" style="margin-right:10px;">
                         <div class="incidencia">Ha habido alguna incidencia?</div>
                         <div class="revisado">Revisado por:</div>
                         <div class="total_buenas"><b>TOTALES BUENAS:</b>

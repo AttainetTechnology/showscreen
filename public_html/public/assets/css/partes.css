@@ -18,16 +18,14 @@ div#fondo_rutas {
 }
 
 .pagina2 {
-    margin-top: 0px;
-    display: block !Important;
+    display: block !important;
     page-break-before: always;
     position: relative;
-    padding-top: 70px;
 }
 @media print {
 
     body {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 
     .pie_de_parte {
@@ -48,8 +46,9 @@ div#fondo_rutas {
         border-collapse: collapse;
     }
 
-    .table tr {
+    .table tr td {
         page-break-inside: avoid;
+        font-size:12px;
     }
 
     img {
@@ -146,7 +145,7 @@ div#fondo {
     margin-bottom: 20px;
     margin-top: 20px;
     clear: both;
-    padding: 20px;
+    padding: 5px;
     background-color: #eee;
 }
 
@@ -207,7 +206,7 @@ td.casillas {
 }
 
 strong {
-    font-size: large;
+    font-size: 15px;
 }
 
 a,
@@ -262,7 +261,7 @@ div.total {
 }
 
 .tituparte {
-    font-size: xxx-large;
+    font-size: x-large;
     font-weight: bold;
     text-transform: uppercase;
     color: #eee;
@@ -301,8 +300,8 @@ img.imagen_parte {
 }
 
 img.imagen_parte {
-    max-height: 160px;
-    max-width: 280px;
+    max-height: 140px;
+    max-width: 160px;
 }
 
 .capa-numero-parte {
@@ -327,7 +326,7 @@ img.imagen_parte {
 
 .detalles-pie small,
 .detalles-pie small strong {
-    font-size: 12px !Important;
+    font-size: 12px !important;
 }
 
 .detalles-pie {
@@ -336,7 +335,7 @@ img.imagen_parte {
 
 .parte-fechas,
 .parte-fechas strong {
-    font-size: 12px !Important;
+    font-size: 12px !important;
 }
 
 .parte-fechas {
@@ -359,7 +358,7 @@ img.imagen_parte {
 
 #parte_fila_right {
     float: right;
-    width: 40%;
+    width: 44%;
     text-align: right;
 }
 
@@ -528,4 +527,10 @@ img.imagen_parte {
 .imgParte2hoja{
     margin-right: -25px !important;
 
+}
+
+@media (min-width: 1200px) {
+    .h3, h3 {
+        font-size: 25px;
+    }
 }

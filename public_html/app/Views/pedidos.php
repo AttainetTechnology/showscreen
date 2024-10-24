@@ -1,6 +1,6 @@
 <style>
     #printableArea{
-        font-size: 25px !important;
+        font-size: 28px !important;
     }
 </style>
 <?php
@@ -8,7 +8,7 @@
 // Comienza el foreach		
 foreach ($pedido as $ped) { ?>
     <div id="fondo">
-        <input type="button" onclick="printDiv('printableArea')" value="Imprimir Pedido" class="btn btn-success btn-sm" />
+        <input type="button" onclick="printDiv('printableArea')" value="Imprimir Pedido" class="btn btn-success btnsm" />
 
         <div id="printableArea">
             <!-- Primera página -->
