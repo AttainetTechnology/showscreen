@@ -33,7 +33,7 @@ foreach ($pedido as $ped) { ?>
                 </div>
                 <div id="fila_right">
                     <div class="capa-numero-parte">
-                        <div class="numero_pedido">Id: <strong><?php echo $ped->id_pedido; ?></strong></div>
+                        <div class="numero_pedido" style="font-size: 32px;">Id: <strong  style="font-size: 32px;"><?php echo $ped->id_pedido; ?></strong></div>
                     </div>
                     <strong><h3><?php echo $ped->nombre_cliente; ?></h3></strong><br>
                     Ref: <strong><?php echo $ped->referencia; ?></strong>
@@ -47,7 +47,7 @@ foreach ($pedido as $ped) { ?>
             </div>
 
             <div class="tituparte">Pedido interno</div>
-            <div id="observaciones">
+            <div id="observaciones" style="font-size: 25px;">
                 <div class="seccionparte">Observaciones de pedido:</div>
                 <?php echo $ped->observaciones; ?>
             </div>
@@ -84,10 +84,8 @@ foreach ($pedido as $ped) { ?>
                     </table>
                 </div>
             </div>
-
-            <?php if (count($lineas) > 9) { ?>
+            <?php if (count($lineas) > 15) { ?>
                 <div class="page-break"></div> <!-- Fuerza un salto de página -->
-
                 <!-- Segunda página - Tabla para los registros restantes -->
                 <div class="row">
                     <div class="col-xs-12 table-responsive" id="tabla_tipopieza_2">
