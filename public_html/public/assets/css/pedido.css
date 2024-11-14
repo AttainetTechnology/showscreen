@@ -44,36 +44,6 @@
     width: 240px !important;
 }
 
-.btnEliminarfiltros:hover {
-    background-color: #C7C8CC !important;
-    color: #F5F5F7 !important;
-}
-
-.btnEliminarfiltros {
-    background-color: #B7B7B7 !important;
-    color: #F5F5F7 !important;
-    height: 30px;
-    font-size: 14px !important;
-    border: none;
-}
-
-.btnAddPedido {
-    background-color: #e4eff7 !important;
-    color: #1d9dd5;
-    font-size: 14px !important;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    margin-left: 20px;
-}
-
-.btnAddPedido:hover {
-    background-color: #337ab7 !important;
-    color: #e4eff7 !important;
-}
-
 .titlepedidos {
     margin-top: 50px;
 }
@@ -81,61 +51,6 @@
 .titleditPedido {
     margin-top: -10px;
     margin-bottom: -2px;
-}
-
-.btnEditar {
-    background-color: #337ab7 !important;
-    color: white !important;
-    border-radius: 5px !important;
-    width: 65px;
-    height: 27px !important;
-
-}
-
-.btnEditar:hover {
-    background-color: #0B2F9F !important;
-    color: white;
-}
-
-.btnEliminar {
-    background-color: #d9534f !important;
-    color: white !important;
-    border-radius: 5px !important;
-    width: 72px;
-    height: 27px !important;
-
-}
-
-.btnEliminar:hover {
-    background-color: #0B2F9F !important;
-    color: white !important;
-}
-
-.btnImprimir {
-    background-color: #e4eff7 !important;
-    color: #1d9dd5 !important;
-    border-radius: 5px !important;
-    width: 78px;
-    height: 27px;
-
-}
-
-.btnImprimir:hover {
-    background-color: #0B2F9F !important;
-    color: #e4eff7 !important;
-}
-
-.btnImprimirParte {
-    background-color: #e4eff7 !important;
-    color: #1d9dd5 !important;
-    width: 60px;
-    border-radius: 5px !important;
-    height: 27px;
-}
-
-.btnImprimirParte:hover {
-    background-color: #0B2F9F !important;
-    color: #e4eff7 !important;
 }
 
 .titlepedidosmostrar {
@@ -186,10 +101,6 @@ input[class^=ag-] {
     padding-left: 10px;
 }
 
-.ag-column-first.acciones-col {
-    padding-left: 0.6vw !important;
-}
-
 /* EDIT PEDIDO */
 
 form label {
@@ -205,26 +116,7 @@ form .form-control {
 form select.form-control {
     font-size: 15px !important;
 }
-
-.btnGuardar {
-    height: 27px;
-    font-size: 14px !important;
-}
-
 /* LINEA DE PEDIDO */
-
-.btnAddLinea {
-    background-color: #e4eff7 !important;
-    color: #1d9dd5 !important;
-    margin-top: 10px;
-    height: 27px;
-    margin-left: 20px;
-}
-
-.btnAddLinea:hover {
-    background-color: #337ab7 !important;
-    color: #e4eff7 !important;
-}
 
 .btnrecarga:hover {
     background-color: #ffc107a8 !important;
@@ -243,7 +135,6 @@ form select.form-control {
 /* Ajustar la altura del modal */
 
 
-.botoneseditPedido,
 .botoneseditRuta {
     display: flex !important;
     justify-content: space-between !important;
@@ -251,138 +142,10 @@ form select.form-control {
     width: 100%;
 }
 
-.btnAddRuta,
-.btnEliminarfiltros {
-    flex-grow: 0;
-}
-
-/* 
-.modal-body {
-    margin: 23px !important;
-    margin-top: 5px !important;
-
-} */
-
 .tituloRutas {
     font-size: 25px;
     margin: 26px;
 }
-
-.btnEliminarfiltrosRuta:hover {
-    background-color: #C7C8CC !important;
-    color: #F5F5F7 !important;
-}
-
-.btnEliminarfiltrosRuta {
-    background-color: #B7B7B7 !important;
-    color: #F5F5F7 !important;
-    font-size: 14px !important;
-    height: 27px;
-    border: none;
-    border-radius: 8px;
-}
-
-.btnAddRuta {
-    background-color: #e4eff7 !important;
-    color: #1d9dd5 !important;
-    font-size: 14px !important;
-    height: 27px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 8px;
-}
-
-.btnAddRuta:hover {
-    background-color: #337ab7 !important;
-    color: #e4eff7 !important;
-}
-
-.btnEditarRuta {
-    background-color: #337ab7 !important;
-    color: white !important;
-    border-radius: 5px !important;
-    height: 27px;
-    width: 70px;
-    border: none;
-}
-
-.btnEditarRuta:hover {
-    background-color: #0B2F9F !important;
-    color: white;
-}
-
-.btnEliminarRuta {
-    background-color: #d9534f !important;
-    color: white !important;
-    border-radius: 5px !important;
-    width: 80px;
-    height: 27px;
-    border: none;
-
-}
-
-.btnEliminarRuta:hover {
-    background-color: #0B2F9F !important;
-    color: white !important;
-}
-
-
-.botoneseditPedido,
-.botoneseditRuta {
-    display: flex;
-}
-
-.botoneseditRuta {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.botoneseditPedido.hidden {
-    display: none !important;
-}
-
-.botoneseditPedido {
-    margin-top: -20px;
-    ;
-}
-
-
-.btnModaladdruta {
-    display: flex;
-    justify-content: right;
-    gap: 15px;
-
-}
-
-.btnGuardarRuta {
-    background-color: #007bff;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    height: 30px;
-    padding: 0 15px;
-    font-size: 17px !important;
-}
-
-.btnVolverRuta {
-    background-color: #B7B7B7 !important;
-    color: #F5F5F7 !important;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-    height: 30px;
-    padding: 0 15px;
-    font-size: 17px !important;
-}
-
-.btnVolverRuta:hover {
-    background-color: #949292 !important;
-    color: #F5F5F7 !important;
-}
-
 
 .ag-root-wrapper {
     min-width: 1200px;
@@ -422,40 +185,6 @@ form select.form-control {
     }
 }
 
-.buttonsEditProductProveedAbajo {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.volverButton {
-    background-color: #adabab !important;
-    color: #F5F5F7 !important;
-    height: 30px;
-    font-size: 14px !important;
-    border: none;
-}
-
-.volverButton:hover {
-    background-color: #808184 !important;
-    color: #F5F5F7 !important;
-}
-
-.btnsMostrarPedido {
-    margin-top: 20px;
-}
-
-.btnsEditPedido {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
-
 .formeditPedido {
     font-size: 14px;
 }
@@ -482,8 +211,8 @@ form select.form-control {
     justify-content: flex-end;
 }
 
-.formeditPedido .btnGuardar,
-.formeditPedido .volverButton {
+.formeditPedido,
+.formeditPedido{
     padding: 4px 8px;
     font-size: 13px;
 }
