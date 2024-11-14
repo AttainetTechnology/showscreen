@@ -8,7 +8,10 @@ class Familia_proveedor extends BaseController
 
     public function index()
     {
-        return view('familiaProveedor');
+        $this->addBreadcrumb('Inicio', base_url('/'));
+        $this->addBreadcrumb('Familia Productos');
+        $data['amiga'] = $this->getBreadcrumbs();
+        return view('familiaProveedor', $data);
     }
 
     public function getFamiliasProveedores()

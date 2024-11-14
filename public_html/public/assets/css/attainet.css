@@ -12,9 +12,6 @@ div#report-success,
 	font-size: 13px !important;
 }
 
-.btn {
-	padding: 0.25rem 0.5rem !important;
-}
 
 a {
 	color: #006192 !Important
@@ -257,28 +254,6 @@ input#field-precio {
 
 .text-danger {
 	color: var(--rojosocuro) !important;
-}
-
-.btn-secondary {
-	color: var(--negro) !important;
-	background-color: #fff !important;
-	border-color: var(--grisclaro) !important;
-}
-
-.btn-success {
-	color: #fff !Important;
-	background-color: #146c43 !Important;
-	border-color: var(--verdeclaro) !Important;
-}
-
-.btn-info {
-	background-color: var(--azulclaro) !Important;
-	border-color: var(--azulclaro) !Important;
-	color: var(--azuloscuro) !Important;
-}
-
-.btn_anular {
-	color: #fff !Important;
 }
 
 .nav a {
