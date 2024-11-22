@@ -166,13 +166,20 @@
     </div>
 </div>
 <div id="lineaPedidosGrid" class="ag-theme-alpine"></div>
-
+<div class="btnsEditPedido">
+    <a href="<?= base_url('pedidos_proveedor') ?>" class="boton volverButton">
+        Volver
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 13C19.5 13.2155 19.4144 13.4221 19.262 13.5745C19.1096 13.7269 18.903 13.8125 18.6875 13.8125H9.27386L12.7627 17.2997C12.8383 17.3753 12.8982 17.465 12.9391 17.5637C12.98 17.6624 13.001 17.7682 13.001 17.875C13.001 17.9818 12.98 18.0876 12.9391 18.1863C12.8982 18.285 12.8383 18.3747 12.7627 18.4502C12.6872 18.5258 12.5975 18.5857 12.4988 18.6266C12.4001 18.6675 12.2943 18.6885 12.1875 18.6885C12.0807 18.6885 11.9749 18.6675 11.8762 18.6266C11.7775 18.5857 11.6878 18.5258 11.6122 18.4502L6.73724 13.5752C6.66157 13.4998 6.60154 13.4101 6.56058 13.3114C6.51962 13.2127 6.49854 13.1069 6.49854 13C6.49854 12.8931 6.51962 12.7873 6.56058 12.6886C6.60154 12.5899 6.66157 12.5002 6.73724 12.4247L11.6122 7.54974C11.7648 7.39717 11.9717 7.31146 12.1875 7.31146C12.4032 7.31146 12.6102 7.39717 12.7627 7.54974C12.9153 7.7023 13.001 7.90923 13.001 8.12499C13.001 8.34075 12.9153 8.54767 12.7627 8.70024L9.27386 12.1875H18.6875C18.903 12.1875 19.1096 12.2731 19.262 12.4255C19.4144 12.5778 19.5 12.7845 19.5 13Z" fill="white" />
+        </svg>
+    </a>
+</div>
+<br>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const estadosTexto = <?= json_encode($estados) ?>;
         const lineasPedido = <?= json_encode($lineasPedido) ?> || [];
         console.log("Datos de lineasPedido:", lineasPedido);
-        console.log("Datos de estados:", estadosTexto);
 
         const columnDefs = [{
                 headerName: "Acciones",
@@ -205,8 +212,8 @@
                 floatingFilter: true
             },
             {
-                headerName: "Producto",
-                field: "nombre_producto",
+                headerName: "Referencia Producto",
+                field: "ref_producto",
                 flex: 1,
                 filter: "agTextColumnFilter",
                 floatingFilter: true
@@ -250,7 +257,6 @@
             },
         ];
 
-
         function renderActions(params) {
             const id = params.data.id_lineapedido;
             return `
@@ -272,7 +278,7 @@
 
         const gridOptions = {
             columnDefs: columnDefs,
-            rowData: lineasPedido, // Inicializar aunque esté vacío
+            rowData: lineasPedido,
             pagination: true,
             paginationPageSize: 10,
             defaultColDef: {
@@ -315,7 +321,6 @@
             gridApi.setFilterModel(null);
             gridApi.onFilterChanged();
         });
-
     });
 </script>
 <script>
@@ -329,7 +334,7 @@
             url: '<?= base_url('pedidos_proveedor/addLineaPedidoForm/' . $pedido['id_pedido']) ?>',
             type: 'GET',
             success: function(response) {
-                $('#modal-content-placeholder').html(response); // Insertar el formulario en el modal
+                $('#modal-content-placeholder').html(response);
             },
             error: function(xhr, status, error) {
                 alert('Error al cargar el formulario: ' + error);
@@ -344,7 +349,6 @@
         });
     });
 
-    // Acción para guardar la nueva línea de pedido
     $('#saveLineaPedido').on('click', function() {
         var formData = $('#addLineaPedidoForm').serialize();
         $.ajax({
@@ -356,12 +360,29 @@
                     $('#addLineaPedidoModal').modal('hide');
                     location.reload();
                 } else {
-                    alert('Error al agregar la línea de pedido');
+                    alert('Error: ' + (response.message || 'Desconocido.'));
                 }
+            },
+            error: function(xhr, status, error) {
+                alert('Error en el servidor.');
             }
         });
     });
-    //MANJEAR LAS COMAS EN DECIMALES
+
+    function agregarLinea() {
+        $('#addLineaPedidoModal').modal('show');
+        $.ajax({
+            url: '<?= base_url('pedidos_proveedor/addLineaPedidoForm/' . $pedido['id_pedido']) ?>',
+            type: 'GET',
+            success: function(response) {
+                $('#modal-content-placeholder').html(response);
+            },
+            error: function(xhr, status, error) {
+                alert('Error al cargar el formulario: ' + error);
+            }
+        });
+    }
+
     function replaceCommaWithDot(input) {
         input.value = input.value.replace(/,/g, '.');
     }
@@ -371,65 +392,58 @@
 
     // Acción al hacer clic en el botón de editar línea de pedido
     function editarLinea(id_lineapedido) {
-        // Abrir el modal de edición
         $('#editLineaPedidoModal').modal('show');
-
-        // Cargar el formulario dentro del modal usando AJAX
         $.ajax({
             url: '<?= base_url('pedidos_proveedor/editLineaPedidoForm') ?>/' + id_lineapedido,
             type: 'GET',
             success: function(response) {
-                $('#edit-modal-content-placeholder').html(response); // Insertar el formulario en el modal
+                $('#edit-modal-content-placeholder').html(response);
             },
             error: function(xhr, status, error) {
                 alert('Error al cargar el formulario de edición: ' + error);
             }
         });
     }
-
     // Acción para guardar los cambios de la línea de pedido editada
     $('#updateLineaPedido').on('click', function() {
-        // Verifica que el formulario está cargado en el modal antes de proceder
         var form = $('#editLineaPedidoForm');
 
         if (form.length === 0) {
-            alert('El formulario de edición no está disponible.');
             return;
         }
-        // Serializar el formulario de edición
         var formData = form.serialize();
-        // Realizar la solicitud AJAX para actualizar la línea
         $.ajax({
             url: '<?= base_url('pedidos_proveedor/actualizarLinea') ?>/' + $('input[name="id_lineapedido"]').val(),
             type: 'POST',
             data: formData,
             success: function(response) {
                 if (response.success) {
-                    $('#editLineaPedidoModal').modal('hide'); // Cerrar el modal
-                    location.reload(); // Recargar la página para reflejar los cambios
+                    $('#editLineaPedidoModal').modal('hide');
+                    location.reload();
                 } else {
                     alert('Error al actualizar la línea de pedido');
                 }
             },
         });
     });
-    // Acción al hacer clic en el botón de eliminar línea de pedido
+
     function eliminarLinea(id_lineapedido) {
-        if (confirm('¿Estás seguro de que deseas eliminar esta línea de pedido?')) {
-            // Enviar la solicitud AJAX para eliminar la línea
+        // Mostrar una alerta de confirmación
+        if (confirm('¿Estás seguro de que deseas eliminar esta línea del pedido?')) {
+            // Si el usuario confirma, procede con la eliminación
             $.ajax({
                 url: '<?= base_url('pedidos_proveedor/eliminarLinea') ?>/' + id_lineapedido,
                 type: 'POST',
-                success: function(response) {
-                    if (response.success) {
-                        location.reload();
-                    } else {
-                        alert('Error al eliminar la línea de pedido: ' + (response.message || 'Desconocido.'));
-                    }
+                success: function() {
+                    // Recargar la página tras eliminar
+                    location.reload();
                 },
+                error: function() {
+                    // Recargar la página incluso si hay un error
+                    location.reload();
+                }
             });
         }
     }
 </script>
-
 <?= $this->endSection() ?>

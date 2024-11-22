@@ -1,0 +1,90 @@
+ERROR - 2024-10-28 09:59:11 --> mysqli_sql_exception: Deadlock found when trying to get lock; try restarting transaction in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('UPDATE `proceso...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `proceso...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `proceso...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(2508): CodeIgniter\Database\BaseConnection->query('UPDATE `proceso...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(1028): CodeIgniter\Model->doUpdate(NULL, Array)
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(865): CodeIgniter\BaseModel->update(NULL, Array)
+#7 /home/customer/www/showscreen.app/public_html/app/Controllers/Procesos_pedidos.php(169): CodeIgniter\Model->update()
+#8 /home/customer/www/showscreen.app/public_html/app/Controllers/Procesos_pedidos.php(127): App\Controllers\Procesos_pedidos->calcularYActualizarOrdenParaMaquina('9', '18', '44170', 4)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Procesos_pedidos->actualizarEstadoProcesos()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Procesos_pedidos))
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+CRITICAL - 2024-10-28 09:59:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Deadlock found when trying to get lock; try restarting transaction
+[Method: POST, Route: procesos_pedidos/actualizarEstadoProcesos]
+in SYSTEMPATH/Database/BaseConnection.php on line 688.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2508): CodeIgniter\Database\BaseConnection->query('UPDATE `procesos_pedidos` SET `estado` = :estado.1:, `id_maquina` = :id_maquina:, `orden` = :orden:
+WHERE `id_proceso` = :id_proceso:
+AND `id_linea_pedido` = :id_linea_pedido:
+AND `estado` = :estado:', [...], false)
+ 2 SYSTEMPATH/Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH/BaseModel.php(1028): CodeIgniter\Model->doUpdate(null, [...])
+ 4 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update(null, [...])
+ 5 APPPATH/Controllers/Procesos_pedidos.php(169): CodeIgniter\Model->update()
+ 6 APPPATH/Controllers/Procesos_pedidos.php(127): App\Controllers\Procesos_pedidos->calcularYActualizarOrdenParaMaquina('9', '18', '44170', 4)
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Procesos_pedidos->actualizarEstadoProcesos()
+ 8 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Procesos_pedidos))
+ 9 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-28 09:59:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Deadlock found when trying to get lock; try restarting transaction
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 317.
+ 1 SYSTEMPATH/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `procesos_pedidos` SET `estado` = 3, `id_maquina` = \'9\', `orden` = 4
+WHERE `id_proceso` = \'18\'
+AND `id_linea_pedido` = \'44170\'
+AND `estado` = 2')
+ 2 SYSTEMPATH/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `procesos_pedidos` SET `estado` = 3, `id_maquina` = \'9\', `orden` = 4
+WHERE `id_proceso` = \'18\'
+AND `id_linea_pedido` = \'44170\'
+AND `estado` = 2')
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2508): CodeIgniter\Database\BaseConnection->query('UPDATE `procesos_pedidos` SET `estado` = :estado.1:, `id_maquina` = :id_maquina:, `orden` = :orden:
+WHERE `id_proceso` = :id_proceso:
+AND `id_linea_pedido` = :id_linea_pedido:
+AND `estado` = :estado:', [...], false)
+ 4 SYSTEMPATH/Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH/BaseModel.php(1028): CodeIgniter\Model->doUpdate(null, [...])
+ 6 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update(null, [...])
+ 7 APPPATH/Controllers/Procesos_pedidos.php(169): CodeIgniter\Model->update()
+ 8 APPPATH/Controllers/Procesos_pedidos.php(127): App\Controllers\Procesos_pedidos->calcularYActualizarOrdenParaMaquina('9', '18', '44170', 4)
+ 9 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Procesos_pedidos->actualizarEstadoProcesos()
+10 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Procesos_pedidos))
+11 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-10-28 09:59:11 --> [Caused by] mysqli_sql_exception: Deadlock found when trying to get lock; try restarting transaction
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 312.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(312): mysqli->query('UPDATE `procesos_pedidos` SET `estado` = 3, `id_maquina` = \'9\', `orden` = 4
+WHERE `id_proceso` = \'18\'
+AND `id_linea_pedido` = \'44170\'
+AND `estado` = 2', 0)
+ 2 SYSTEMPATH/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `procesos_pedidos` SET `estado` = 3, `id_maquina` = \'9\', `orden` = 4
+WHERE `id_proceso` = \'18\'
+AND `id_linea_pedido` = \'44170\'
+AND `estado` = 2')
+ 3 SYSTEMPATH/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `procesos_pedidos` SET `estado` = 3, `id_maquina` = \'9\', `orden` = 4
+WHERE `id_proceso` = \'18\'
+AND `id_linea_pedido` = \'44170\'
+AND `estado` = 2')
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2508): CodeIgniter\Database\BaseConnection->query('UPDATE `procesos_pedidos` SET `estado` = :estado.1:, `id_maquina` = :id_maquina:, `orden` = :orden:
+WHERE `id_proceso` = :id_proceso:
+AND `id_linea_pedido` = :id_linea_pedido:
+AND `estado` = :estado:', [...], false)
+ 5 SYSTEMPATH/Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH/BaseModel.php(1028): CodeIgniter\Model->doUpdate(null, [...])
+ 7 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update(null, [...])
+ 8 APPPATH/Controllers/Procesos_pedidos.php(169): CodeIgniter\Model->update()
+ 9 APPPATH/Controllers/Procesos_pedidos.php(127): App\Controllers\Procesos_pedidos->calcularYActualizarOrdenParaMaquina('9', '18', '44170', 4)
+10 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Procesos_pedidos->actualizarEstadoProcesos()
+11 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Procesos_pedidos))
+12 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
