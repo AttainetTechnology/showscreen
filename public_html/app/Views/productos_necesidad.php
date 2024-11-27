@@ -88,7 +88,17 @@
             headerName: "Estado",
             field: "estado_producto",
             filter: 'agTextColumnFilter'
-        }
+        },
+        {
+        headerName: "Precio Compra", 
+        field: "precio",
+        filter: 'agNumberColumnFilter'
+    },
+    {
+        headerName: "Precio Venta", 
+        field: "precio_venta",
+        filter: 'agNumberColumnFilter'
+    }
         ];
 
         const gridOptions = {
