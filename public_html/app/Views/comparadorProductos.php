@@ -172,7 +172,6 @@
                 <form id="formEditarOferta">
                     <input type="hidden" name="id" id="idOferta">
                     <input type="hidden" name="id_producto" id="idProducto">
-
                     <div class="mb-3">
                         <label for="nombreProveedor" class="form-label">Proveedor</label>
                         <input type="text" class="form-control" id="nombreProveedor" name="nombre_proveedor" readonly>
@@ -185,7 +184,6 @@
                         <label for="precio" class="form-label">Precio</label>
                         <input type="text" class="form-control" id="precio" name="precio">
                     </div>
-
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </form>
             </div>
