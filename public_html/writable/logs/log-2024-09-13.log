@@ -1,0 +1,102 @@
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(51): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(69): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(51): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(69): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(51): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
+ERROR - 2024-09-13 09:39:05 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')
+AND `user_activo` = '1'' at line 3 in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:312
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(312): mysqli->query('SELECT `id`, `n...', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `id`, `n...')
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `id`, `n...')
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT `id`, `n...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(158): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/app/Controllers/Ruta_pedido.php(69): App\Controllers\Ruta_pedido->transportistas()
+#6 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(933): App\Controllers\Ruta_pedido->Rutas('14', '2769')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Ruta_pedido))
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2024-09-13 09:39:05 --> Database error: {"code":1064,"message":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')\nAND `user_activo` = '1'' at line 3"}
