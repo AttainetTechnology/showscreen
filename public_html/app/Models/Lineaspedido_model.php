@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class Lineaspedido_model extends Model
 {
-    protected $table = 'linea_pedido_proveedor';
+    protected $table = 'linea_pedido';
     protected $primaryKey = 'id_lineapedido';
     protected $allowedFields = [
         'id_pedido',
@@ -204,26 +204,34 @@ class Lineaspedido_model extends Model
         $builder->update($data);
     }
 
-    public function anular_lineas($id_pedido)
+    function imprimir_parte($row)
+	{
+		if (is_numeric($row)) {
+			$url = base_url() . "/partes/print/" . $row;
+			return redirect()->to($url);
+		} else {
+			return redirect()->to(base_url('/error_page'))->with('error', 'Valor inválido recibido.');
+		}
+	}
+    
+    public function anular_lineas ($id_pedido)
     {
-        $data = ['estado' => '6'];
-        helper('controlacceso');
-        $data2 = usuario_sesion();
-        $db = db_connect($data2['new_db']);
+                    //Si se marca el pedido como anulado se anulan todas las lineas
+                    $data = array('estado' => '6');
 
-        if (!$db->connID) {
-            // Conexión fallida
-            throw new \Exception('Conexión a la base de datos fallida: ' . $db->error());
-        }
+                    helper('controlacceso');
+                    $data2= usuario_sesion(); 
+                    $db = db_connect($data2['new_db']);
+                    $builder = $db->table('linea_pedidos');
+                    $builder->set($data);
+                    $builder->where('id_pedido', $id_pedido);
+                    $builder->update();
 
-        $builder = $db->table('linea_pedidos');
-        $builder->set($data);
-        $builder->where('id_pedido', $id_pedido);
-        $builder->update();
-
-        $builder = $db->table('pedidos');
-        $builder->set($data);
-        $builder->where('id_pedido', $id_pedido);
-        return $builder->update();
+                    $builder = $db->table('pedidos');
+                    $builder->set($data);
+                    $builder->where('id_pedido', $id_pedido);
+                    return $builder->update();
+    
     }
+
 }

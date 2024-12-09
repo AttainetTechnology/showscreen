@@ -1,0 +1,112 @@
+CRITICAL - 2024-11-27 16:22:54 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:23:11 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:23:49 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:25:12 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:33:46 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:36:35 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2024-11-27 16:44:23 --> Error en seleccionarMejor: No hay datos para update
+ERROR - 2024-11-27 16:44:27 --> Error en seleccionarMejor: No hay datos para update
+ERROR - 2024-11-27 16:44:56 --> Error en seleccionarMejor: No hay datos para update
+ERROR - 2024-11-27 16:45:25 --> Error en seleccionarMejor: No hay datos para update
+CRITICAL - 2024-11-27 16:51:07 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 16:53:35 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-11-27 17:10:55 --> CodeIgniter\Database\Exceptions\DataException: No hay datos para update
+[Method: POST, Route: comparadorProductos/seleccionarMejor]
+in SYSTEMPATH/BaseModel.php on line 1011.
+ 1 SYSTEMPATH/BaseModel.php(1011): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH/Model.php(865): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH/Controllers/ComparadorProductos.php(62): CodeIgniter\Model->update('46', [...])
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ComparadorProductos->seleccionarMejor()
+ 5 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ComparadorProductos))
+ 6 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

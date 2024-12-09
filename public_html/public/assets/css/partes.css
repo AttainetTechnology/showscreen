@@ -18,10 +18,13 @@ div#fondo_rutas {
 }
 
 .pagina2 {
-    display: block !important;
+    margin-top: 0px;
+    display: block !Important;
     page-break-before: always;
     position: relative;
+    padding-top: 70px;
 }
+
 @media print {
 
     body {
@@ -46,9 +49,8 @@ div#fondo_rutas {
         border-collapse: collapse;
     }
 
-    .table tr td {
+    .table tr {
         page-break-inside: avoid;
-        font-size:12px;
     }
 
     img {
@@ -72,25 +74,27 @@ div#fondo_rutas {
     }
 
     #printableArea {
-        padding-left: 15mm; 
+        padding-left: 15mm;
         padding-right: 15mm;
         overflow: hidden;
     }
 
     .row {
         display: flex;
-        justify-content: space-between; 
-        align-items: flex-start; 
+        justify-content: space-between;
+        align-items: flex-start;
         margin: 5px !important;
     }
+
     #parte_fila_left {
         flex: 0 1 48%;
         margin-right: 2%;
         box-sizing: border-box;
         margin-left: 15px !important;
     }
+
     #parte_fila_left img {
-        max-width: 100%; 
+        max-width: 100%;
         height: auto;
         display: block;
     }
@@ -103,7 +107,7 @@ div#fondo_rutas {
     }
 
     #parte_fila_right {
-        flex: 0 1 48%; 
+        flex: 0 1 48%;
         text-align: right;
         padding-right: 15px !important;
     }
@@ -113,6 +117,7 @@ div#fondo_rutas {
     #parte_fila_right .parte-fechas {
         text-align: right !important;
     }
+
     #parte_fila_right img {
         max-width: 80%;
         height: auto;
@@ -145,7 +150,7 @@ div#fondo {
     margin-bottom: 20px;
     margin-top: 20px;
     clear: both;
-    padding: 5px;
+    padding: 20px;
     background-color: #eee;
 }
 
@@ -206,7 +211,7 @@ td.casillas {
 }
 
 strong {
-    font-size: 15px;
+    font-size: large;
 }
 
 a,
@@ -261,7 +266,7 @@ div.total {
 }
 
 .tituparte {
-    font-size: x-large;
+    font-size: xxx-large;
     font-weight: bold;
     text-transform: uppercase;
     color: #eee;
@@ -300,8 +305,8 @@ img.imagen_parte {
 }
 
 img.imagen_parte {
-    max-height: 140px;
-    max-width: 160px;
+    max-height: 160px;
+    max-width: 280px;
 }
 
 .capa-numero-parte {
@@ -326,7 +331,7 @@ img.imagen_parte {
 
 .detalles-pie small,
 .detalles-pie small strong {
-    font-size: 12px !important;
+    font-size: 12px !Important;
 }
 
 .detalles-pie {
@@ -335,7 +340,7 @@ img.imagen_parte {
 
 .parte-fechas,
 .parte-fechas strong {
-    font-size: 12px !important;
+    font-size: 12px !Important;
 }
 
 .parte-fechas {
@@ -349,16 +354,16 @@ img.imagen_parte {
 
 #parte_fila_left {
     width: 56%;
-    margin:-5px;
+    margin: -5px;
 }
 
-.table-responsive{
+.table-responsive {
     padding-left: 18px !important;
 }
 
 #parte_fila_right {
     float: right;
-    width: 44%;
+    width: 40%;
     text-align: right;
 }
 
@@ -456,27 +461,6 @@ img.imagen_parte {
     margin-left: -179px;
 }
 
-#DatosAcceso {
-    font-size: 18px;
-    padding: 10px 20px;
-
-}
-
-/* Botones */
-#BotonSalir {
-    color: #fffcfc !important;
-    background-color: rgb(235, 118, 118);
-    border-color: #d9edf7;
-    font-size: 18px;
-    padding: 10px 20px;
-}
-
-#BotonSalir:hover {
-    background-color: rgb(238, 74, 74);
-    border-color: #d9edf7;
-
-}
-
 
 [class^="bi"] {
     width: 24px !important;
@@ -521,16 +505,12 @@ img.imagen_parte {
     color: #ff0000;
     /* Cambia el color al pasar el cursor */
 }
-.pedido-completo-pie{
+
+.pedido-completo-pie {
     margin-left: 15px;
 }
-.imgParte2hoja{
+
+.imgParte2hoja {
     margin-right: -25px !important;
 
-}
-
-@media (min-width: 1200px) {
-    .h3, h3 {
-        font-size: 25px;
-    }
 }
