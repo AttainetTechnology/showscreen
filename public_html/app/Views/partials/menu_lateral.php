@@ -111,7 +111,7 @@
                 // Obtiene el NIF de la empresa
                 $nif = $dbConnectionsModel->getNIF($id_empresa);
                 if (!empty($nif)) {
-                    $url = "https://dev.showscreen.app/presentes/" . $nif;
+                    $url = "https://showscreen.app/presentes/" . $nif;
                 ?>
                 <ul class="nav nav-second-level">
                 <li>

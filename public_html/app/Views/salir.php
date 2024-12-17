@@ -30,7 +30,7 @@
             }
 
             // Construir la URL
-            $url = "https://dev.showscreen.app/presentes/" . $nif;
+            $url = "https://showscreen.app/presentes/" . $nif;
             ?>
 
             <div class="volver">
