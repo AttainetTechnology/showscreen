@@ -59,7 +59,7 @@
                         echo '<a class="dropdown-item" href="#" data-id_user="' . $session_data['id_user'] . '" data-nivel_acceso="' . $nivel_acceso . '">' . $nombre_usuario . '</a></br>';
                         // Si el nivel de acceso es 1, mostrar la opción de editar acceso
                         if ($session_data['nivel'] == 1) {
-                            echo '<a class="dropdown-item" href="https://dev.showscreen.app/usuarios/' . $session_data['id_user'] . '">Editar Acceso</a></br>';
+                            echo '<a class="dropdown-item" href="https://showscreen.app/usuarios/' . $session_data['id_user'] . '">Editar Acceso</a></br>';
                         }
                     }
                     ?>

@@ -565,3 +565,23 @@ WHERE `id` = :id:', [...], false)
 10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-05 10:32:39 --> BadMethodCallException: Call to undefined method App\Models\Lineaspedido_model::anular_lineas
+[Method: GET, Route: pedidos/anular/17418]
+in SYSTEMPATH/Model.php on line 932.
+ 1 APPPATH/Controllers/Pedidos.php(310): CodeIgniter\Model->__call('anular_lineas', [...])
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Pedidos->anular('17418')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pedidos))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-05 10:34:39 --> BadMethodCallException: Call to undefined method App\Models\Lineaspedido_model::anular_lineas
+[Method: GET, Route: pedidos/anular/17418]
+in SYSTEMPATH/Model.php on line 932.
+ 1 APPPATH/Controllers/Pedidos.php(310): CodeIgniter\Model->__call('anular_lineas', [...])
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Pedidos->anular('17418')
+ 3 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pedidos))
+ 4 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

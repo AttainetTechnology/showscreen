@@ -268,9 +268,7 @@ use App\Models\Menu_familias_model; ?>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
-					<table>
-						<p>No hay incidencias</p>
-					</table>
+					Próximamente
 				</div>
 			</div>
 		</div>
