@@ -269,27 +269,7 @@ use App\Models\Menu_familias_model; ?>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<table>
-						<thead>
-							<tr>
-								<th>Usuario</th>
-								<th>Incidencia</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php if (!empty($incidencias)): ?>
-								<?php foreach ($incidencias as $incidencia): ?>
-									<tr>
-										<td><?= $incidencia->nombre_usuario ?></td>
-										<td><?= $incidencia->incidencia ?></td>
-
-									</tr>
-								<?php endforeach; ?>
-							<?php else: ?>
-								<tr>
-									<td colspan="3">No se encontraron incidencias en los últimos 7 días.</td>
-								</tr>
-							<?php endif; ?>
-						</tbody>
+						<p>No hay incidencias</p>
 					</table>
 				</div>
 			</div>

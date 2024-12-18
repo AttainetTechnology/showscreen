@@ -1022,7 +1022,11 @@ input[type=number] {
 
 }
 .enTerminados{
+<<<<<<< HEAD
 	background: #DFEFD8!important;
+=======
+	background-color: #DFEFD8 !important;
+>>>>>>> 0feeb9269416fd860a6ea42e6ae741cae7331d98
 }
 .enEntregados{
 	background-color: #69C869 !important;
