@@ -20,9 +20,9 @@ class Vacaciones extends BaseController
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);
         $model = new Vacaciones_model($db);
-        $vacaciones = $model->findAll();
-
-        // Obtener nombres de usuarios
+    
+        $vacaciones = $model->orderBy('id', 'DESC')->findAll();
+    
         $usuariosModel = new Usuarios2_Model($db);
         foreach ($vacaciones as &$vacacion) {
             if (isset($vacacion['user_id'])) {
@@ -31,13 +31,13 @@ class Vacaciones extends BaseController
             } else {
                 $vacacion['nombre_usuario'] = 'Desconocido';
             }
-
-            // Convertir fechas al formato dd/mm/yyyy
+    
             $vacacion['desde'] = DateTime::createFromFormat('Y-m-d', $vacacion['desde'])->format('d/m/Y');
             $vacacion['hasta'] = DateTime::createFromFormat('Y-m-d', $vacacion['hasta'])->format('d/m/Y');
         }
         return $this->response->setJSON($vacaciones);
     }
+    
 
     public function getUsuarios()
     {
