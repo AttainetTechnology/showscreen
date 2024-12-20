@@ -425,18 +425,28 @@ class Pedidos extends BaseController
 		$estadoModel = new EstadoModel($db);
 		$lineaPedidoModel = new LineaPedido($db);
 		$linea_pedido = $lineaPedidoModel->find($id_lineapedido);
+	
 		if (!$linea_pedido) {
 			return $this->response->setStatusCode(404, 'Línea de pedido no encontrada');
 		}
+	
+		// Verificar si el estado de la línea es "en cola"
+		$isEstadoEnCola = ($linea_pedido['estado'] === 'en cola');
+	
+		// Pasar datos a la vista
 		$data['productos'] = $productosModel->findAll();
 		$data['estados'] = $estadoModel->findAll();
 		$data['linea_pedido'] = $linea_pedido;
+		$data['isEstadoEnCola'] = $isEstadoEnCola;  // Variable adicional para controlar la visibilidad
+	
+		// Renderizar la vista dependiendo de si es AJAX o no
 		if ($this->request->isAJAX()) {
 			return view('editLineaPedido', $data);
 		} else {
 			return redirect()->back()->with('error', 'Acción no permitida');
 		}
 	}
+	
 	public function mostrarFormularioAddLineaPedido($id_pedido)
 	{
 		$data = usuario_sesion();
