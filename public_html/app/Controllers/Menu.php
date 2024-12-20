@@ -54,7 +54,9 @@ class Menu extends BaseController
 		}
 		foreach ($menus as &$menu) {
 			$menu['nivel'] = $nivelesMap[$menu['nivel']] ?? 'Desconocido';
+			$menu['activo'] = $menu['activo'] == 1 ? 'Activo' : 'Desactivado'; 
 		}
+		
 		return [
 			'sin_dependencia' => $menus
 		];
@@ -277,6 +279,5 @@ class Menu extends BaseController
 			return $this->response->setJSON(['success' => false, 'message' => 'Error al actualizar el menú.']);
 		}
 	}
-
 
 }
