@@ -120,4 +120,8 @@ $routes->get('editar_rutas/(:num)', 'Rutas::editar_ruta/$1');
 $routes->post('rutas/updateRuta/(:num)', 'Rutas::updateRuta/$1');
 $routes->get('rutas/add_ruta', 'Rutas::add_ruta');
 $routes->post('rutas/addRuta', 'Rutas::addRuta');
-
+$routes->group('gallery', function ($routes) {
+    $routes->get('', 'Gallery::index'); // Página principal de la galería
+    $routes->get('(:any)', 'Gallery::index/$1'); // Maneja carpetas y subcarpetas
+});
+$routes->post('gallery/delete', 'Gallery::delete');
