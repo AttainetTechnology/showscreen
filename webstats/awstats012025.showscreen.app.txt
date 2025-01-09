@@ -1,0 +1,797 @@
+AWSTATS DATA FILE 7.7 (build 20161204)
+# If you remove this file, all statistics for date 202501 will be lost/reset.
+# Last config file used to build this data file was /etc/awstats/awstats.showscreen.app.conf.
+
+# Position (offset in bytes) in this file for beginning of each section for
+# direct I/O access. If you made changes somewhere in this file, you should
+# also remove completely the MAP section (AWStats will rewrite it at next
+# update).
+BEGIN_MAP 28
+POS_GENERAL 1997                
+POS_TIME 2667                
+POS_VISITOR 7586                
+POS_DAY 9119                
+POS_DOMAIN 3382                
+POS_LOGIN 3764                
+POS_ROBOT 3919                
+POS_WORMS 4285                
+POS_EMAILSENDER 4416                
+POS_EMAILRECEIVER 4559                
+POS_SESSION 9390                
+POS_SIDER 9586                
+POS_FILETYPES 4694                
+POS_DOWNLOADS 4914                
+POS_OS 4962                
+POS_BROWSER 5100                
+POS_SCREENSIZE 5538                
+POS_UNKNOWNREFERER 5612                
+POS_UNKNOWNREFERERBROWSER 5826                
+POS_ORIGIN 5995                
+POS_SEREFERRALS 6137                
+POS_PAGEREFS 6329                
+POS_SEARCHWORDS 6477                
+POS_KEYWORDS 6629                
+POS_MISC 2330                
+POS_ERRORS 6688                
+POS_CLUSTER 3620                
+POS_SIDER_404 6828                
+END_MAP
+
+# LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
+# FirstTime   = Date of first visit for history file
+# LastTime    = Date of last visit for history file
+# LastUpdate  = Date of last update - Nb of parsed records - Nb of parsed old records - Nb of parsed new records - Nb of parsed corrupted - Nb of parsed dropped
+# TotalVisits = Number of visits
+# TotalUnique = Number of unique visitors
+# MonthHostsKnown   = Number of hosts known
+# MonthHostsUnKnown = Number of hosts unknown
+BEGIN_GENERAL 8
+LastLine 20250109025719 63202 20830429 0
+FirstTime 0
+LastTime 20250109023618
+LastUpdate 20250109043717 63202 58409 4737 0 56
+TotalVisits 58                  
+TotalUnique 37                  
+MonthHostsKnown 0                   
+MonthHostsUnknown 37                  
+END_GENERAL
+
+# Misc ID - Pages - Hits - Bandwidth
+BEGIN_MISC 10
+RealPlayerSupport 0 0 0
+JavaEnabled 0 0 0
+FlashSupport 0 0 0
+TotalMisc 0 0 0
+AddToFavourites 0 16 0
+DirectorSupport 0 0 0
+PDFSupport 0 0 0
+QuickTimeSupport 0 0 0
+WindowsMediaPlayerSupport 0 0 0
+JavascriptDisabled 0 0 0
+END_MISC
+
+# Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
+BEGIN_TIME 24
+0 0 0 0 0 1 30
+1 0 0 0 1 1 3105
+2 4 4 7302 12 17 20647
+3 1 1 1387 1 1 24
+4 0 0 0 0 0 0
+5 5 7 15749 2 2 0
+6 31 158 2529295 11 14 6634
+7 94 603 2095883 25 112 56934
+8 128 950 7914504 20 47 18239
+9 130 780 2974830 11 24 8899
+10 155 1089 7358530 57 84 197726
+11 242 1534 9465833 33 127 76257
+12 279 1342 8299398 54 84 22211
+13 190 908 5158284 15 37 10606
+14 81 526 2376030 6 19 9270
+15 154 947 4009790 21 151 186035
+16 175 673 3048468 24 27 8905
+17 34 177 650781 5 6 5430
+18 47 295 1587331 5 9 18539
+19 11 56 213726 0 0 0
+20 6 6 7756 5 8 16362
+21 0 0 0 0 0 0
+22 2 2 2798 0 0 0
+23 0 0 0 0 0 0
+END_TIME
+
+# Domain - Pages - Hits - Bandwidth
+# The 10 first Pages must be first (order not required for others)
+BEGIN_DOMAIN 13
+es 1739 10027 57672725
+us 12 13 20430
+cn 4 4 4958
+gb 2 2 2798
+se 2 2 2798
+ie 2 2 1399
+de 2 2 2786
+bg 1 1 1080
+nl 1 1 1399
+in 1 1 1399
+ca 1 1 3105
+at 1 1 1399
+ru 1 1 1399
+END_DOMAIN
+
+# Cluster ID - Pages - Hits - Bandwidth
+BEGIN_CLUSTER 0
+END_CLUSTER
+
+# Login - Pages - Hits - Bandwidth - Last visit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_LOGIN 0
+END_LOGIN
+
+# Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
+# The 10 first Hits must be first (order not required for others)
+BEGIN_ROBOT 7
+Googlebot/ 11 8763 20250109025719 3
+AhrefsBot/ 5 2226 20250108065730 3
+dataprovider\.com 5 11153 20250105153230 1
+bingbot/ 2 60 20250103102148 2
+Wget/ 2 6210 20250101023751 0
+unknown 1 56 20250103114216 1
+curl 1 3105 20250102121446 0
+END_ROBOT
+
+# Worm ID - Hits - Bandwidth - Last visit
+# The 5 first Hits must be first (order not required for others)
+BEGIN_WORMS 0
+END_WORMS
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first Hits must be first (order not required for others)
+BEGIN_EMAILSENDER 0
+END_EMAILSENDER
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first hits must be first (order not required for others)
+BEGIN_EMAILRECEIVER 0
+END_EMAILRECEIVER
+
+# Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
+BEGIN_FILETYPES 8
+png 386 4713484 0 0
+jpg 104 1733537 0 0
+jpeg 6 40026 0 0
+webp 18 11700 0 0
+css 7788 8417139 0 0
+Unknown 1686 42542066 0 0
+html 65 253392 0 0
+gif 5 6331 0 0
+END_FILETYPES
+
+# Downloads - Hits - Bandwidth
+BEGIN_DOWNLOADS 0
+END_DOWNLOADS
+
+# OS ID - Hits
+BEGIN_OS ID - Hits - Pages 5
+linux 4 2
+macosx 396 77
+linuxandroid 444 193
+win10 9208 1491
+Unknown 6 6
+END_OS
+
+# Browser ID - Hits - Pages
+BEGIN_BROWSER 18
+chrome131.0.0.0 9640 1573
+chrome105.0.0.0 1 1
+chrome100.0.3348.474 1 1
+chrome91.0.4472.114 1 1
+chrome80.0.3987.162 1 1
+chrome101.0.4951.54 1 1
+Unknown 1 1
+chrome124.0.0.0 1 1
+chrome114.0.0.0 4 3
+chrome122.0.0.0 4 4
+chrome119.0.0.0 1 1
+chrome59.0.3071.125 6 6
+chrome96.0.4664.110 1 1
+chrome106.0.0.0 2 2
+chrome125.0.0.0 2 1
+mozilla 5 5
+chrome103.0.5060.129 385 165
+chrome87.0.4280.88 1 1
+END_BROWSER
+
+# Screen size - Hits
+BEGIN_SCREENSIZE 0
+END_SCREENSIZE
+
+# Unknown referer OS - Last visit date
+BEGIN_UNKNOWNREFERER 2
+httpx_-_Open-source_project_(github.com/Cloudsek-Engineering/fdf-httpx) 20250104114350
+Mozilla/5.0_(compatible) 20250107183315
+END_UNKNOWNREFERER
+
+# Unknown referer Browser - Last visit date
+BEGIN_UNKNOWNREFERERBROWSER 1
+httpx_-_Open-source_project_(github.com/Cloudsek-Engineering/fdf-httpx) 20250104114350
+END_UNKNOWNREFERERBROWSER
+
+# Origin - Pages - Hits 
+BEGIN_ORIGIN 6
+From0 228 229
+From1 0 0
+From2 10 10
+From3 0 0
+From4 1531 9819
+From5 0 0
+END_ORIGIN
+
+# Search engine referers ID - Pages - Hits
+BEGIN_SEREFERRALS 3
+google_com 5 5
+google_es 1 1
+www_google_com 4 4
+END_SEREFERRALS
+
+# External page referers - Pages - Hits
+# The 10 first Pages must be first (order not required for others)
+BEGIN_PAGEREFS 0
+END_PAGEREFS
+
+# Search keyphrases - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_SEARCHWORDS 0
+END_SEARCHWORDS
+
+# Search keywords - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_KEYWORDS 0
+END_KEYWORDS
+
+# Errors - Hits - Bandwidth
+BEGIN_ERRORS 5
+302 216 0
+404 51 85250
+301 30 1695
+403 22 178461
+500 409 281994
+END_ERRORS
+
+# URL with 404 errors - Hits - Last URL referrer
+BEGIN_SIDER_404 12
+/sitemap_index.xml 2 -
+/.well-known/security.txt 1 -
+/sitemap.xml.gz 2 -
+/security.txt 1 http://www.showscreen.app/security.txt
+/publicpublic/assets/uploads/favicon 5 https://showscreen.app/presentes
+/humans.txt 1 http://www.showscreen.app/humans.txt
+/sitemap.xml 1 -
+/ads.txt 2 -
+/gallery/productos_necesidad 1 https://showscreen.app/Index
+/wp-login.php 1 -
+/sitemaps.xml 2 -
+//assets/js/functions.js 32 https://showscreen.app/pedidos/print/17550
+END_SIDER_404
+
+# Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
+# [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
+# The 10 first Hits must be first (order not required for others)
+BEGIN_VISITOR 37
+95.62.181.206 874 4691 26117525 20250108161730
+170.253.36.75 699 4392 26611219 20250108162738
+79.117.235.60 66 427 1685610 20250107160017
+46.6.61.24 64 383 1891684 20250108190951
+95.62.200.37 12 78 1181169 20250108105541
+88.29.190.25 10 30 114013 20250108122807
+79.151.128.166 9 18 54615 20250108052106
+142.250.32.35 3 3 3240 20250108092149
+34.244.58.59 2 2 1399 20250102164558
+79.117.255.135 2 3 5986 20250107153012
+149.56.150.218 1 1 3105 20250105153210
+77.26.255.5 1 2 4918 20250106122110
+79.117.255.133 1 2 4918 20250108072902
+161.35.156.229 1 1 1399 20250103203158
+167.71.142.116 1 1 1399 20250105184837
+68.183.86.135 1 1 1399 20250101091329
+74.125.210.34 1 1 1080 20250108092149
+64.227.24.23 1 1 1399 20250101200050
+178.254.29.124 1 1 1387 20250103034957
+123.160.223.73 1 1 1399 20250103202157
+3.68.89.5 1 1 1399 20250103021511
+104.207.42.149 1 1 1080 20250103204956
+46.101.9.216 1 1 1399 20250104065920
+34.222.4.148 1 1 3105 20250109023618 20250109023618 /
+185.54.49.166 1 1 1399 20250104225646
+209.38.165.235 1 1 1399 20250107183315
+142.250.32.36 1 1 1080 20250108052108
+104.207.39.85 1 1 1080 20250103204958
+66.249.83.107 1 1 1080 20250108092149
+44.234.48.151 1 1 1399 20250104114350
+176.83.4.143 1 1 1068 20250108161434
+123.160.223.74 1 1 1399 20250103202155
+15.204.182.106 2 2 2798 20250102023346
+152.53.108.253 1 1 1399 20250108225335
+93.158.91.25 1 1 1399 20250105173635
+35.94.153.178 1 2 4930 20250104061611
+185.13.99.111 1 1 1399 20250103114216
+END_VISITOR
+
+# Date - Pages - Hits - Bandwidth - Visits
+BEGIN_DAY 9
+20250101 6 8 17267 4
+20250102 41 268 1306611 5
+20250103 53 440 3367901 10
+20250104 4 5 9127 4
+20250105 3 3 5903 3
+20250106 4 10 32555 2
+20250107 795 4884 30308824 8
+20250108 862 4439 22666382 21
+20250109 1 1 3105 1
+END_DAY
+
+# Session range - Number of visits
+BEGIN_SESSION 6
+1h+ 10
+30mn-1h 2
+15mn-30mn 3
+30s-2mn 2
+0s-30s 38
+2mn-5mn 2
+END_SESSION
+
+# URL - Pages - Bandwidth - Entry - Exit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_SIDER 454
+/pedidos/enmarcha 192 2243722 3 5
+/pedidos/addLineaPedido 76 4028 0 0
+/pedidos 67 19867641 2 4
+//Fichar 54 79791 0 0
+/pedidos/edit/17550 47 1363777 0 0
+/ 38 49560 32 22
+/Index 35 198892 2 1
+/ausentes 34 57487 0 0
+/pedidos/add 29 653403 0 0
+/pedidos/edit/17456 26 911012 0 0
+//Partes_controller/verificarEstadoProcesos/45051 1 25 0 0
+/gallery/logos 3 14101 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17494 1 4378 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17552 1 4381 0 0
+//Partes_controller/CambiaEstado/45053 1 21 0 0
+//Partes_controller/CambiaEstado/45089 1 21 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44417 1 4867 0 0
+/Ruta_pedido/mostrarFormulario/17500/1983 1 2970 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45053 1 4823 0 0
+//Partes_controller/verificarEstadoProcesos/45006 1 25 0 0
+/partes/print/44641 1 4063 0 0
+/Ruta_pedido/rutas/17559/1949 2 636 0 0
+//Partes_controller/CambiaEstado/45009 1 21 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44980 2 9674 0 0
+/pedidos/updateLineaPedido/45053 1 66 0 0
+//Partes_controller/verificarEstadoProcesos/45002 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45008 1 25 0 0
+/pedidos/updateLineaPedido/45095 1 66 0 0
+/pedidos/edit/17429 1 34878 0 0
+/pedidos/edit/17223 2 69750 0 0
+//Partes_controller/verificarEstadoProcesos/45027 1 25 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44881 1 4838 0 0
+/productos 16 161391 0 0
+/partes/print/45028 3 10216 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45048 1 4832 0 0
+/pedidos/edit/17362 1 34358 0 1
+/pedidos/edit/17416 3 104566 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45079 1 4826 0 0
+/pedidos/edit/17561 5 139060 0 0
+/lista_produccion/enmaquina 3 27849 0 0
+//Partes_controller/CambiaEstado/45052 1 21 0 0
+/partes/print/45010 1 3212 0 0
+/pedidos/updateLineaPedido/45058 1 66 0 0
+/pedidos/edit/17494 7 246145 0 0
+/partes/print/45054 2 6980 0 0
+//Partes_controller/verificarEstadoProcesos/45020 1 25 0 0
+/partes/print/45008 1 4017 0 0
+/pedidos/edit/17447 4 139741 1 0
+//Partes_controller/verificarEstadoProcesos/45077 1 25 0 0
+/partes/print/45037 1 3502 0 0
+/salir/42 3 4395 0 0
+/Ruta_pedido/rutas/17500/1983 2 649 0 0
+/procesos_pedidos/index 1 1068 1 0
+/pedidos/print/17563 2 4699 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45077 3 14494 0 0
+//Partes_controller/verificarEstadoProcesos/45088 1 25 0 0
+//Partes_controller/CambiaEstado/45042 1 21 0 0
+/pedidos/edit/17531 3 104716 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17561 1 4378 0 0
+/partes/print/45052 1 3445 0 0
+/pedidos/updateLineaPedido/45046 1 66 0 0
+/pedidos/edit/17492 7 244013 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17542 2 8758 0 0
+/salir/19 2 2938 0 0
+/pedidos/updateLineaPedido/45032 1 66 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45045 1 4822 0 0
+//Partes_controller/CambiaEstado/45022 1 21 0 0
+/menu 4 44668 0 1
+/pedidos/updateLineaPedido/44897 1 66 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45032 1 4786 0 0
+/pedidos/edit/17559 5 174020 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45029 2 9592 0 0
+/Ruta_pedido/mostrarFormulario/17559/1949 1 2971 0 0
+/entrar/19 2 2882 0 0
+//Partes_controller/verificarEstadoProcesos/45080 1 25 0 0
+/pedidos/edit/17524 2 69974 0 0
+/pedidos/edit/17486 1 35005 0 0
+/pedidos/updateLineaPedido/136 2 132 0 0
+/productos/getUnidades 16 1040 0 0
+/pedidos/updateLineaPedido/45094 1 66 0 0
+/partes/print/45076 1 3429 0 0
+/pedidos/edit/17428 2 70166 0 0
+//Partes_controller/CambiaEstado/45078 1 21 0 0
+/productos/getProductos 16 79910 0 0
+/salir/22 3 4429 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45044 11 53351 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44977 2 9692 0 0
+/pedidos/updateLineaPedido/45051 1 66 0 0
+/presentes/12884219 10 13342 1 0
+//Partes_controller/verificarEstadoProcesos/45052 1 25 0 0
+//Partes_controller/CambiaEstado/45081 1 21 0 0
+/pedidos/updateLineaPedido/45040 1 66 0 0
+/salir/17 2 2954 0 0
+//Partes_controller/verificarEstadoProcesos/45091 1 25 0 0
+/pedidos/edit/17466 3 104625 0 0
+/partes/print/45080 1 3512 0 0
+/partes/print/45077 1 4006 0 0
+/Ruta_pedido/mostrarFormulario/17553/1703 1 2970 0 0
+/pedidos/edit/17522 1 35150 0 0
+/pedidos/print/17561 1 2318 0 0
+/pedidos/updateLineaPedido/45087 2 132 0 0
+/pedidos/edit/17467 2 70154 0 1
+/partes/print/45029 1 3211 0 0
+//Partes_controller/CambiaEstado/45091 1 21 0 0
+//Partes_controller/verificarEstadoProcesos/45048 1 25 0 0
+/partes/print/45092 1 3411 0 0
+/Ruta_pedido/mostrarFormulario/17494/1983 1 2973 0 0
+//Partes_controller/CambiaEstado/45027 1 21 0 0
+/partes/print/45046 1 3452 0 0
+/pedidos/edit/17099 3 104769 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44823 3 14493 0 0
+/pedidos/print/17544 1 2381 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17564 4 17516 0 0
+/editar_rutas/8939 1 23801 0 0
+//Partes_controller/verificarEstadoProcesos/45005 1 25 0 0
+/partes/print/45009 1 4017 0 0
+/pedidos/edit/17541 18 523488 0 0
+//Partes_controller/CambiaEstado/45013 1 21 0 0
+//Partes_controller/CambiaEstado/45037 1 21 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44962 1 4803 0 0
+/select_empresa 5 54398 0 0
+/gallery/productos_necesidad 4 21711 0 1
+/Index/pendientes 1 6977 0 0
+//Partes_controller/CambiaEstado/45077 1 21 0 0
+/partes/print/45047 1 3447 0 0
+/pedidos/edit/17558 4 139129 0 0
+/pedidos/updateLineaPedido/45049 1 66 0 0
+/pedidos/print/17558 1 2375 0 0
+/Ruta_pedido/mostrarFormulario/17548/1703 3 8910 0 0
+/Index/ 16 85180 1 3
+//Partes_controller/verificarEstadoProcesos/45081 1 25 0 0
+/pedidos/edit/17344 2 69746 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17554 2 8756 0 0
+/pedidos/edit/59 6 209509 0 0
+/partes/print/45013 1 3202 0 0
+//Partes_controller/CambiaEstado/45012 1 21 0 0
+/partes/print/45055 2 6446 0 0
+/Ruta_pedido/mostrarFormulario/17544/2714 1 2969 0 0
+/pedidos/print/17550 2 4838 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44963 2 9678 0 0
+//Partes_controller/CambiaEstado/45010 1 21 0 0
+/partes/print/45048 1 3475 0 0
+//Partes_controller/CambiaEstado/45026 1 21 0 0
+/pedidos/edit/17557 9 243864 0 0
+//Partes_controller/verificarEstadoProcesos/45023 1 25 0 0
+/pedidos/edit/17545 12 419952 0 0
+/pedidos/edit/57 4 139759 0 0
+/pedidos/updateLineaPedido/45026 1 66 0 0
+//Partes_controller/verificarEstadoProcesos/45021 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45054 1 25 0 0
+/rutas 4 33684 0 0
+/pedidos/updateLineaPedido/45077 3 198 0 0
+/pedidos/edit/17534 2 69625 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45051 1 4817 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45094 1 4810 0 0
+/pedidos/edit/17556 22 662770 0 0
+/partes/print/45039 1 3222 0 0
+/pedidos/print/17456 1 2940 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45090 1 4807 0 0
+/entrar/107 2 2878 0 0
+/entrar/21 2 2876 0 0
+//Partes_controller/verificarEstadoProcesos/45055 1 25 0 0
+/partes/print/45051 1 3445 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17558 2 8756 0 0
+//Partes_controller/verificarEstadoProcesos/45004 1 25 0 0
+/partes/print/45078 1 4001 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45087 2 9613 0 0
+/pedidos/print/17552 1 2295 0 0
+/menu/updateSubmenu/64 1 16 0 0
+/pedidos/edit/17553 3 104141 0 0
+/partes/print/45020 1 3423 0 0
+/pedidos/edit/17564 10 349038 0 0
+//Partes_controller/verificarEstadoProcesos/45029 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45010 1 25 0 0
+//Partes_controller/CambiaEstado/45008 1 21 0 0
+//Partes_controller/verificarEstadoProcesos/45079 1 25 0 0
+/partes/print/45089 1 3416 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17556 4 17512 0 0
+//Partes_controller/verificarEstadoProcesos/45090 1 25 0 0
+/Ruta_pedido/rutas/17544/2714 3 897 0 0
+/productos_necesidad 1 8123 0 0
+/pedidos/edit/17562 4 104246 0 0
+/rutas/getRutas 8 869863 0 0
+//Partes_controller/verificarEstadoProcesos/45022 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45046 1 25 0 0
+/pedidos/updateLineaPedido/45048 1 66 0 0
+/pedidos/edit/17542 13 383666 0 0
+/partes/print/45006 1 4020 0 0
+/gallery/productos 7 48592 0 0
+/pedidos/edit/17439 1 35147 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17562 1 4378 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17551 3 13140 0 0
+/pedidos/entregados 4 984619 0 0
+/salir/21 2 2936 0 0
+/pedidos/updateLineaPedido/45025 2 132 0 0
+/partes/print/45049 1 3441 0 0
+/partes/print/45091 1 3409 0 0
+/partes/print/45023 2 6840 0 0
+/entrar/20 2 2865 0 0
+//Partes_controller/verificarEstadoProcesos/45045 1 25 0 0
+/pedidos/updateLineaPedido/45090 1 66 0 0
+//Partes_controller/verificarEstadoProcesos/45042 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45076 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45013 1 25 0 0
+//Partes_controller/CambiaEstado/45028 1 21 0 0
+/partes/print/45007 1 4020 0 0
+/pedidos/edit/17535 20 385767 0 0
+/pedidos/print/17539 1 2395 0 0
+/pedidos/edit/17544 20 627346 0 0
+/Ruta_pedido/guardarRuta 11 176 0 0
+/entrar/24 4 5792 0 0
+/entrar/17 2 2893 0 0
+//Partes_controller/verificarEstadoProcesos/45092 1 25 0 0
+/pedidos/print/17540 1 2340 0 0
+/Rutas_transporte/rutas 15 72322 8 6
+/pedidos/mostrarFormularioAddLineaPedido/17550 8 35040 0 0
+/partes/print/45038 2 8517 0 0
+//Partes_controller/CambiaEstado/45002 1 21 0 0
+/partes/print/45027 2 6915 0 0
+/Ruta_pedido/mostrarFormulario/17558/2494 1 2970 0 0
+//Partes_controller/CambiaEstado/45019 1 21 0 0
+//Partes_controller/verificarEstadoProcesos/45003 1 25 0 0
+/Ruta_pedido/mostrarFormulario/17564/2680 1 2969 0 0
+/pedidos/edit/16855 1 35108 0 0
+/lista_produccion/todoslospartes 2 125578 0 0
+/partes/print/45019 1 3210 0 0
+/partes/print/45079 1 3988 0 0
+/pedidos/updateLineaPedido/45036 1 66 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45019 1 4805 0 0
+/pedidos/updateLineaPedido/45042 1 66 0 0
+//Partes_controller/verificarEstadoProcesos/45056 1 25 0 0
+/pedidos/edit/17489 1 34796 0 0
+/entrar/42 3 4307 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/136 2 9472 0 0
+/partes/print/45026 1 4003 0 0
+//Partes_controller/CambiaEstado/45039 1 21 0 0
+/pedidos/updateLineaPedido/45044 5 330 0 0
+//Partes_controller/CambiaEstado/45088 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17559 2 8756 0 0
+/partes/print/45088 1 3419 0 0
+/pedidos/print/17542 1 2417 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/44897 2 9614 0 0
+/pedidos/edit/17521 2 69727 0 0
+/login 6 6556 2 2
+/partes/print/45003 1 4039 0 0
+//Partes_controller/CambiaEstado/45038 1 21 0 0
+/entrar/43 2 2868 0 0
+/salir/20 2 2924 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45049 1 4814 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45052 1 4814 0 0
+/pedidos/edit/17318 3 104703 0 0
+/entrar/23 2 2894 0 0
+//Partes_controller/verificarEstadoProcesos/45009 1 25 0 0
+/pedidos/updateLineaPedido/45047 1 66 0 0
+//Partes_controller/CambiaEstado/45090 1 21 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45042 2 9608 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45093 1 4832 0 0
+//Partes_controller/CambiaEstado/45050 1 21 0 0
+//Partes_controller/verificarEstadoProcesos/45037 1 25 0 0
+//Partes_controller/CambiaEstado/45020 1 21 0 0
+/gallery/usuarios 3 13623 0 0
+/pedidos/print/17559 1 2372 0 0
+/entrar/22 3 4336 0 0
+//Partes_controller/CambiaEstado/45024 1 21 0 0
+//Partes_controller/CambiaEstado/45045 1 21 0 0
+/partes/print/45081 1 3541 0 0
+/Ruta_pedido/rutas/17547/1756 2 634 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17541 3 13137 0 0
+/partes/print/45025 1 3999 0 0
+/pedidos/updateLineaPedido/45019 1 66 0 0
+/pedidos/updateLineaPedido/45052 1 66 0 0
+/Select_empresa/ 11 118652 0 0
+/entrar/16 2 2872 0 0
+/pedidos/edit/17528 2 69686 0 0
+/Ruta_pedido/rutas/17553/1703 3 894 0 0
+/menu/edit/64 1 150 0 0
+/pedidos/edit/17537 5 104689 0 0
+/partes/print/45005 1 4028 0 0
+//Partes_controller/CambiaEstado/45076 1 21 0 0
+//Partes_controller/CambiaEstado/45047 1 21 0 0
+/Fichar 11 15664 0 0
+/pedidos/print/17547 1 2398 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17545 8 35031 0 0
+/rutas_transporte/rutas/entregado 10 52611 5 7
+//Partes_controller/CambiaEstado/45049 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17548 4 17516 0 0
+//Partes_controller/verificarEstadoProcesos/45078 1 25 0 0
+/pedidos/edit/17554 12 418738 0 0
+/pedidos/edit/17563 11 278724 0 1
+/pedidos/updateLineaPedido/45043 1 66 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17560 1 4378 0 0
+/pedidos/updateLineaPedido/45093 1 66 0 0
+//Partes_controller/verificarEstadoProcesos/45007 1 25 0 0
+/partes/print/44927 3 12196 0 0
+/pedidos/edit/17536 1 34863 0 0
+//Partes_controller/verificarEstadoProcesos/45012 1 25 0 0
+/pedidos/edit/17293 1 34879 0 0
+/pedidos/print/17546 1 2350 0 0
+/pedidos/edit/17540 10 313219 0 0
+/pedidos/edit/17441 1 35083 0 0
+//Partes_controller/CambiaEstado/45048 1 21 0 0
+/entrar/4 1 1438 0 0
+//Partes_controller/verificarEstadoProcesos/45039 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45089 1 25 0 0
+/Ruta_pedido/obtenerRuta/8939 2 484 0 0
+/pedidos/edit/17552 6 173793 0 0
+/Ruta_pedido/rutas/17558/2494 2 643 0 0
+/rutas/add_ruta 1 22508 0 0
+/pedidos/edit/17425 2 69681 0 0
+/pedidos/updateLineaPedido/45027 1 66 0 0
+/pedidos/edit/17481 2 69572 0 0
+//Partes_controller/CambiaEstado/45054 1 21 0 0
+/pedidos/updateLineaPedido/45029 2 132 0 0
+/Lista_produccion/pendientes 3 32969 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17555 1 4378 0 0
+/pedidos/edit/17560 5 173797 0 0
+//Partes_controller/CambiaEstado/45051 1 21 0 0
+/partes/print/45024 2 6801 0 0
+/pedidos/updateLineaPedido/44823 2 132 0 0
+//Partes_controller/verificarEstadoProcesos/45024 1 25 0 0
+/pedidos/edit/17516 1 34873 0 0
+/pedidos/print/17562 1 2314 0 0
+/menu/update/60 1 16 0 0
+//Partes_controller/verificarEstadoProcesos/45049 1 25 0 0
+/pedidos/updateLineaPedido/45078 3 198 0 0
+//Partes_controller/CambiaEstado/45092 1 21 0 0
+/pedidos/print/17549 1 2336 0 0
+//Partes_controller/CambiaEstado/45025 1 21 0 0
+/pedidos/updateLineaPedido/45079 1 66 0 0
+/pedidos/edit/17543 12 382705 0 0
+//Partes_controller/verificarEstadoProcesos/45047 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45050 1 25 0 0
+/pedidos/edit/17517 1 34833 0 0
+/partes/print/45022 2 6979 0 0
+/menu/submenus/60 2 21504 0 0
+/pedidos/edit/17509 2 69815 0 0
+/rutas/enmarcha 4 33686 0 0
+/pedidos/print/17560 1 2298 0 0
+/rutas/deleteRuta/8936 1 52 0 0
+/pedidos/updateLineaPedido/44881 1 66 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45078 4 19336 0 0
+/partes/print/45002 1 4047 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45058 1 4847 0 0
+/pedidos/print/17556 2 4737 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17540 2 8758 0 0
+//Partes_controller/CambiaEstado/45004 1 21 0 0
+/productos_necesidad/getProductos 1 1628 0 0
+/pedidos/edit/17530 1 34912 0 0
+/pedidos/edit/17546 6 173839 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45040 2 9739 0 0
+/pedidos/updateLineaPedido/45074 2 132 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45027 2 9610 0 0
+/pedidos/edit/17555 4 104210 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45063 1 4803 0 0
+/pedidos/edit/17513 2 69712 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17456 15 65685 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45026 1 4849 0 0
+/pedidos/print/17557 1 2373 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45047 1 4816 0 0
+/pedidos/print/17555 1 2308 0 0
+/pedidos/edit/17547 11 313617 0 0
+/pedidos/edit/17338 1 34858 0 0
+/partes/print/45004 1 4019 0 0
+/entrar/12 2 2887 0 0
+//Partes_controller/CambiaEstado/45029 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17557 2 8758 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45020 2 9614 0 0
+/partes/print/45045 7 24119 0 0
+//Partes_controller/verificarEstadoProcesos/45028 1 25 0 0
+/select_empresa/get_empresa/9 2 392 0 0
+//Partes_controller/CambiaEstado/45005 1 21 0 0
+/pedidos/print/17516 1 2386 0 0
+//Partes_controller/verificarEstadoProcesos/45019 1 25 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17547 2 8758 0 0
+/pedidos/edit/17548 21 735939 0 0
+/pedidos/edit/17497 1 35151 0 0
+/pedidos/edit/17352 1 35028 0 0
+//Partes_controller/CambiaEstado/45021 1 21 0 0
+/pedidos/print/17543 1 2343 0 0
+/pedidos/edit/17551 24 736129 0 0
+/salir/23 2 2953 0 0
+/partes/print/45090 1 3435 0 0
+//Partes_controller/CambiaEstado/45079 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17500 1 4376 0 0
+/pedidos/edit/17500 3 104882 0 0
+/pedidos/edit/17539 13 383598 0 0
+/partes/print/45056 1 3401 0 0
+/pedidos/edit/17496 1 34900 0 0
+/pedidos/updateLineaPedido/45020 1 66 0 0
+/Ruta_pedido/rutas/17548/1703 5 2055 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17563 3 13134 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45025 2 9688 0 0
+//Partes_controller/CambiaEstado/45080 1 21 0 0
+/pedidos/edit/17493 3 104582 0 0
+/pedidos/edit/17520 3 104572 0 0
+/partes/print/45053 5 17882 0 0
+//Partes_controller/verificarEstadoProcesos/45053 1 25 0 0
+/pedidos/edit/17387 2 69729 0 0
+/public/assets/uploads/files/9/logos/faviconOFFERTILES.webp 18 11700 0 2
+/Ruta_pedido/rutas/17494/1983 2 827 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45050 1 4822 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17543 1 4379 0 0
+//Partes_controller/CambiaEstado/45006 1 21 0 0
+//Partes_controller/CambiaEstado/45056 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17546 1 4379 0 0
+//Partes_controller/CambiaEstado/45046 1 21 0 0
+/pedidos/edit/17328 1 34986 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45074 6 28919 0 0
+/pedidos/updateLineaPedido/45063 1 66 0 0
+/pedidos/updateLineaPedido/44980 1 66 0 0
+/salir/24 3 4436 0 0
+/salir/16 3 4394 0 0
+/editar_rutas/8936 1 23708 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17549 1 4379 0 0
+/pedidos/print/17551 2 4954 0 0
+/pedidos/updateLineaPedido/45050 1 66 0 0
+/menu/edit/60 1 133 0 0
+/partes/print/45050 1 3466 0 0
+/pedidos/edit/17523 4 139362 0 0
+/pedidos/edit/17490 10 314201 0 0
+/pedidos/edit/17549 6 173815 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45036 1 4814 0 0
+/partes/print/45042 1 3474 0 0
+/Ruta_pedido/delete/8937 1 0 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45043 1 4823 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17544 3 13137 0 0
+/productos/editarVista/69 1 7673 0 0
+//Partes_controller/CambiaEstado/45007 1 21 0 0
+/pedidos/mostrarFormularioAddLineaPedido/17553 1 4378 0 0
+/Ruta_pedido/mostrarFormulario/17547/1756 1 2969 0 0
+/salir/12 2 2944 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45046 1 4816 0 0
+/pedidos/edit/17373 3 104714 0 0
+//Partes_controller/CambiaEstado/45055 1 21 0 0
+/google_login 10 560 0 0
+/productos/getFamilias 16 4320 0 0
+/pedidos/edit/17519 6 209856 0 0
+/pedidos/print/17541 1 2420 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45095 1 4838 0 0
+/pedidos/updateLineaPedido/45045 1 66 0 0
+/partes/print/45012 1 3463 0 0
+//Partes_controller/CambiaEstado/45003 1 21 0 0
+//Partes_controller/verificarEstadoProcesos/45026 1 25 0 0
+//Partes_controller/verificarEstadoProcesos/45025 1 25 0 0
+/pedidos/edit/17415 3 104417 0 0
+/pedidos/mostrarFormularioEditarLineaPedido/45028 1 4802 0 0
+/pedidos/edit/17503 1 34859 0 0
+/partes/print/45021 2 6956 0 0
+/pedidos/edit/17484 5 174486 0 0
+/Ruta_pedido/rutas/17564/2680 2 657 0 0
+/salir/43 2 2929 0 0
+//Partes_controller/verificarEstadoProcesos/45038 1 25 0 0
+/salir/107 2 2936 0 0
+//Partes_controller/CambiaEstado/45023 1 21 0 0
+END_SIDER

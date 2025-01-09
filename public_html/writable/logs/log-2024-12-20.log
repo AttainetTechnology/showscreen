@@ -464,3 +464,59 @@ WHERE `id` = :id:', [...], false)
 10 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 12 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-20 10:01:03 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: informe_detalle/5]
+in APPPATH/Views/informe.php on line 210.
+ 1 APPPATH/Views/informe.php(210): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/home/customer/www/showscreen.app/public_html/app/Views/informe.php', 210)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/informe.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('informe', [], true)
+ 5 APPPATH/Controllers/Informe_detalle.php(281): view('informe', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Informe_detalle->index('5')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Informe_detalle))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-20 10:01:08 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: informe_detalle/5]
+in APPPATH/Views/informe.php on line 210.
+ 1 APPPATH/Views/informe.php(210): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/home/customer/www/showscreen.app/public_html/app/Views/informe.php', 210)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/informe.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('informe', [], true)
+ 5 APPPATH/Controllers/Informe_detalle.php(281): view('informe', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Informe_detalle->index('5')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Informe_detalle))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-20 10:01:29 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: informe_detalle/5]
+in APPPATH/Views/informe.php on line 210.
+ 1 APPPATH/Views/informe.php(210): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/home/customer/www/showscreen.app/public_html/app/Views/informe.php', 210)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/informe.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('informe', [], true)
+ 5 APPPATH/Controllers/Informe_detalle.php(281): view('informe', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Informe_detalle->index('5')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Informe_detalle))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2024-12-20 10:03:44 --> ErrorException: Undefined variable $usuarios
+[Method: GET, Route: informe_detalle/5]
+in APPPATH/Views/informe.php on line 210.
+ 1 APPPATH/Views/informe.php(210): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $usuarios', '/home/customer/www/showscreen.app/public_html/app/Views/informe.php', 210)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/informe.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('informe', [], true)
+ 5 APPPATH/Controllers/Informe_detalle.php(281): view('informe', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Informe_detalle->index('5')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Informe_detalle))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
