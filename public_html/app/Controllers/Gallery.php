@@ -6,7 +6,7 @@ class Gallery extends BaseController
 {
     public function index($current_path = '', $custom_name = null)
     {
-        helper(['controlacceso']);
+        helper('controlacceso');
 
         $id_empresa = $this->getIdEmpresa();
         if (!$id_empresa) {
@@ -67,14 +67,14 @@ class Gallery extends BaseController
         return $data['id_empresa'];
     }
 
-    private function buildDirectoryPath($current_path)
+    public function buildDirectoryPath($current_path)
     {
         $id_empresa = $this->getIdEmpresa(); // Obtén el id_empresa directamente
         $baseDirectory = "/home/u9-ddc4y0armryb/www/showscreen.app/public_html/public/assets/uploads/files/{$id_empresa}";
         return rtrim($baseDirectory . '/' . $current_path, '/');
     }
 
-    private function scanDirectory($currentDirectory, $current_path)
+    public function scanDirectory($currentDirectory, $current_path)
     {
         $data = usuario_sesion();
         $userSesionId = isset($data['id_user']) ? $data['id_user'] : null; // ID del usuario autenticado
@@ -83,6 +83,12 @@ class Gallery extends BaseController
         $folders = [];
         $images = [];
         $publicPathPrefix = "/home/u9-ddc4y0armryb/www/showscreen.app/public_html/public";
+
+        // Verifica si el directorio existe y es legible
+        if (!is_dir($currentDirectory) || !is_readable($currentDirectory)) {
+            log_message('error', "El directorio {$currentDirectory} no existe o no tiene permisos de lectura.");
+            return [$folders, $images];
+        }
 
         $files = array_diff(scandir($currentDirectory), ['.', '..']);
 
@@ -102,6 +108,7 @@ class Gallery extends BaseController
         return [$folders, $images];
     }
 
+
     private function processDirectory($file, $filePath, $current_path, &$folders, &$images, $publicPathPrefix, $userSesionId, $nivelAcceso)
     {
         if (is_numeric($file)) {
@@ -110,7 +117,7 @@ class Gallery extends BaseController
             foreach ($subFiles as $subFile) {
                 if ($this->isImage($subFile)) {
                     // Si el nivel de acceso no es 9, filtrar las imágenes por ID de usuario
-                    if ($nivelAcceso  >= 8|| strpos($subFile, "_IDUser{$userSesionId}") !== false) {
+                    if ($nivelAcceso >= 8 || strpos($subFile, "_IDUser{$userSesionId}") !== false) {
                         $subFilePath = $filePath . DIRECTORY_SEPARATOR . $subFile;
                         $images[] = $this->buildImageData($subFilePath, $publicPathPrefix);
                     }
@@ -128,14 +135,65 @@ class Gallery extends BaseController
         return preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $file);
     }
 
-    private function buildImageData($filePath, $publicPathPrefix)
+    public function buildImageData($filePath, $publicPathPrefix)
     {
         $relativePath = str_replace($publicPathPrefix, '', $filePath);
+        $url = base_url('public/' . ltrim($relativePath, '/'));
+
+        // Verificar si la imagen está asociada en alguna tabla
+        $isAssociated = $this->checkIfImageAssociated($relativePath);
+
         return [
-            'url' => base_url('public/' . ltrim($relativePath, '/')),
+            'url' => $url,
             'name' => pathinfo($filePath, PATHINFO_FILENAME),
+            'is_associated' => $isAssociated, // Asociado a un registro
         ];
     }
+
+    private function checkIfImageAssociated($relativePath)
+    {
+        // Conectar a la base de datos
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+
+        $dbOriginal = \Config\Database::connect();
+
+        $imageFileName = basename($relativePath);
+
+        // Consultar la tabla `productos`
+        $isAssociatedInProducts = $db->query("
+        SELECT COUNT(*) as count
+        FROM productos
+        WHERE imagen LIKE CONCAT('%', ?)
+    ", [$imageFileName])->getRow()->count > 0;
+
+        // Consultar la tabla `usuarios`
+        $isAssociatedInUsers = $db->query("
+        SELECT COUNT(*) as count
+        FROM users
+        WHERE userfoto LIKE CONCAT('%', ?)
+    ", [$imageFileName])->getRow()->count > 0;
+
+        // Consultar la tabla `logos`
+        $isAssociatedInLogos = $dbOriginal->query("
+        SELECT COUNT(*) as count
+        FROM dbconnections
+        WHERE logo_empresa LIKE CONCAT('%', ?)
+           OR favicon LIKE CONCAT('%', ?)
+           OR logo_fichajes LIKE CONCAT('%', ?)
+    ", [$imageFileName, $imageFileName, $imageFileName])->getRow()->count > 0;
+
+        // Consultar la tabla `productos_necesidad`
+        $isAssociatedInProductosNecesidad = $db->query("
+        SELECT COUNT(*) as count
+        FROM productos_necesidad
+        WHERE imagen LIKE CONCAT('%', ?)
+    ", [$imageFileName])->getRow()->count > 0;
+
+        // Retornar true si está asociado en cualquiera de las tablas
+        return $isAssociatedInProducts || $isAssociatedInUsers || $isAssociatedInLogos || $isAssociatedInProductosNecesidad;
+    }
+
     public function delete()
     {
         helper(['filesystem', 'security']);
@@ -171,12 +229,10 @@ class Gallery extends BaseController
             if (is_dir($folderPath) && count(array_diff(scandir($folderPath), ['.', '..'])) === 0) {
                 rmdir($folderPath);
             }
-            return redirect()->back()->with('success', 'Imagen eliminada exitosamente de todas las referencias.');
         } else {
             return redirect()->back()->with('error', 'Ocurrió un error al intentar eliminar la imagen.');
         }
     }
-
 
     private function removeImageReferences($db, $imageUrl)
     {
@@ -196,10 +252,10 @@ class Gallery extends BaseController
         $fileNameNormalized = preg_replace('/^\d+\/|^.*\//', '', $fileName);
 
         $tablesToUpdate = [
-            'productos_necesidad' => ['imagen', $dynamicDb],
             'productos' => ['imagen', $dynamicDb],
             'users' => ['userfoto', $dynamicDb],
             'dbconnections' => ['logo_empresa', 'favicon', 'logo_fichajes', $mainDb],
+            'productos_necesidad' => ['imagen', $dynamicDb], // Agregamos esta tabla
         ];
 
         foreach ($tablesToUpdate as $table => $columns) {
@@ -207,7 +263,6 @@ class Gallery extends BaseController
 
             foreach ($columns as $column) {
                 try {
-                    // Ejecutar la consulta con una búsqueda flexible
                     $dbConnection->query("
                     UPDATE {$table}
                     SET {$column} = NULL
@@ -215,12 +270,11 @@ class Gallery extends BaseController
                 ", [$fileNameNormalized]);
 
                 } catch (\Exception $e) {
-                    // Manejo silencioso de errores o agregar manejo específico aquí si es necesario
+                    log_message('error', "Error al desasociar imagen en la tabla {$table}: " . $e->getMessage());
                 }
             }
         }
     }
-
 
 
 

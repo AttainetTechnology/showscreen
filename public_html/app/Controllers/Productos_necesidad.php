@@ -15,6 +15,7 @@ class Productos_necesidad extends BaseController
     public function index()
     {
 
+        helper('controlacceso');
         $this->addBreadcrumb('Inicio', base_url());
         $this->addBreadcrumb('Productos Necesidad', base_url('productos_necesidad'));
 
@@ -28,7 +29,7 @@ class Productos_necesidad extends BaseController
         $db = db_connect($data['new_db']);
         $productosModel = new ProductosNecesidadModel($db);
         $productosProveedorModel = new \App\Models\ProductosProveedorModel($db);
-        $productosVentaModel = new \App\Models\Productos_model($db); 
+        $productosVentaModel = new \App\Models\Productos_model($db);
 
         $productos = $productosModel->findAll();
         foreach ($productos as &$producto) {
@@ -84,11 +85,12 @@ class Productos_necesidad extends BaseController
         return $this->response->setJSON($productos);
     }
 
-    private function getImageUrl($imageName, $idEmpresa, $idProducto)
+    private function getImageUrl($imageName, $idEmpresa)
     {
-        $path = "public/assets/uploads/files/{$idEmpresa}/productos_necesidad/{$idProducto}/";
+        $path = "public/assets/uploads/files/{$idEmpresa}/productos/";
         return $imageName ? base_url($path . $imageName) : '';
     }
+
 
 
     public function verProductos($id_producto)
@@ -192,6 +194,7 @@ class Productos_necesidad extends BaseController
         $this->addBreadcrumb('Inicio', base_url('/'));
         $this->addBreadcrumb('Productos Necesidad', base_url('/productos_necesidad'));
         $this->addBreadcrumb('Editar Producto');
+
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);
         $productosModel = new ProductosNecesidadModel($db);
@@ -200,53 +203,91 @@ class Productos_necesidad extends BaseController
         $familias = $familiaModel->findAll();
         $productoVentaNombre = $this->obtenerNombreProductoVenta($id_producto);
         $data['amiga'] = $this->getBreadcrumbs();
+
+        $gallery = new \App\Controllers\Gallery();
+        $currentDirectory = $gallery->buildDirectoryPath('productos');
+
+        [$folders, $images] = $gallery->scanDirectory($currentDirectory, 'productos');
+
+
+        if (empty($images)) {
+            log_message('error', 'No se encontraron imágenes en la galería.');
+        }
+
+
         return view('editProductoProveedor', [
             'producto' => $producto,
             'familias' => $familias,
             'productoVentaNombre' => $productoVentaNombre,
             'id_empresa' => $data['id_empresa'],
-            'amiga' => $data['amiga']
+            'amiga' => $data['amiga'],
+            'images' => $images, // Pasar las imágenes
         ]);
+
     }
     public function update($id_producto)
-    {
-        $data = usuario_sesion();
-        $db = db_connect($data['new_db']);
-        $productosModel = new ProductosNecesidadModel($db);
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'nombre_producto' => 'required',
-            'id_familia' => 'required',
-            'estado_producto' => 'required'
-        ]);
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-        }
-        $image = $this->request->getFile('imagen');
-        $productFolder = "public/assets/uploads/files/{$data['id_empresa']}/productos_necesidad/{$id_producto}/";
-        $imageName = $productosModel->find($id_producto)['imagen'];
+{
+    $data = usuario_sesion();
+    $db = db_connect($data['new_db']);
+    $productosModel = new ProductosNecesidadModel($db);
 
-        if ($image && $image->isValid()) {
-            if ($imageName && file_exists($productFolder . $imageName)) {
-                unlink($productFolder . $imageName);
-            }
-            $imageName = $image->getRandomName();
-            if (!is_dir($productFolder)) {
-                mkdir($productFolder, 0777, true);
-            }
-            $image->move($productFolder, $imageName);
-        }
-        $productosModel->update($id_producto, [
-            'para_boton' => $this->request->getPost('para_boton'),
-            'nombre_producto' => $this->request->getPost('nombre_producto'),
-            'id_familia' => $this->request->getPost('id_familia'),
-            'imagen' => $imageName,
-            'unidad' => $this->request->getPost('unidad'),
-            'estado_producto' => $this->request->getPost('estado_producto')
-        ]);
-        return redirect()->to(base_url('productos_necesidad/edit/' . $id_producto))->with('success', 'Producto actualizado correctamente.');
+    // Validaciones
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'nombre_producto' => 'required',
+        'id_familia' => 'required',
+        'estado_producto' => 'required|in_list[Activo,Inactivo]'
+    ]);
+
+    if (!$validation->withRequest($this->request)->run()) {
+        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
     }
 
+    // Obtener la imagen actual del producto
+    $producto = $productosModel->find($id_producto);
+    $imagenActual = $producto['imagen']; // Imagen actual en la base de datos
+
+    // Manejo de la nueva imagen
+    $image = $this->request->getFile('imagen');
+    $productFolder = "public/assets/uploads/files/{$data['id_empresa']}/productos/";
+
+    // Mantener el nombre de imagen actual como valor predeterminado
+    $imageName = $imagenActual;
+
+    if ($image && $image->isValid() && !$image->hasMoved()) {
+        // Crear la carpeta si no existe
+        if (!is_dir($productFolder)) {
+            mkdir($productFolder, 0777, true);
+        }
+
+        // Obtener la extensión y generar el nuevo nombre
+        $userSesionId = $data['id_user'] ?? 'unknown';
+        $nombreBase = pathinfo($image->getName(), PATHINFO_FILENAME);
+        $extension = $image->getExtension();
+        $nuevoNombre = "{$nombreBase}_IDUser{$userSesionId}.{$extension}";
+
+        // Verificar si el archivo ya existe en la carpeta
+        if (file_exists($productFolder . $nuevoNombre)) {
+            // Si la imagen ya existe, simplemente almacena el nombre en la base de datos
+            $imageName = $nuevoNombre;
+        } else {
+            // Si no existe, mueve la imagen y actualiza el nombre
+            $image->move($productFolder, $nuevoNombre);
+            $imageName = $nuevoNombre;
+        }
+    }
+
+    // Actualizar la base de datos con la nueva imagen (o mantener la existente)
+    $productosModel->update($id_producto, [
+        'nombre_producto' => $this->request->getPost('nombre_producto'),
+        'id_familia' => $this->request->getPost('id_familia'),
+        'imagen' => $imageName, // Guardar la nueva imagen o mantener la existente
+        'unidad' => $this->request->getPost('unidad'),
+        'estado_producto' => $this->request->getPost('estado_producto')
+    ]);
+
+    return redirect()->to(base_url('productos_necesidad/edit/' . $id_producto))->with('success', 'Producto actualizado correctamente.');
+}
     public function delete($id_producto)
     {
         $data = usuario_sesion();
@@ -258,24 +299,46 @@ class Productos_necesidad extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Producto no encontrado.']);
         }
     }
-    public function eliminarImagen($id_producto)
+    public function eliminarImagen($id)
     {
         $data = usuario_sesion();
         $db = db_connect($data['new_db']);
         $productosModel = new ProductosNecesidadModel($db);
-        $producto = $productosModel->find($id_producto);
-        if ($producto && $producto['imagen']) {
-            $productFolder = "public/assets/uploads/files/{$data['id_empresa']}/productos_necesidad/{$id_producto}/";
-            $imagePath = $productFolder . $producto['imagen'];
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
 
-            $productosModel->update($id_producto, ['imagen' => null]);
-        } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'No se encontró la imagen o el producto.']);
+        // Buscar el producto por ID
+        $producto = $productosModel->find($id);
+        if (!$producto || !$producto['imagen']) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Imagen no encontrada.']);
         }
+
+        // Desasociar la imagen del producto (establecer el campo 'imagen' en NULL)
+        $productosModel->update($id, ['imagen' => null]);
     }
+
+
+    public function asociarImagen()
+    {
+        $id_producto = $this->request->getPost('id_producto');
+        $imagen = $this->request->getPost('imagen');
+
+        if (!$id_producto || !$imagen) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Faltan datos.']);
+        }
+
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $productosModel = new ProductosNecesidadModel($db);
+
+        $producto = $productosModel->find($id_producto);
+
+        if (!$producto) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Producto no encontrado.']);
+        }
+
+        $productosModel->update($id_producto, ['imagen' => $imagen]);
+
+    }
+
     private function obtenerNombreProductoVenta($id_producto_necesidad)
     {
         $data = usuario_sesion();

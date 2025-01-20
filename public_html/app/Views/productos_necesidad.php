@@ -61,16 +61,19 @@
         {
             headerName: "Nombre del Producto",
             field: "nombre_producto",
+            minWidth: 230,
             filter: 'agTextColumnFilter'
         },
         {
             headerName: "Familia",
             field: "nombre_familia",
+            minWidth: 200,
             filter: 'agTextColumnFilter'
         },
         {
             headerName: "Imagen",
             field: "imagen",
+            minWidth: 180,
             cellRenderer: params => params.value ? `<img src="${params.value}" height="60">` : ''
         },
         {
@@ -86,6 +89,7 @@
         {
             headerName: "Proveedor",
             field: "nombre_proveedor",
+            minWidth: 150,
             filter: 'agTextColumnFilter'
         },
         {
