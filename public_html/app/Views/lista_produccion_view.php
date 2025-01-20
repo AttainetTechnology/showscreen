@@ -33,7 +33,6 @@
                 headerName: "Linea Pedido",
                 field: "id_lineapedido",
                 filter: 'agTextColumnFilter',
-                maxWidth: 120
             },
             {
                 headerName: "ID",
@@ -52,19 +51,16 @@
                 headerName: "Med Inicial",
                 field: "med_inicial",
                 filter: 'agTextColumnFilter',
-                maxWidth: 150
             },
             {
                 headerName: "Med Final",
                 field: "med_final",
                 filter: 'agTextColumnFilter',
-                maxWidth: 150
             },
             {
                 headerName: "Base",
                 field: "nom_base",
                 filter: 'agTextColumnFilter',
-                maxWidth: 150
             },
             {
                 headerName: "Producto",
