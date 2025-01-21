@@ -95,7 +95,7 @@
         <br><br>
         <img id="imagenSeleccionadaPreview"
             src="<?= $producto['imagen'] ? base_url("public/assets/uploads/files/{$data['id_empresa']}/productos/{$producto['imagen']}") : '#' ?>"
-            alt="Vista previa" style="<?= $producto['imagen'] ? '' : 'display: none;' ?>; width: 100px; height: 100px;">
+            alt="imagen" style="<?= $producto['imagen'] ? '' : 'display: none;' ?>; width: 100px; height: 100px;">
 
     </div>
 
