@@ -420,6 +420,16 @@
 
     <script>
         $(document).ready(function () {
+            $('#id_cliente').select2({
+                placeholder: "Selecciona una empresa",
+                allowClear: true,
+                width: '100%'
+            });
+
+            // Mantener el cliente seleccionado en la inicialización
+            $('#id_cliente').val('<?= $pedido->id_cliente ?>').trigger('change');
+        });
+        $(document).ready(function () {
             $('#openModal').on('click', function () {
                 var pedidoId = '<?= $pedido->id_pedido ?>';
                 var clienteId = '<?= $pedido->id_cliente ?>';
