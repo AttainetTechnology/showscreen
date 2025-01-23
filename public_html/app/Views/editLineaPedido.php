@@ -1,5 +1,19 @@
+<!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
 <div class="modal-header">
     <h5 class="modal-title" id="addLineaPedidoLabel" style="margin-left: 0px;">Editar Línea de Pedido</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -18,9 +32,10 @@
         </div>
         <div class="form-group">
             <label for="id_producto">Producto:</label>
-            <select name="id_producto" class="form-control" required>
+            <select name="id_producto" class="form-control select-producto" required>
                 <?php foreach ($productos as $producto): ?>
-                    <option value="<?= esc($producto['id_producto']) ?>" <?= ($producto['id_producto'] == $linea_pedido['id_producto']) ? 'selected' : '' ?>>
+                    <option value="<?= esc($producto['id_producto']) ?>"
+                        <?= ($producto['id_producto'] == $linea_pedido['id_producto']) ? 'selected' : '' ?>>
                         <?= esc($producto['nombre_producto']) ?>
                     </option>
                 <?php endforeach; ?>
@@ -97,6 +112,16 @@
     </form>
 </div>
 <script>
+        $(document).ready(function () {
+        // Inicializa Select2 en el campo de productos
+        $('.select-producto').select2({
+            placeholder: "Selecciona un producto",
+            allowClear: true,
+            width: '100%',
+            dropdownParent: $('#editarLineaModal') // Esto asegura que el dropdown funcione en un modal de Bootstrap
+        });
+    });
+
     $(document).ready(function() {
         $('.editLineaForm').on('submit', function(e) {
             e.preventDefault();
