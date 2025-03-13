@@ -491,3 +491,29 @@ button.btn.botonTabla.btnEditarTabla {
     margin-right: 21px;
     padding: 2px 6px !important;
 }
+
+.btnCopiar {
+    padding: 7px !important;
+    margin-left: 10px;
+    margin-top: 2px;
+    background-color: #337AB7 !important;
+    color: white !important;
+}
+
+
+.btnCopiar:hover {
+    background-color: #125692 !important;
+    color: white;
+}
+
+.btnCopiar:active {
+    background-color: #6897C0 !important;
+    color: white !important;
+}
+
+.btnCopiar svg{
+    width: 15px;
+    height: 15px;
+    color: white;
+    margin-left: 1px;
+}

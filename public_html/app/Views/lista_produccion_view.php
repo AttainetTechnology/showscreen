@@ -20,73 +20,90 @@
 <br>
 <div id="myGrid" class="ag-theme-alpine" style="height: 600px; width: 100%;"></div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // Función para copiar al portapapeles
+    function copyToClipboard(value) {
+        const textArea = document.createElement('textarea');
+        textArea.value = value;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+    document.addEventListener('DOMContentLoaded', function () {
         const columnDefs = [{
-                headerName: 'Acciones',
-                field: 'acciones',
-                cellRenderer: renderActions,
-                cellClass: 'acciones-col',
-                maxWidth: 150,
-                filter: false,
-            },
-            {
-                headerName: "Linea Pedido",
-                field: "id_lineapedido",
-                filter: 'agTextColumnFilter',
-            },
-            {
-                headerName: "ID",
-                field: "id_lineapedido",
-                filter: 'agTextColumnFilter',
-                hide: true
-            },
-            {
-                headerName: "Fecha de Entrada",
-                field: "fecha_entrada",
-                filter: 'agDateColumnFilter',
-                valueFormatter: params => formatDate(params.value),
-                comparator: dateComparator
-            },
-            {
-                headerName: "Med Inicial",
-                field: "med_inicial",
-                filter: 'agTextColumnFilter',
-            },
-            {
-                headerName: "Med Final",
-                field: "med_final",
-                filter: 'agTextColumnFilter',
-            },
-            {
-                headerName: "Base",
-                field: "nom_base",
-                filter: 'agTextColumnFilter',
-            },
-            {
-                headerName: "Producto",
-                field: "nombre_producto",
-                filter: 'agTextColumnFilter'
-            },
-            {
-                headerName: "Pedido",
-                field: "pedido_completo",
-                filter: 'agTextColumnFilter',
-                cellRenderer: params => {
-                    return `<a href="/pedidos/edit/${params.data.id_pedido}" style="text-decoration: none; color: #007bff;">
+            headerName: 'Acciones',
+            field: 'acciones',
+            cellRenderer: renderActions,
+            cellClass: 'acciones-col',
+            maxWidth: 150,
+            filter: false,
+        },
+        {
+            headerName: "Linea Pedido",
+            field: "id_lineapedido",
+            filter: 'agTextColumnFilter',
+            minWidth: 130,
+            cellRenderer: function (params) {
+                const copyBtn = `<button class="copy-btn botonTabla btnCopiar" onclick="copyToClipboard('${params.value}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                    </svg></button>`;
+                return `${params.value} ${copyBtn}`;
+            }
+        },
+        {
+            headerName: "ID",
+            field: "id_lineapedido",
+            filter: 'agTextColumnFilter',
+            hide: true
+        },
+        {
+            headerName: "Fecha de Entrada",
+            field: "fecha_entrada",
+            filter: 'agDateColumnFilter',
+            valueFormatter: params => formatDate(params.value),
+            comparator: dateComparator
+        },
+        {
+            headerName: "Med Inicial",
+            field: "med_inicial",
+            filter: 'agTextColumnFilter',
+        },
+        {
+            headerName: "Med Final",
+            field: "med_final",
+            filter: 'agTextColumnFilter',
+        },
+        {
+            headerName: "Base",
+            field: "nom_base",
+            filter: 'agTextColumnFilter',
+        },
+        {
+            headerName: "Producto",
+            field: "nombre_producto",
+            filter: 'agTextColumnFilter'
+        },
+        {
+            headerName: "Pedido",
+            field: "pedido_completo",
+            filter: 'agTextColumnFilter',
+            cellRenderer: params => {
+                return `<a href="/pedidos/edit/${params.data.id_pedido}" style="text-decoration: none; color: #007bff;">
                     ${params.value}
                 </a>`;
-                }
-            },
-            {
-                headerName: "Estado",
-                field: "estado",
-                filter: 'agTextColumnFilter'
-            },
-            {
-                headerName: "Familia",
-                field: "nombre_familia",
-                filter: 'agTextColumnFilter'
             }
+        },
+        {
+            headerName: "Estado",
+            field: "estado",
+            filter: 'agTextColumnFilter'
+        },
+        {
+            headerName: "Familia",
+            field: "nombre_familia",
+            filter: 'agTextColumnFilter'
+        }
         ];
 
         function renderActions(params) {
@@ -132,7 +149,7 @@
             localeText: {
                 noRowsToShow: 'No hay registros disponibles.'
             },
-            getRowClass: function(params) {
+            getRowClass: function (params) {
                 const rowClass = params.data.estado_clase;
                 return rowClass;
             }
@@ -142,7 +159,7 @@
         const eGridDiv = document.querySelector('#myGrid');
         new agGrid.Grid(eGridDiv, gridOptions);
 
-        document.getElementById('clear-filters').addEventListener('click', function() {
+        document.getElementById('clear-filters').addEventListener('click', function () {
             gridOptions.api.setFilterModel(null);
             gridOptions.api.onFilterChanged();
         });
@@ -152,13 +169,13 @@
         $.ajax({
             url: '<?= base_url("partes/print/") ?>' + id_lineapedido,
             type: 'GET',
-            success: function(data) {
+            success: function (data) {
                 $('#modalParteContent').html(data);
                 $('#parteModal').modal('show');
                 sessionStorage.setItem('modalParteAbierto', 'true');
                 sessionStorage.setItem('modalParteId', id_lineapedido);
             },
-            error: function() {
+            error: function () {
                 $('#modalParteContent').html('<p class="text-danger">Error al cargar el parte.</p>');
                 $('#parteModal').modal('show');
                 sessionStorage.setItem('modalParteAbierto', 'true');
