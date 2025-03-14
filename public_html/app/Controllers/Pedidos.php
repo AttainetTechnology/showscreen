@@ -293,6 +293,7 @@ class Pedidos extends BaseController
 		if ($db->transStatus() === false) {
 			return redirect()->back()->with('error', 'No se pudo eliminar el pedido');
 		}
+		$this->logAction('Pedidos', 'Eliminado pedido, ID: ' . $id_pedido, []);
 		return redirect()->to(base_url('pedidos/enmarcha'))->with('success', 'Pedido y sus líneas asociadas eliminados correctamente');
 	}
 
@@ -478,6 +479,7 @@ class Pedidos extends BaseController
 		if ($db->transStatus() === false) {
 			return redirect()->back()->with('error', 'No se pudo eliminar la línea del pedido');
 		}
+		$this->logAction('Pedidos', 'Elimina Linea pedido, ID: ' . $id_lineapedido, []);
 		return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea del pedido y procesos asociados eliminados correctamente');
 	}
 
