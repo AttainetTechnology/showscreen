@@ -63,7 +63,7 @@ foreach ($pedido as $ped) { ?>
                                 <th>Nombre de la base</th>
                                 <th>Med. inic.</th>
                                 <th>Med. fin.</th>
-                                <th>Total</th>
+                               <!-- <th>Total</th>-->
                             </tr>
                         </thead>
                         <tbody style=" font-size:40px !important;">
@@ -77,7 +77,7 @@ foreach ($pedido as $ped) { ?>
                                     <td style=" font-size:20px !important;"><b><?php echo $l->nom_base; ?></b></td>
                                     <td style=" font-size:20px !important;"><b><?php echo $l->med_inicial; ?></b></td>
                                     <td style=" font-size:20px !important;"><b><?php echo $l->med_final; ?></b></td>
-                                    <td style=" font-size:20px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>
+                                    <!--<td style=" font-size:20px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>-->
                                     <?php $total += $l->total_linea; ?>
                                 </tr>
                             <?php } ?>
@@ -100,7 +100,7 @@ foreach ($pedido as $ped) { ?>
                                     <th>Nombre de la base</th>
                                     <th>Med. inic.</th>
                                     <th>Med. fin.</th>
-                                    <th>Total</th>
+                                    <!--<th>Total</th>-->
                                 </tr>
                             </thead>
                             <tbody style=" font-size:40px !important;">
@@ -113,13 +113,13 @@ foreach ($pedido as $ped) { ?>
                                         <td style=" font-size:20px !important;"><b><?php echo $l->nom_base; ?></b></td>
                                         <td style=" font-size:20px !important;"><b><?php echo $l->med_inicial; ?></b></td>
                                         <td style=" font-size:20px !important;"><b><?php echo $l->med_final; ?></b></td>
-                                        <td style=" font-size:20px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>
+                                        <!--<td style=" font-size:20px !important;"><b><?php echo $l->total_linea; ?></b> &euro;</td>-->
                                         <?php $total += $l->total_linea; ?>
                                     </tr>
                                 <?php } ?>
                                 <tr id="total_pedido">
                                     <td colspan="6">
-                                        Total pedido: <b><?php echo $total; ?> &euro;</b><br />
+                                       <!-- Total pedido: <b><?php echo $total; ?> &euro;</b><br />-->
                                     </td>
                                 </tr>
                             </tbody>
