@@ -105,7 +105,7 @@ foreach ($pedido as $ped) { ?>
                             </thead>
                             <tbody style=" font-size:40px !important;">
                                 <?php
-                                $lineas_pag2 = array_slice($lineas, 9); // Líneas para la segunda página
+                                $lineas_pag2 = array_slice($lineas, 12); // Líneas para la segunda página
                                 foreach ($lineas_pag2 as $l) { ?>
                                     <tr>
                                         <td style=" font-size:20px !important;"><b><?php echo $l->n_piezas; ?> </b></td>
