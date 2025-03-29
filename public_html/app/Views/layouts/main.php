@@ -37,9 +37,10 @@
 	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/custom.css') ?>?v=<?= time() ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/attainet.css') ?>?v=<?= time() ?>">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/layout.css') ?>?v=<?= time() ?>">
+	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/botones.css') ?>?v=<?= time() ?>">
 	<link rel="stylesheet" type="text/css"
 		href="<?= base_url('public/assets/css/ocultar_botones.css') ?>?v=<?= time() ?>">
-	<link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/botones.css') ?>?v=<?= time() ?>">
+
 	<!-- Cargo FAVICON  -->
 	<?php
 

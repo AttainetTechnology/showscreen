@@ -3,6 +3,14 @@
 <?= $this->include('partials/amiga') ?>
 
 <link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/libreria.css') ?>?v=<?= time() ?>">
+<!-- Cargar JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Cargar Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Cargar Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <br>
 <h2>Menú de la aplicación</h2>
@@ -201,18 +209,13 @@
             {
                 headerName: "Activo",
                 field: "activo",
-                valueGetter: (params) => {
-                    return params.data.activo === 1 ? 'Desactivado' : 'Activo';
-                },
                 filter: 'agTextColumnFilter',
                 filterParams: {
                     filterOptions: ['contains'],
                     debounceMs: 500
                 }
             }
-
         ];
-
 
         const gridOptions = {
             columnDefs: columnDefs,
@@ -295,7 +298,6 @@
             contentType: false,
             success: function (response) {
                 if (response.success) {
-                    alert('Menú actualizado con éxito.');
                     $('#editMenuModal').modal('hide'); // Cerrar el modal
                     setTimeout(function () {
                         location.reload(); // Recargar la página después de un breve retraso

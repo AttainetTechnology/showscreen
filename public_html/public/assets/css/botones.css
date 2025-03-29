@@ -93,21 +93,34 @@
 }
 
 .volverButton,
-.volverButtonTabla, .btnSubmenu {
+.volverButtonTabla,
+.btnSubmenu,
+.accederButtonTabla {
     background-color: #337AB7 !important;
     color: white !important;
 }
 
 .volverButton:hover,
-.volverButtonTabla:hover, .btnSubmenu:hover {
+.volverButtonTabla:hover,
+.btnSubmenu:hover,
+.accederButtonTabla:hover {
     background-color: #125692 !important;
     color: white;
 }
 
 .volverButton:active,
-.volverButtonTabla:active, .btnSubmenu:active {
+.volverButtonTabla:active,
+.btnSubmenu:active,
+.accederButtonTabla:hover {
     background-color: #6897C0 !important;
     color: white !important;
+}
+
+.accederButtonTabla svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+    margin-left: 1px;
 }
 
 .volverButton svg {
@@ -121,7 +134,8 @@
     height: auto;
     color: white;
 }
-.btnSubmenu svg{
+
+.btnSubmenu svg {
     width: 18px;
     height: auto;
     color: white;
@@ -474,14 +488,81 @@
 }
 
 .btnRutaFinaliza:hover {
-    background-color: #045404!important;
+    background-color: #045404 !important;
     color: white !important;
 }
 
 .btnRutaFinaliza {
-    background-color:#5b8a5b!important;
+    background-color: #5b8a5b !important;
     color: white !important;
 }
+
 button.btn.botonTabla.btnEditarTabla {
     height: 27px;
+}
+
+
+.btnIcono {
+    border-radius: 5px;
+    margin-right: 21px;
+    padding: 2px 6px !important;
+}
+
+.btnEscandallo {
+    height: 30px !important;
+    background-color: #f3bb42 !important;
+    color: white !important;
+}
+
+.btnCopiar {
+    padding: 7px !important;
+    margin-left: 10px;
+    margin-top: 2px;
+    background-color: #337AB7 !important;
+    color: white !important;
+}
+
+
+.btnCopiar:hover {
+    background-color: #125692 !important;
+    color: white;
+}
+
+.btnCopiar:active {
+    background-color: #6897C0 !important;
+    color: white !important;
+}
+
+.btnCopiar svg {
+    width: 15px;
+    height: 15px;
+    color: white;
+    margin-left: 1px;
+}
+
+.btnDuplicar {
+    background-color: #5CB85C !important;
+    color: white !important;
+}
+
+.btnDuplicar:hover {
+    background-color: #268626 !important;
+    color: white I !important;
+}
+
+.btnDuplicar:active {
+    background-color: #8AD18A !important;
+    color: white !important;
+}
+
+.btnDuplicar svg {
+    width: 16px;
+    height: 16px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.botonReset{
+    margin: 0px;
+    padding: 4px;
 }

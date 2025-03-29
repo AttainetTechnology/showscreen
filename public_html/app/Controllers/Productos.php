@@ -8,7 +8,12 @@ class Productos extends BaseController
 {
     public function index()
     {
-
+        helper('controlacceso');
+        $redirect = check_access_level();
+        $redirectUrl = session()->getFlashdata('redirect');
+        if ($redirect && is_string($redirectUrl)) {
+            return redirect()->to($redirectUrl);
+        }
         $this->addBreadcrumb('Inicio', base_url('/'));
         $this->addBreadcrumb('Productos');
         $data['amiga'] = $this->getBreadcrumbs();
@@ -66,29 +71,29 @@ class Productos extends BaseController
 
         $jsonData = $this->request->getJSON(); // Decodificar JSON automáticamente
 
-        if (empty($jsonData)) {
+        if (!is_object($jsonData) || !isset($jsonData->id_producto) || !isset($jsonData->procesos)) {
             return $this->response->setStatusCode(400, 'Datos no válidos');
         }
 
         $id_producto = $jsonData->id_producto;
         $procesos = $jsonData->procesos;
 
-        if (empty($id_producto) || empty($procesos)) {
+        if (empty($id_producto) || !is_array($procesos)) {
             return $this->response->setStatusCode(400, 'Datos incompletos');
         }
-
         // Eliminar procesos existentes
         $db->table('procesos_productos')->where('id_producto', $id_producto)->delete();
-
-        // Insertar nuevos procesos con el orden actualizado
         foreach ($procesos as $proceso) {
+            if (!isset($proceso->id_proceso) || !isset($proceso->orden)) {
+                log_message('error', 'Proceso malformado: ' . json_encode($proceso));
+                continue; // Saltar procesos malformados
+            }
             $db->table('procesos_productos')->insert([
                 'id_producto' => $id_producto,
                 'id_proceso' => $proceso->id_proceso,
                 'orden' => $proceso->orden
             ]);
         }
-
         return $this->response->setJSON(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }
 
@@ -109,9 +114,10 @@ class Productos extends BaseController
         foreach ($productos as &$producto) {
             $producto['estado_nombre'] = $producto['estado_producto'] == 1 ? 'Activo' : 'Inactivo';
             $producto['imagen_url'] = $producto['imagen']
-                ? base_url("public/assets/uploads/files/{$data['id_empresa']}/productos/{$producto['id_producto']}/{$producto['imagen']}")
+                ? base_url("public/assets/uploads/files/{$data['id_empresa']}/productos/{$producto['imagen']}")
                 : null; // Devuelve null si no hay imagen
         }
+
 
         return $this->response->setJSON($productos);
     }
@@ -165,7 +171,6 @@ class Productos extends BaseController
 
     public function editarVista($id)
     {
-        // Añadir migas de pan
         $this->addBreadcrumb('Inicio', base_url('/'));
         $this->addBreadcrumb('Productos', base_url('/productos'));
         $this->addBreadcrumb('Editar Producto');
@@ -180,17 +185,24 @@ class Productos extends BaseController
         }
 
         $producto['imagen_url'] = $producto['imagen']
-            ? base_url("public/assets/uploads/files/{$data['id_empresa']}/productos/{$producto['id_producto']}/{$producto['imagen']}")
+            ? base_url("public/assets/uploads/files/{$data['id_empresa']}/productos/{$producto['imagen']}")
             : null;
 
         $familias = $db->table('familia_productos')->get()->getResultArray();
         $unidades = $db->table('unidades')->get()->getResultArray();
+
+        // Cargar imágenes desde la galería
+        $gallery = new \App\Controllers\Gallery();
+        $currentDirectory = $gallery->buildDirectoryPath('productos');
+        [$folders, $images] = $gallery->scanDirectory($currentDirectory, 'productos');
 
         return view('editProducto', [
             'producto' => $producto,
             'familias' => $familias,
             'unidades' => $unidades,
             'amiga' => $this->getBreadcrumbs(),
+            'data' => $data, // Pasar $data
+            'images' => $images, // Pasar las imágenes a la vista
         ]);
     }
 
@@ -204,18 +216,29 @@ class Productos extends BaseController
         $file = $this->request->getFile('imagen');
 
         if ($file && $file->isValid() && !$file->hasMoved()) {
-            // Crear la carpeta del producto si no existe
-            $rutaProducto = "public/assets/uploads/files/{$data['id_empresa']}/productos/{$id}";
-            if (!is_dir($rutaProducto)) {
-                mkdir($rutaProducto, 0777, true);
+            $rutaProductos = "public/assets/uploads/files/{$data['id_empresa']}/productos";
+
+            // Crear la carpeta principal si no existe
+            if (!is_dir($rutaProductos)) {
+                mkdir($rutaProductos, 0777, true);
             }
 
-            // Mover la imagen a la carpeta específica del producto
-            $newName = $file->getRandomName();
-            $file->move($rutaProducto, $newName);
+            // Generar un nombre único con el ID del usuario
+            $nombreBase = pathinfo($file->getName(), PATHINFO_FILENAME);
+            $extension = $file->getExtension();
+            $idUser = $data['id_user']; // ID del usuario desde la sesión
+            $nombreConId = "{$nombreBase}_IDUser{$idUser}.{$extension}";
 
-            // Actualizar el nombre de la imagen en los datos del producto
-            $postData['imagen'] = $newName;
+            $rutaArchivo = "{$rutaProductos}/{$nombreConId}";
+
+            if (file_exists($rutaArchivo)) {
+                // Si la imagen ya existe con el ID del usuario, simplemente asociarla
+                $postData['imagen'] = $nombreConId;
+            } else {
+                // Si no existe, moverla y asociarla
+                $file->move($rutaProductos, $nombreConId);
+                $postData['imagen'] = $nombreConId;
+            }
         }
 
         if ($productosModel->update($id, $postData)) {
@@ -224,6 +247,31 @@ class Productos extends BaseController
             return redirect()->to(base_url("productos/editarVista/{$id}"))->with('error', 'Error al actualizar el producto');
         }
     }
+
+    public function asociarImagen()
+    {
+        $id_producto = $this->request->getPost('id_producto');
+        $imagen = $this->request->getPost('imagen');
+
+        if (!$id_producto || !$imagen) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Faltan datos.']);
+        }
+
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
+        $productosModel = new Productos_model($db);
+
+        $producto = $productosModel->find($id_producto);
+
+        if (!$producto) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Producto no encontrado.']);
+        }
+
+        $productosModel->update($id_producto, ['imagen' => $imagen]);
+
+    }
+
+
     public function eliminarProducto($id)
     {
         $data = usuario_sesion();
@@ -235,13 +283,14 @@ class Productos extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Producto no encontrado.']);
         }
 
-        // Ruta de la carpeta del producto
-        $rutaProducto = "public/assets/uploads/files/{$data['id_empresa']}/productos/{$id}";
+        $rutaImagenes = "public/assets/uploads/files/{$data['id_empresa']}/productos";
 
-        // Eliminar la carpeta del producto si existe
-        if (is_dir($rutaProducto)) {
-            array_map('unlink', glob("$rutaProducto/*.*")); // Eliminar archivos
-            rmdir($rutaProducto); // Eliminar carpeta
+        // Eliminar la imagen del producto si existe
+        if ($producto['imagen']) {
+            $imagenPath = "{$rutaImagenes}/{$producto['imagen']}";
+            if (file_exists($imagenPath)) {
+                unlink($imagenPath);
+            }
         }
 
         // Eliminar el producto de la base de datos
@@ -250,6 +299,7 @@ class Productos extends BaseController
         } else {
             return $this->response->setJSON(['success' => false, 'message' => 'Error al eliminar el producto.']);
         }
+
     }
 
     public function eliminarImagen($id)
@@ -258,23 +308,14 @@ class Productos extends BaseController
         $db = db_connect($data['new_db']);
         $productosModel = new Productos_model($db);
 
+        // Buscar el producto por ID
         $producto = $productosModel->find($id);
         if (!$producto || !$producto['imagen']) {
             return $this->response->setJSON(['success' => false, 'message' => 'Imagen no encontrada.']);
         }
-
-        // Ruta de la imagen
-        $rutaImagen = "public/assets/uploads/files/{$data['id_empresa']}/productos/{$id}/{$producto['imagen']}";
-
-        // Intentar eliminar la imagen del sistema de archivos
-        if (file_exists($rutaImagen)) {
-            unlink($rutaImagen);
-        }
-
-        // Eliminar la referencia de la imagen en la base de datos
+        // Desasociar la imagen del producto (establecer el campo 'imagen' en NULL)
         $productosModel->update($id, ['imagen' => null]);
-
-        return $this->response->setJSON(['success' => true]);
     }
+
 
 }

@@ -1,0 +1,195 @@
+ERROR - 2025-01-07 11:39:24 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'u5mbcmwgim6ug'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'u5mbcmwgim6ug', Object(SensitiveParameterValue), 'dbpgvlpruorddd', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#7 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#11 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#6 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#10 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+CRITICAL - 2025-01-07 11:39:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: pedidos/edit/17505]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `dbconnections`
+WHERE `id` = :id:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+ 7 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php')
+ 8 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 9 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('partials/menu_lateral', [], true)
+10 APPPATH/Controllers/BaseController.php(74): view('partials/menu_lateral', [...])
+11 SYSTEMPATH/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+12 SYSTEMPATH/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+13 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-07 11:39:37 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'u5mbcmwgim6ug'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'u5mbcmwgim6ug', Object(SensitiveParameterValue), 'dbpgvlpruorddd', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#7 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#11 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#6 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#10 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+CRITICAL - 2025-01-07 11:39:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: pedidos]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `dbconnections`
+WHERE `id` = :id:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+ 7 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php')
+ 8 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 9 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('partials/menu_lateral', [], true)
+10 APPPATH/Controllers/BaseController.php(74): view('partials/menu_lateral', [...])
+11 SYSTEMPATH/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+12 SYSTEMPATH/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+13 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-07 11:39:38 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'u5mbcmwgim6ug'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:186
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php(186): mysqli->real_connect('localhost', 'u5mbcmwgim6ug', Object(SensitiveParameterValue), 'dbpgvlpruorddd', 3306, '', 0)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#7 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#10 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#11 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#16 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#17 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#18 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: YES) in /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /home/customer/www/showscreen.app/public_html/app/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+#6 /home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+#7 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(234): include('/home/customer/...')
+#8 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#9 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Common.php(1171): CodeIgniter\View\View->render('partials/menu_l...', Array, true)
+#10 /home/customer/www/showscreen.app/public_html/app/Controllers/BaseController.php(74): view('partials/menu_l...', Array)
+#11 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#12 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+#13 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(325): CodeIgniter\CodeIgniter->run()
+#15 /home/customer/www/showscreen.app/public_html/vendor/codeigniter4/codeigniter4/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#16 /home/customer/www/showscreen.app/public_html/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#17 {main}
+CRITICAL - 2025-01-07 11:39:38 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: YES)
+[Method: GET, Route: pedidos]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1636): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `dbconnections`
+WHERE `id` = :id:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH/Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/DbConnectionsModel.php(11): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Views/partials/menu_lateral.php(112): App\Models\DbConnectionsModel->getNIF('9')
+ 7 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/partials/menu_lateral.php')
+ 8 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 9 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('partials/menu_lateral', [], true)
+10 APPPATH/Controllers/BaseController.php(74): view('partials/menu_lateral', [...])
+11 SYSTEMPATH/CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+12 SYSTEMPATH/CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+13 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

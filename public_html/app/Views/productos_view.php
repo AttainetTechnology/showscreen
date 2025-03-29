@@ -1,6 +1,17 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?= $this->include('partials/amiga') ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<style>
+    .select2-container {
+        width: 100% !important; /* Asegura que el ancho coincida con el input */
+    }
+    svg.bi.bi-file-earmark-excel {
+    color: red;
+}
+</style>
 
 <title>Productos</title>
 
@@ -44,12 +55,13 @@
                         <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
                     </div>
                     <div class="mb-3">
-                        <label for="id_familia" class="form-label">Familia</label>
-                        <select class="form-control" id="id_familia" name="id_familia" required>
-                            <option value="">Seleccione una familia</option>
-                            <!-- Opciones se llenarán dinámicamente -->
-                        </select>
-                    </div>
+    <label for="id_familia" class="form-label">Familia</label>
+    <select class="form-control" id="id_familia" name="id_familia" required>
+        <option value="">Seleccione una familia</option>
+        <!-- Opciones dinámicamente añadidas -->
+    </select>
+</div>
+
                     <div class="mb-3">
                         <label for="unidad" class="form-label">Unidad</label>
                         <select class="form-control" id="unidad" name="unidad" required>
@@ -92,6 +104,31 @@
 <div id="productosGrid" class="ag-theme-alpine" style="height: 500px; width: 100%;"></div>
 
 <script>
+     $(document).ready(function () {
+        // Inicializa Select2 en el campo de Familia
+        $('#id_familia').select2({
+            placeholder: "Seleccione una familia", // Texto predeterminado
+            allowClear: true, // Permitir limpiar selección
+            dropdownParent: $('#productoModal') // Para que funcione correctamente dentro del modal
+        });
+
+        // Cargar opciones dinámicamente en el campo de Familia
+        cargarOpcionesFamilia('<?= base_url("productos/getFamilias") ?>');
+    });
+
+    function cargarOpcionesFamilia(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const select = $('#id_familia');
+                data.forEach(item => {
+                    const option = new Option(item.nombre, item.id_familia, false, false);
+                    select.append(option);
+                });
+                select.trigger('change'); // Actualiza Select2 con las nuevas opciones
+            })
+            .catch(error => console.error('Error cargando familias:', error));
+    }
     document.addEventListener('DOMContentLoaded', function () {
         const columnDefs = [{
             headerName: "Acciones",
@@ -192,12 +229,26 @@
     }
 
     function imagenRenderer(params) {
-        const imagenUrl = params.value;
-        if (!imagenUrl) {
-            return ''; // Devuelve vacío si no hay URL
-        }
-        return `<img src="${imagenUrl}" alt="Imagen Producto" style="width: 100px; height: 100px; object-fit: cover;">`;
+    const imagenUrl = params.value;
+
+    if (!imagenUrl) {
+        // Si no hay URL, devuelve vacío como hasta ahora
+        return '';
     }
+
+    // Devuelve la imagen con un `onerror` que reemplaza la imagen rota por el nuevo ícono SVG
+    return `
+        <img src="${imagenUrl}" alt="Imagen Producto" 
+            style="width: 50%; object-fit: cover;" 
+            onerror="this.onerror=null;this.outerHTML=\`
+                <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-file-earmark-excel' viewBox='0 0 16 16'>
+                    <path d='M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z'/>
+                    <path d='M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z'/>
+                </svg>
+            \`;">
+    `;
+}
+
 
 
     function abrirModalAgregarProducto() {

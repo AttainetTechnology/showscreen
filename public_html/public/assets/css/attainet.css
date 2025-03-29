@@ -12,7 +12,6 @@ div#report-success,
 	font-size: 13px !important;
 }
 
-
 a {
 	color: #006192 !important;
 }
@@ -150,7 +149,6 @@ tr:has(.estado5) {
 }
 
 tr:has(.estado5) a {
-	color: #837575 !Important;
 	text-decoration: none;
 }
 
@@ -1022,11 +1020,7 @@ input[type=number] {
 
 }
 .enTerminados{
-<<<<<<< HEAD
 	background: #DFEFD8!important;
-=======
-	background-color: #DFEFD8 !important;
->>>>>>> 0feeb9269416fd860a6ea42e6ae741cae7331d98
 }
 .enEntregados{
 	background-color: #69C869 !important;
@@ -1036,7 +1030,7 @@ input[type=number] {
 }
 .enAnulados svg{
     margin: 12px;
-	margin-top:16px;
+	margin-top:0px;
 }
 
 .enEntregados svg{
