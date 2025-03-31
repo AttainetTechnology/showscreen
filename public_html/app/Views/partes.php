@@ -243,7 +243,7 @@
                                                         <td class="casillas"></td>
                                                         <td class="casillas"></td>
                                                     </tr>
-                                                </table>
+                                                </table> 
 
                                             </td>
                                         </tr>
