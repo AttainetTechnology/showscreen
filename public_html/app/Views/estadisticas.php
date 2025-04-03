@@ -15,10 +15,10 @@ use App\Models\Menu_familias_model; ?>
 		<div class="col-lg-2 col-md-2 col-sm-2">
 			<a href="<?php echo site_url('Lista_produccion/pendientes') ?>">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading" style="font-size: 15px !important;">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-clock-o fa-5x"></i>
+								<i class="fa fa-clock-o fa-3x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="display-3">
@@ -44,7 +44,7 @@ use App\Models\Menu_familias_model; ?>
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-tasks fa-5x"></i>
+								<i class="fa fa-tasks fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="display-3">
@@ -70,7 +70,7 @@ use App\Models\Menu_familias_model; ?>
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-wrench fa-5x"></i>
+								<i class="fa fa-wrench fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="display-3">
@@ -96,7 +96,7 @@ use App\Models\Menu_familias_model; ?>
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-3">
-								<i class="fa fa-check fa-5x"></i>
+								<i class="fa fa-check fa-4x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="display-3">
@@ -250,12 +250,68 @@ use App\Models\Menu_familias_model; ?>
 					</div>
 				</div>
 			</div>
+			<?php if (!empty($faltaMaterial)): ?>
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-size: 15px !important;">
+						<i class="bi bi-boxes"></i> FALTA DE MATERIAL
+					</div>
+					<div class="panel-body">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Accion</th>
+									<th>ID Pedido</th>
+									<th>ID Línea Pedido</th>
+									<th>Nombre del Proceso</th>
+									<th>ID Máquina</th>
+									<th>Total piezas</th>
+									<th>Piezas realizadas</th>
+									<th>ID Usuario</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach ($faltaMaterial as $item): ?>
+									<tr>
+										<td>
+											<form action="/index/resetMaterial" method="POST">
+												<input type="hidden" name="id" value="<?= esc($item['id']) ?>">
+												<button type="submit" class="btn botonReset btnEditarTabla">Reset Material
+												<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none">
+                                                        <path d="M14.7513 1.98301C14.8352 2.07186 14.8823 2.19218 14.8823 2.31763C14.8823 2.44307 14.8352 2.5634 14.7513 2.65224L13.8145 3.64186L12.0182 1.74604L12.955 0.756413C13.0392 0.66756 13.1534 0.617645 13.2725 0.617645C13.3916 0.617645 13.5058 0.66756 13.59 0.756413L14.7513 1.98207V1.98301ZM13.1795 4.31109L11.3833 2.41526L5.26424 8.87435C5.21481 8.92651 5.1776 8.99013 5.15557 9.06014L4.43256 11.3484C4.41945 11.3901 4.41759 11.4349 4.42719 11.4776C4.43678 11.5204 4.45746 11.5595 4.48691 11.5906C4.51635 11.6217 4.55341 11.6435 4.59393 11.6536C4.63446 11.6637 4.67685 11.6618 4.71638 11.6479L6.88448 10.8849C6.95073 10.8619 7.011 10.823 7.06052 10.7711L13.1795 4.31109Z" fill="white" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.352905 13.6526C0.352905 14.049 0.510356 14.4291 0.790621 14.7093C1.07089 14.9896 1.45101 15.1471 1.84736 15.1471H12.8067C13.203 15.1471 13.5832 14.9896 13.8634 14.7093C14.1437 14.4291 14.3011 14.049 14.3011 13.6526V7.67479C14.3011 7.54267 14.2487 7.41596 14.1552 7.32254C14.0618 7.22912 13.9351 7.17664 13.803 7.17664C13.6709 7.17664 13.5442 7.22912 13.4507 7.32254C13.3573 7.41596 13.3048 7.54267 13.3048 7.67479V13.6526C13.3048 13.7847 13.2524 13.9114 13.1589 14.0048C13.0655 14.0983 12.9388 14.1508 12.8067 14.1508H1.84736C1.71524 14.1508 1.58853 14.0983 1.49511 14.0048C1.40169 13.9114 1.34921 13.7847 1.34921 13.6526V2.69328C1.34921 2.56116 1.40169 2.43445 1.49511 2.34103C1.58853 2.24761 1.71524 2.19512 1.84736 2.19512H8.32333C8.45544 2.19512 8.58215 2.14264 8.67557 2.04922C8.76899 1.9558 8.82148 1.82909 8.82148 1.69697C8.82148 1.56486 8.76899 1.43815 8.67557 1.34473C8.58215 1.25131 8.45544 1.19882 8.32333 1.19882H1.84736C1.45101 1.19882 1.07089 1.35627 0.790621 1.63654C0.510356 1.9168 0.352905 2.29692 0.352905 2.69328V13.6526Z" fill="white" />
+                                                    </svg>
+												</button>
+											</form>
+										</td>
+										<td><?= esc($item['id_pedido']) ?></td>
+										<td><?= esc($item['id_linea_pedido']) ?></td>
+										<td><?= esc($item['nombre_proceso']) ?></td>
+										<td><?= esc($item['nombre']) ?></td>
+										<td><?= esc($item['n_piezas']) ?></td>
+										<td><?= esc($item['total_buenas']) ?></td>
+										<td><?= esc($item['nombre_usuario'] . ' ' . $item['apellidos_usuario']) ?></td>
+									</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			<?php endif; ?>
 		</div>
 		<div class="col-lg-4">
 			<? if (isset($rutas)): ?>
 				<div class="panel panel-default">
 					<div class="panel-heading" style="font-size: 15px !important;">
+<<<<<<< HEAD
 						<i class="fa fa-truck fa-fw"></i> Rutas de Transporte
+=======
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+							class="bi bi-boxes" viewBox="0 0 16 16">
+							<path
+								d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z" />
+						</svg>
+						Rutas de Transporte
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 					</div>
 					<div class="panel-body">
 						<? echo view('rutas_home'); ?>
@@ -269,7 +325,31 @@ use App\Models\Menu_familias_model; ?>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<table>
+<<<<<<< HEAD
 						Próximamente
+=======
+						<thead>
+							<tr>
+								<th>Usuario</th>
+								<th>Incidencia</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if (!empty($incidencias)): ?>
+								<?php foreach ($incidencias as $incidencia): ?>
+									<tr>
+										<td><?= $incidencia->nombre_usuario ?></td>
+										<td><?= $incidencia->incidencia ?></td>
+
+									</tr>
+								<?php endforeach; ?>
+							<?php else: ?>
+								<tr>
+									<td colspan="3">No se encontraron incidencias en los últimos 7 días.</td>
+								</tr>
+							<?php endif; ?>
+						</tbody>
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 					</table>
 				</div>
 			</div>
@@ -334,5 +414,7 @@ use App\Models\Menu_familias_model; ?>
 		});
 
 	});
+
+
 </script>
 <?= $this->endSection() ?>

@@ -286,7 +286,7 @@ END_SEREFERRALS
 # External page referers - Pages - Hits
 # The 10 first Pages must be first (order not required for others)
 BEGIN_PAGEREFS 2
-https://dev.showscreen.app 8 14
+https://showscreen.app 8 14
 https://my.siteground.com 1 1
 END_PAGEREFS
 
@@ -318,7 +318,7 @@ BEGIN_SIDER_404 38
 /Select_empresa/public/assets/uploads/files/7/logos/AttainetLogo-efdc8.png 2 https://showscreen.app/Select_empresa/
 /publicpublic/assets/uploads/favicon7/logos/favicon_attainet.png 43 https://showscreen.app/presentes
 /publicpublic/assets/uploads/favicon7/logos/offertiles_logo-04b4b.png 7 -
-/ 6 https://dev.showscreen.app/
+/ 6 https://showscreen.app/
 /Select_empresa/public/assets/uploads/files/2/logos/acdc_logo-25122-1fb9e.png 2 https://showscreen.app/Select_empresa/
 /assets/uploads/files/logo_attainet_rect.png 2 -
 /publicpublic/assets/uploads/favicon8/logos/acdc_logo-25122-013c6.png 19 -

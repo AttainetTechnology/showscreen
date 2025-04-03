@@ -69,7 +69,10 @@
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <!-- Change this to a button or input when using this as a form -->
+=======
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                     <div id="botones">
                         <input type="submit" value="Acceder" class="btn btn-lg btn-success btn-block" />
                         <a href="javascript:void(0);" onclick="openGoogleLoginWindow();"

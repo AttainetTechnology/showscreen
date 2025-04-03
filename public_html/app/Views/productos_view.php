@@ -1,11 +1,25 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?= $this->include('partials/amiga') ?>
+<<<<<<< HEAD
 <style>
+=======
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<style>
+    .select2-container {
+        width: 100% !important; /* Asegura que el ancho coincida con el input */
+    }
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     svg.bi.bi-file-earmark-excel {
     color: red;
 }
 </style>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 <title>Productos</title>
 
 <link rel="stylesheet" type="text/css" href="<?= base_url('public/assets/css/libreria.css') ?>?v=<?= time() ?>">
@@ -48,12 +62,13 @@
                         <input type="number" class="form-control" id="precio" name="precio" step="0.01" required>
                     </div>
                     <div class="mb-3">
-                        <label for="id_familia" class="form-label">Familia</label>
-                        <select class="form-control" id="id_familia" name="id_familia" required>
-                            <option value="">Seleccione una familia</option>
-                            <!-- Opciones se llenarán dinámicamente -->
-                        </select>
-                    </div>
+    <label for="id_familia" class="form-label">Familia</label>
+    <select class="form-control" id="id_familia" name="id_familia" required>
+        <option value="">Seleccione una familia</option>
+        <!-- Opciones dinámicamente añadidas -->
+    </select>
+</div>
+
                     <div class="mb-3">
                         <label for="unidad" class="form-label">Unidad</label>
                         <select class="form-control" id="unidad" name="unidad" required>
@@ -96,6 +111,31 @@
 <div id="productosGrid" class="ag-theme-alpine" style="height: 500px; width: 100%;"></div>
 
 <script>
+     $(document).ready(function () {
+        // Inicializa Select2 en el campo de Familia
+        $('#id_familia').select2({
+            placeholder: "Seleccione una familia", // Texto predeterminado
+            allowClear: true, // Permitir limpiar selección
+            dropdownParent: $('#productoModal') // Para que funcione correctamente dentro del modal
+        });
+
+        // Cargar opciones dinámicamente en el campo de Familia
+        cargarOpcionesFamilia('<?= base_url("productos/getFamilias") ?>');
+    });
+
+    function cargarOpcionesFamilia(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const select = $('#id_familia');
+                data.forEach(item => {
+                    const option = new Option(item.nombre, item.id_familia, false, false);
+                    select.append(option);
+                });
+                select.trigger('change'); // Actualiza Select2 con las nuevas opciones
+            })
+            .catch(error => console.error('Error cargando familias:', error));
+    }
     document.addEventListener('DOMContentLoaded', function () {
         const columnDefs = [{
             headerName: "Acciones",
@@ -218,8 +258,11 @@
 }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 
     function abrirModalAgregarProducto() {
         // Resetear el formulario y la imagen de vista previa

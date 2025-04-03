@@ -158,8 +158,13 @@
                                     <!-- Cabecera -->
                                     <div class="row">
                                         <div id="parte_fila_left">
+<<<<<<< HEAD
                                             <img src="<?php echo base_url("public/assets/uploads/logo/") . "/" . $url_logo; ?>"
                                                 class="logo_partes"><br>
+=======
+                                        <img src="<?php echo base_url("public/assets/uploads/files") . "/" . $url_logo; ?>" class="logo_partes"><br>
+                                         <br>
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                                             Cliente:
                                             <address>
                                                 <strong><?php echo $cli->nombre_cliente; ?></strong>
@@ -282,8 +287,12 @@
                         Entrega:
                         <strong><? echo date("d-m-Y", strtotime($p->fecha_entrega)); ?></strong>
                         <br>
+<<<<<<< HEAD
                         User: <strong><?php echo $nombre_usuario; ?>                 <?php echo $apellidos_usuario; ?></strong> | Impresi&oacute;n:
                         <? echo ' ' . date('d-m-Y') . "\n"; ?></small><br>
+=======
+                        Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?></strong> (<? echo ' ' . date('d-m-Y') . "\n"; ?>)</small><br>
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                     </div>
                 </div>
                 <!-- /#Printable area -->

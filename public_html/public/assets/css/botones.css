@@ -94,23 +94,45 @@
 
 .volverButton,
 .volverButtonTabla,
+<<<<<<< HEAD
 .btnSubmenu {
+=======
+.btnSubmenu,
+.accederButtonTabla {
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     background-color: #337AB7 !important;
     color: white !important;
 }
 
 .volverButton:hover,
 .volverButtonTabla:hover,
+<<<<<<< HEAD
 .btnSubmenu:hover {
+=======
+.btnSubmenu:hover,
+.accederButtonTabla:hover {
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     background-color: #125692 !important;
     color: white;
 }
 
 .volverButton:active,
 .volverButtonTabla:active,
+<<<<<<< HEAD
 .btnSubmenu:active {
+=======
+.btnSubmenu:active,
+.accederButtonTabla:hover {
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     background-color: #6897C0 !important;
     color: white !important;
+}
+
+.accederButtonTabla svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+    margin-left: 1px;
 }
 
 .volverButton svg {
@@ -491,12 +513,25 @@ button.btn.botonTabla.btnEditarTabla {
     height: 27px;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 .btnIcono {
     border-radius: 5px;
     margin-right: 21px;
     padding: 2px 6px !important;
 }
 
+<<<<<<< HEAD
+=======
+.btnEscandallo {
+    height: 30px !important;
+    background-color: #f3bb42 !important;
+    color: white !important;
+}
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 .btnCopiar {
     padding: 7px !important;
     margin-left: 10px;
@@ -543,4 +578,12 @@ button.btn.botonTabla.btnEditarTabla {
     height: 16px;
     margin: 0px;
     padding: 0px;
+<<<<<<< HEAD
+=======
+}
+
+.botonReset{
+    margin: 0px;
+    padding: 4px;
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 }

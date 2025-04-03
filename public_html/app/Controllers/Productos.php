@@ -9,6 +9,14 @@ class Productos extends BaseController
     public function index()
     {
         helper('controlacceso');
+<<<<<<< HEAD
+=======
+        $redirect = check_access_level();
+        $redirectUrl = session()->getFlashdata('redirect');
+        if ($redirect && is_string($redirectUrl)) {
+            return redirect()->to($redirectUrl);
+        }
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         $this->addBreadcrumb('Inicio', base_url('/'));
         $this->addBreadcrumb('Productos');
         $data['amiga'] = $this->getBreadcrumbs();

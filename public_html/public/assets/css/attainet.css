@@ -149,7 +149,6 @@ tr:has(.estado5) {
 }
 
 tr:has(.estado5) a {
-	color: #837575 !Important;
 	text-decoration: none;
 }
 

@@ -8,6 +8,12 @@ class Log extends BaseController
 {
     public function index()
     {
+        helper('controlacceso');
+        $redirect = check_access_level();
+        $redirectUrl = session()->getFlashdata('redirect');
+        if ($redirect && is_string($redirectUrl)) {
+            return redirect()->to($redirectUrl);
+        }
         $this->addBreadcrumb('Inicio', base_url('/'));
         $this->addBreadcrumb('Logs');
         $data['amiga'] = $this->getBreadcrumbs();
@@ -31,7 +37,7 @@ class Log extends BaseController
         if (empty($id_log)) {
             return $this->response->setJSON(['success' => false, 'message' => 'ID de log no válido.']);
         }
-    
+
         $data = datos_user();
         $db = db_connect($data['new_db']);
         $logModel = new Log_model($db);
@@ -47,6 +53,6 @@ class Log extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Log no encontrado para el ID: ' . $id_log]);
         }
     }
-    
-    
+
+
 }

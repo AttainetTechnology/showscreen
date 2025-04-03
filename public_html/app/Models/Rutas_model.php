@@ -40,13 +40,8 @@ class Rutas_model extends Model
                     CONCAT(users.nombre_usuario, " ", users.apellidos_usuario) AS nombre_transportista');
      $this->join('clientes', 'rutas.id_cliente = clientes.id_cliente', 'left');
      $this->join('poblaciones_rutas', 'rutas.poblacion = poblaciones_rutas.id_poblacion', 'left');
-     $this->join('users', 'rutas.transportista = users.id', 'left');
+     $this->join('users', 'rutas.transportista = users.id', 'left'); // Ajusta 'users' al nombre correcto de la tabla
      $this->where($coge_estado, $where_estado);
-     
-     // Ordenar por fecha más reciente (DESC) y luego por nombre_poblacion (ASC)
-     $this->orderBy('rutas.fecha_ruta', 'DESC');
-     $this->orderBy('poblaciones_rutas.poblacion', 'ASC');
- 
      return $this->findAll();
  }
  

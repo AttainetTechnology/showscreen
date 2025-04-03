@@ -2,7 +2,6 @@
 <?php
 
 use App\Models\Usuarios_model;
-//comienza el foreach
 foreach ($pedido as $ped) { ?>
     <div id="fondo">
         <a href="javascript:void(0);" onclick="marcarTodasLasLineas(<?php echo $ped->id_pedido; ?>);"
@@ -47,9 +46,9 @@ foreach ($pedido as $ped) { ?>
             </svg>
         </button>
         <div id="printableArea">
-            <!-- info row -->
             <div class="fila">
                 <div id="fila_left">
+<<<<<<< HEAD
                     <img src="<?php echo base_url("public/assets/uploads/files") . "/" . $url_logo; ?>"
                         class="logo_partes"><br><br>
                     <br>
@@ -92,6 +91,14 @@ foreach ($pedido as $ped) { ?>
                     <b><?php echo $ped->pedido_por; ?></b><br>
                     Id.Ped: <b><?php echo $ped->id_pedido; ?></b> | User:
                     <b><?php echo isset($user_ped[$ped->id_usuario]) ? $user_ped[$ped->id_usuario] : 'test'; ?> </b>
+=======
+                    <img src="<?php
+                    helper('logo');
+                    $logo = logo();
+                    echo $logo; ?>" class="logo_partes"><br>
+                    Id.Ped: <b><?php echo $ped->id_pedido; ?></b><br>User:
+                    <b><?php echo $ped->pedido_por; ?></b>
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                 </div>
 
                 <!-- /.col -->
@@ -131,7 +138,11 @@ foreach ($pedido as $ped) { ?>
                         <tbody>
                             <?php
                             $contador = 0;
+<<<<<<< HEAD
                             $page_break_added = false; // Variable para controlar si ya se ha agregado el salto de página
+=======
+                            $page_break_added = false; 
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                             foreach ($lineas as $l) {
                                 $contador++;
                                 ?>
@@ -189,6 +200,7 @@ foreach ($pedido as $ped) { ?>
             <div class="row">
                 <div class="col-xs-6">
                 </div>
+<<<<<<< HEAD
 
                 <div class="col-xs-6">
                 </div>
@@ -196,6 +208,16 @@ foreach ($pedido as $ped) { ?>
         </div>
     </div> <!-- /#Printable area -->
     </div> <!-- Fondo -->
+=======
+                <div class="col-xs-6 detalles-pie">
+    
+                        Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?></strong>
+                        (<? echo ' ' . date('d-m-Y') . "\n"; ?>)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 
-<?php } // Cierro foreach pedido 
+<?php }
 ?>

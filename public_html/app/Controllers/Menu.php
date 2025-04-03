@@ -9,6 +9,12 @@ class Menu extends BaseController
 {
 	public function index()
 	{
+		helper('controlacceso');
+		$redirect = check_access_level();
+		$redirectUrl = session()->getFlashdata('redirect');
+		if ($redirect && is_string($redirectUrl)) {
+			return redirect()->to($redirectUrl);
+		}
 		$this->addBreadcrumb('Inicio', base_url('/'));
 		$this->addBreadcrumb('Menú');
 		$data['amiga'] = $this->getBreadcrumbs();
@@ -54,9 +60,15 @@ class Menu extends BaseController
 		}
 		foreach ($menus as &$menu) {
 			$menu['nivel'] = $nivelesMap[$menu['nivel']] ?? 'Desconocido';
+<<<<<<< HEAD
 			$menu['activo'] = $menu['activo'] == 1 ? 'Activo' : 'Desactivado'; 
 		}
 		
+=======
+			$menu['activo'] = $menu['activo'] == 1 ? 'Activo' : 'Desactivado';
+		}
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		return [
 			'sin_dependencia' => $menus
 		];
@@ -156,11 +168,10 @@ class Menu extends BaseController
 		$db = db_connect($data['new_db']);
 		$menuModel = new MenuModel($db);
 
-		// Recoger datos del formulario
 		$formData = [
 			'posicion' => $this->request->getPost('posicion'),
 			'titulo' => $this->request->getPost('titulo'),
-			'enlace' => $this->request->getPost('enlace'),
+			'enlace' => $this->request->getPost('enlace') ?: '',
 			'nivel' => $this->request->getPost('nivel'),
 			'activo' => $this->request->getPost('activo'),
 			'estilo' => $this->request->getPost('estilo'),
@@ -169,6 +180,7 @@ class Menu extends BaseController
 			'nueva_pestana' => $this->request->getPost('nueva_pestana'),
 			'dependencia' => 0, // Menú sin dependencia
 		];
+
 
 		// Validar que el campo 'posicion' no esté vacío y sea un número
 		if (empty($formData['posicion']) || !is_numeric($formData['posicion'])) {

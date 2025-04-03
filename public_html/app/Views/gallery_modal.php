@@ -45,6 +45,10 @@
                         </button>
                     </form>
                     <img src="<?= esc($image['url']) ?>" alt="<?= esc($image['name']) ?>">
+<<<<<<< HEAD
+=======
+                   
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

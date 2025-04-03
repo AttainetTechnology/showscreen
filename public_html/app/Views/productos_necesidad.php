@@ -73,8 +73,13 @@
         {
             headerName: "Imagen",
             field: "imagen",
+<<<<<<< HEAD
             minWidth: 180,
             cellRenderer: params => params.value ? `<img src="${params.value}" height="60">` : ''
+=======
+            minWidth: 400,
+            cellRenderer: params => params.value ? `<img src="${params.value}">` : ''
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         },
         {
             headerName: "Unidad",

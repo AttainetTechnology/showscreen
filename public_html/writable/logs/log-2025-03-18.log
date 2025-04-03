@@ -1,0 +1,14 @@
+CRITICAL - 2025-03-18 13:30:32 --> ErrorException: Trying to access array offset on value of type null
+[Method: GET, Route: salir/42]
+in APPPATH/Views/salir.php on line 19.
+ 1 APPPATH/Views/salir.php(19): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', '/home/customer/www/showscreen.app/public_html/app/Views/salir.php', 19)
+ 2 SYSTEMPATH/View/View.php(234): include('/home/customer/www/showscreen.app/public_html/app/Views/salir.php')
+ 3 SYSTEMPATH/View/View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1171): CodeIgniter\View\View->render('salir', [], true)
+ 5 APPPATH/Controllers/Fichar.php(404): view('salir', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\Fichar->Salir('42')
+ 7 SYSTEMPATH/CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Fichar))
+ 8 SYSTEMPATH/CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH/Boot.php(325): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH/index.php(29): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

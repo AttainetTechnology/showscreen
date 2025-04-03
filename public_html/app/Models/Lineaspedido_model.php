@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class Lineaspedido_model extends Model
 {
-    protected $table = 'linea_pedido';
+    protected $table = 'linea_pedidos';
     protected $primaryKey = 'id_lineapedido';
     protected $allowedFields = [
         'id_pedido',
@@ -20,7 +20,8 @@ class Lineaspedido_model extends Model
         'descuento',
         'add_linea',
         'total_linea',
-        'estado'
+        'estado',
+        'escandallo'
     ];
     public function index() {}
 
@@ -224,6 +225,10 @@ class Lineaspedido_model extends Model
         return true;
     }
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     public function actualiza_linea($id_lineapedido, $estado)
     {
         $data = ['estado' => $estado];

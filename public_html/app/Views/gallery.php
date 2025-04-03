@@ -2,9 +2,15 @@
 <?= $this->section('content') ?>
 <?= $this->include('partials/amiga') ?>
 <style>
+<<<<<<< HEAD
     .gallery-item img{
         width: 100% ;
         height: 150px ;
+=======
+    .gallery-item img {
+        width: 100%;
+        height: 150px;
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         object-fit: cover;
     }
 </style>

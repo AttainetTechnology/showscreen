@@ -40,6 +40,10 @@ $estadoMap = [
 <div id="pedidoTable" class="ag-theme-alpine" style="height: 400px; width: 100%;"></div>
 
 <script>
+<<<<<<< HEAD
+=======
+    // Función para copiar al portapapeles
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     function copyToClipboard(value) {
         const textArea = document.createElement('textarea');
         textArea.value = value;
@@ -109,6 +113,7 @@ $estadoMap = [
             { headerName: "Total", field: "total", filter: 'agTextColumnFilter', flex: 1 }
         ];
 
+
         const rowData = [
             <?php foreach ($pedidos as $pedido): ?> {
                     id_pedido: "<?= $pedido->id_pedido ?>",
@@ -162,7 +167,7 @@ $estadoMap = [
                     case "Anulado": return 'estado6';
                     default: return '';
                 }
-            }
+            },
         };
 
         const eGridDiv = document.querySelector('#pedidoTable');

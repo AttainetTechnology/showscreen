@@ -80,7 +80,10 @@
                         fill="white" />
                 </svg>
             </a>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             <?php
             $data = datos_user();
             $nivel_acceso = $data['nivel'];
@@ -108,6 +111,7 @@
                 <?php endforeach; ?>
             </select>
         </div>
+
         <div class="form-group">
             <label for="referencia">Referencia:</label>
             <input type="text" id="referencia" name="referencia" class="form-control"
@@ -225,6 +229,20 @@
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
             }
+<<<<<<< HEAD
+=======
+            $(document).ready(function () {
+                $('#id_cliente').select2({
+                    placeholder: "Selecciona una empresa",
+                    allowClear: true,
+                    width: '100%'
+                });
+
+                // Mantener el cliente seleccionado en la inicialización
+                $('#id_cliente').val('<?= $pedido->id_cliente ?>').trigger('change');
+            });
+
+>>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             document.addEventListener('DOMContentLoaded', function () {
                 const estadosTexto = <?= json_encode($estados_texto) ?>;
                 const columnDefs = [{
@@ -312,6 +330,8 @@
                 const rowData = <?= json_encode($lineas_pedido) ?>;
                 var userLevel = parseInt(<?= json_encode(session()->get('logged_in')['nivel'] ?? 0) ?>, 10);
 
+                var userLevel = parseInt(<?= json_encode(session()->get('logged_in')['nivel'] ?? 0) ?>, 10);
+
                 function renderActions(params) {
                     const id = params.data.id_lineapedido;
                     const actionLabel = (userLevel === 9) ? 'Eliminar' : 'Anular';
@@ -341,6 +361,7 @@
                     </a>
                 `;
                 }
+
                 const gridOptions = {
                     columnDefs: columnDefs,
                     rowData: rowData,
