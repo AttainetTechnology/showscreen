@@ -87,10 +87,10 @@
                         </div>
                         <div id="parte_fila_right" class="imagenparte">
                             <div class="capa-numero-parte">
-                                <div class="numero_parte">Id: <strong><?php echo $p->id_pedido; ?></strong></div>
+                                <div class="numero_parte">Pedido: <strong><?php echo $p->id_pedido; ?></strong></div>
                             </div>
                             <h3><b><?php echo $prod->nombre_producto; ?></b> </h3>
-                            <small>L.P: <strong><?php echo $l->id_lineapedido; ?></strong></small><br>
+                            <small>Parte nº: <strong><?php echo $l->id_lineapedido; ?></strong></small><br>
 
                             <!-- Aquí modificamos la ruta de la imagen para que incluya el id_empresa -->
                             <img src="<?php echo base_url("public/assets/uploads/files/" . $this->data['id_empresa'] . "/productos/" . $prod->imagen); ?>"
@@ -158,13 +158,8 @@
                                     <!-- Cabecera -->
                                     <div class="row">
                                         <div id="parte_fila_left">
-<<<<<<< HEAD
-                                            <img src="<?php echo base_url("public/assets/uploads/logo/") . "/" . $url_logo; ?>"
-                                                class="logo_partes"><br>
-=======
                                         <img src="<?php echo base_url("public/assets/uploads/files") . "/" . $url_logo; ?>" class="logo_partes"><br>
                                          <br>
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                                             Cliente:
                                             <address>
                                                 <strong><?php echo $cli->nombre_cliente; ?></strong>
@@ -248,7 +243,7 @@
                                                         <td class="casillas"></td>
                                                         <td class="casillas"></td>
                                                     </tr>
-                                                </table> 
+                                                </table>
 
                                             </td>
                                         </tr>
@@ -287,12 +282,7 @@
                         Entrega:
                         <strong><? echo date("d-m-Y", strtotime($p->fecha_entrega)); ?></strong>
                         <br>
-<<<<<<< HEAD
-                        User: <strong><?php echo $nombre_usuario; ?>                 <?php echo $apellidos_usuario; ?></strong> | Impresi&oacute;n:
-                        <? echo ' ' . date('d-m-Y') . "\n"; ?></small><br>
-=======
                         Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?></strong> (<? echo ' ' . date('d-m-Y') . "\n"; ?>)</small><br>
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                     </div>
                 </div>
                 <!-- /#Printable area -->

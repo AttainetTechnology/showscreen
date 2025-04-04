@@ -45,7 +45,7 @@
                             <table class="procesos table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Acción</th>
+                                        <th></th>
                                         <th>Proceso</th>
                                         <th>Producto</th>
                                         <th>Observaciones</th>
@@ -92,7 +92,7 @@
                             <table class="procesos table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Acción</th>
+                                        <th></th>
                                         <th>Proceso</th>
                                         <th>Cliente</th>
                                         <th>Producto</th>
