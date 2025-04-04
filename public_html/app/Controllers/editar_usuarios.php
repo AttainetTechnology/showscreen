@@ -33,7 +33,13 @@
             <option value="0" <?= $usuario['user_activo'] == 0 ? 'selected' : '' ?>>No</option>
         </select>
     </div>
-
+    <div class="mb-3">
+            <label for="user_ficha">Fichaje:</label>
+            <select class="form-control" id="user_ficha" name="user_ficha">
+                <option value="1" <?= $usuario['user_ficha'] == 1 ? 'selected' : '' ?>>Sí</option>
+                <option value="0" <?= $usuario['user_ficha'] == 0 ? 'selected' : '' ?>>No</option>
+            </select>
+    </div> 
     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
 </form>

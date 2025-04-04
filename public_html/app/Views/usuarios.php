@@ -136,6 +136,18 @@
                         buttons: ['reset', 'apply'],
                         debounceMs: 200,
                     }
+                },
+                {
+                headerName: "Ficha",
+                field: "user_ficha",
+                sortable: true,
+                filter: true,
+                cellRenderer: params => params.value == 1 
+                    ? '<span style="color: green; font-size:18px;">&#10004;</span>' 
+                    : '<span style="color: red; font-size:18px;">&#10008;</span>',
+                cellStyle: { textAlign: 'center' },
+                valueFormatter: params => params.value == 1 ? 'Sí' : 'No',
+                filterParams: { buttons: ['reset', 'apply'], debounceMs: 200 }
                 }
             ];
             const gridOptions = {
