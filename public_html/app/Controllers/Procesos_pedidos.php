@@ -113,6 +113,28 @@ class Procesos_pedidos extends BaseControllerGC
         ]);
     }
 
+    public function eliminarRestriccion()
+    {
+        $id_relacion = $this->request->getPost('id_relacion'); 
+
+        if ($id_relacion) {
+            $data = usuario_sesion();
+            $db = db_connect($data['new_db']);
+            $builder = $db->table('procesos_pedidos');
+
+            $builder->where('id_relacion', $id_relacion); 
+            $builder->update(['restriccion' => NULL]);
+            if ($db->affectedRows() > 0) {
+                return redirect()->to('/procesos_pedidos/index')->with('success', 'Restricción eliminada correctamente');
+            } else {
+                return redirect()->to('/procesos_pedidos/index')->with('error', 'No se pudo eliminar la restricción');
+            }
+        }
+
+        return redirect()->to('/procesos_pedidos/index')->with('error', 'ID de relación no proporcionado');
+    }
+
+
     public function actualizarEstadoProcesos()
     {
         $data = usuario_sesion();

@@ -278,7 +278,13 @@
                                 <td>
                                     <?= esc($linea['proceso']); ?>
                                     <?php if ($linea['restriccion'] !== null && $linea['restriccion'] !== '0' && $linea['restriccion'] !== '') : ?>
-                                        <span style="margin-left: 5px;">🔒</span>
+                                        <form action="/procesos_pedidos/eliminarRestriccion" method="POST" style="display:inline;">
+                                            <input type="hidden" name="id_relacion" value="<?= $linea['id_relacion']; ?>">
+                                            <!-- Añadimos el onclick al botón para mostrar un alert de confirmación -->
+                                            <button type="submit" class="btn btn-icon" title="Eliminar restricción" onclick="return confirmarEliminacion();">
+                                                <span>🔒</span>
+                                            </button>
+                                        </form>
                                     <?php endif; ?>
                                 </td>
 
@@ -1197,6 +1203,15 @@
                 .finally(() => {
                     button.disabled = false;
                 });
+        }
+    }
+
+    function confirmarEliminacion() {
+        var confirmacion = confirm("¿Estás seguro de eliminar las restricciones de este proceso?");
+        if (confirmacion) {
+            return true;
+        } else {
+            return false;
         }
     }
 </script>

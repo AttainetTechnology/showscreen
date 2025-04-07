@@ -1,4 +1,5 @@
-<?php //print_r($presentes); ?>
+<?php //print_r($presentes); 
+?>
 <?= $cabecera; ?>
 
 <body class="page-select" onload="startTime()">
@@ -8,7 +9,7 @@
             <h2><?= $usuario['nombre_usuario']; ?> <?= $usuario['apellidos_usuario']; ?></h2>
         </div>
         <div class="d-flex justify-content-end ">
-            <a href="<?= site_url('/presentes')?>" class="btn volverButton">
+            <a href="<?= site_url('/presentes') ?>" class="btn volverButton">
                 <span class="glyphicon glyphicon-arrow-left"></span> Volver
             </a>
         </div>
@@ -140,13 +141,13 @@
 
     </div>
     <script>
-        (function () {
+        (function() {
             var tiempoInactividad = 30000; // 30 segundos
             var temporizador;
 
             function resetTemporizador() {
                 clearTimeout(temporizador);
-                temporizador = setTimeout(function () {
+                temporizador = setTimeout(function() {
                     window.location.href = '/presentes';
                 }, tiempoInactividad);
             }
@@ -154,11 +155,11 @@
             // Eventos que reiniciarán el temporizador
             window.onload = resetTemporizador;
             window.onmousemove = resetTemporizador;
-            window.onmousedown = resetTemporizador;  //interacción táctil/teclado
+            window.onmousedown = resetTemporizador; //interacción táctil/teclado
             window.ontouchstart = resetTemporizador;
-            window.onclick = resetTemporizador;     //clics
+            window.onclick = resetTemporizador; //clics
             window.onkeypress = resetTemporizador;
-            window.addEventListener('scroll', resetTemporizador, true);  //scroll
+            window.addEventListener('scroll', resetTemporizador, true); //scroll
 
         })();
     </script>
