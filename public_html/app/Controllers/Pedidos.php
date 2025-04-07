@@ -136,10 +136,6 @@ class Pedidos extends BaseController
 		$db = db_connect($data['new_db']);
 		$pedidoModel = new Pedidos_model($db);
 
-<<<<<<< HEAD
-		// Validación básica de datos
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		if (
 			!$this->validate([
 				'id_cliente' => 'required',
@@ -285,26 +281,16 @@ class Pedidos extends BaseController
 			];
 			$lineaPedidoModel->insert($nuevaLinea);
 		}
-<<<<<<< HEAD
-		$this->logAction('Pedidos', 'Duplica Linea Pedido, ID: ' . $id_pedido, []);
-		return redirect()->to(base_url('pedidos/edit/' . $nuevoPedidoId))->with('success', 'Pedido duplicado correctamente');
-	}
-=======
 		$this->logAction('Pedidos', 'Duplica Pedido, ID: ' . $id_pedido, []);
 		return redirect()->to(base_url('pedidos/edit/' . $nuevoPedidoId))->with('success', 'Pedido duplicado correctamente');
 	}
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 	public function update($id_pedido)
 	{
 		$data = usuario_sesion();
 		$db = db_connect($data['new_db']);
 		$pedidoModel = new Pedidos_model($db);
 
-<<<<<<< HEAD
-		// Validación básica de datos
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		if (
 			!$this->validate([
 				'id_cliente' => 'required',
@@ -315,19 +301,10 @@ class Pedidos extends BaseController
 			return redirect()->back()->with('error', 'Faltan datos obligatorios');
 		}
 
-<<<<<<< HEAD
-		// Obtener el pedido actual para mantener su estado
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		$pedido = $pedidoModel->find($id_pedido);
 		if (!$pedido) {
 			return redirect()->back()->with('error', 'Pedido no encontrado');
 		}
-<<<<<<< HEAD
-
-		// Preparar los datos para actualizar el pedido
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		$updateData = [
 			'id_cliente' => $this->request->getPost('id_cliente'),
 			'referencia' => $this->request->getPost('referencia'),
@@ -337,15 +314,8 @@ class Pedidos extends BaseController
 			'observaciones' => $this->request->getPost('observaciones'),
 		];
 
-<<<<<<< HEAD
-		// Mantener el estado original del pedido, no modificarlo
-		$updateData['estado'] = $pedido->estado; // Usar notación de objeto ->
-
-		// Actualizar el pedido
-=======
 		$updateData['estado'] = $pedido->estado;
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		if ($pedidoModel->update($id_pedido, $updateData)) {
 			$this->logAction('Pedidos', 'Edita pedido, ID: ' . $id_pedido, []);
 			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Pedido actualizado correctamente');
@@ -543,6 +513,12 @@ class Pedidos extends BaseController
 		if ($lineaspedidoModel->update($id_lineapedido, $updateData)) {
 			$id_pedido = $this->request->getPost('id_pedido');
 
+			if (isset($updateData['estado']) && $updateData['estado'] == 4) {
+				$procesosPedidoModel->where('id_linea_pedido', $id_lineapedido)
+					->set('estado', $updateData['estado'])
+					->update();
+			}
+	
 			if (isset($updateData['estado']) && $updateData['estado'] == 5) {
 				$procesosPedidoModel->where('id_linea_pedido', $id_lineapedido)
 					->set('estado', $updateData['estado'])
@@ -582,18 +558,6 @@ class Pedidos extends BaseController
 			return $this->response->setStatusCode(404, 'Línea de pedido no encontrada');
 		}
 
-<<<<<<< HEAD
-		// Verificar si el estado de la línea es "en cola"
-		$isEstadoEnCola = ($linea_pedido['estado'] === 'en cola');
-
-		// Pasar datos a la vista
-		$data['productos'] = $productosModel->findAll();
-		$data['estados'] = $estadoModel->findAll();
-		$data['linea_pedido'] = $linea_pedido;
-		$data['isEstadoEnCola'] = $isEstadoEnCola;  // Variable adicional para controlar la visibilidad
-
-		// Renderizar la vista dependiendo de si es AJAX o no
-=======
 		$isEstadoEnCola = ($linea_pedido['estado'] === 'en cola');
 
 		$data['productos'] = $productosModel->findAll();
@@ -601,7 +565,6 @@ class Pedidos extends BaseController
 		$data['linea_pedido'] = $linea_pedido;
 		$data['isEstadoEnCola'] = $isEstadoEnCola;
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 		if ($this->request->isAJAX()) {
 			return view('editLineaPedido', $data);
 		} else {
@@ -663,11 +626,7 @@ class Pedidos extends BaseController
 
 		$this->logAction('Pedidos', 'Elimina Línea pedido, ID: ' . $id_lineapedido, []);
 
-<<<<<<< HEAD
-		return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea del pedido y procesos asociados eliminados correctamente');
-=======
 		return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea del pedido, procesos asociados y registros en relacion_proceso_usuario eliminados correctamente');
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 	}
 
 	public function anularLinea($id_lineapedido, $id_pedido)
@@ -675,10 +634,7 @@ class Pedidos extends BaseController
 		$data = usuario_sesion();
 		$db = db_connect($data['new_db']);
 		$lineaPedidoModel = new LineaPedido($db);
-<<<<<<< HEAD
-=======
 		$relacionProcesoUsuarioModel = $db->table('relacion_proceso_usuario');
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 
 		$linea = $lineaPedidoModel->where('id_lineapedido', $id_lineapedido)->first();
 
@@ -686,20 +642,6 @@ class Pedidos extends BaseController
 			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('error', 'La línea de pedido no existe.');
 		}
 
-<<<<<<< HEAD
-		$update = $lineaPedidoModel->update($id_lineapedido, ['estado' => 6]);
-
-		if ($update) {
-			$totalPedido = $this->actualizarTotalPedido($id_pedido);
-			$this->logAction('Pedidos', 'Anula Línea pedido, ID: ' . $id_lineapedido, []);
-			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea de pedido anulada correctamente y total del pedido actualizado. Total: ' . $totalPedido);
-		} else {
-			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('error', 'No se pudo anular la línea de pedido');
-		}
-	}
-
-
-=======
 		$db->transStart();
 
 		// Anular la línea de pedido
@@ -719,7 +661,6 @@ class Pedidos extends BaseController
 			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('error', 'No se pudo anular la línea de pedido');
 		}
 	}
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 	public function actualizarEstadoPedido($id_pedido)
 	{
 		$data = usuario_sesion();

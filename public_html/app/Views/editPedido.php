@@ -80,10 +80,6 @@
                         fill="white" />
                 </svg>
             </a>
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             <?php
             $data = datos_user();
             $nivel_acceso = $data['nivel'];
@@ -229,8 +225,6 @@
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
             }
-<<<<<<< HEAD
-=======
             $(document).ready(function () {
                 $('#id_cliente').select2({
                     placeholder: "Selecciona una empresa",
@@ -242,7 +236,6 @@
                 $('#id_cliente').val('<?= $pedido->id_cliente ?>').trigger('change');
             });
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             document.addEventListener('DOMContentLoaded', function () {
                 const estadosTexto = <?= json_encode($estados_texto) ?>;
                 const columnDefs = [{
