@@ -92,7 +92,8 @@ class Procesos_pedidos extends BaseControllerGC
                 'orden' => $lineaEstado3['orden'],
                 'base' => $lineaPedido['nom_base'],
                 'guardado' => $lineaEstado3['guardado'] ?? 'nuevo',
-                'restriccion' => $lineaEstado3['restriccion'] ?? null
+                'restriccion' => $lineaEstado3['restriccion'] ?? null,
+                'id_relacion' => $lineaEstado3['id_relacion']
             ];
         }
 

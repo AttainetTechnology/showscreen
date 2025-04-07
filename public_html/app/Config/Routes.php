@@ -122,8 +122,6 @@ $routes->get('editar_rutas/(:num)', 'Rutas::editar_ruta/$1');
 $routes->post('rutas/updateRuta/(:num)', 'Rutas::updateRuta/$1');
 $routes->get('rutas/add_ruta', 'Rutas::add_ruta');
 $routes->post('rutas/addRuta', 'Rutas::addRuta');
-<<<<<<< HEAD
-=======
 $routes->delete('poblaciones_rutas/eliminar/(:num)', 'Poblaciones_rutas::eliminarPoblacion/$1');
 $routes->post('/rutas/cambiarEstado/(:num)', 'Rutas::cambiarEstado/$1');
 $routes->get('log', 'Log::index');
@@ -137,14 +135,11 @@ $routes->post('menu/add', 'Menu::add');
 $routes->get('menu/edit/(:num)', 'Menu::edit/$1');
 $routes->post('menu/update/(:num)', 'Menu::update/$1');
 $routes->get('empresas/editForm/(:num)', 'Empresas::editForm/$1');
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 $routes->group('gallery', function ($routes) {
     $routes->get('', 'Gallery::index'); // Página principal de la galería
     $routes->get('(:any)', 'Gallery::index/$1'); // Maneja carpetas y subcarpetas
 });
 $routes->post('gallery/delete', 'Gallery::delete');
-<<<<<<< HEAD
-=======
 $routes->post('productos_necesidad/update/(:num)', 'Productos_necesidad::update/$1');
 // Ruta GET para mostrar el formulario de selección de máquina
 $routes->get('selectMaquina/(:num)', 'SeleccionMaquina::getMaquina/$1');
@@ -161,4 +156,4 @@ $routes->get('editarProceso/(:num)', 'SeleccionMaquina::obtenerProcesoPorId/$1')
 $routes->get('escandallo/(:num)', 'Escandallo::ver/$1');
 $routes->get('/escandalloIndividual/(:num)', 'Escandallo::verEscandalloIndividual/$1');
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
+$routes->post('/controlador/eliminarRestriccion', 'Controlador::eliminarRestriccion');
