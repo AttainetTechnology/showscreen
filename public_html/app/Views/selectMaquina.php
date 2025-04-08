@@ -24,6 +24,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- Si hay procesos activos -->
                                     <?php foreach ($maquinas as $maquina): ?>
                                         <tr>
                                             <td style="word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">
@@ -41,19 +42,18 @@
                 </div>
                 <div class="col-md-8 col-sm-12 columna2">
                     <?php if (isset($procesos) && !empty($procesos)): ?>
-                        <h2>Procesos en <?= $nombreMaquinaSeleccionada ?></h2>
+                        <h2><?= $nombreMaquinaSeleccionada ?></h2>
                         <div class="table-responsive">
                             <table class="procesos table table-bordered">
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Parte <input type="text" id="searchParte" onkeyup="filtrarPartes()" placeholder="Buscar..." style="width:80%;"></th>
+                                        <th>Cliente</th>
                                         <th>Proceso</th>
                                         <th>Producto</th>
-                                        <th>Observaciones</th>
                                         <th>Nº de Piezas</th>
                                         <th>Nombre Base</th>
-                                        <th>Med. Inicial</th>
-                                        <th>Med. Final</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,25 +70,22 @@
                                                     <button type="submit" class="btn boton btnAdd">Seleccionar</button>
                                                 </form>
                                             </td>
+                                            <td><?= $proceso['id_linea_pedido'] ?></td>
+                                            <td><?= $proceso['nombre_cliente'] ?></td>
                                             <td class="nombre_proceso"><?= $proceso['nombre_proceso'] ?></td>
                                             <td>
-                                                <img src="<?= $proceso['imagen_producto'] ?>" alt="Imagen de producto"
-                                                    width="100">
-                                                <br>
                                                 <strong><?= $proceso['nombre_producto'] ?></strong>
                                             </td>
-                                            <td><?= $proceso['observaciones'] ?></td>
                                             <td><?= $proceso['n_piezas'] ?></td>
                                             <td><?= $proceso['nom_base'] ?></td>
-                                            <td><?= $proceso['med_inicial'] ?></td>
-                                            <td><?= $proceso['med_final'] ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
+                        <!-- Si hay procesos asignados -->
                     <?php elseif (!isset($idMaquina) || $idMaquina == null): ?>
-                        <h2>Procesos asociados</h2>
+                        <h2>Tus partes activos</h2>
                         <div class="table-responsive">
                             <table class="procesos table table-bordered">
                                 <thead>
@@ -123,7 +120,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6">NO TIENES PROCESOS ACTIVOS</td>
+                                            <td colspan="6">NO TIENES PARTES ASIGNADOS</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -162,4 +159,24 @@
             window.addEventListener('scroll', resetTemporizador, true); //scroll
 
         })();
+
+        function filtrarPartes() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchParte");
+            filter = input.value.toUpperCase();
+            table = document.querySelector(".table-responsive .procesos");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) { // Empieza en 1 para evitar el encabezado
+                td = tr[i].getElementsByTagName("td")[1]; // Index 1, segunda columna
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
