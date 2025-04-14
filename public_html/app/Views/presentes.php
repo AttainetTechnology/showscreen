@@ -1,4 +1,5 @@
-<?php //print_r($presentes); ?>
+<?php //print_r($presentes); 
+?>
 <?= $cabecera; ?>
 
 <body class="page-presentes" onload="startTime()">
@@ -21,7 +22,7 @@
                         <img data-src="<?= base_url('public/assets/uploads/files/silueta.png') ?>">
                      <?php } ?>
                   </div>
-                  <div class="nombre-empleado"><?= $presente['nombre_usuario']; ?>    <?= $presente['apellidos_usuario']; ?>
+                  <div class="nombre-empleado"><?= $presente['nombre_usuario']; ?> <?= $presente['apellidos_usuario']; ?>
                   </div>
                   <?php
                   $originalDate = $presente['entrada'];
@@ -31,11 +32,19 @@
                   <br>
                   <?php if (!empty($presente['maquinas'])): ?>
                      <div class="maquinas">
-                        <?php foreach ($presente['maquinas'] as $maquina): ?>
-                           <span><?= $maquina['nombre']; ?></span>
-                        <?php endforeach; ?>
+                        <?php
+                        $maquinas_mostradas = [];
+
+                        foreach ($presente['maquinas'] as $maquina):
+                           if (!in_array($maquina['nombre'], $maquinas_mostradas)) {
+                              echo "<span>{$maquina['nombre']}</span> <br>";
+                              $maquinas_mostradas[] = $maquina['nombre']; 
+                           }
+                        endforeach;
+                        ?>
                      </div>
                   <?php endif; ?>
+
                </div>
             </a>
          <?php endforeach; ?>

@@ -387,9 +387,7 @@ class SeleccionMaquina extends BaseFichar
             ->where('estado !=', 3)
             ->countAllResults() == 0;
 
-        if ($todosTerminado) {
-            $this->finalizarProcesoPedido($idRelacionProcesoUsuario);
-        }
+        $this->finalizarProcesoPedido($idRelacionProcesoUsuario);
         $this->eliminarRegistroSiVacio($registro['id_proceso_pedido']);
         $this->eliminarRestriccion($idRelacionProcesoUsuario);
         $this->ActualizarEstadoLineaPedido($idRelacionProcesoUsuario);
