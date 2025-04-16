@@ -23,12 +23,13 @@ foreach ($pedido as $ped) { ?>
                                 ?>" class="logo_partes"><br>
                     <br>
                     <?php
-                    $db_cliente = db_connect($data['new_db']);
-                    $builder = $db_cliente->table('proveedores');
-                    $builder->select('id_proveedor, nombre_proveedor');
-                    $proveedor_data = $builder->get()->getRow();
-                    $nombre_proveedor = $proveedor_data->nombre_proveedor;
-                    ?>
+                        $db_cliente = db_connect($data['new_db']);
+                        $builder = $db_cliente->table('proveedores');
+                        $builder->select('nombre_proveedor');
+                        $builder->where('id_proveedor', $ped->id_proveedor); // Aquí usas el id del pedido actual
+                        $proveedor_data = $builder->get()->getRow();
+                        $nombre_proveedor = $proveedor_data ? $proveedor_data->nombre_proveedor : 'Proveedor desconocido';
+                        ?>
                 </div>
                 <div id="fila_right">
                     <div class="capa-numero-parte">
@@ -40,9 +41,9 @@ foreach ($pedido as $ped) { ?>
                     Ref: <strong><?php echo $ped->referencia; ?></strong>
                     <div class="parte-fechas">
                         <div class="f-entrada">Pedido: <?php echo date("d/m/Y", strtotime($ped->fecha_salida)); ?> &nbsp; </div>
-                        <div class="f-entrega"> Entrega:
+                      <!--  <div class="f-entrega"> Entrega:
                             <strong><?php echo date("d/m/Y", strtotime($ped->fecha_entrega)); ?></strong>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -58,9 +59,9 @@ foreach ($pedido as $ped) { ?>
                             <tr>
                                 <th>Unidades</th>
                                 <th>Producto</th>
-                                <th>Precio Unitario (€)</th>
+                               <!-- <th>Precio Unitario (€)</th>-->
                                 <th>Observaciones</th>
-                                <th>Total (€)</th>
+                                <!--<th>Total (€)</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -69,17 +70,18 @@ foreach ($pedido as $ped) { ?>
                                 <tr>
                                     <td><b><?php echo $l->n_piezas; ?></b></td>
                                     <td><?php echo $l->ref_producto; ?></td>
-                                    <td><b><?php echo $l->precio_compra; ?></b> &euro;</td>
+                                   <!--  <td><b><?php echo $l->precio_compra; ?></b> &euro;</td>-->
                                     <td><?php echo $l->observaciones; ?></td>
-                                    <td><b><?php echo $l->total_linea; ?></b> &euro;</td>
-                                    <?php $total += $l->total_linea; ?>
+                                   <!-- <td><b><?php echo $l->total_linea; ?></b> &euro;</td>-->
+                                   <!-- <?php $total += $l->total_linea; ?>-->
                                 </tr>
                             <?php } ?>
-                            <tr id="total_pedido">
+                           <!--<tr  id="total_pedido">
                                 <td colspan="5">
                                     Total pedido: <b><?php echo $total; ?> &euro;</b><br />
                                 </td>
                             </tr>
+                            -->
                         </tbody>
                     </table>
                 </div>
