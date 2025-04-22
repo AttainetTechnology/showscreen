@@ -15,54 +15,28 @@ class Partes_controller extends BaseControllerGC
         helper('controlacceso');
         control_login();
 
-<<<<<<< HEAD
-        // Saco los datos del usuario
-        $data = datos_user();
-
-        // Conecto la BDD
-        $db = db_connect($data['new_db']);
-
-        // Obtener la línea de pedido
-=======
         $data = datos_user();
 
         $db = db_connect($data['new_db']);
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         $builder = $db->table('linea_pedidos');
         $builder->select('*');
         $builder->where('id_lineapedido', $id_lineapedido);
         $query = $builder->get();
         $data['lineas'] = $query->getResult();
 
-<<<<<<< HEAD
-        // Inicializar `$data['clientes']` y `$data['mas_de_una_linea` como arrays vacíos
-        $data['clientes'] = [];
-        $data['mas_de_una_linea'] = [];
-
-        // Obtener los detalles del pedido y cliente
-        foreach ($query->getResult() as $row) {
-            $elpedido = $row->id_pedido;
-
-            // Obtener el pedido
-=======
         $data['clientes'] = [];
         $data['mas_de_una_linea'] = [];
 
         foreach ($query->getResult() as $row) {
             $elpedido = $row->id_pedido;
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             $builder = $db->table('pedidos');
             $builder->select('*');
             $builder->where('id_pedido', $elpedido);
             $query2 = $builder->get();
             $data['pedidos'] = $query2->getResult();
 
-<<<<<<< HEAD
-            // Obtener el cliente si existe
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             if (!empty($data['pedidos']) && isset($data['pedidos'][0]->id_cliente)) {
                 $elcliente = $data['pedidos'][0]->id_cliente;
 
@@ -73,29 +47,16 @@ class Partes_controller extends BaseControllerGC
                 $data['clientes'] = $query5->getResult();
             }
 
-<<<<<<< HEAD
-            // Verificar si hay más de una línea asociada al pedido y obtener sus productos
-            // EXCLUIMOS la línea de pedido que se está procesando (`id_lineapedido`)
-            $builder = $db->table('linea_pedidos');
-            $builder->select('linea_pedidos.*, productos.nombre_producto');
-            $builder->where('id_pedido', $elpedido);
-            $builder->where('id_lineapedido !=', $id_lineapedido); // Excluir línea actual
-=======
             $builder = $db->table('linea_pedidos');
             $builder->select('linea_pedidos.*, productos.nombre_producto');
             $builder->where('id_pedido', $elpedido);
             $builder->where('id_lineapedido !=', $id_lineapedido);
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             $builder->join('productos', 'productos.id_producto = linea_pedidos.id_producto', 'left');
             $queryMasDeUnaLinea = $builder->get();
             $data['mas_de_una_linea'] = $queryMasDeUnaLinea->getResult();
         }
 
-<<<<<<< HEAD
-        // Saco los detalles del producto
-=======
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         foreach ($query->getResult() as $row) {
             $elproducto = $row->id_producto;
 
@@ -106,10 +67,6 @@ class Partes_controller extends BaseControllerGC
             $data['productos'] = $query3->getResult();
         }
 
-<<<<<<< HEAD
-        // Saco los procesos
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         $builder = $db->table('procesos_productos');
         $builder->select('*');
         $builder->where(['id_producto' => $elproducto]);
@@ -118,14 +75,8 @@ class Partes_controller extends BaseControllerGC
         $query4 = $builder->get();
         $data['procesos'] = $query4->getResult();
 
-<<<<<<< HEAD
-        // Devolver la vista de acuerdo con el tipo de solicitud
-        if ($this->request->isAJAX()) {
-            return view('partes', (array) $data); // solo el contenido
-=======
         if ($this->request->isAJAX()) {
             return view('partes', (array) $data);
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         } else {
             echo view('header_partes');
             echo view('partes', (array) $data);
@@ -220,41 +171,48 @@ class Partes_controller extends BaseControllerGC
         return $this->response->setJSON(['status' => 'success']);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     public function obtenerLineasPedidoConEstado2YCrearProcesos()
     {
         $data = datos_user();
         $db = db_connect($data['new_db']);
+    
         $lineaPedidoModel = new LineaPedido($db);
         $procesosPedidoModel = new ProcesosPedido($db);
         $procesosProductosModel = new ProcesosProductos($db);
-
+        $procesoModel = $db->table('procesos');
+    
         $lineasConEstado2 = $lineaPedidoModel->where('estado', 2)->findAll();
-
+    
         foreach ($lineasConEstado2 as $linea) {
             $idProducto = $linea['id_producto'];
             $procesosProductos = $procesosProductosModel->where('id_producto', $idProducto)->findAll();
-
+    
             foreach ($procesosProductos as $procesoProducto) {
+                $idProceso = $procesoProducto['id_proceso'];
+    
+                // Comprobar si ya existe
                 $existe = $procesosPedidoModel->where([
-                    'id_proceso' => $procesoProducto['id_proceso'],
+                    'id_proceso' => $idProceso,
                     'id_linea_pedido' => $linea['id_lineapedido']
                 ])->first();
-
+    
                 if (!$existe) {
+                    // Obtener maq_preasignada desde la tabla procesos
+                    $proceso = $procesoModel->where('id_proceso', $idProceso)->get()->getRowArray();
+                    $maqPreasignada = $proceso ? $proceso['maq_preasignada'] : null;
+    
+                    // Insertar en procesos_pedidos
                     $procesosPedidoModel->insert([
-                        'id_proceso' => $procesoProducto['id_proceso'],
+                        'id_proceso' => $idProceso,
                         'id_linea_pedido' => $linea['id_lineapedido'],
-                        'id_maquina' => null,
-                        'estado' => 2,
+                        'id_maquina' => $maqPreasignada,
+                        'estado' => 3 // ← Estado "En máquina"
                     ]);
                 }
             }
         }
-
+    
         return $lineasConEstado2;
     }
+    
 }
