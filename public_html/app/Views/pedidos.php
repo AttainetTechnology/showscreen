@@ -18,9 +18,7 @@ foreach ($pedido as $ped) { ?>
                     <?php
                     $data = datos_user();
                     $logo = $data['url_logo'];
-                    $user_ped = isset($data['nombre_usuario']) && isset($data['apellidos_usuario'])
-                        ? $data['nombre_usuario'] . " " . $data['apellidos_usuario']
-                        : "Usuario no definido";
+                    $user_ped = $ped->pedido_por;
                     ?>
                     <img src="<?php
                     $session = session();
@@ -31,7 +29,7 @@ foreach ($pedido as $ped) { ?>
                 </div>
                 <div id="fila_right">
                     <div class="capa-numero-parte">
-                        <div class="numero_pedido">Id: <strong><?php echo $ped->id_pedido; ?></strong></div>
+                        <div class="numero_pedido" style="background-color: #eee"><strong>ID PED: <?php echo $ped->id_pedido; ?></strong></div>
                     </div>
                     <strong>
                         <h3><?php echo $ped->nombre_cliente; ?></h3>
@@ -130,8 +128,8 @@ foreach ($pedido as $ped) { ?>
 
             <!-- Pie de página -->
             <div class="detalles-pie">
-                <small>User: <strong><?php echo $user_ped; ?> </strong> | Impresión:
-                    <?php echo ' ' . date('d-m-Y') . "\n"; ?></small><br>
+                <small>Creado por: <strong><?php echo $user_ped; ?> </strong> | 
+                Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?> (<?php echo ' ' . date('d-m-Y') . "\n"; ?>)</small>
             </div>
         </div>
     </div>
