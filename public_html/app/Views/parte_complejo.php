@@ -46,77 +46,29 @@ foreach ($pedido as $ped) { ?>
             </svg>
         </button>
         <div id="printableArea">
-            <div class="fila">
-                <div id="fila_left">
-<<<<<<< HEAD
-                    <img src="<?php echo base_url("public/assets/uploads/files") . "/" . $url_logo; ?>"
-                        class="logo_partes"><br><br>
-                    <br>
-                    <?php
-                    function usuarios()
-                    {
-                        $datos = new \App\Models\Usuarios2_Model();
-                        $data = usuario_sesion();
-                        $id_empresa = $data['id_empresa'];
-                        $id_usuario = $data['id_user'];
 
-                        // Define los criterios para la consulta a la base de datos
-                        $array = ['nivel_acceso' => '1', 'id_empresa' => $id_empresa];
-                        $usuarios = $datos->where($array)->findAll();
-                        $user_ids = array();
-                        foreach ($usuarios as $usuario) {
-                            $user_ids[] = $usuario['id'];
-                        }
+                    <!-- Cabecera -->
+                    <div class="row">
+                        <div id="parte_fila_left">
+                            <img src="<?php echo base_url("public/assets/uploads/files") . "/" . $url_logo; ?>" class="logo_partes"><br>
+                            Cliente:
+                            <address>
+                                <strong><? echo $ped->nombre_cliente; ?></strong>
+                            </address>
+                            Referencia ped:
+                            <address>
+                                <strong><? echo $ped->referencia; ?></strong>
+                            </address>
+                        </div>
+                        <div id="parte_fila_right" class="imagenparte">
+                            <div class="capa-numero-parte">
+                                <div class="numero_parte">Pedido: <strong><?php echo $ped->id_pedido; ?></strong></div>
+                            </div>
+                        </div>
+                    </div>
+                        <!-- END Cabecera -->
 
-                        $db_cliente = db_connect($data['new_db']);
-                        $builder = $db_cliente->table('users');
-                        $builder->select('id, nombre_usuario, apellidos_usuario');
-                        $builder->where('id', $id_usuario);
-                        $builder->where('user_activo', '1');
-                        $query = $builder->get();
-
-                        $usuarios = array();
-                        if ($query->getNumRows() > 0) {
-                            foreach ($query->getResult() as $row) {
-                                $usuarios[$row->id] = $row->nombre_usuario . ' ' . $row->apellidos_usuario;
-                            }
-                        } else {
-                            //Si no se encuentra el usuario, se añade 'Test', Es para cuando cambia de empresa un superadmin
-                            $usuarios[$id_usuario] = 'Test';
-                        }
-                        return $usuarios;
-                    }
-                    $user_ped = usuarios();
-                    ?>
-                    <b><?php echo $ped->pedido_por; ?></b><br>
-                    Id.Ped: <b><?php echo $ped->id_pedido; ?></b> | User:
-                    <b><?php echo isset($user_ped[$ped->id_usuario]) ? $user_ped[$ped->id_usuario] : 'test'; ?> </b>
-=======
-                    <img src="<?php
-                    helper('logo');
-                    $logo = logo();
-                    echo $logo; ?>" class="logo_partes"><br>
-                    Id.Ped: <b><?php echo $ped->id_pedido; ?></b><br>User:
-                    <b><?php echo $ped->pedido_por; ?></b>
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
-                </div>
-
-                <!-- /.col -->
-                <div id="fila_center">
-                    Fecha de entrada:<br>
-                    <strong><?php echo date("d/m/Y", strtotime($ped->fecha_entrada)); ?></strong><br>
-                    Fecha de entrega:<br>
-                    <strong><?php echo date("d/m/Y", strtotime($ped->fecha_entrega)); ?></strong><br>
-                </div>
-                <!-- /.col -->
-                <div id="fila_right">
-                    Cliente:<br>
-                    <strong><?php echo $ped->nombre_cliente; ?></strong><br>
-                    Referencia ped:<br>
-                    <strong><?php echo $ped->referencia; ?></strong>
-                </div>
-            </div> <!-- Cierro fila -->
-            <div class="tituparte">Parte de trabajo</div>
+            <div class="tituparte">Parte Complejo</div>
             <div id="observaciones">
                 <div class="seccionparte">Observaciones de pedido:</div>
                 <?php echo $ped->observaciones; ?>
@@ -132,17 +84,14 @@ foreach ($pedido as $ped) { ?>
                                 <th>Med. inic.</th>
                                 <th>Med. fin.</th>
                                 <th>Modelo</th>
+                                <th>ID. Parte</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
                             $contador = 0;
-<<<<<<< HEAD
-                            $page_break_added = false; // Variable para controlar si ya se ha agregado el salto de página
-=======
                             $page_break_added = false; 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
                             foreach ($lineas as $l) {
                                 $contador++;
                                 ?>
@@ -162,9 +111,10 @@ foreach ($pedido as $ped) { ?>
                                     $imagen_producto = base_url('public/assets/uploads/files') . "/$id_empresa/productos/" . $imagen;
                                     ?>
                                     <td><img src="<?php echo $imagen_producto; ?>" style="max-height:60px"></td>
+                                    <td><b><?php echo $l->id_lineapedido; ?></b></td>
                                 </tr>
                                 <tr style="background-color: #eee">
-                                    <td colspan="2">
+                                    <td colspan="3">
                                         <?php if ($l->observaciones) {
                                             echo "ATENCIÓN!:<strong> " . $l->observaciones . "</strong>";
                                         } ?>
@@ -180,13 +130,13 @@ foreach ($pedido as $ped) { ?>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6"></td>
+                                    <td colspan="7"></td>
                                 </tr>
                                 <?php
                                 if ($contador % 6 == 0 && !$page_break_added) {
                                     ?>
                                     <tr>
-                                        <td colspan="6" style="page-break-before: always;"></td>
+                                        <td colspan="7" style="page-break-before: always;"></td>
                                     </tr>
                                     <?php
                                     $page_break_added = true;
@@ -198,26 +148,16 @@ foreach ($pedido as $ped) { ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-7">
                 </div>
-<<<<<<< HEAD
-
-                <div class="col-xs-6">
-                </div>
-            </div>
-        </div>
-    </div> <!-- /#Printable area -->
-    </div> <!-- Fondo -->
-=======
-                <div class="col-xs-6 detalles-pie">
+                <div class="col-xs-7 detalles-pie">
     
-                        Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?></strong>
+                       Creado por: <b><?php echo $ped->pedido_por; ?></b> | Imprime: <strong><?php echo $nombre_usuario; ?>  <?php echo $apellidos_usuario; ?></strong>
                         (<? echo ' ' . date('d-m-Y') . "\n"; ?>)</small>
                 </div>
             </div>
         </div>
     </div>
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 
 <?php }
 ?>
