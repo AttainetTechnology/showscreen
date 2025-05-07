@@ -21,7 +21,9 @@ class Lineaspedido_model extends Model
         'add_linea',
         'total_linea',
         'estado',
-        'escandallo'
+        'escandallo',
+        'ultimo_fichaje',
+        'proceso'
     ];
     public function index() {}
 
@@ -165,7 +167,6 @@ class Lineaspedido_model extends Model
         return true;
     }
 
-
     public function entrega_lineas($id_pedido)
     {
         $data = ['estado' => '5'];
@@ -225,10 +226,7 @@ class Lineaspedido_model extends Model
         return true;
     }
     
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     public function actualiza_linea($id_lineapedido, $estado)
     {
         $data = ['estado' => $estado];

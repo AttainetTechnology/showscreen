@@ -6,7 +6,7 @@ use App\Models\Lineaspedido_model;
 use App\Models\Pedidos_model;
 use App\Models\RelacionProcesoUsuario_model;
 
-class Lista_produccion extends BaseControllerGC
+class Lista_produccion extends BaseController
 {
     protected $Menu_familias_model;
 
@@ -40,10 +40,7 @@ class Lista_produccion extends BaseControllerGC
         $this->todos('estado=', '6', 'Anulados');
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
     public function todoslospartes()
     {
         $this->todos('estado<', '7', '(Todos)');
@@ -59,20 +56,26 @@ class Lista_produccion extends BaseControllerGC
         $nivel = control_login();
 
         // Conectar a la base de datos
-        $data = usuario_sesion();
-        $db = db_connect($data['new_db']);
+
+		$session = session();
+		$data = datos_user();
+		$db = db_connect($data['new_db']);
+		$session_data = $session->get('logged_in');
+		$nivel_acceso = $session_data['nivel'];
 
         // Configuración de paginación
         $perPage = 2000; // Número de registros cargados
         $page = $this->request->getVar('page') ?? 1;
         $offset = ($page - 1) * $perPage;
 
+        // Carga el modelo de RelacionProcesoUsuario_model para verificar si hay escandallos
+        $relacionProcesosUsuariosModel = new RelacionProcesoUsuario_model($db);
+
         // Obtener los datos paginados de la tabla
         $builder = $db->table('v_linea_pedidos_con_familia');
-        $relacionProcesosUsuariosModel = new RelacionProcesoUsuario_model($db);
-        $builder->select('id_lineapedido, fecha_entrada, med_inicial, med_final, id_cliente, nom_base, id_producto, id_pedido, estado, id_familia');
+        $builder->select('id_lineapedido, n_piezas, ultimo_fichaje, proceso, fecha_entrada, med_inicial, med_final, id_cliente, nom_base, id_producto, id_pedido, estado, id_familia');
         $builder->where($coge_estado . $where_estado);
-        $builder->orderBy('fecha_entrada', 'DESC');
+        $builder->orderBy('id_pedido', 'DESC');
 
         $total = $builder->countAllResults(false);
         $query = $builder->limit($perPage, $offset)->get();
@@ -82,12 +85,26 @@ class Lista_produccion extends BaseControllerGC
         $clientesModel = new \App\Models\ClienteModel($db);
         $familiasModel = new \App\Models\Familia_productos_model($db);
         $productosModel = new \App\Models\Productos_model($db);
+        $pedidosModel = new Pedidos_model($db);
         foreach ($result as &$row) {
-            $cliente = $clientesModel->find($row['id_cliente'])['nombre_cliente'] ?? 'Desconocido';
-            $row['pedido_completo'] = $row['id_pedido'] . ' - ' . $cliente;
-            $row['nombre_cliente'] = $cliente;
-            $row['nombre_familia'] = $familiasModel->find($row['id_familia'])['nombre'] ?? 'Desconocido';
-            $row['nombre_producto'] = $productosModel->find($row['id_producto'])['nombre_producto'] ?? 'Desconocido';
+            // Obtener el cliente
+            $clienteData = $clientesModel->asArray()->find($row['id_cliente']);
+            $cliente = $clienteData['nombre_cliente'] ?? 'Desconocido';
+
+            // Obtener la referencia desde la tabla pedidos
+            $pedido = $pedidosModel->asArray()->find($row['id_pedido']);
+            $referencia = $pedido['referencia'] ?? 'Sin referencia';
+
+            // Concatenar cliente y referencia en pedido_completo
+            $row['pedido_completo'] = $row['id_pedido'] . ' - ' . $cliente . ' - ' . $referencia;
+
+            // Otros campos
+            $familiaData = $familiasModel->asArray()->find($row['id_familia']);
+            $row['nombre_familia'] = $familiaData['nombre'] ?? 'Desconocido';
+
+            $productoData = $productosModel->asArray()->find($row['id_producto']);
+            $row['nombre_producto'] = $productoData['nombre_producto'] ?? 'Desconocido';
+
             $estado = $this->asignaEstado($row['estado']);
             $row['estado'] = $estado['nombre_estado'];
             $row['estado_clase'] = $estado['estado_clase'];
@@ -95,7 +112,7 @@ class Lista_produccion extends BaseControllerGC
         }
 
         $ahora = date('d-m-y');
-        $titulo_pagina = "Partes " . $situacion . " - fecha: " . $ahora;
+        $titulo_pagina = "Partes " . $situacion;
         // Verificar la existencia de registros en relacion_procesos_usuarios para cada línea de pedido
         foreach ($result as &$row) {
             $row['tiene_escandallo'] = $relacionProcesosUsuariosModel->where('id_linea_pedido', $row['id_lineapedido'])->countAllResults() > 0;
@@ -168,12 +185,10 @@ class Lista_produccion extends BaseControllerGC
 
     public function actualiza_linea($id_lineapedido, $estado)
     {
-        $data = usuario_sesion();
+        $data = datos_user(); // Obtener datos una vez
         $db = db_connect($data['new_db']);
         $Lineaspedido_model = new Lineaspedido_model($db);
         $Lineaspedido_model->actualiza_linea($id_lineapedido, $estado);
-        $data = datos_user();
-        $db = db_connect($data['new_db']);
 
         $builder = $db->table('procesos_pedidos');
         $builder->where('id_linea_pedido', $id_lineapedido);
