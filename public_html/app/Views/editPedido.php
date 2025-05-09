@@ -122,6 +122,14 @@
                     </svg>
                 </button>
             <?php endif; ?>
+            <?php if (empty($pedido->incidencia)): ?>
+                <button type="button" class="boton btnAbrirIncidencia" id="abrirIncidencia" style="background-color: blue; color: white;" data-bs-toggle="modal" data-bs-target="#abrirIncidenciaModal">
+                    Abrir Incidencia
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="27" viewBox="0 0 26 27" fill="none">
+                        <path d="M13 7C13.2155 7 13.4222 7.0856 13.5745 7.23798C13.7269 7.39035 13.8125 7.59701 13.8125 7.8125V12.6875H18.6875C18.903 12.6875 19.1097 12.7731 19.262 12.9255C19.4144 13.0778 19.5 13.2845 19.5 13.5C19.5 13.7155 19.4144 13.9222 19.262 14.0745C19.1097 14.2269 18.903 14.3125 18.6875 14.3125H13.8125V19.1875C13.8125 19.403 13.7269 19.6097 13.5745 19.762C13.4222 19.9144 13.2155 20 13 20C12.7845 20 12.5778 19.9144 12.4255 19.762C12.2731 19.6097 12.1875 19.403 12.1875 19.1875V14.3125H7.3125C7.09701 14.3125 6.89035 14.2269 6.73798 14.0745C6.5856 13.9222 6.5 13.7155 6.5 13.5C6.5 13.2845 6.5856 13.0778 6.73798 12.9255C6.89035 12.7731 7.09701 12.6875 7.3125 12.6875H12.1875V7.8125C12.1875 7.59701 12.2731 7.39035 12.4255 7.23798C12.5778 7.0856 12.7845 7 13 7Z" fill="white" />
+                    </svg>
+                </button>
+            <?php endif; ?>
         </div>
     </div>
     <form action="<?= base_url('pedidos/update/' . $pedido->id_pedido) ?>" method="post" class="formeditPedido">
@@ -156,6 +164,26 @@
             <textarea id="observaciones" name="observaciones" class="form-control"
                 style="height: 60px;"><?= esc($pedido->observaciones) ?></textarea>
         </div>
+        <?php if (!empty($pedido->incidencia)): ?>
+    <div class="form-group col-12 d-flex" style="background-color: 
+        <?= $pedido->estado_incidencia == 1 ? 'orange' : ($pedido->estado_incidencia == 2 ? '#00bfff' : '#ccffcc') ?>; 
+        padding: 10px; border-radius: 5px;">
+    <div class="form-group col-2 ps-2" style="margin-right:10px"
+            <label for="estado_incidencia">Estado de la incidencia:</label>
+            <select id="estado_incidencia" name="estado_incidencia" class="form-control" onchange="actualizarEstadoIncidencia(<?= $pedido->id_pedido ?>, this.value)">
+                <option value="1" <?= $pedido->estado_incidencia == 1 ? 'selected' : '' ?>>Incidencia abierta</option>
+                <option value="2" <?= $pedido->estado_incidencia == 2 ? 'selected' : '' ?>>En espera</option>
+                <option value="3" <?= $pedido->estado_incidencia == 3 ? 'selected' : '' ?>>Cerrada</option>
+            </select>
+        </div>    
+    <div class="form-group col-10 pe-2">
+            <label for="incidencia">Incidencia:</label>
+            <textarea id="incidencia" name="incidencia" class="form-control" rows="5"><?= esc($pedido->incidencia) ?></textarea>
+        </div>
+        
+    </div>
+<?php endif; ?>
+      
         <div class="form-group" style="font-size:15px;">
             <label>ID del Pedido:</label>
             <strong><?= esc($pedido->id_pedido) ?></strong> <label>- pedido por:</label> <strong><?= esc($pedido->pedido_por) ?></strong>
@@ -292,11 +320,17 @@
                     }
                 },
                 {
-                    headerName: 'Uds.',
-                    field: 'n_piezas',
-                    maxWidth: 100,
-                    filter: 'agTextColumnFilter',
-                    floatingFilter: true,
+                headerName: "Pzas",
+                field: "n_piezas",
+                filter: 'agTextColumnFilter',
+                minWidth: 10,
+                cellRenderer: function (params) {
+                    const nPzas = params.value || '';
+                    const ultimoFichaje = params.data.ultimo_fichaje && params.data.ultimo_fichaje != 0 
+                        ? `<a href="#" title="${params.data.proceso}" style="text-decoration: none; color: #007bff;">${params.data.ultimo_fichaje}</a>` 
+                        : '';
+                    return `${nPzas}${ultimoFichaje ? ` / ${ultimoFichaje}` : ''}`;
+                    }
                 },
                 {
                     headerName: 'Base',
@@ -356,10 +390,8 @@
 
                 function renderActions(params) {
                     const id = params.data.id_lineapedido;
-                    const actionLabel = (userLevel === 9) ? 'Eliminar' : 'Anular';
-                    const confirmMessage = (userLevel === 9)
-                        ? '¿Estás seguro de que deseas eliminar esta línea?'
-                        : '¿Estás seguro de que deseas anular esta línea?';
+                    
+                    const confirmMessage = '¿Estás seguro de que deseas anular esta línea?';
 
                     return `
                     <button class="btn botonTabla btnEditarTabla btnEditarTablaLinea" data-id="${id}" data-bs-toggle="modal" data-bs-target="#editarLineaModal">
@@ -375,12 +407,12 @@
                         <path d="M8.71593 4.72729C8.16741 4.72729 7.64136 4.95853 7.2535 5.37014C6.86564 5.78174 6.64774 6.34 6.64774 6.9221V9.11691H5.61365C5.06514 9.11691 4.53909 9.34814 4.15123 9.75975C3.76337 10.1714 3.54547 10.7296 3.54547 11.3117L3.54547 14.6039C3.54547 15.186 3.76337 15.7443 4.15123 16.1559C4.53909 16.5675 5.06514 16.7987 5.61365 16.7987H6.64774V17.8961C6.64774 18.4782 6.86564 19.0365 7.2535 19.4481C7.64136 19.8597 8.16741 20.0909 8.71593 20.0909H14.9205C15.469 20.0909 15.995 19.8597 16.3829 19.4481C16.7708 19.0365 16.9887 18.4782 16.9887 17.8961V16.7987H18.0227C18.5713 16.7987 19.0973 16.5675 19.4852 16.1559C19.873 15.7443 20.0909 15.186 20.0909 14.6039V11.3117C20.0909 10.7296 19.873 10.1714 19.4852 9.75975C19.0973 9.34814 18.5713 9.11691 18.0227 9.11691H16.9887V6.9221C16.9887 6.34 16.7708 5.78174 16.3829 5.37014C15.995 4.95853 15.469 4.72729 14.9205 4.72729H8.71593ZM7.68184 6.9221C7.68184 6.63105 7.79078 6.35192 7.98471 6.14612C8.17864 5.94032 8.44167 5.8247 8.71593 5.8247H14.9205C15.1947 5.8247 15.4578 5.94032 15.6517 6.14612C15.8456 6.35192 15.9546 6.63105 15.9546 6.9221V9.11691H7.68184V6.9221ZM8.71593 12.4091C8.16741 12.4091 7.64136 12.6404 7.2535 13.052C6.86564 13.4636 6.64774 14.0218 6.64774 14.6039V15.7013H5.61365C5.3394 15.7013 5.07637 15.5857 4.88244 15.3799C4.68851 15.1741 4.57956 14.895 4.57956 14.6039V11.3117C4.57956 11.0207 4.68851 10.7415 4.88244 10.5357C5.07637 10.3299 5.3394 10.2143 5.61365 10.2143H18.0227C18.297 10.2143 18.56 10.3299 18.754 10.5357C18.9479 10.7415 19.0568 11.0207 19.0568 11.3117V14.6039C19.0568 14.895 18.9479 15.1741 18.754 15.3799C18.56 15.5857 18.297 15.7013 18.0227 15.7013H16.9887V14.6039C16.9887 14.0218 16.7708 13.4636 16.3829 13.052C15.995 12.6404 15.469 12.4091 14.9205 12.4091H8.71593ZM15.9546 14.6039V17.8961C15.9546 18.1872 15.8456 18.4663 15.6517 18.6721C15.4578 18.8779 15.1947 18.9935 14.9205 18.9935H8.71593C8.44167 18.9935 8.17864 18.8779 7.98471 18.6721C7.79078 18.4663 7.68184 18.1872 7.68184 17.8961V14.6039C7.68184 14.3129 7.79078 14.0337 7.98471 13.8279C8.17864 13.6221 8.44167 13.5065 8.71593 13.5065H14.9205C15.1947 13.5065 15.4578 13.6221 15.6517 13.8279C15.8456 14.0337 15.9546 14.3129 15.9546 14.6039Z" fill="black" fill-opacity="0.6"/>
                         </svg>
                         </button>
-                        <a href="<?= base_url('pedidos/deleteLinea/') ?>${id}" class="btn botonTabla btnEliminarTabla" onclick="return confirm('${confirmMessage}');">
-                        ${actionLabel}
+                       <a href="<?= base_url('pedidos/deleteLinea/') ?>${id}" class="btn botonTabla btnEliminarTabla" onclick="return confirm('${confirmMessage}');">
+                        Anular
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
                         <path d="M7.66753 6.776C7.41733 6.776 7.17737 6.87593 7.00045 7.05379C6.82353 7.23166 6.72414 7.47289 6.72414 7.72443V8.67286C6.72414 8.9244 6.82353 9.16563 7.00045 9.3435C7.17737 9.52136 7.41733 9.62129 7.66753 9.62129H8.13923V18.1571C8.13923 18.6602 8.33802 19.1427 8.69186 19.4984C9.0457 19.8541 9.52561 20.054 10.026 20.054H15.6864C16.1868 20.054 16.6667 19.8541 17.0206 19.4984C17.3744 19.1427 17.5732 18.6602 17.5732 18.1571V9.62129H18.0449C18.2951 9.62129 18.5351 9.52136 18.712 9.3435C18.8889 9.16563 18.9883 8.9244 18.9883 8.67286V7.72443C18.9883 7.47289 18.8889 7.23166 18.712 7.05379C18.5351 6.87593 18.2951 6.776 18.0449 6.776H14.743C14.743 6.52446 14.6436 6.28323 14.4667 6.10536C14.2898 5.9275 14.0498 5.82758 13.7996 5.82758H11.9128C11.6626 5.82758 11.4227 5.9275 11.2457 6.10536C11.0688 6.28323 10.9694 6.52446 10.9694 6.776H7.66753ZM10.4977 10.5697C10.6228 10.5697 10.7428 10.6197 10.8313 10.7086C10.9197 10.7975 10.9694 10.9182 10.9694 11.0439V17.6829C10.9694 17.8087 10.9197 17.9293 10.8313 18.0182C10.7428 18.1072 10.6228 18.1571 10.4977 18.1571C10.3726 18.1571 10.2526 18.1072 10.1642 18.0182C10.0757 17.9293 10.026 17.8087 10.026 17.6829V11.0439C10.026 10.9182 10.0757 10.7975 10.1642 10.7086C10.2526 10.6197 10.3726 10.5697 10.4977 10.5697ZM12.8562 10.5697C12.9813 10.5697 13.1013 10.6197 13.1898 10.7086C13.2782 10.7975 13.3279 10.9182 13.3279 11.0439V17.6829C13.3279 17.8087 13.2782 17.9293 13.1898 18.0182C13.1013 18.1072 12.9813 18.1571 12.8562 18.1571C12.7311 18.1571 12.6111 18.1072 12.5227 18.0182C12.4342 17.9293 12.3845 17.8087 12.3845 17.6829V11.0439C12.3845 10.9182 12.4342 10.7975 12.5227 10.7086C12.6111 10.6197 12.7311 10.5697 12.8562 10.5697ZM15.6864 11.0439V17.6829C15.6864 17.8087 15.6367 17.9293 15.5482 18.0182C15.4598 18.1072 15.3398 18.1571 15.2147 18.1571C15.0896 18.1571 14.9696 18.1072 14.8812 18.0182C14.7927 17.9293 14.743 17.8087 14.743 17.6829V11.0439C14.743 10.9182 14.7927 10.7975 14.8812 10.7086C14.9696 10.6197 15.0896 10.5697 15.2147 10.5697C15.3398 10.5697 15.4598 10.6197 15.5482 10.7086C15.6367 10.7975 15.6864 10.9182 15.6864 11.0439Z" fill="white"/>
                         </svg>
-                    </a>
+                        </a>
                 `;
                 }
 
@@ -1003,4 +1035,28 @@
                 });
         }
     </script>
+    <!-- Modal para abrir incidencia -->
+    <div class="modal fade" id="abrirIncidenciaModal" tabindex="-1" aria-labelledby="abrirIncidenciaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formAbrirIncidencia" action="<?= base_url('pedidos/abrirIncidencia/' . $pedido->id_pedido) ?>" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="abrirIncidenciaLabel">Abrir Incidencia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="incidencia">Descripción de la incidencia:</label>
+                            <textarea id="incidencia" name="incidencia" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <input type="hidden" name="estado_incidencia" value="1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <?= $this->endSection() ?>

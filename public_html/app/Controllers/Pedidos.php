@@ -44,6 +44,18 @@ class Pedidos extends BaseController
 	{
 		$this->todos('estado=', '5');
 	}
+	public function incidencia_abierta()
+	{
+		$this->todos('estado<=', '6 AND estado_incidencia=1');
+	}
+	public function incidencia_espera()
+	{
+		$this->todos('estado<=', '6 AND estado_incidencia=2');
+	}
+	public function incidencia_todas()
+	{
+		$this->todos('estado<=', '6 AND (estado_incidencia=1 OR estado_incidencia=2)');
+	}
 
 
 	public function todos($coge_estado, $where_estado)
@@ -314,6 +326,8 @@ class Pedidos extends BaseController
 			'fecha_entrada' => $this->request->getPost('fecha_entrada'),
 			'fecha_entrega' => $this->request->getPost('fecha_entrega'),
 			'observaciones' => $this->request->getPost('observaciones'),
+			'incidencia' => $this->request->getPost('incidencia'), // Actualizar incidencia
+        	'estado_incidencia' => $this->request->getPost('estado_incidencia'),
 		];
 
 		$updateData['estado'] = $pedido->estado;
@@ -438,6 +452,7 @@ class Pedidos extends BaseController
 	}
 
 	// LOGICA LINEA PEDIDO
+	/*
 	public function mostrarLineasPedido($id_pedido)
 	{
 		$data = usuario_sesion();
@@ -445,7 +460,7 @@ class Pedidos extends BaseController
 		$lineaspedidoModel = new LineaPedido($db);
 		$lineas_pedido = $lineaspedidoModel->where('id_pedido', $id_pedido)->findAll();
 		return view('mostrarLineasPedido', ['lineas_pedido' => $lineas_pedido, 'pedido_id' => $id_pedido]);
-	}
+	}*/
 	public function addLineaPedido()
 	{
 		$data = usuario_sesion();
@@ -596,8 +611,7 @@ class Pedidos extends BaseController
 		$nivel_acceso = $session_data['nivel'];
 
 		$lineaPedidoModel = new LineaPedido($db);
-		$procesosPedidoModel = new ProcesosPedido($db);
-		$relacionProcesoUsuarioModel = $db->table('relacion_proceso_usuario');
+			$relacionProcesoUsuarioModel = $db->table('relacion_proceso_usuario');
 
 		$linea = $lineaPedidoModel->where('id_lineapedido', $id_lineapedido)->first();
 
@@ -607,27 +621,28 @@ class Pedidos extends BaseController
 
 		$id_pedido = $linea['id_pedido'];
 
-		if ($nivel_acceso != 9) {
-			return $this->anularLinea($id_lineapedido, $id_pedido);
-		}
-
+		// Cambiar el estado de la línea a "anulado"
 		$db->transStart();
 
-		$relacionProcesoUsuarioModel->where('id_linea_pedido', $id_lineapedido)->delete();
+		$update = $lineaPedidoModel->update($id_lineapedido, ['estado' => 6]);
 
-		$procesosPedidoModel->where('id_linea_pedido', $id_lineapedido)->delete();
+		if ($update) {
+			// Eliminar registros en relacion_proceso_usuario
+			$relacionProcesoUsuarioModel->where('id_linea_pedido', $id_lineapedido)->delete();
+			$procesosPedidoModel = new ProcesosPedido($db);
+			$procesosPedidoModel->where('id_linea_pedido', $id_lineapedido)->delete();
+			
+			// Actualizar el total del pedido
+			$this->actualizarTotalPedido($id_pedido);
 
-		$lineaPedidoModel->delete($id_lineapedido);
+			$this->logAction('Pedidos', 'Anula Línea pedido, ID: ' . $id_lineapedido, []);
+			$db->transComplete();
 
-		$db->transComplete();
-
-		if ($db->transStatus() === false) {
-			return redirect()->back()->with('error', 'No se pudo eliminar la línea del pedido');
+			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea de pedido anulada correctamente.');
+		} else {
+			$db->transRollback();
+			return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('error', 'No se pudo anular la línea de pedido.');
 		}
-
-		$this->logAction('Pedidos', 'Elimina Línea pedido, ID: ' . $id_lineapedido, []);
-
-		return redirect()->to(base_url('pedidos/edit/' . $id_pedido))->with('success', 'Línea del pedido, procesos asociados y registros en relacion_proceso_usuario eliminados correctamente');
 	}
 
 	public function anularLinea($id_lineapedido, $id_pedido)
@@ -734,6 +749,25 @@ public function updateBtImprimir($id_pedido)
     } catch (\Exception $e) {
         // Manejar errores del servidor
         return $this->response->setJSON(['success' => false, 'message' => 'Error del servidor: ' . $e->getMessage()]);
+    }
+}
+
+public function abrirIncidencia($id_pedido)
+{
+    $data = usuario_sesion();
+    $db = db_connect($data['new_db']);
+    $pedidoModel = new \App\Models\Pedidos_model($db);
+
+    // Obtener los datos enviados desde el formulario
+    $updateData = [
+        'incidencia' => $this->request->getPost('incidencia'),
+        'estado_incidencia' => $this->request->getPost('estado_incidencia')
+    ];
+
+    if ($pedidoModel->update($id_pedido, $updateData)) {
+        return redirect()->back()->with('success', 'Incidencia abierta correctamente.');
+    } else {
+        return redirect()->back()->with('error', 'No se pudo abrir la incidencia.');
     }
 }
 
