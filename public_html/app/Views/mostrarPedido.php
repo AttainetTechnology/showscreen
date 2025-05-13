@@ -124,9 +124,8 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                     return params.value;
                 }
             },
-
-            { headerName: "Referencia", field: "referencia", filter: 'agTextColumnFilter', flex: 1 },
             { headerName: "Albarán", field: "albaran", filter: 'agTextColumnFilter', flex: 1 }, 
+            { headerName: "Referencia", field: "referencia", filter: 'agTextColumnFilter', flex: 1 },
             { headerName: "Estado", field: "estado", filter: 'agTextColumnFilter', flex: 1 },
             {
                 headerName: "Fecha Entrada",
@@ -167,9 +166,8 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                 );
                 ?> <?= esc($pedido->nombre_cliente) ?>`,
 
-
-                referencia: "<?= $pedido->referencia ?>",
                 albaran: "<?= $pedido->albaran ?>",
+                referencia: "<?= $pedido->referencia ?>",
                 estado: "<?= $estadoMap[$pedido->estado] ?>",
                 nombre_usuario: "<?= $pedido->nombre_usuario ?>",
                 total: "<?= $pedido->total_pedido ?>€",
