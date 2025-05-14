@@ -22,7 +22,7 @@ class Rutas extends BaseController
 		return view('mostrarRutas', [
 			'estado' => json_encode([
 				'condicion' => $coge_estado,
-				'valor' => $where_estado,
+				'valor' => $where_estado
 			]),
 			'amiga' => $data['amiga']  // Pasar amiga a la vista
 		]);

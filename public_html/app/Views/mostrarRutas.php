@@ -101,7 +101,7 @@
                 cellRenderer: params => {
                     const idPedido = params.data.id_pedido;
                     const nombreCliente = params.data.nombre_cliente || "Sin cliente";
-                    return `<a href="https://showscreen.app/pedidos/edit/${idPedido}">${idPedido} - ${nombreCliente}</a>`;
+                    return `<a href="https://dev.showscreen.app/pedidos/edit/${idPedido}">${idPedido} - ${nombreCliente}</a>`;
                 }
             }
         ];
