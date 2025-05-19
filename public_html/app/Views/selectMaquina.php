@@ -46,8 +46,7 @@
                             <table class="procesos table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th></th>
-                                        <th>Parte <input type="text" id="searchParte" onkeyup="filtrarPartes()" placeholder="Buscar..." style="width:80%;"></th> </th>
+                                        <th colspan="2">Parte <input type="text" id="searchParte" onkeyup="filtrarPartes()" placeholder="Buscar..." style="width:80%;"></th> </th>
                                         <th>Cliente</th>
                                         <th>Proceso</th>
                                         <th>Nº de Piezas</th>

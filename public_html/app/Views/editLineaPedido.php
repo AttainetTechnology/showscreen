@@ -14,10 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
 <div class="modal-header">
     <h5 class="modal-title" id="addLineaPedidoLabel" style="margin-left: 0px;">Editar Línea de Pedido</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -108,6 +105,14 @@
                 rows="3"><?= esc($linea_pedido['observaciones']) ?></textarea>
         </div>
         <br>
+            <?php if (isset($nivel_acceso) && $nivel_acceso > 8): ?>
+                <div class="form-group">
+                    <label for="ultimo_fichaje">Pzas. finales:</label>
+                    <textarea name="ultimo_fichaje" class="form-control"
+                        rows="3"><?= esc($linea_pedido['ultimo_fichaje']) ?></textarea>
+                </div>
+            <?php endif; ?>
+        <br>
         <div class="buttonsEditProductProveedAbajo">
             <button type="button" class="boton volverButton" data-bs-dismiss="modal">
                 Cerrar
@@ -129,12 +134,8 @@
     </form>
 </div>
 <script>
-<<<<<<< HEAD
-        $(document).ready(function () {
-=======
 
     $(document).ready(function () {
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
         // Inicializa Select2 en el campo de productos
         $('.select-producto').select2({
             placeholder: "Selecciona un producto",
@@ -144,13 +145,8 @@
         });
     });
 
-<<<<<<< HEAD
-    $(document).ready(function() {
-        $('.editLineaForm').on('submit', function(e) {
-=======
     $(document).ready(function () {
         $('.editLineaForm').on('submit', function (e) {
->>>>>>> 0c4bc0213a73e7eae133885471457832782be967
             e.preventDefault();
             var form = $(this);
             var url = form.attr('action');
