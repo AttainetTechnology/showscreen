@@ -64,7 +64,7 @@ class Lista_produccion extends BaseController
 		$nivel_acceso = $session_data['nivel'];
 
         // Configuración de paginación
-        $perPage = 2000; // Número de registros cargados
+        $perPage = 1200; // Número de registros cargados
         $page = $this->request->getVar('page') ?? 1;
         $offset = ($page - 1) * $perPage;
 

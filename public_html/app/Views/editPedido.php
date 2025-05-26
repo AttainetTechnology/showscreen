@@ -25,21 +25,33 @@
     }
 </style>
 <div class="container mt-5 editpedido">
-
-    <h2 class="titleditPedido">Editar Pedido</h2>
-    <div class="mb-3">
-    <span class="badge bg-secondary" style="font-size: 16px;">
-        Estado actual: <strong><?= $estados_texto[$pedido->estado] ?? 'Desconocido' ?></strong>
-    </span>
-    <?php if ($pedido->bt_imprimir == 0): ?>
-                <span class="badge bg-warning" style="font-size: 12px;">Pedido en Redacción</span>
-    <?php endif; ?>  
-    <?php if ($pedido->bt_imprimir == 1): ?>
-                <span class="badge bg-warning" style="font-size: 12px;">Pendiente de imprimir</span>
-    <?php endif; ?>
-    <?php if ($pedido->bt_imprimir == 2): ?>
-                <span class="badge bg-success" style="font-size: 12px;">Pedido impreso</span>
-    <?php endif; ?>
+    <div class="row" style="display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap;">
+        <div class="d-flex align-items-center mb-3" style="gap: 20px; padding: 0;">
+            <div>
+                <h2 class="titulo" style="margin-bottom: 0;">Editar Pedido</h2>
+            </div>
+            <div>
+                <span class="badge bg-secondary" style="font-size: 12px;">
+                    Estado actual: <strong><?= $estados_texto[$pedido->estado] ?? 'Desconocido' ?></strong>
+                </span>
+            </div>
+            <div>
+                <?php if ($pedido->bt_imprimir == 0): ?>
+                    <span class="badge bg-warning" style="font-size: 12px;">Pedido en Redacción</span>
+                <?php endif; ?>  
+                <?php if ($pedido->bt_imprimir == 1): ?>
+                    <span class="badge bg-warning" style="font-size: 12px;">Pendiente de imprimir</span>
+                <?php endif; ?>
+                <?php if ($pedido->bt_imprimir == 2): ?>
+                    <span class="badge bg-success" style="font-size: 12px;">Pedido impreso</span>
+                <?php endif; ?>
+            </div>
+            <div style="margin-left:auto; background: #000; color: #fff; display: flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 8px;">
+                <label style="margin: 0 10px 0 0;">ID:</label>
+                <strong style="font-size: 28px; color: #fff; text-align: center; width: 100%; display: block;"><?= esc($pedido->id_pedido) ?></strong>
+            </div>
+        </div>
+    </div>
 </div>
     <div class="mb-3">
         <label for="acciones" class="form-label"></label>
@@ -66,7 +78,7 @@
             </a>
             <?php endif; ?>
 
-            <!-- Modal -->
+            <!-- Modal de rutas -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -124,66 +136,83 @@
             <?php endif; ?>
         </div>
     </div>
+    <!-- Comienzo del formulario -->
     <form action="<?= base_url('pedidos/update/' . $pedido->id_pedido) ?>" method="post" class="formeditPedido">
-        <div class="form-group">
-            <label for="id_cliente">Empresa:</label>
-            <select id="id_cliente" name="id_cliente" class="form-control" required>
-                <?php foreach ($clientes as $cliente): ?>
-                    <option value="<?= $cliente['id_cliente'] ?>" <?= $pedido->id_cliente == $cliente['id_cliente'] ? 'selected' : '' ?>>
-                        <?= $cliente['nombre_cliente'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="id_cliente">Empresa:</label>
+                <select id="id_cliente" name="id_cliente" class="form-control" required>
+                    <?php foreach ($clientes as $cliente): ?>
+                        <option value="<?= $cliente['id_cliente'] ?>" <?= $pedido->id_cliente == $cliente['id_cliente'] ? 'selected' : '' ?>>
+                            <?= $cliente['nombre_cliente'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="referencia">Referencia:</label>
+                <input type="text" id="referencia" name="referencia" class="form-control"
+                    value="<?= esc($pedido->referencia) ?>">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="albaran">Albarán:</label>
+                <input type="text" id="albaran" name="albaran" class="form-control"
+                    value="<?= esc($pedido->albaran) ?>">
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="referencia">Referencia:</label>
-            <input type="text" id="referencia" name="referencia" class="form-control"
-                value="<?= esc($pedido->referencia) ?>">
-        </div>
-        <div class="form-group">
-            <label for="referencia">Albarán:</label>
-            <input type="text" id="albaran" name="albaran" class="form-control"
-                value="<?= esc($pedido->albaran) ?>">
-        </div>
-        <div class="form-group">
+        <div class="row">
+            <div class="form-group col-md-4">
             <label for="fecha_entrada">Fecha de Entrada:</label>
             <input type="date" id="fecha_entrada" name="fecha_entrada" class="form-control"
                 value="<?= esc($pedido->fecha_entrada) ?>" required>
-        </div>
-        <div class="form-group">
+            </div>
+            <div class="form-group col-md-4">
             <label for="fecha_entrega">Fecha de Entrega:</label>
             <input type="date" id="fecha_entrega" name="fecha_entrega" class="form-control"
                 value="<?= esc($pedido->fecha_entrega) ?>" required>
+            </div>
+            <div class="form-group col-md-4"
+                <?php
+                    if ((!empty($pedido->fecha_compromiso)) && ($pedido->estado == 2 || $pedido->estado == 3 || $pedido->estado == 0)) {
+                        $hoy = date('Y-m-d');
+                        if ($pedido->fecha_compromiso < $hoy) {
+                            echo 'style="background: #ff1744; padding: 10px;"';
+                        } else {
+                            echo 'style="background: #ffff00; padding: 10px;"';
+                        }
+                    }
+                ?>
+            >
+                <label for="fecha_compromiso">Fecha de compromiso:</label>
+                <input type="date" id="fecha_compromiso" name="fecha_compromiso" class="form-control"
+                    value="<?= esc($pedido->fecha_compromiso) ?>"
+                    <?php if (!empty($pedido->fecha_compromiso)): ?>
+                        style="font-weight: bold;"
+                    <?php endif; ?>
+                >
+            </div>
         </div>
-        <div class="form-group">
-            <label for="observaciones">Observaciones:</label>
-            <textarea id="observaciones" name="observaciones" class="form-control"
-                style="height: 60px;"><?= esc($pedido->observaciones) ?></textarea>
-        </div>
-        <?php if (!empty($pedido->incidencia)): ?>
-    <div class="form-group col-12 d-flex" style="background-color: 
-        <?= $pedido->estado_incidencia == 1 ? 'orange' : ($pedido->estado_incidencia == 2 ? '#00bfff' : '#ccffcc') ?>; 
-        padding: 10px; border-radius: 5px;">
-    <div class="form-group col-2 ps-2" style="margin-right:10px"
-            <label for="estado_incidencia">Estado de la incidencia:</label>
-            <select id="estado_incidencia" name="estado_incidencia" class="form-control" onchange="actualizarEstadoIncidencia(<?= $pedido->id_pedido ?>, this.value)">
-                <option value="1" <?= $pedido->estado_incidencia == 1 ? 'selected' : '' ?>>Incidencia abierta</option>
-                <option value="2" <?= $pedido->estado_incidencia == 2 ? 'selected' : '' ?>>En espera</option>
-                <option value="3" <?= $pedido->estado_incidencia == 3 ? 'selected' : '' ?>>Cerrada</option>
-            </select>
-        </div>    
-    <div class="form-group col-10 pe-2">
-            <label for="incidencia">Incidencia:</label>
-            <textarea id="incidencia" name="incidencia" class="form-control" rows="5"><?= esc($pedido->incidencia) ?></textarea>
-        </div>
-        
-    </div>
-<?php endif; ?>
-      
-        <div class="form-group" style="font-size:15px;">
-            <label>ID del Pedido:</label>
-            <strong><?= esc($pedido->id_pedido) ?></strong> <label>- pedido por:</label> <strong><?= esc($pedido->pedido_por) ?></strong>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="observaciones">Observaciones:</label>
+                <textarea id="observaciones" name="observaciones" class="form-control"
+                    style="height: 60px;"><?= esc($pedido->observaciones) ?></textarea>
+            </div>
+            <?php if (!empty($pedido->incidencia)): ?>
+            <div class="form-group col-6" style="background-color: 
+                <?= $pedido->estado_incidencia == 1 ? 'orange' : ($pedido->estado_incidencia == 2 ? '#00bfff' : '#ccffcc') ?>; 
+                padding: 10px; border-radius: 5px;">
+                    <div class="form-group col-3" style="margin-right:10px">
+                        <select id="estado_incidencia" name="estado_incidencia" class="form-control" onchange="actualizarEstadoIncidencia(<?= $pedido->id_pedido ?>, this.value)">
+                        <option value="1" <?= $pedido->estado_incidencia == 1 ? 'selected' : '' ?>>Incidencia abierta</option>
+                        <option value="2" <?= $pedido->estado_incidencia == 2 ? 'selected' : '' ?>>Incidencia en espera</option>
+                        <option value="3" <?= $pedido->estado_incidencia == 3 ? 'selected' : '' ?>>Incidencia Cerrada</option>
+                        </select>
+                    </div>
+                <div class="form-group">
+                    <textarea id="incidencia" name="incidencia" class="form-control" rows="5" style="min-height:5em;"><?= esc($pedido->incidencia) ?></textarea></div>
+            </div>
+            <?php endif; ?>
         </div>
         <div class="btnsEditPedido">
             <a href="<?= base_url('/pedidos/enmarcha') ?>" class="boton volverButton">
@@ -381,7 +410,23 @@
                     const ultimoFichaje = params.data.ultimo_fichaje && params.data.ultimo_fichaje != 0 
                         ? `<a href="#" title="${params.data.proceso}" style="text-decoration: none; color: #007bff;">${params.data.ultimo_fichaje}</a>` 
                         : '';
-                    return `${nPzas}${ultimoFichaje ? ` / ${ultimoFichaje}` : ''}`;
+                    let fechaCompromiso = '';
+                    if (
+                        (params.data.fecha_compromiso && params.data.fecha_compromiso !== '') &&
+                        (params.data.estado == 2 || params.data.estado == 3 || params.data.estado == 0)
+                    ) {
+                        // Comprobar si la fecha de compromiso es menor que hoy
+                        const hoy = new Date();
+                        hoy.setHours(0,0,0,0);
+                        const fc = new Date(params.data.fecha_compromiso);
+                        fc.setHours(0,0,0,0);
+                        let style = "background: #ffff00; font-weight: bold; padding: 2px 6px; border-radius: 3px;";
+                        if (fc < hoy) {
+                            style = "background: #ff1744; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 3px;";
+                        }
+                        fechaCompromiso = ` <span style="${style}">${params.data.fecha_compromiso}</span>`;
+                    }
+                    return `${nPzas}${ultimoFichaje ? ` / ${ultimoFichaje}` : ''}${fechaCompromiso}`;
                     }
                 },
                 {
@@ -399,19 +444,6 @@
                     floatingFilter: true,
                 },
                 {
-                    headerName: 'Estado',
-                    field: 'estado',
-                    flex: 1,
-                    filter: 'agTextColumnFilter',
-                    floatingFilter: true,
-                    valueGetter: function (params) {
-                        return estadosTexto[params.data.estado] || 'Estado desconocido';
-                    },
-                    valueFormatter: function (params) {
-                        return estadosTexto[params.data.estado] || 'Estado desconocido';
-                    }
-                },
-                {
                     headerName: 'Med. Inicial',
                     field: 'med_inicial',
                     flex: 1,
@@ -426,14 +458,6 @@
                     maxWidth: 130,
                     filter: 'agTextColumnFilter',
                     floatingFilter: true,
-                },
-                {
-                    headerName: 'Total',
-                    field: 'total_linea',
-                    flex: 1,
-                    filter: 'agTextColumnFilter',
-                    floatingFilter: true,
-                    valueFormatter: params => `${params.value} €`,
                 },
                 ];
                 const rowData = <?= json_encode($lineas_pedido) ?>;

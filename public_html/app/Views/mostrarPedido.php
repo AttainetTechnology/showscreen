@@ -124,9 +124,10 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                     return params.value;
                 }
             },
-            { headerName: "Albarán", field: "albaran", filter: 'agTextColumnFilter', flex: 1 }, 
+
             { headerName: "Referencia", field: "referencia", filter: 'agTextColumnFilter', flex: 1 },
-            { headerName: "Estado", field: "estado", filter: 'agTextColumnFilter', flex: 1 },
+            { headerName: "Albarán", field: "albaran", filter: 'agTextColumnFilter', flex: 1 }, 
+
             {
                 headerName: "Fecha Entrada",
                 field: "fecha_entrada",
@@ -135,14 +136,39 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                 valueFormatter: formatDate
             },
             {
-                headerName: "Fecha Entrega",
-                field: "fecha_entrega",
+                headerName: "Fecha entrega",
+                field: "fecha_compromiso",
                 filter: 'agTextColumnFilter',
                 flex: 1,
-                valueFormatter: formatDate
+                valueFormatter: formatDate,
+                cellRenderer: function(params) {
+                    // Si hay fecha_compromiso y el estado es 2 o 3, mostrarla en negrita y fondo amarillo fosforescente
+                    if (
+                        params.data.fecha_compromiso &&
+                        params.data.fecha_compromiso !== '' &&
+                        (params.data.estado === "Material recibido" || params.data.estado === "En Máquinas" || params.data.estado === "Pendiente de material" || params.data.estado === "Falta Material")
+                    ) {
+                        const compromisoDate = new Date(params.data.fecha_compromiso);
+                        const today = new Date();
+                        // Normalizar a solo fecha (sin hora)
+                        compromisoDate.setHours(0,0,0,0);
+                        today.setHours(0,0,0,0);
+                        let bgColor = '#ffff00'; // amarillo fosforescente
+                        let color = 'black';
+                        if (compromisoDate < today) {
+                            bgColor = '#ff2d2d'; // rojo fosforescente
+                            color = 'white';
+                        }
+                        return `<span style="font-weight:bold;background-color:${bgColor};color:${color};padding:2px 6px;border-radius:4px;">${formatDate({value: params.data.fecha_compromiso})}</span>`;
+                    }
+                    // Si no, mostrar fecha_entrega normal
+                    // Si no hay fecha_compromiso, mostrar fecha_entrega
+                    if (!params.data.fecha_compromiso || params.data.fecha_compromiso === '') {
+                        return formatDate({value: params.data.fecha_entrega});
+                    }
+                    return formatDate(params);
+                }
             },
-            { headerName: "Usuario", field: "nombre_usuario", filter: 'agTextColumnFilter', flex: 1 },
-            { headerName: "Total", field: "total", filter: 'agTextColumnFilter', flex: 1 }
         ];
 
         const rowData = [
@@ -150,6 +176,7 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                 id_pedido: "<?= $pedido->id_pedido ?>",
                 fecha_entrada: "<?= date('Y-m-d', strtotime($pedido->fecha_entrada)) ?>",
                 fecha_entrega: "<?= date('Y-m-d', strtotime($pedido->fecha_entrega)) ?>",
+                fecha_compromiso: "<?= empty($pedido->fecha_compromiso) ? '' : date('Y-m-d', strtotime($pedido->fecha_compromiso)) ?>",
                 cliente: `<?php
                 $tooltip = '';
                 if ($pedido->estado_incidencia == 1) {
@@ -166,8 +193,9 @@ $abiertaIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" f
                 );
                 ?> <?= esc($pedido->nombre_cliente) ?>`,
 
-                albaran: "<?= $pedido->albaran ?>",
+
                 referencia: "<?= $pedido->referencia ?>",
+                albaran: "<?= $pedido->albaran ?>",
                 estado: "<?= $estadoMap[$pedido->estado] ?>",
                 nombre_usuario: "<?= $pedido->nombre_usuario ?>",
                 total: "<?= $pedido->total_pedido ?>€",
