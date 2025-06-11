@@ -80,11 +80,11 @@
             <label for="estado">Estado:</label>
             <select name="estado" class="form-control" required>
                 <?php foreach ($estados as $estado): ?>
-                    <?php if ($estado['id_estado'] != 3 || $linea_pedido['estado'] == 3): ?>
+                   
                         <option value="<?= esc($estado['id_estado']) ?>" <?= ($estado['id_estado'] == $linea_pedido['estado']) ? 'selected' : '' ?>>
                             <?= esc($estado['nombre_estado']) ?>
                         </option>
-                    <?php endif; ?>
+                   
                 <?php endforeach; ?>
             </select>
         </div>
