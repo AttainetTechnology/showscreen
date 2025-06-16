@@ -6,7 +6,7 @@ use App\Models\Lineaspedido_model;
 use App\Models\Pedidos_model;
 use App\Models\RelacionProcesoUsuario_model;
 
-class Lista_produccion extends BaseController
+class Lista_produccion extends BaseControllerGC
 {
     protected $Menu_familias_model;
 
@@ -56,15 +56,11 @@ class Lista_produccion extends BaseController
         $nivel = control_login();
 
         // Conectar a la base de datos
-
-		$session = session();
-		$data = datos_user();
-		$db = db_connect($data['new_db']);
-		$session_data = $session->get('logged_in');
-		$nivel_acceso = $session_data['nivel'];
+        $data = usuario_sesion();
+        $db = db_connect($data['new_db']);
 
         // Configuración de paginación
-        $perPage = 1200; // Número de registros cargados
+        $perPage = 2000; // Número de registros cargados
         $page = $this->request->getVar('page') ?? 1;
         $offset = ($page - 1) * $perPage;
 
@@ -120,7 +116,7 @@ class Lista_produccion extends BaseController
         $data['titulo_pagina'] = $titulo_pagina;
         $data['result'] = $result;
         $data['amiga'] = $this->getBreadcrumbs();
-
+        $data['nivel'] = $nivel;
         $pager = \Config\Services::pager();
         $data['pager'] = $pager->makeLinks($page, $perPage, $total);
 
@@ -185,10 +181,12 @@ class Lista_produccion extends BaseController
 
     public function actualiza_linea($id_lineapedido, $estado)
     {
-        $data = datos_user(); // Obtener datos una vez
+        $data = usuario_sesion();
         $db = db_connect($data['new_db']);
         $Lineaspedido_model = new Lineaspedido_model($db);
         $Lineaspedido_model->actualiza_linea($id_lineapedido, $estado);
+        $data = datos_user();
+        $db = db_connect($data['new_db']);
 
         $builder = $db->table('procesos_pedidos');
         $builder->where('id_linea_pedido', $id_lineapedido);

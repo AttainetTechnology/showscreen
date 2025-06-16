@@ -41,7 +41,11 @@ class Index extends BaseController
             // Redirigir a la página deseada si el nivel es 1
             return redirect()->to('/rutas_transporte/rutas'); // Cambia "/pagina-deseada" por la URL o ruta correcta
         }
-
+        // Verificar si el nivel del usuario es 4 (Producción)
+        if (isset($data['nivel']) && $data['nivel'] == 4) {
+            // Redirigir a la página de compromisos si el nivel es 4
+            return redirect()->to('/pedidos/compromisos'); 
+        }
         // Conecto la BDD
         $db = db_connect($data['new_db']);
 
