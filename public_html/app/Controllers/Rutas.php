@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Controllers;
-
 use App\Models\Rutas_model;
 
-class Rutas extends BaseController
+class Rutas extends BaseControllerGC
 {
+	public function index()
+	{
+		return $this->todas('estado_ruta!=', '9');
+	}
 
+	public function enmarcha()
+	{
+		return $this->todas('estado_ruta!=', '2');
+	}
+	
 	public function todas($coge_estado, $where_estado)
 	{
 		helper('controlacceso');
@@ -15,6 +23,7 @@ class Rutas extends BaseController
 		if ($redirect && is_string($redirectUrl)) {
 			return redirect()->to($redirectUrl);
 		}
+		
 		$this->addBreadcrumb('Inicio', base_url('/'));
 		$this->addBreadcrumb('Rutas');
 		$data['amiga'] = $this->getBreadcrumbs();
@@ -28,17 +37,6 @@ class Rutas extends BaseController
 		]);
 	}
 
-	public function index()
-	{
-		return $this->todas('estado_ruta!=', '9');
-	}
-
-	public function enmarcha()
-	{
-		return $this->todas('estado_ruta!=', '2');
-	}
-
-
 	public function getRutas()
 	{
 		$coge_estado = $this->request->getJSON()->coge_estado ?? null;
@@ -50,7 +48,7 @@ class Rutas extends BaseController
 				'message' => 'Los parámetros "coge_estado" y "where_estado" son requeridos.'
 			])->setStatusCode(400);
 		}
-
+		helper('controlacceso');
 		$data = usuario_sesion();
 		$db = db_connect($data['new_db']);
 		$model = new Rutas_model($db);
