@@ -22,7 +22,7 @@ foreach ($pedido as $ped) { ?>
                 font-size: unset!Important;
             }
             </style>
-            <div style="display: flex;flex-direction: row;height: 220px;margin-bottom: 20px;" id="cabecera">
+            <div style="display: flex;flex-direction: row;height: 280px;margin-bottom: 20px;" id="cabecera">
                 <!-- Columna izquierda -->
                 <div style="flex: 1; margin: 2px 0;margin-right: 40px;">   
                 <?php
@@ -64,7 +64,8 @@ foreach ($pedido as $ped) { ?>
                                 Id Pedido: <?php echo $ped->id_pedido; ?><br>
                             </div>
                             Nº Alb: <strong><?php echo $ped->albaran; ?></strong><br>
-                            Fecha alb: <strong><?php echo ' ' . date('d-m-Y') . "\n"; ?></strong>
+                            Fecha alb: <strong><?php echo ' ' . date('d-m-Y') . "\n"; ?></strong><br>
+                            Referencia: <strong><?php echo $ped->referencia; ?></strong><br>
                         </div>
                 </div>
             </div>
