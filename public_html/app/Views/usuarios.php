@@ -167,13 +167,6 @@
                 onGridReady: params => {
                     gridApi = params.api;
 
-                // Filtro inicial: usuarios activos
-                gridApi.setFilterModel({
-                    user_activo: {
-                        type: 'equals',
-                        filter: '1'
-                    }
-                });
                     fetchUsuarios(params.api);
                 }
             };

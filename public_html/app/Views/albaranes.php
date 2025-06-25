@@ -55,6 +55,7 @@ foreach ($pedido as $ped) { ?>
                     <?php echo isset($cliente['nif']) ? esc($cliente['nif']) : ''; ?><br>
                     <?php echo isset($cliente['direccion']) ? esc($cliente['direccion']) : ''; ?><br>
                     <?php echo isset($cliente['provincia']) ? esc($cliente['provincia']) : ''; ?><br>
+                    <?php echo isset($cliente['poblacion']) ? esc($cliente['poblacion']) : ''; ?><br>
                     <?php echo isset($cliente['pais']) ? esc($cliente['nombre_pais']) : ''; ?><br>
                     </div>
                     <!-- Columna derecha -->
@@ -98,8 +99,19 @@ foreach ($pedido as $ped) { ?>
             </div>
             <div>
                     <div style="font-size:16px; margin-top:20px;">
-                        <strong>Observaciones:</strong>
-                        <?php if (!empty($ped->obs_alb)): ?><br> <?= esc($ped->obs_alb) ?><br><?php endif; ?><br><br>
+                        <br> <?php if (!empty($ped->obs_alb)): ?>
+                            <strong>Observaciones:</strong><br>
+                            <?= esc($ped->obs_alb) ?><br>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($ped->kg)): ?>
+                           <br> Peso: <strong><?= esc($ped->kg) ?> kg</strong>
+                            <?php if (!empty($ped->palets)): ?>
+                                - Palets: <strong><?= esc($ped->palets) ?></strong>
+                            <?php endif; ?>
+                            
+                        <?php endif; ?>
+                       
                     </div>
             </div>
             </div>

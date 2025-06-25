@@ -69,6 +69,7 @@ class Usuarios extends BaseController
             'id_empresa' => $data['id_empresa'],
             'dni' => $this->request->getPost('dni'),
             'seguridad_social' => $this->request->getPost('seguridad_social'),
+            'user_ficha' => $this->request->getPost('user_ficha') ? 1 : 0,
         ];
 
         if ($this->request->getFile('userfoto')->isValid()) {

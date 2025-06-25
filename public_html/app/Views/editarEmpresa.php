@@ -61,14 +61,8 @@
         </div>
         <div class="mb-3">
             <label for="edit_poblacion" class="form-label">Población</label>
-            <select class="form-control" id="edit_poblacion" name="poblacion">
-                <option value="">Seleccione una población</option>
-                <?php foreach ($poblaciones as $poblacion): ?>
-                    <option value="<?= $poblacion['id_poblacion']; ?>" <?= $empresa['poblacion'] == $poblacion['id_poblacion'] ? 'selected' : '' ?>>
-                        <?= $poblacion['poblacion']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <input type="text" class="form-control" id="edit_poblacion" name="poblacion"
+                value="<?= $empresa['poblacion'] ?>">
         </div>
         <div class="mb-3">
             <label for="edit_telf" class="form-label">Teléfono</label>
