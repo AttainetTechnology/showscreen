@@ -118,7 +118,8 @@ foreach ($pedido as $ped) { ?>
             <br>
             <div style="text-align: center; width: 100%; font-size:16px;">
                 <?php
-                    echo esc($mensaje);
+                   
+                    echo nl2br(esc($mensaje)) ;
                 ?>
             </div>
 
