@@ -1,11 +1,4 @@
-    <a class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none" href="<?php echo site_url('/Index/'); ?>">
-        <img src="<?php 
-              $session = session();
-              $session_data = $session->get('logged_in');
-              $id_empresa = $session_data['id_empresa']; 
-              echo base_url('public/assets/uploads/files/' . $url_logo);
-            ?>" class="logo_app">
-    </a>
+
 
     <!-- Menú de navegación -->
     <div class="collapse show" id="navbarToggleExternalContent">
@@ -32,6 +25,7 @@
 
 
                         ?>
+
                         <!-- Elemento del menú -->
                         <div class="accordion-item" id="menu-item-<?= $index ?>">
                             <h2 class="accordion-header" id="heading<?= $index ?>">
@@ -111,7 +105,7 @@
                 // Obtiene el NIF de la empresa
                 $nif = $dbConnectionsModel->getNIF($id_empresa);
                 if (!empty($nif)) {
-                    $url = "https://showscreen.app/presentes/" . $nif;
+                    $url = "https://dev.showscreen.app/presentes/" . $nif;
                 ?>
                 <ul class="nav nav-second-level">
                 <li>
